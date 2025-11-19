@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vergasta | Par la région, pour la région.</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -47,8 +48,8 @@
         }
 
         .marquee-container {
-        overflow: hidden;
-        white-space: nowrap;
+            overflow: hidden;
+            white-space: nowrap;
         }
 
         .marquee-content {
@@ -57,11 +58,17 @@
         }
 
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
+
 <body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink">
 
     <header class="fixed top-0 w-full z-50 bg-paper/95 backdrop-blur border-b-2 border-ink">
@@ -87,20 +94,20 @@
             <a href="#contact" class="hidden md:block font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm">
                 Demander une offre
             </a>
-            
+
             <button class="md:hidden text-2xl">☰</button>
         </div>
     </header>
 
     <main class="pt-20">
-        
+
         <section class="py-20 md:py-32 px-6 border-b-2 border-ink relative overflow-hidden bg-white">
             <div class="absolute right-1/4 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-auto">
                 <img src="country.png" alt="" class="country-map h-auto w-full object-contain max-h-[400px]">
             </div>
-            
+
             <div class="max-w-6xl mx-auto relative z-10">
-                
+
                 <div class="inline-flex items-center gap-2 mb-6 border border-ink bg-white px-3 py-1 shadow-neo-sm">
                     <span class="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></span>
                     <span class="font-mono text-xs font-bold uppercase">Basé à St-Imier (CH)</span>
@@ -142,7 +149,7 @@
 
         <section id="services" class="py-24 px-6 max-w-6xl mx-auto">
             <h2 class="font-display font-bold text-4xl mb-12 uppercase">Ce que nous faisons</h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
                     <div class="w-10 h-10 bg-accent-lime border border-ink mb-6 flex items-center justify-center font-bold text-xl">1</div>
@@ -212,7 +219,7 @@
                             https://bd-pokecards.ch
                         </div>
                     </div>
-                    
+
                     <div class="p-8 md:p-12 bg-white">
                         <div class="mb-6">
                             <h3 class="font-display font-bold text-3xl mb-2">BD-POKECARDS.CH</h3>
@@ -223,10 +230,10 @@
                                 Visiter le site en ligne ↗
                             </a>
                         </div>
-                        
+
                         <div class="w-full border-2 border-ink shadow-neo aspect-video">
-                            <iframe 
-                                src="https://bd-pokecards.ch" 
+                            <iframe
+                                src="https://bd-pokecards.ch"
                                 class="w-full h-full"
                                 title="BD-POKECARDS.CH"
                                 loading="lazy">
@@ -239,13 +246,13 @@
 
         <section id="contact" class="py-24 px-6 max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 gap-16">
-                
+
                 <div>
                     <h2 class="font-display font-bold text-4xl mb-6 uppercase">Processus <br>Digital.</h2>
                     <p class="text-lg mb-8">
                         Pour garantir des tarifs compétitifs et une rapidité d'exécution, nous privilégions un flux de travail 100% numérique.
                     </p>
-                    
+
                     <div class="space-y-6">
                         <div class="flex gap-4">
                             <div class="font-mono font-bold text-accent-blue">01.</div>
@@ -321,11 +328,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             const marqueeContainer = document.querySelector('.marquee-container');
             const marqueeContent = document.querySelector('.marquee-content');
-            
+
             if (marqueeContent && marqueeContainer) {
                 // Récupère le contenu HTML original
                 const originalContent = marqueeContent.innerHTML;
-                
+
                 // Duplique le contenu 3 fois pour garantir un défilement vraiment continu
                 marqueeContent.innerHTML = originalContent + originalContent + originalContent;
             }
@@ -333,4 +340,5 @@
     </script>
 
 </body>
+
 </html>
