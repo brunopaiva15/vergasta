@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditions Générales de Vente | Vergasta Websites</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Space Grotesk', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'paper': '#F9F9F9',
+                        'ink': '#111111',
+                        'accent-lime': '#D4FF00',
+                        'accent-blue': '#4F46E5',
+                        'swiss-grey': '#666666',
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #111111',
+                        'neo-sm': '3px 3px 0px 0px #111111',
+                    },
+                    backgroundImage: {
+                        'dot-grid': 'radial-gradient(#cfcfcf 1px, transparent 1px)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: var(--tw-color-paper);
+            background-image: var(--tw-background-image-dot-grid);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink">
+
+    <header class="fixed top-0 w-full z-50 bg-paper/95 backdrop-blur border-b-2 border-ink">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="relative w-10 h-10">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="relative w-7 h-7">
+                            <div class="absolute left-1/2 top-0 w-2 h-full bg-accent-blue transform -translate-x-1/2"></div>
+                            <div class="absolute top-1/2 left-0 w-full h-2 bg-accent-lime transform -translate-y-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+                <span class="font-display font-bold text-xl tracking-tight">Vergasta Websites</span>
+            </a>
+
+            <a href="index.html" class="font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm">
+                ← Retour
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section class="py-16 px-6 max-w-4xl mx-auto">
+            <div class="bg-white border-2 border-ink p-8 md:p-12 shadow-neo mb-8">
+                <h1 class="font-display font-bold text-4xl md:text-5xl mb-6 uppercase">Conditions Générales de Vente</h1>
+                <p class="text-sm text-swiss-grey mb-8">Dernière mise à jour : <?php echo date('d/m/Y'); ?></p>
+
+                <div class="space-y-8 text-sm leading-relaxed">
+                    <!-- Article 1 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">1</span>
+                            Champ d'application
+                        </h2>
+                        <p class="mb-3">
+                            Les présentes Conditions Générales de Vente (CGV) s'appliquent à toutes les prestations de services web fournies par <strong>Vergasta Websites</strong>, entreprise individuelle basée à St-Imier, Suisse.
+                        </p>
+                        <p>
+                            Toute commande de service implique l'acceptation sans réserve des présentes CGV. Aucune condition particulière ne peut, sauf acceptation écrite de notre part, prévaloir sur ces conditions.
+                        </p>
+                    </div>
+
+                    <!-- Article 2 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">2</span>
+                            Services proposés
+                        </h2>
+                        <p class="mb-3">Vergasta Websites propose les services suivants :</p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li><strong>ESSENTIEL (950 CHF) :</strong> Site One-Page ou 3 pages max, design responsive, formulaire de contact, configuration domaine/hébergement, 2 aller-retours de corrections max</li>
+                            <li><strong>VITRINE (1'850 CHF) :</strong> Jusqu'à 7 pages, blog/actualités, SEO local, formation vidéo, galerie photos, réseaux sociaux</li>
+                            <li><strong>E-COMMERCE (dès 3'500 CHF) :</strong> Boutique en ligne WooCommerce, jusqu'à 20 produits intégrés, paiement sécurisé, formation gestion commandes</li>
+                            <li><strong>SUR MESURE :</strong> Projets complexes, outils de gestion métier, applications web sur devis</li>
+                        </ul>
+                    </div>
+
+                    <!-- Article 3 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">3</span>
+                            Devis et commande
+                        </h2>
+                        <p class="mb-3">
+                            Toute demande de service fait l'objet d'un devis détaillé envoyé par email sous 48 heures ouvrables. Le devis est valable 30 jours à compter de sa date d'émission.
+                        </p>
+                        <p>
+                            La commande n'est considérée comme définitive qu'après signature du devis et réception de l'acompte prévu (voir Article 4).
+                        </p>
+                    </div>
+
+                    <!-- Article 4 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">4</span>
+                            Tarifs et modalités de paiement
+                        </h2>
+                        <p class="mb-3">
+                            <strong>4.1 Tarifs :</strong> Tous les prix sont indiqués en francs suisses (CHF), hors taxes (TVA non applicable en activité accessoire). Les tarifs n'incluent pas l'hébergement et le nom de domaine, à la charge du client (environ 150 CHF/an).
+                        </p>
+                        <p class="mb-3">
+                            <strong>4.2 Modalités de paiement :</strong>
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey mb-3">
+                            <li>Acompte de 50% à la signature du devis</li>
+                            <li>Solde de 50% à la livraison finale du projet</li>
+                            <li>Pour les projets de plus de 3'000 CHF, paiements échelonnés possibles sur demande</li>
+                        </ul>
+                        <p>
+                            <strong>4.3 Moyens de paiement acceptés :</strong> Virement bancaire, Twint. Les factures sont payables sous 15 jours à réception.
+                        </p>
+                    </div>
+
+                    <!-- Article 5 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">5</span>
+                            Délais d'exécution
+                        </h2>
+                        <p class="mb-3">
+                            Les délais indicatifs de livraison sont les suivants :
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey mb-3">
+                            <li>ESSENTIEL : 2-3 semaines</li>
+                            <li>VITRINE : 4-6 semaines</li>
+                            <li>E-COMMERCE : 6-8 semaines</li>
+                        </ul>
+                        <p>
+                            Ces délais sont donnés à titre indicatif et peuvent varier selon la complexité du projet et la réactivité du client pour la fourniture des contenus (textes, images, logos).
+                        </p>
+                    </div>
+
+                    <!-- Article 6 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">6</span>
+                            Obligations du client
+                        </h2>
+                        <p class="mb-3">Le client s'engage à :</p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li>Fournir tous les éléments nécessaires à la réalisation du projet (textes, images, logos, accès hébergement) dans les délais convenus</li>
+                            <li>Répondre aux demandes de validation dans un délai raisonnable (7 jours maximum)</li>
+                            <li>S'assurer de détenir les droits d'utilisation sur tous les contenus fournis</li>
+                            <li>Régler les factures dans les délais impartis</li>
+                        </ul>
+                    </div>
+
+                    <!-- Article 7 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">7</span>
+                            Corrections et modifications
+                        </h2>
+                        <p class="mb-3">
+                            Le nombre d'aller-retours de corrections est limité selon la formule choisie :
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey mb-3">
+                            <li>ESSENTIEL : 2 aller-retours maximum</li>
+                            <li>VITRINE : 3 aller-retours maximum</li>
+                            <li>E-COMMERCE : 4 aller-retours maximum</li>
+                        </ul>
+                        <p>
+                            Au-delà de ces limites, toute modification supplémentaire sera facturée 80 CHF/heure. Les demandes de modifications majeures ne relevant pas du cahier des charges initial feront l'objet d'un devis complémentaire.
+                        </p>
+                    </div>
+
+                    <!-- Article 8 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">8</span>
+                            Propriété intellectuelle
+                        </h2>
+                        <p class="mb-3">
+                            Vergasta Websites reste propriétaire du code source et des éléments graphiques développés jusqu'au paiement intégral de la facture. Une fois le solde réglé, le client devient pleinement propriétaire du site web livré.
+                        </p>
+                        <p>
+                            Le client s'engage toutefois à laisser la mention "Réalisé par Vergasta Websites" dans le footer du site (sauf demande contraire moyennant un supplément de 200 CHF).
+                        </p>
+                    </div>
+
+                    <!-- Article 9 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">9</span>
+                            Hébergement et nom de domaine
+                        </h2>
+                        <p>
+                            L'hébergement web et le nom de domaine ne sont pas inclus dans nos tarifs. Le client doit les acquérir et les payer directement auprès d'un fournisseur (coût estimé : 150 CHF/an). Vergasta Websites peut assister le client dans cette démarche (configuration incluse dans nos formules).
+                        </p>
+                    </div>
+
+                    <!-- Article 10 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">10</span>
+                            Garantie et maintenance
+                        </h2>
+                        <p class="mb-3">
+                            Vergasta Websites garantit le bon fonctionnement du site pendant 30 jours après la livraison (période de garantie). Les corrections de bugs éventuels durant cette période sont gratuites.
+                        </p>
+                        <p>
+                            Passé ce délai, une maintenance corrective sera facturée 80 CHF/heure. Des contrats de maintenance annuelle peuvent être proposés sur demande.
+                        </p>
+                    </div>
+
+                    <!-- Article 11 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">11</span>
+                            Responsabilité
+                        </h2>
+                        <p class="mb-3">
+                            Vergasta Websites s'engage à fournir un travail professionnel conforme aux standards du web. Toutefois, notre responsabilité ne saurait être engagée dans les cas suivants :
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li>Mauvaise utilisation du site par le client ou des tiers</li>
+                            <li>Problèmes liés à l'hébergeur ou au fournisseur de nom de domaine</li>
+                            <li>Contenus illicites ou contrefaisants fournis par le client</li>
+                            <li>Modifications effectuées par le client ou un tiers après livraison</li>
+                        </ul>
+                    </div>
+
+                    <!-- Article 12 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">12</span>
+                            Résiliation et annulation
+                        </h2>
+                        <p class="mb-3">
+                            <strong>12.1 Annulation par le client :</strong> En cas d'annulation avant le démarrage des travaux, l'acompte versé reste acquis à Vergasta Websites à hauteur de 30%. Si les travaux ont déjà commencé, le client devra s'acquitter de la totalité des heures travaillées au tarif horaire de 80 CHF/heure.
+                        </p>
+                        <p>
+                            <strong>12.2 Suspension pour non-paiement :</strong> En cas de non-paiement d'une facture dans les délais, Vergasta Websites se réserve le droit de suspendre les travaux et/ou de désactiver le site livré jusqu'à régularisation.
+                        </p>
+                    </div>
+
+                    <!-- Article 13 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">13</span>
+                            Droit applicable et litiges
+                        </h2>
+                        <p>
+                            Les présentes CGV sont régies par le droit suisse. En cas de litige, les parties s'efforceront de trouver une solution amiable. À défaut, les tribunaux du canton de Berne seront seuls compétents.
+                        </p>
+                    </div>
+
+                    <!-- Article 14 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">14</span>
+                            Contact
+                        </h2>
+                        <p>
+                            Pour toute question concernant ces CGV, vous pouvez nous contacter via le formulaire de contact sur <a href="index.html#contact" class="text-accent-blue underline hover:no-underline">notre site</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="index.html" class="inline-block bg-accent-lime border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t-2 border-ink py-8 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-swiss-grey uppercase">
+            <div>© <?php echo date('Y'); ?> Vergasta Websites. St-Imier.</div>
+            <div class="flex gap-4">
+                <a href="terms.php" class="hover:text-accent-blue">CGV</a>
+                <a href="privacy.php" class="hover:text-accent-blue">Confidentialité</a>
+                <a href="imprint.php" class="hover:text-accent-blue">Mentions légales</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

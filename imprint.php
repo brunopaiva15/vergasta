@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions Légales | Vergasta Websites</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Space Grotesk', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'paper': '#F9F9F9',
+                        'ink': '#111111',
+                        'accent-lime': '#D4FF00',
+                        'accent-blue': '#4F46E5',
+                        'swiss-grey': '#666666',
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #111111',
+                        'neo-sm': '3px 3px 0px 0px #111111',
+                    },
+                    backgroundImage: {
+                        'dot-grid': 'radial-gradient(#cfcfcf 1px, transparent 1px)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: var(--tw-color-paper);
+            background-image: var(--tw-background-image-dot-grid);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink">
+
+    <header class="fixed top-0 w-full z-50 bg-paper/95 backdrop-blur border-b-2 border-ink">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="relative w-10 h-10">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="relative w-7 h-7">
+                            <div class="absolute left-1/2 top-0 w-2 h-full bg-accent-blue transform -translate-x-1/2"></div>
+                            <div class="absolute top-1/2 left-0 w-full h-2 bg-accent-lime transform -translate-y-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+                <span class="font-display font-bold text-xl tracking-tight">Vergasta Websites</span>
+            </a>
+
+            <a href="index.html" class="font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm">
+                ← Retour
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section class="py-16 px-6 max-w-4xl mx-auto">
+            <div class="bg-white border-2 border-ink p-8 md:p-12 shadow-neo mb-8">
+                <h1 class="font-display font-bold text-4xl md:text-5xl mb-6 uppercase">Mentions Légales</h1>
+                <p class="text-sm text-swiss-grey mb-8">Dernière mise à jour : <?php echo date('d/m/Y'); ?></p>
+
+                <div class="space-y-8 text-sm leading-relaxed">
+                    <!-- Éditeur du site -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">1</span>
+                            Éditeur du site
+                        </h2>
+                        <div class="bg-paper border-2 border-ink p-6 space-y-2">
+                            <p><strong class="text-base">Vergasta Websites</strong></p>
+                            <p class="text-swiss-grey">Entreprise individuelle</p>
+                            <p class="text-swiss-grey">Activité accessoire</p>
+                            <p class="text-swiss-grey mt-3">📍 Localisation : St-Imier, Canton de Berne, Suisse</p>
+                            <p class="text-swiss-grey">📧 Contact : Via formulaire de contact sur le site</p>
+                            <p class="text-swiss-grey">🌐 Site web : www.vergasta.ch</p>
+                        </div>
+                        <p class="mt-4 text-swiss-grey italic text-xs">
+                            Note : En tant qu'activité accessoire, Vergasta Websites n'est pas soumis à l'inscription au Registre du Commerce (art. 36 ORC). TVA non applicable.
+                        </p>
+                    </div>
+
+                    <!-- Hébergement -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">2</span>
+                            Hébergement du site
+                        </h2>
+                        <p class="mb-3">Ce site est hébergé par :</p>
+                        <div class="bg-paper border border-ink p-4">
+                            <p class="text-swiss-grey">[Nom de l'hébergeur]</p>
+                            <p class="text-swiss-grey">[Adresse de l'hébergeur]</p>
+                            <p class="text-swiss-grey">Serveurs situés en Suisse / Union Européenne</p>
+                        </div>
+                        <p class="mt-3 text-xs text-swiss-grey italic">
+                            Les informations exactes de l'hébergeur peuvent être fournies sur demande.
+                        </p>
+                    </div>
+
+                    <!-- Propriété intellectuelle -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">3</span>
+                            Propriété intellectuelle
+                        </h2>
+                        <p class="mb-3">
+                            L'ensemble du contenu de ce site (textes, images, logos, design, code source) est la propriété exclusive de Vergasta Websites, sauf mention contraire.
+                        </p>
+                        <p class="mb-3">
+                            Toute reproduction, distribution, modification ou utilisation de ces éléments sans autorisation écrite préalable est strictement interdite et constitue une contrefaçon sanctionnée par le Code pénal suisse.
+                        </p>
+                        <p class="text-swiss-grey">
+                            <strong>Technologies utilisées :</strong> HTML5, CSS3 (Tailwind CSS), JavaScript. Le site est conçu pour être rapide, accessible et conforme aux standards du web moderne.
+                        </p>
+                    </div>
+
+                    <!-- Responsabilité -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">4</span>
+                            Limitation de responsabilité
+                        </h2>
+                        <p class="mb-3">
+                            Vergasta Websites s'efforce de maintenir les informations de ce site à jour et exactes. Toutefois, nous ne pouvons garantir l'exactitude, la complétude ou l'actualité de toutes les informations publiées.
+                        </p>
+                        <p class="mb-3">
+                            Nous déclinons toute responsabilité en cas de :
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li>Interruptions temporaires du site (maintenance, problèmes techniques)</li>
+                            <li>Erreurs ou omissions dans le contenu</li>
+                            <li>Dommages directs ou indirects résultant de l'utilisation du site</li>
+                            <li>Contenus de sites tiers accessibles via des liens externes</li>
+                        </ul>
+                    </div>
+
+                    <!-- Liens externes -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">5</span>
+                            Liens externes
+                        </h2>
+                        <p>
+                            Ce site peut contenir des liens vers des sites externes. Vergasta Websites n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu, leur disponibilité ou leurs pratiques en matière de protection des données.
+                        </p>
+                    </div>
+
+                    <!-- Paiements -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">6</span>
+                            Modalités de paiement
+                        </h2>
+                        <p class="mb-4">
+                            Vergasta Websites accepte les moyens de paiement suivants pour le règlement des prestations :
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="border-2 border-ink p-4 bg-paper">
+                                <h3 class="font-bold mb-2 flex items-center gap-2">
+                                    🏦 Virement bancaire
+                                </h3>
+                                <p class="text-xs text-swiss-grey mb-2">Moyen de paiement principal</p>
+                                <ul class="text-xs text-swiss-grey space-y-1">
+                                    <li>• IBAN fourni sur facture</li>
+                                    <li>• Paiement sous 15 jours</li>
+                                    <li>• Frais bancaires : Aucun</li>
+                                </ul>
+                            </div>
+
+                            <div class="border-2 border-ink p-4 bg-paper">
+                                <h3 class="font-bold mb-2 flex items-center gap-2">
+                                    📱 Twint
+                                </h3>
+                                <p class="text-xs text-swiss-grey mb-2">Paiement instantané</p>
+                                <ul class="text-xs text-swiss-grey space-y-1">
+                                    <li>• QR Code fourni sur demande</li>
+                                    <li>• Confirmation immédiate</li>
+                                    <li>• Frais bancaires : Aucun</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-accent-lime/20 border-2 border-accent-lime p-6 mb-4">
+                            <h3 class="font-bold mb-3 text-base">📋 Calendrier de paiement standard</h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex gap-3">
+                                    <span class="font-mono font-bold text-accent-blue">1.</span>
+                                    <div>
+                                        <p class="font-bold">Acompte de 50%</p>
+                                        <p class="text-swiss-grey text-xs">À la signature du devis (démarrage du projet)</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="font-mono font-bold text-accent-blue">2.</span>
+                                    <div>
+                                        <p class="font-bold">Solde de 50%</p>
+                                        <p class="text-swiss-grey text-xs">À la livraison finale du projet</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-accent-blue pl-4 py-2">
+                            <p class="text-sm mb-2">
+                                <strong>Paiements échelonnés disponibles</strong> pour les projets de plus de 3'000 CHF (3 ou 4 versements possibles selon le montant).
+                            </p>
+                            <p class="text-xs text-swiss-grey">
+                                Contactez-nous pour établir un calendrier adapté à votre situation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- TVA et facturation -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">7</span>
+                            TVA et facturation
+                        </h2>
+                        <p class="mb-3">
+                            <strong>Vergasta Websites exerce en activité accessoire et n'est pas assujetti à la TVA.</strong> Tous les prix affichés sont donc des prix nets sans TVA.
+                        </p>
+                        <p class="mb-3">
+                            Les factures sont émises conformément aux exigences du droit suisse et contiennent :
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li>Raison sociale et adresse de Vergasta Websites</li>
+                            <li>Coordonnées du client</li>
+                            <li>Numéro et date de facture</li>
+                            <li>Description détaillée des prestations</li>
+                            <li>Montant total en CHF</li>
+                            <li>Conditions de paiement</li>
+                        </ul>
+                    </div>
+
+                    <!-- Retard de paiement -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">8</span>
+                            Retard de paiement
+                        </h2>
+                        <p class="mb-3">
+                            En cas de retard de paiement au-delà de 15 jours suivant la date d'échéance, les conséquences suivantes s'appliquent :
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey mb-3">
+                            <li><strong>Rappel amiable :</strong> Envoyé 7 jours après l'échéance (sans frais)</li>
+                            <li><strong>Mise en demeure :</strong> Envoyée 15 jours après l'échéance (frais de 50 CHF)</li>
+                            <li><strong>Intérêts de retard :</strong> 5% par an à compter de la date d'échéance</li>
+                            <li><strong>Suspension du service :</strong> Possibilité de suspendre l'hébergement ou les travaux en cours</li>
+                        </ul>
+                        <p class="text-swiss-grey">
+                            En cas de difficultés de paiement, nous vous encourageons à nous contacter rapidement pour trouver une solution amiable.
+                        </p>
+                    </div>
+
+                    <!-- Sécurité des paiements -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">9</span>
+                            Sécurité des paiements
+                        </h2>
+                        <p class="mb-3">
+                            <strong>Vos données de paiement sont protégées.</strong> Nous n'enregistrons ni ne conservons vos coordonnées bancaires.
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li>Les virements bancaires sont effectués via le réseau bancaire suisse sécurisé</li>
+                            <li>Les paiements Twint utilisent le système de paiement mobile sécurisé suisse</li>
+                            <li>Toutes les communications contenant des données financières sont chiffrées (HTTPS)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Droit applicable -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">10</span>
+                            Droit applicable et juridiction
+                        </h2>
+                        <p class="mb-3">
+                            Les présentes mentions légales sont régies par le droit suisse. Le for juridique est le canton de Berne, Suisse.
+                        </p>
+                        <p class="text-swiss-grey">
+                            En cas de litige, nous privilégions toujours une résolution amiable avant toute procédure judiciaire.
+                        </p>
+                    </div>
+
+                    <!-- Contact -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">11</span>
+                            Contact
+                        </h2>
+                        <p class="mb-3">
+                            Pour toute question concernant ces mentions légales ou nos modalités de paiement :
+                        </p>
+                        <a href="index.html#contact" class="inline-block bg-accent-blue text-white border-2 border-ink px-6 py-3 font-bold uppercase text-sm hover:bg-ink transition-colors shadow-neo-sm">
+                            Nous contacter
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 mb-8">
+                <a href="terms.php" class="bg-white border-2 border-ink p-4 hover:bg-accent-lime transition-colors text-center">
+                    <div class="font-bold mb-1">📄 CGV</div>
+                    <div class="text-xs text-swiss-grey">Conditions de vente</div>
+                </a>
+                <a href="privacy.php" class="bg-white border-2 border-ink p-4 hover:bg-accent-lime transition-colors text-center">
+                    <div class="font-bold mb-1">🔒 Confidentialité</div>
+                    <div class="text-xs text-swiss-grey">Protection des données</div>
+                </a>
+                <a href="imprint.php" class="bg-white border-2 border-ink p-4 bg-accent-lime text-center">
+                    <div class="font-bold mb-1">⚖️ Mentions légales</div>
+                    <div class="text-xs text-swiss-grey">Vous êtes ici</div>
+                </a>
+            </div>
+
+            <div class="text-center">
+                <a href="index.html" class="inline-block bg-accent-lime border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t-2 border-ink py-8 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-swiss-grey uppercase">
+            <div>© <?php echo date('Y'); ?> Vergasta Websites. St-Imier.</div>
+            <div class="flex gap-4">
+                <a href="terms.php" class="hover:text-accent-blue">CGV</a>
+                <a href="privacy.php" class="hover:text-accent-blue">Confidentialité</a>
+                <a href="imprint.php" class="hover:text-accent-blue">Mentions légales</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

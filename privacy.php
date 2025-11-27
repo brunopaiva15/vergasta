@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Confidentialité | Vergasta Websites</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Space Grotesk', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'paper': '#F9F9F9',
+                        'ink': '#111111',
+                        'accent-lime': '#D4FF00',
+                        'accent-blue': '#4F46E5',
+                        'swiss-grey': '#666666',
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #111111',
+                        'neo-sm': '3px 3px 0px 0px #111111',
+                    },
+                    backgroundImage: {
+                        'dot-grid': 'radial-gradient(#cfcfcf 1px, transparent 1px)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: var(--tw-color-paper);
+            background-image: var(--tw-background-image-dot-grid);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink">
+
+    <header class="fixed top-0 w-full z-50 bg-paper/95 backdrop-blur border-b-2 border-ink">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="relative w-10 h-10">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="relative w-7 h-7">
+                            <div class="absolute left-1/2 top-0 w-2 h-full bg-accent-blue transform -translate-x-1/2"></div>
+                            <div class="absolute top-1/2 left-0 w-full h-2 bg-accent-lime transform -translate-y-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+                <span class="font-display font-bold text-xl tracking-tight">Vergasta Websites</span>
+            </a>
+
+            <a href="index.html" class="font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm">
+                ← Retour
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section class="py-16 px-6 max-w-4xl mx-auto">
+            <div class="bg-white border-2 border-ink p-8 md:p-12 shadow-neo mb-8">
+                <h1 class="font-display font-bold text-4xl md:text-5xl mb-6 uppercase">Politique de Confidentialité</h1>
+                <p class="text-sm text-swiss-grey mb-8">Dernière mise à jour : <?php echo date('d/m/Y'); ?></p>
+
+                <div class="space-y-8 text-sm leading-relaxed">
+                    <!-- Introduction -->
+                    <div>
+                        <p class="mb-3">
+                            <strong>Vergasta Websites</strong> s'engage à protéger la vie privée des visiteurs de son site web et des clients qui utilisent ses services. Cette politique de confidentialité explique quelles données personnelles nous collectons, pourquoi nous les collectons, et comment nous les utilisons.
+                        </p>
+                        <p>
+                            Notre politique est conforme à la Loi fédérale suisse sur la protection des données (LPD) et au Règlement Général sur la Protection des Données (RGPD) pour les clients européens.
+                        </p>
+                    </div>
+
+                    <!-- Article 1 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">1</span>
+                            Responsable du traitement
+                        </h2>
+                        <div class="bg-paper border border-ink p-4">
+                            <p class="font-bold mb-2">Vergasta Websites</p>
+                            <p class="text-swiss-grey">Entreprise individuelle</p>
+                            <p class="text-swiss-grey">St-Imier, Suisse</p>
+                            <p class="text-swiss-grey mt-2">Contact : via formulaire sur <a href="index.html#contact" class="text-accent-blue underline">vergasta.ch</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Article 2 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">2</span>
+                            Données collectées
+                        </h2>
+                        <p class="mb-3"><strong>2.1 Données collectées via le formulaire de contact :</strong></p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey mb-4">
+                            <li>Nom / Raison sociale</li>
+                            <li>Adresse email</li>
+                            <li>Type de projet souhaité</li>
+                            <li>Message et détails du projet</li>
+                        </ul>
+
+                        <p class="mb-3"><strong>2.2 Données techniques collectées automatiquement :</strong></p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey mb-4">
+                            <li>Adresse IP (anonymisée)</li>
+                            <li>Type de navigateur et système d'exploitation</li>
+                            <li>Pages visitées et durée de visite</li>
+                            <li>Provenance (site référent)</li>
+                        </ul>
+
+                        <p class="text-swiss-grey italic">
+                            ℹ️ Nous n'utilisons aucun cookie de tracking ou de publicité tiers. Notre site n'utilise pas Google Analytics ni aucun outil de tracking invasif.
+                        </p>
+                    </div>
+
+                    <!-- Article 3 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">3</span>
+                            Finalités du traitement
+                        </h2>
+                        <p class="mb-3">Nous utilisons vos données personnelles uniquement pour les finalités suivantes :</p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li><strong>Gestion des demandes de contact :</strong> Répondre à vos questions et élaborer des devis personnalisés</li>
+                            <li><strong>Exécution des contrats :</strong> Gérer la relation client et la réalisation de vos projets web</li>
+                            <li><strong>Communication commerciale :</strong> Vous informer de nos services (uniquement si vous y avez consenti)</li>
+                            <li><strong>Amélioration du site :</strong> Statistiques anonymes de fréquentation pour améliorer l'expérience utilisateur</li>
+                            <li><strong>Obligations légales :</strong> Conservation des factures et documents comptables selon la législation suisse</li>
+                        </ul>
+                    </div>
+
+                    <!-- Article 4 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">4</span>
+                            Base légale du traitement
+                        </h2>
+                        <p class="mb-3">Le traitement de vos données repose sur :</p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li><strong>Votre consentement :</strong> Lors de l'envoi du formulaire de contact</li>
+                            <li><strong>L'exécution du contrat :</strong> Pour la réalisation des prestations commandées</li>
+                            <li><strong>Nos intérêts légitimes :</strong> Amélioration de nos services et sécurité du site</li>
+                            <li><strong>Obligations légales :</strong> Conservation des données comptables (10 ans selon le droit suisse)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Article 5 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">5</span>
+                            Durée de conservation
+                        </h2>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li><strong>Demandes de contact sans suite :</strong> 1 an</li>
+                            <li><strong>Données clients (projets réalisés) :</strong> 3 ans après la fin du projet</li>
+                            <li><strong>Factures et documents comptables :</strong> 10 ans (obligation légale suisse)</li>
+                            <li><strong>Données techniques (logs) :</strong> 6 mois maximum</li>
+                        </ul>
+                    </div>
+
+                    <!-- Article 6 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">6</span>
+                            Partage des données
+                        </h2>
+                        <p class="mb-3">
+                            Vergasta Websites ne vend ni ne loue vos données personnelles à des tiers. Vos données peuvent être partagées uniquement dans les cas suivants :
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li><strong>Prestataires techniques :</strong> Hébergeur web (serveurs situés en Suisse ou UE), service d'emailing pour l'envoi de devis</li>
+                            <li><strong>Obligations légales :</strong> Autorités compétentes en cas de demande légale</li>
+                            <li><strong>Sous-traitants :</strong> Uniquement si nécessaire pour la réalisation de votre projet (avec accord contractuel de confidentialité)</li>
+                        </ul>
+                        <p class="mt-3 text-swiss-grey italic">
+                            Tous nos prestataires sont soumis à des obligations strictes de confidentialité et de sécurité.
+                        </p>
+                    </div>
+
+                    <!-- Article 7 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">7</span>
+                            Transferts de données hors Suisse
+                        </h2>
+                        <p>
+                            Dans la mesure du possible, vos données sont hébergées en Suisse. Si un transfert hors de Suisse est nécessaire (par exemple vers l'UE), nous nous assurons que le pays destinataire offre un niveau de protection adéquat ou que des garanties appropriées sont mises en place (clauses contractuelles types).
+                        </p>
+                    </div>
+
+                    <!-- Article 8 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">8</span>
+                            Sécurité des données
+                        </h2>
+                        <p class="mb-3">
+                            Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès, modification, divulgation ou destruction non autorisés :
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
+                            <li>Connexion HTTPS (chiffrement SSL/TLS)</li>
+                            <li>Hébergement sécurisé avec sauvegardes régulières</li>
+                            <li>Accès restreint aux données (authentification forte)</li>
+                            <li>Mises à jour régulières des systèmes</li>
+                        </ul>
+                    </div>
+
+                    <!-- Article 9 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">9</span>
+                            Vos droits
+                        </h2>
+                        <p class="mb-3">Conformément à la LPD et au RGPD, vous disposez des droits suivants :</p>
+                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey mb-4">
+                            <li><strong>Droit d'accès :</strong> Obtenir une copie de vos données personnelles</li>
+                            <li><strong>Droit de rectification :</strong> Corriger des données inexactes ou incomplètes</li>
+                            <li><strong>Droit à l'effacement :</strong> Demander la suppression de vos données (sauf obligations légales)</li>
+                            <li><strong>Droit à la limitation :</strong> Limiter le traitement de vos données dans certains cas</li>
+                            <li><strong>Droit d'opposition :</strong> Vous opposer au traitement de vos données pour motifs légitimes</li>
+                            <li><strong>Droit à la portabilité :</strong> Recevoir vos données dans un format structuré</li>
+                            <li><strong>Droit de retirer votre consentement :</strong> À tout moment, sans affecter la licéité du traitement antérieur</li>
+                        </ul>
+                        <p class="bg-accent-lime/20 border border-accent-lime p-4">
+                            <strong>Pour exercer vos droits,</strong> contactez-nous via le formulaire de contact en précisant votre demande. Nous vous répondrons dans un délai de 30 jours.
+                        </p>
+                    </div>
+
+                    <!-- Article 10 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">10</span>
+                            Cookies et technologies similaires
+                        </h2>
+                        <p class="mb-3">
+                            <strong>Ce site utilise uniquement des cookies techniques essentiels</strong> au fonctionnement du site (session, sécurité). Aucun cookie publicitaire ou de tracking tiers n'est utilisé.
+                        </p>
+                        <p class="text-swiss-grey">
+                            Si vous souhaitez désactiver les cookies, vous pouvez le faire depuis les paramètres de votre navigateur. Cela peut affecter certaines fonctionnalités du site.
+                        </p>
+                    </div>
+
+                    <!-- Article 11 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">11</span>
+                            Modifications de la politique
+                        </h2>
+                        <p>
+                            Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. La date de dernière mise à jour est indiquée en haut de cette page. Nous vous encourageons à consulter régulièrement cette page pour rester informé.
+                        </p>
+                    </div>
+
+                    <!-- Article 12 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">12</span>
+                            Réclamations
+                        </h2>
+                        <p class="mb-3">
+                            Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de l'autorité de protection des données compétente :
+                        </p>
+                        <div class="bg-paper border border-ink p-4">
+                            <p class="font-bold mb-2">Préposé fédéral à la protection des données et à la transparence (PFPDT)</p>
+                            <p class="text-swiss-grey">Feldeggweg 1, CH-3003 Berne</p>
+                            <p class="text-swiss-grey">Site web : <a href="https://www.edoeb.admin.ch" target="_blank" class="text-accent-blue underline">www.edoeb.admin.ch</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Article 13 -->
+                    <div>
+                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">13</span>
+                            Contact
+                        </h2>
+                        <p>
+                            Pour toute question concernant cette politique de confidentialité ou pour exercer vos droits, contactez-nous via le <a href="index.html#contact" class="text-accent-blue underline hover:no-underline">formulaire de contact</a> sur notre site.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="index.html" class="inline-block bg-accent-lime border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t-2 border-ink py-8 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-swiss-grey uppercase">
+            <div>© <?php echo date('Y'); ?> Vergasta Websites. St-Imier.</div>
+            <div class="flex gap-4">
+                <a href="terms.php" class="hover:text-accent-blue">CGV</a>
+                <a href="privacy.php" class="hover:text-accent-blue">Confidentialité</a>
+                <a href="imprint.php" class="hover:text-accent-blue">Mentions légales</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
