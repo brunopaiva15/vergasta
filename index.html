@@ -95,13 +95,25 @@
                 Demander une offre
             </a>
 
-            <button class="md:hidden text-2xl">☰</button>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+        </div>
+
+        <!-- Menu mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t-2 border-ink">
+            <nav class="flex flex-col">
+                <a href="#services" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Expertise</a>
+                <a href="#projets" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Réalisations</a>
+                <a href="#contact" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Contact</a>
+                <a href="#contact" class="m-4 text-center font-mono text-xs bg-ink text-white px-4 py-3 hover:bg-accent-blue transition-colors shadow-neo-sm">
+                    Demander une offre
+                </a>
+            </nav>
         </div>
     </header>
 
     <main class="pt-20">
 
-        <section class="py-20 md:py-32 px-6 border-b-2 border-ink relative overflow-hidden bg-white">
+        <section class="py-12 md:py-32 px-6 border-b-2 border-ink relative overflow-hidden bg-white">
             <div class="hidden md:flex absolute right-1/4 top-1/2 -translate-y-1/2 w-1/3 h-full items-center justify-center pointer-events-auto">
                 <img src="country.png" alt="" class="country-map h-auto w-full object-contain max-h-[400px]">
             </div>
@@ -324,8 +336,8 @@
     </footer>
 
     <script>
-        // Duplication automatique du contenu du marquee pour un défilement infini fluide
         document.addEventListener('DOMContentLoaded', function() {
+            // Duplication automatique du contenu du marquee pour un défilement infini fluide
             const marqueeContainer = document.querySelector('.marquee-container');
             const marqueeContent = document.querySelector('.marquee-content');
 
@@ -335,6 +347,27 @@
 
                 // Duplique le contenu 3 fois pour garantir un défilement vraiment continu
                 marqueeContent.innerHTML = originalContent + originalContent + originalContent;
+            }
+
+            // Menu mobile toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    // Change le symbole du bouton
+                    this.textContent = mobileMenu.classList.contains('hidden') ? '☰' : '✕';
+                });
+
+                // Ferme le menu quand on clique sur un lien
+                const menuLinks = mobileMenu.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuBtn.textContent = '☰';
+                    });
+                });
             }
         });
     </script>
