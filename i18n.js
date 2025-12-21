@@ -1,6 +1,6 @@
 /**
  * Vergasta Digital - Internationalization (i18n)
- * Supports: French (fr), German (de), Italian (it)
+ * Supports: French (fr), German (de), Italian (it), English (en)
  */
 
 const translations = {
@@ -320,11 +320,117 @@ const translations = {
         imprintPrivacyCardDesc: "Protezione dei dati",
         imprintImprintCard: "Note legali",
         imprintImprintCardDesc: "Sei qui"
+    },
+
+    en: {
+        // Meta
+        siteTitle: "Vergasta | From the region, for the region.",
+        privacyTitle: "Privacy Policy | Vergasta Digital",
+        termsTitle: "Terms and Conditions | Vergasta Digital",
+        imprintTitle: "Legal Notice | Vergasta Digital",
+
+        // Navigation
+        navExpertise: "Expertise",
+        navProjects: "Projects",
+        navContact: "Contact",
+        navContactUs: "Contact us",
+        navBack: "← Back",
+
+        // Hero Section
+        heroLocation: "Based in St-Imier (CH)",
+        heroTitle1: "WEBSITES & APPS",
+        heroTitle2: "TAILOR-MADE.",
+        heroSlogan: "\"From the region, for the region.\"",
+        heroDescription: "We create custom websites and applications for local businesses. Swiss design, digital efficiency.",
+        heroContactBtn: "Contact us",
+        heroWorkBtn: "See our work",
+
+        // Marquee
+        marqueeText: "Websites ⸱ Mobile Apps ⸱ Web Applications ⸱ E-commerce ⸱ Swiss Design ⸱ 100% Digital Workflow ⸱",
+
+        // Services Section
+        servicesTitle: "What we do",
+        service1Title: "Showcase websites",
+        service1Desc: "To present your business, hours, and services. A clear and effective design that builds trust with your local customers.",
+        service1Item1: "Responsive design (mobile & desktop)",
+        service1Item2: "Integrated contact form",
+        service1Item3: "Optimized for local SEO",
+        service1Item4: "Domain & hosting included",
+
+        service2Title: "Management tools",
+        service2Desc: "Custom web applications to manage your inventory, reservations, schedules, or internal files. Simplify your daily administration.",
+        service2Item1: "Interface tailored to your needs",
+        service2Item2: "Secure data management",
+        service2Item3: "Multi-user access",
+        service2Item4: "Maintenance & technical support",
+
+        service3Title: "E-commerce",
+        service3Desc: "Sell your products online with a modern store. Stripe integration for secure card payments directly on your website.",
+        service3Item1: "Product catalog with images",
+        service3Item2: "Stripe payment (Card, Twint, etc.)",
+        service3Item3: "Order management",
+        service3Item4: "Complete package: site + domain + hosting",
+
+        // Projects Section
+        projectsTitle: "Our Projects",
+        projectApp: "APPLICATION",
+        projectEcommerce: "E-COMMERCE",
+
+        project1Title: "DISQUE BLEU SUISSE",
+        project1Desc: "Simple and intuitive iOS and Android app so you never forget your parking disc again. Get an alert before your parking time expires and avoid fines.",
+        project1Link: "Discover the app ↗",
+
+        project2Title: "BD-POKECARDS.CH",
+        project2Desc: "E-commerce and collection management site. A dense but readable interface, designed to handle large volumes of product data with integrated Stripe payments.",
+        project2Link: "Visit the website ↗",
+
+        // Contact Section
+        contactTitle: "Let's talk about",
+        contactTitle2: "your project.",
+        contactIntro: "Do you have an idea for a website or app? Contact us to discuss it.",
+
+        step1Title: "Contact",
+        step1Desc: "Describe your project to us via our contact form.",
+        step2Title: "Discussion",
+        step2Desc: "We discuss your needs and goals.",
+        step3Title: "Delivery",
+        step3Desc: "We create your custom website or application.",
+
+        contactNote: "We are physically based in St-Imier, but we work remotely to optimize your time and ours.",
+
+        contactBoxTitle: "Got an idea?",
+        contactBoxDesc: "Contact us to discuss your website or app project.",
+        contactBoxBtn: "Contact us →",
+
+        // Footer
+        footerCopyright: "© 2025 Vergasta Digital. St-Imier.",
+        footerTerms: "T&C",
+        footerPrivacy: "Privacy",
+        footerImprint: "Legal notice",
+
+        // Legal pages common
+        lastUpdate: "Last updated:",
+        backToHome: "← Back to home",
+
+        // Privacy page
+        privacyPageTitle: "Privacy Policy",
+
+        // Terms page
+        termsPageTitle: "Terms and Conditions",
+
+        // Imprint page
+        imprintPageTitle: "Legal Notice",
+        imprintTermsCard: "T&C",
+        imprintTermsCardDesc: "Terms and conditions",
+        imprintPrivacyCard: "Privacy",
+        imprintPrivacyCardDesc: "Data protection",
+        imprintImprintCard: "Legal notice",
+        imprintImprintCardDesc: "You are here"
     }
 };
 
 // Language configuration
-const supportedLanguages = ['fr', 'de', 'it'];
+const supportedLanguages = ['fr', 'de', 'it', 'en'];
 const defaultLanguage = 'fr';
 
 /**
@@ -440,6 +546,7 @@ function createLanguageSelector() {
             <button data-lang-btn="fr" onclick="setLanguage('fr')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">FR</button>
             <button data-lang-btn="de" onclick="setLanguage('de')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">DE</button>
             <button data-lang-btn="it" onclick="setLanguage('it')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">IT</button>
+            <button data-lang-btn="en" onclick="setLanguage('en')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">EN</button>
         </div>
     `;
 }
