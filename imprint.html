@@ -49,7 +49,7 @@
     </style>
 </head>
 
-<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink">
+<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink" data-page="imprint">
 
     <header class="fixed top-0 w-full z-50 bg-paper/95 backdrop-blur border-b-2 border-ink">
         <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
@@ -65,17 +65,26 @@
                 <span class="font-display font-bold text-xl tracking-tight">Vergasta Digital</span>
             </a>
 
-            <a href="index.html" class="font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm">
-                ← Retour
-            </a>
+            <div class="flex items-center gap-4">
+                <!-- Language Selector -->
+                <div class="flex items-center gap-1 border border-ink bg-white">
+                    <button data-lang-btn="fr" onclick="setLanguage('fr')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">FR</button>
+                    <button data-lang-btn="de" onclick="setLanguage('de')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">DE</button>
+                    <button data-lang-btn="it" onclick="setLanguage('it')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">IT</button>
+                </div>
+
+                <a href="index.html" class="font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm" data-i18n="navBack">
+                    ← Retour
+                </a>
+            </div>
         </div>
     </header>
 
     <main class="pt-20">
         <section class="py-16 px-6 max-w-4xl mx-auto">
             <div class="bg-white border-2 border-ink p-8 md:p-12 shadow-neo mb-8">
-                <h1 class="font-display font-bold text-4xl md:text-5xl mb-6 uppercase">Mentions Légales</h1>
-                <p class="text-sm text-swiss-grey mb-8">Dernière mise à jour : <?php echo date('d/m/Y'); ?></p>
+                <h1 class="font-display font-bold text-4xl md:text-5xl mb-6 uppercase" data-i18n="imprintPageTitle">Mentions Légales</h1>
+                <p class="text-sm text-swiss-grey mb-8"><span data-i18n="lastUpdate">Dernière mise à jour :</span> 21/12/2024</p>
 
                 <div class="space-y-8 text-sm leading-relaxed">
                     <!-- Éditeur du site -->
@@ -88,9 +97,9 @@
                             <p><strong class="text-base">Vergasta Digital</strong></p>
                             <p class="text-swiss-grey">Entreprise individuelle</p>
                             <p class="text-swiss-grey">Activité accessoire</p>
-                            <p class="text-swiss-grey mt-3">📍 Localisation : St-Imier, Canton de Berne, Suisse</p>
-                            <p class="text-swiss-grey">📧 Contact : Via formulaire de contact sur le site</p>
-                            <p class="text-swiss-grey">🌐 Site web : www.vergasta.ch</p>
+                            <p class="text-swiss-grey mt-3">Localisation : St-Imier, Canton de Berne, Suisse</p>
+                            <p class="text-swiss-grey">Contact : Via formulaire de contact sur le site</p>
+                            <p class="text-swiss-grey">Site web : www.vergasta.ch</p>
                         </div>
                         <p class="mt-4 text-swiss-grey italic text-xs">
                             Note : En tant qu'activité accessoire, Vergasta Digital n'est pas soumis à l'inscription au Registre du Commerce (art. 36 ORC). TVA non applicable.
@@ -175,7 +184,7 @@
                         <div class="grid md:grid-cols-2 gap-4 mb-6">
                             <div class="border-2 border-ink p-4 bg-paper">
                                 <h3 class="font-bold mb-2 flex items-center gap-2">
-                                    🏦 Virement bancaire
+                                    Virement bancaire
                                 </h3>
                                 <p class="text-xs text-swiss-grey mb-2">Moyen de paiement principal</p>
                                 <ul class="text-xs text-swiss-grey space-y-1">
@@ -187,7 +196,7 @@
 
                             <div class="border-2 border-ink p-4 bg-paper">
                                 <h3 class="font-bold mb-2 flex items-center gap-2">
-                                    📱 Twint
+                                    Twint
                                 </h3>
                                 <p class="text-xs text-swiss-grey mb-2">Paiement instantané</p>
                                 <ul class="text-xs text-swiss-grey space-y-1">
@@ -199,7 +208,7 @@
                         </div>
 
                         <div class="bg-accent-lime/20 border-2 border-accent-lime p-6 mb-4">
-                            <h3 class="font-bold mb-3 text-base">📋 Calendrier de paiement standard</h3>
+                            <h3 class="font-bold mb-3 text-base">Calendrier de paiement standard</h3>
                             <div class="space-y-3 text-sm">
                                 <div class="flex gap-3">
                                     <span class="font-mono font-bold text-accent-blue">1.</span>
@@ -309,7 +318,7 @@
                         <p class="mb-3">
                             Pour toute question concernant ces mentions légales ou nos modalités de paiement :
                         </p>
-                        <a href="index.html#contact" class="inline-block bg-accent-blue text-white border-2 border-ink px-6 py-3 font-bold uppercase text-sm hover:bg-ink transition-colors shadow-neo-sm">
+                        <a href="index.html#contact" class="inline-block bg-accent-blue text-white border-2 border-ink px-6 py-3 font-bold uppercase text-sm hover:bg-ink transition-colors shadow-neo-sm" data-i18n="navContactUs">
                             Nous contacter
                         </a>
                     </div>
@@ -318,21 +327,21 @@
 
             <div class="grid md:grid-cols-3 gap-4 mb-8">
                 <a href="terms.html" class="bg-white border-2 border-ink p-4 hover:bg-accent-lime transition-colors text-center">
-                    <div class="font-bold mb-1">📄 CGV</div>
-                    <div class="text-xs text-swiss-grey">Conditions de vente</div>
+                    <div class="font-bold mb-1" data-i18n="imprintTermsCard">CGV</div>
+                    <div class="text-xs text-swiss-grey" data-i18n="imprintTermsCardDesc">Conditions de vente</div>
                 </a>
                 <a href="privacy.html" class="bg-white border-2 border-ink p-4 hover:bg-accent-lime transition-colors text-center">
-                    <div class="font-bold mb-1">🔒 Confidentialité</div>
-                    <div class="text-xs text-swiss-grey">Protection des données</div>
+                    <div class="font-bold mb-1" data-i18n="imprintPrivacyCard">Confidentialité</div>
+                    <div class="text-xs text-swiss-grey" data-i18n="imprintPrivacyCardDesc">Protection des données</div>
                 </a>
                 <a href="imprint.html" class="bg-white border-2 border-ink p-4 bg-accent-lime text-center">
-                    <div class="font-bold mb-1">⚖️ Mentions légales</div>
-                    <div class="text-xs text-swiss-grey">Vous êtes ici</div>
+                    <div class="font-bold mb-1" data-i18n="imprintImprintCard">Mentions légales</div>
+                    <div class="text-xs text-swiss-grey" data-i18n="imprintImprintCardDesc">Vous êtes ici</div>
                 </a>
             </div>
 
             <div class="text-center">
-                <a href="index.html" class="inline-block bg-accent-lime border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                <a href="index.html" class="inline-block bg-accent-lime border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all" data-i18n="backToHome">
                     ← Retour à l'accueil
                 </a>
             </div>
@@ -341,14 +350,16 @@
 
     <footer class="bg-white border-t-2 border-ink py-8 px-6">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-swiss-grey uppercase">
-            <div>© <?php echo date('Y'); ?> Vergasta Digital. St-Imier.</div>
+            <div data-i18n="footerCopyright">© 2025 Vergasta Digital. St-Imier.</div>
             <div class="flex gap-4">
-                <a href="terms.html" class="hover:text-accent-blue">CGV</a>
-                <a href="privacy.html" class="hover:text-accent-blue">Confidentialité</a>
-                <a href="imprint.html" class="hover:text-accent-blue">Mentions légales</a>
+                <a href="terms.html" class="hover:text-accent-blue" data-i18n="footerTerms">CGV</a>
+                <a href="privacy.html" class="hover:text-accent-blue" data-i18n="footerPrivacy">Confidentialité</a>
+                <a href="imprint.html" class="hover:text-accent-blue" data-i18n="footerImprint">Mentions légales</a>
             </div>
         </div>
     </footer>
+
+    <script src="i18n.js"></script>
 
 </body>
 

@@ -69,7 +69,7 @@
     </style>
 </head>
 
-<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink">
+<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink" data-page="index">
 
     <header class="fixed top-0 w-full z-50 bg-paper/95 backdrop-blur border-b-2 border-ink">
         <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
@@ -86,14 +86,23 @@
             </a>
 
             <nav class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-wide">
-                <a href="#services" class="hover:text-accent-blue transition-colors">Expertise</a>
-                <a href="#projets" class="hover:text-accent-blue transition-colors">Réalisations</a>
-                <a href="#contact" class="hover:text-accent-blue transition-colors">Contact</a>
+                <a href="#services" class="hover:text-accent-blue transition-colors" data-i18n="navExpertise">Expertise</a>
+                <a href="#projets" class="hover:text-accent-blue transition-colors" data-i18n="navProjects">Réalisations</a>
+                <a href="#contact" class="hover:text-accent-blue transition-colors" data-i18n="navContact">Contact</a>
             </nav>
 
-            <a href="https://tally.so/r/MeX9kM" target="_blank" class="hidden md:block font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm">
-                Nous contacter
-            </a>
+            <div class="hidden md:flex items-center gap-4">
+                <!-- Language Selector -->
+                <div class="flex items-center gap-1 border border-ink bg-white">
+                    <button data-lang-btn="fr" onclick="setLanguage('fr')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">FR</button>
+                    <button data-lang-btn="de" onclick="setLanguage('de')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">DE</button>
+                    <button data-lang-btn="it" onclick="setLanguage('it')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">IT</button>
+                </div>
+
+                <a href="https://tally.so/r/MeX9kM" target="_blank" class="font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm" data-i18n="navContactUs">
+                    Nous contacter
+                </a>
+            </div>
 
             <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
         </div>
@@ -101,10 +110,19 @@
         <!-- Menu mobile -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t-2 border-ink">
             <nav class="flex flex-col">
-                <a href="#services" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Expertise</a>
-                <a href="#projets" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Réalisations</a>
-                <a href="#contact" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Contact</a>
-                <a href="https://tally.so/r/MeX9kM" target="_blank" class="m-4 text-center font-mono text-xs bg-ink text-white px-4 py-3 hover:bg-accent-blue transition-colors shadow-neo-sm">
+                <a href="#services" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors" data-i18n="navExpertise">Expertise</a>
+                <a href="#projets" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors" data-i18n="navProjects">Réalisations</a>
+                <a href="#contact" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors" data-i18n="navContact">Contact</a>
+                <!-- Mobile Language Selector -->
+                <div class="px-6 py-4 border-b border-ink flex items-center gap-2">
+                    <span class="text-sm text-swiss-grey">Langue:</span>
+                    <div class="flex items-center gap-1 border border-ink bg-white">
+                        <button data-lang-btn="fr" onclick="setLanguage('fr')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">FR</button>
+                        <button data-lang-btn="de" onclick="setLanguage('de')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">DE</button>
+                        <button data-lang-btn="it" onclick="setLanguage('it')" class="px-2 py-1 text-xs font-mono font-bold transition-colors">IT</button>
+                    </div>
+                </div>
+                <a href="https://tally.so/r/MeX9kM" target="_blank" class="m-4 text-center font-mono text-xs bg-ink text-white px-4 py-3 hover:bg-accent-blue transition-colors shadow-neo-sm" data-i18n="navContactUs">
                     Nous contacter
                 </a>
             </nav>
@@ -122,27 +140,27 @@
 
                 <div class="inline-flex items-center gap-2 mb-6 border border-ink bg-white px-3 py-1 shadow-neo-sm">
                     <span class="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></span>
-                    <span class="font-mono text-xs font-bold uppercase">Basé à St-Imier (CH)</span>
+                    <span class="font-mono text-xs font-bold uppercase" data-i18n="heroLocation">Basé à St-Imier (CH)</span>
                 </div>
 
                 <h1 class="font-display font-bold text-5xl md:text-7xl leading-[1.1] mb-6">
-                    SITES & APPS <br>
-                    <span class="text-accent-blue">SUR MESURE.</span>
+                    <span data-i18n="heroTitle1">SITES & APPS</span> <br>
+                    <span class="text-accent-blue" data-i18n="heroTitle2">SUR MESURE.</span>
                 </h1>
 
-                <div class="text-xl md:text-2xl font-medium italic border-l-4 border-accent-lime pl-4 mb-8 max-w-2xl">
+                <div class="text-xl md:text-2xl font-medium italic border-l-4 border-accent-lime pl-4 mb-8 max-w-2xl" data-i18n="heroSlogan">
                     "Par la région, pour la région."
                 </div>
 
-                <p class="text-swiss-grey max-w-lg mb-10 text-lg">
+                <p class="text-swiss-grey max-w-lg mb-10 text-lg" data-i18n="heroDescription">
                     Nous créons des sites web et des applications sur mesure pour les entreprises locales. Design suisse, efficacité numérique.
                 </p>
 
                 <div class="flex flex-wrap gap-4">
-                    <a href="https://tally.so/r/MeX9kM" target="_blank" class="bg-accent-lime text-ink border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                    <a href="https://tally.so/r/MeX9kM" target="_blank" class="bg-accent-lime text-ink border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all" data-i18n="heroContactBtn">
                         Nous contacter
                     </a>
-                    <a href="#projets" class="bg-white text-ink border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                    <a href="#projets" class="bg-white text-ink border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all" data-i18n="heroWorkBtn">
                         Voir le travail
                     </a>
                 </div>
@@ -154,54 +172,54 @@
         </section>
 
         <div class="bg-ink text-white py-3 border-b-2 border-ink marquee-container font-mono text-sm uppercase tracking-widest">
-            <div class="marquee-content">
+            <div class="marquee-content" data-i18n="marqueeText">
                 Sites web ⸱ Applications mobiles ⸱ Applications web ⸱ E-commerce ⸱ Design suisse ⸱ 100% Digital Workflow ⸱
             </div>
         </div>
 
         <section id="services" class="py-24 px-6 max-w-6xl mx-auto">
-            <h2 class="font-display font-bold text-4xl mb-12 uppercase">Ce que nous faisons</h2>
+            <h2 class="font-display font-bold text-4xl mb-12 uppercase" data-i18n="servicesTitle">Ce que nous faisons</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
                     <div class="w-10 h-10 bg-accent-lime border border-ink mb-6 flex items-center justify-center font-bold text-xl">1</div>
-                    <h3 class="font-display font-bold text-2xl mb-4">Sites vitrines</h3>
-                    <p class="text-sm text-swiss-grey leading-relaxed mb-4">
+                    <h3 class="font-display font-bold text-2xl mb-4" data-i18n="service1Title">Sites vitrines</h3>
+                    <p class="text-sm text-swiss-grey leading-relaxed mb-4" data-i18n="service1Desc">
                         Pour présenter votre activité, vos horaires et vos services. Un design clair et efficace qui inspire confiance à vos clients locaux.
                     </p>
                     <ul class="text-sm text-swiss-grey space-y-2">
-                        <li>✓ Design responsive (mobile & desktop)</li>
-                        <li>✓ Formulaire de contact intégré</li>
-                        <li>✓ Optimisé pour le référencement local</li>
-                        <li>✓ Domaine & hébergement inclus</li>
+                        <li>✓ <span data-i18n="service1Item1">Design responsive (mobile & desktop)</span></li>
+                        <li>✓ <span data-i18n="service1Item2">Formulaire de contact intégré</span></li>
+                        <li>✓ <span data-i18n="service1Item3">Optimisé pour le référencement local</span></li>
+                        <li>✓ <span data-i18n="service1Item4">Domaine & hébergement inclus</span></li>
                     </ul>
                 </div>
 
                 <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
                     <div class="w-10 h-10 bg-accent-blue text-white border border-ink mb-6 flex items-center justify-center font-bold text-xl">2</div>
-                    <h3 class="font-display font-bold text-2xl mb-4">Outils de gestion</h3>
-                    <p class="text-sm text-swiss-grey leading-relaxed mb-4">
+                    <h3 class="font-display font-bold text-2xl mb-4" data-i18n="service2Title">Outils de gestion</h3>
+                    <p class="text-sm text-swiss-grey leading-relaxed mb-4" data-i18n="service2Desc">
                         Des applications web sur mesure pour gérer vos stocks, vos réservations, vos plannings ou vos fichiers internes. Simplifiez votre administration quotidienne.
                     </p>
                     <ul class="text-sm text-swiss-grey space-y-2">
-                        <li>✓ Interface personnalisée à vos besoins</li>
-                        <li>✓ Gestion de données sécurisée</li>
-                        <li>✓ Accès multi-utilisateurs</li>
-                        <li>✓ Maintenance & support technique</li>
+                        <li>✓ <span data-i18n="service2Item1">Interface personnalisée à vos besoins</span></li>
+                        <li>✓ <span data-i18n="service2Item2">Gestion de données sécurisée</span></li>
+                        <li>✓ <span data-i18n="service2Item3">Accès multi-utilisateurs</span></li>
+                        <li>✓ <span data-i18n="service2Item4">Maintenance & support technique</span></li>
                     </ul>
                 </div>
 
                 <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
                     <div class="w-10 h-10 bg-white border border-ink mb-6 flex items-center justify-center font-bold text-xl">3</div>
-                    <h3 class="font-display font-bold text-2xl mb-4">E-commerce</h3>
-                    <p class="text-sm text-swiss-grey leading-relaxed mb-4">
+                    <h3 class="font-display font-bold text-2xl mb-4" data-i18n="service3Title">E-commerce</h3>
+                    <p class="text-sm text-swiss-grey leading-relaxed mb-4" data-i18n="service3Desc">
                         Vendez vos produits en ligne avec une boutique moderne. Intégration Stripe pour des paiements sécurisés par carte bancaire, directement sur votre site.
                     </p>
                     <ul class="text-sm text-swiss-grey space-y-2">
-                        <li>✓ Catalogue produits avec images</li>
-                        <li>✓ Paiement Stripe (CB, Twint, etc.)</li>
-                        <li>✓ Gestion des commandes</li>
-                        <li>✓ Pack complet : site + domaine + hébergement</li>
+                        <li>✓ <span data-i18n="service3Item1">Catalogue produits avec images</span></li>
+                        <li>✓ <span data-i18n="service3Item2">Paiement Stripe (CB, Twint, etc.)</span></li>
+                        <li>✓ <span data-i18n="service3Item3">Gestion des commandes</span></li>
+                        <li>✓ <span data-i18n="service3Item4">Pack complet : site + domaine + hébergement</span></li>
                     </ul>
                 </div>
             </div>
@@ -211,7 +229,7 @@
         <section id="projets" class="py-24 bg-accent-blue border-y-2 border-ink text-white px-6">
             <div class="max-w-5xl mx-auto">
                 <div class="flex items-end justify-between mb-8">
-                    <h2 class="font-display font-bold text-4xl uppercase">Nos Réalisations</h2>
+                    <h2 class="font-display font-bold text-4xl uppercase" data-i18n="projectsTitle">Nos Réalisations</h2>
                 </div>
 
                 <div class="grid gap-8">
@@ -225,16 +243,16 @@
                             <div class="flex-1 bg-paper border border-ink/20 rounded px-3 py-1 text-xs font-mono text-swiss-grey truncate">
                                 https://disquebleusuisse.ch
                             </div>
-                            <span class="font-mono text-xs bg-accent-lime text-ink px-2 py-1">APPLICATION</span>
+                            <span class="font-mono text-xs bg-accent-lime text-ink px-2 py-1" data-i18n="projectApp">APPLICATION</span>
                         </div>
 
                         <div class="p-8 md:p-12 bg-white">
                             <div class="mb-6">
-                                <h3 class="font-display font-bold text-3xl mb-2">DISQUE BLEU SUISSE</h3>
-                                <p class="text-swiss-grey text-sm mb-4">
+                                <h3 class="font-display font-bold text-3xl mb-2" data-i18n="project1Title">DISQUE BLEU SUISSE</h3>
+                                <p class="text-swiss-grey text-sm mb-4" data-i18n="project1Desc">
                                     Application iOS et Android simple et intuitive pour ne plus jamais oublier son disque de stationnement. Recevez une alerte avant la fin de votre temps de stationnement et évitez les amendes.
                                 </p>
-                                <a href="https://disquebleusuisse.ch" target="_blank" class="inline-block border-b-2 border-accent-blue font-bold hover:text-accent-blue transition-colors">
+                                <a href="https://disquebleusuisse.ch" target="_blank" class="inline-block border-b-2 border-accent-blue font-bold hover:text-accent-blue transition-colors" data-i18n="project1Link">
                                     Découvrir l'application ↗
                                 </a>
                             </div>
@@ -251,16 +269,16 @@
                             <div class="flex-1 bg-paper border border-ink/20 rounded px-3 py-1 text-xs font-mono text-swiss-grey truncate">
                                 https://bd-pokecards.ch
                             </div>
-                            <span class="font-mono text-xs bg-ink text-white px-2 py-1">E-COMMERCE</span>
+                            <span class="font-mono text-xs bg-ink text-white px-2 py-1" data-i18n="projectEcommerce">E-COMMERCE</span>
                         </div>
 
                         <div class="p-8 md:p-12 bg-white">
                             <div class="mb-6">
-                                <h3 class="font-display font-bold text-3xl mb-2">BD-POKECARDS.CH</h3>
-                                <p class="text-swiss-grey text-sm mb-4">
+                                <h3 class="font-display font-bold text-3xl mb-2" data-i18n="project2Title">BD-POKECARDS.CH</h3>
+                                <p class="text-swiss-grey text-sm mb-4" data-i18n="project2Desc">
                                     Site E-commerce et de gestion de collection. Une interface dense mais lisible, conçue pour traiter un grand volume de données produits avec paiements Stripe intégrés.
                                 </p>
-                                <a href="https://bd-pokecards.ch" target="_blank" class="inline-block border-b-2 border-accent-blue font-bold hover:text-accent-blue transition-colors">
+                                <a href="https://bd-pokecards.ch" target="_blank" class="inline-block border-b-2 border-accent-blue font-bold hover:text-accent-blue transition-colors" data-i18n="project2Link">
                                     Visiter le site en ligne ↗
                                 </a>
                             </div>
@@ -274,8 +292,8 @@
             <div class="grid md:grid-cols-2 gap-16">
 
                 <div>
-                    <h2 class="font-display font-bold text-4xl mb-6 uppercase">Parlons de <br>votre projet.</h2>
-                    <p class="text-lg mb-8">
+                    <h2 class="font-display font-bold text-4xl mb-6 uppercase"><span data-i18n="contactTitle">Parlons de</span> <br><span data-i18n="contactTitle2">votre projet.</span></h2>
+                    <p class="text-lg mb-8" data-i18n="contactIntro">
                         Vous avez une idée de site web ou d'application ? Contactez-nous pour en discuter.
                     </p>
 
@@ -283,37 +301,37 @@
                         <div class="flex gap-4">
                             <div class="font-mono font-bold text-accent-blue">01.</div>
                             <div>
-                                <h4 class="font-bold uppercase text-sm">Contact</h4>
-                                <p class="text-sm text-swiss-grey">Décrivez-nous votre projet via notre formulaire de contact.</p>
+                                <h4 class="font-bold uppercase text-sm" data-i18n="step1Title">Contact</h4>
+                                <p class="text-sm text-swiss-grey" data-i18n="step1Desc">Décrivez-nous votre projet via notre formulaire de contact.</p>
                             </div>
                         </div>
                         <div class="flex gap-4">
                             <div class="font-mono font-bold text-accent-blue">02.</div>
                             <div>
-                                <h4 class="font-bold uppercase text-sm">Discussion</h4>
-                                <p class="text-sm text-swiss-grey">Nous échangeons sur vos besoins et objectifs.</p>
+                                <h4 class="font-bold uppercase text-sm" data-i18n="step2Title">Discussion</h4>
+                                <p class="text-sm text-swiss-grey" data-i18n="step2Desc">Nous échangeons sur vos besoins et objectifs.</p>
                             </div>
                         </div>
                         <div class="flex gap-4">
                             <div class="font-mono font-bold text-accent-blue">03.</div>
                             <div>
-                                <h4 class="font-bold uppercase text-sm">Réalisation</h4>
-                                <p class="text-sm text-swiss-grey">Nous créons votre site ou application sur mesure.</p>
+                                <h4 class="font-bold uppercase text-sm" data-i18n="step3Title">Réalisation</h4>
+                                <p class="text-sm text-swiss-grey" data-i18n="step3Desc">Nous créons votre site ou application sur mesure.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="mt-12 p-4 bg-accent-lime/20 border border-accent-lime text-sm font-medium">
-                        📍 Nous sommes basés physiquement à St-Imier, mais nous travaillons à distance pour optimiser votre temps et le nôtre.
+                        <span data-i18n="contactNote">Nous sommes basés physiquement à St-Imier, mais nous travaillons à distance pour optimiser votre temps et le nôtre.</span>
                     </div>
                 </div>
 
                 <div class="bg-white border-2 border-ink p-8 shadow-neo flex flex-col items-center justify-center text-center min-h-[400px]">
-                    <h3 class="font-display font-bold text-3xl mb-4 uppercase">Une idée en tête ?</h3>
-                    <p class="text-swiss-grey mb-8 max-w-md">
+                    <h3 class="font-display font-bold text-3xl mb-4 uppercase" data-i18n="contactBoxTitle">Une idée en tête ?</h3>
+                    <p class="text-swiss-grey mb-8 max-w-md" data-i18n="contactBoxDesc">
                         Contactez-nous pour discuter de votre projet de site web ou d'application.
                     </p>
-                    <a href="https://tally.so/r/MeX9kM" target="_blank" class="bg-accent-lime text-ink border-2 border-ink px-10 py-4 font-bold uppercase text-lg shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all">
+                    <a href="https://tally.so/r/MeX9kM" target="_blank" class="bg-accent-lime text-ink border-2 border-ink px-10 py-4 font-bold uppercase text-lg shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all" data-i18n="contactBoxBtn">
                         Nous contacter →
                     </a>
                 </div>
@@ -324,15 +342,16 @@
 
     <footer class="bg-white border-t-2 border-ink py-8 px-6">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-swiss-grey uppercase">
-            <div>© 2025 Vergasta Digital. St-Imier.</div>
+            <div data-i18n="footerCopyright">© 2025 Vergasta Digital. St-Imier.</div>
             <div class="flex gap-4">
-                <a href="terms.html" class="hover:text-accent-blue transition-colors">CGV</a>
-                <a href="privacy.html" class="hover:text-accent-blue transition-colors">Confidentialité</a>
-                <a href="imprint.html" class="hover:text-accent-blue transition-colors">Mentions légales</a>
+                <a href="terms.html" class="hover:text-accent-blue transition-colors" data-i18n="footerTerms">CGV</a>
+                <a href="privacy.html" class="hover:text-accent-blue transition-colors" data-i18n="footerPrivacy">Confidentialité</a>
+                <a href="imprint.html" class="hover:text-accent-blue transition-colors" data-i18n="footerImprint">Mentions légales</a>
             </div>
         </div>
     </footer>
 
+    <script src="i18n.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Duplication automatique du contenu du marquee pour un défilement infini fluide
