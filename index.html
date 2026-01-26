@@ -157,14 +157,14 @@
 
         <div class="bg-ink text-white py-3 border-b-2 border-ink marquee-container font-mono text-sm uppercase tracking-widest">
             <div class="marquee-content">
-                Sites web ⸱ Applications mobiles ⸱ Applications web ⸱ E-commerce ⸱ Design suisse ⸱ 100% Digital Workflow ⸱
+                Sites web ⸱ Applications ⸱ Applications web ⸱ E-commerce ⸱ Design suisse ⸱ 100% Digital Workflow ⸱
             </div>
         </div>
 
         <section id="services" class="py-24 px-6 max-w-6xl mx-auto">
             <h2 class="font-display font-bold text-4xl mb-12 uppercase">Ce que nous faisons</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
                     <div class="w-10 h-10 bg-accent-lime border border-ink mb-6 flex items-center justify-center font-bold text-xl">1</div>
                     <h3 class="font-display font-bold text-2xl mb-4">Sites vitrines</h3>
@@ -206,6 +206,20 @@
                         <li>✓ Pack complet : site + domaine + hébergement</li>
                     </ul>
                 </div>
+
+                <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
+                    <div class="w-10 h-10 bg-accent-lime border border-ink mb-6 flex items-center justify-center font-bold text-xl">4</div>
+                    <h3 class="font-display font-bold text-2xl mb-4">Applications</h3>
+                    <p class="text-sm text-swiss-grey leading-relaxed mb-4">
+                        Applications mobiles iOS et Android pour digitaliser votre activité et offrir une expérience moderne à vos clients.
+                    </p>
+                    <ul class="text-sm text-swiss-grey space-y-2">
+                        <li>✓ Apps natives iOS & Android</li>
+                        <li>✓ Interface intuitive et fluide</li>
+                        <li>✓ Notifications push</li>
+                        <li>✓ Publication sur les stores</li>
+                    </ul>
+                </div>
             </div>
 
         </section>
@@ -217,6 +231,32 @@
                 </div>
 
                 <div class="grid gap-8">
+                    <!-- Projet Custom To Lylia -->
+                    <div class="bg-paper border-2 border-ink shadow-[8px_8px_0px_rgba(0,0,0,0.2)] rounded-sm overflow-hidden text-ink">
+                        <div class="border-b border-ink p-3 bg-white flex items-center gap-3">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-accent-blue"></div>
+                                <div class="w-3 h-3 rounded-full border border-ink"></div>
+                            </div>
+                            <div class="flex-1 bg-paper border border-ink/20 rounded px-3 py-1 text-xs font-mono text-swiss-grey truncate">
+                                https://customtolylia.ch
+                            </div>
+                            <span class="font-mono text-xs bg-ink text-white px-2 py-1">E-COMMERCE</span>
+                        </div>
+
+                        <div class="p-8 md:p-12 bg-white">
+                            <div class="mb-6">
+                                <h3 class="font-display font-bold text-3xl mb-2">CUSTOM TO LYLIA</h3>
+                                <p class="text-swiss-grey text-sm mb-4">
+                                    Site E-commerce pour la marque de vêtements Custom To Lylia, avec paiements Stripe intégrés et une interface d'administration complète et intuitive.
+                                </p>
+                                <a href="https://customtolylia.ch" target="_blank" class="inline-block border-b-2 border-accent-blue font-bold hover:text-accent-blue transition-colors">
+                                    Visiter le site en ligne ↗
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Projet Disque Bleu Suisse -->
                     <div class="bg-paper border-2 border-ink shadow-[8px_8px_0px_rgba(0,0,0,0.2)] rounded-sm overflow-hidden text-ink">
                         <div class="border-b border-ink p-3 bg-white flex items-center gap-3">
@@ -345,8 +385,8 @@
                 // Récupère le contenu HTML original
                 const originalContent = marqueeContent.innerHTML;
 
-                // Duplique le contenu 3 fois pour garantir un défilement vraiment continu
-                marqueeContent.innerHTML = originalContent + originalContent + originalContent;
+                // Duplique le contenu une fois (2x total) pour que l'animation -50% boucle parfaitement
+                marqueeContent.innerHTML = originalContent + originalContent;
             }
 
             // Menu mobile toggle
