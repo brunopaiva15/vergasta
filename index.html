@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vergasta | Par la région, pour la région.</title>
+    <title>Vergasta Digital | Par la région, pour la région.</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
@@ -24,18 +27,11 @@
                         'mono': ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        'paper': '#F9F9F9',
+                        'paper': '#FFFFFF',
                         'ink': '#111111',
                         'accent-lime': '#D4FF00',
                         'accent-blue': '#4F46E5',
-                        'swiss-grey': '#666666',
-                    },
-                    boxShadow: {
-                        'neo': '5px 5px 0px 0px #111111',
-                        'neo-sm': '3px 3px 0px 0px #111111',
-                    },
-                    backgroundImage: {
-                        'dot-grid': 'radial-gradient(#cfcfcf 1px, transparent 1px)',
+                        'swiss-grey': '#6F6F6F',
                     }
                 }
             }
@@ -45,373 +41,623 @@
     <style>
         body {
             background-color: var(--tw-color-paper);
-            background-image: var(--tw-background-image-dot-grid);
-            background-size: 20px 20px;
         }
 
+        /* LENIS */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        /* MARQUEE */
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
         }
-
         .marquee-content {
             display: inline-block;
-            animation: marquee 40s linear infinite;
+            animation: marquee 30s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        @keyframes marquee {
-            0% {
-                transform: translateX(0);
-            }
+        /* HOVER LINES (SWISS STYLE) */
+        .hover-line {
+            position: relative;
+            display: inline-block;
+        }
+        .hover-line::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        .hover-line:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
 
-            100% {
-                transform: translateX(-50%);
-            }
+        /* EDITORIAL LIST */
+        .project-item {
+            border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+        }
+        .project-item:first-child {
+            border-top: 1px solid rgba(17, 17, 17, 0.1);
+        }
+
+        /* PROJECT BROWSER FRAME */
+        .project-browser {
+            opacity: 0;
+            transform: translate(60px, -50%) scale(0.95) !important;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out;
+            pointer-events: none;
+        }
+        .project-item:hover .project-browser {
+            opacity: 1;
+            transform: translate(0, -50%) scale(1) !important;
+        }
+
+        /* HEADER SCROLLED STATE */
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+        }
+
+        /* Browser chrome */
+        .browser-chrome {
+            background: #1a1a1a;
+            border-radius: 12px 12px 0 0;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .browser-dots {
+            display: flex;
+            gap: 6px;
+        }
+        .browser-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .browser-dots span:nth-child(1) { background: #ff5f57; }
+        .browser-dots span:nth-child(2) { background: #ffbd2e; }
+        .browser-dots span:nth-child(3) { background: #28c840; }
+        .browser-url {
+            flex: 1;
+            background: rgba(255,255,255,0.08);
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.02em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .browser-viewport {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 12px 12px;
+            background: #f5f5f5;
+            aspect-ratio: 16 / 10;
+        }
+        .browser-viewport iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1440px;
+            height: 900px;
+            transform-origin: top left;
+            border: none;
+        }
+
+        /* Shadow for the browser frame */
+        .project-browser-wrapper {
+            filter: drop-shadow(0 25px 60px rgba(0,0,0,0.15)) drop-shadow(0 8px 20px rgba(0,0,0,0.08));
+            border-radius: 12px;
+        }
+
+        /* Overlay gradient for visual polish */
+        .browser-viewport::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.03) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
     </style>
 </head>
 
-<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink">
+<body class="text-ink font-sans antialiased selection:bg-accent-blue selection:text-white">
 
-    <header class="fixed top-0 w-full z-50 bg-paper/95 backdrop-blur border-b-2 border-ink">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+    <header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-500 text-ink">
+        <div class="px-6 md:px-12 py-6 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3">
-                <div class="relative w-10 h-10">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="relative w-7 h-7">
-                            <div class="absolute left-1/2 top-0 w-2 h-full bg-accent-blue transform -translate-x-1/2"></div>
-                            <div class="absolute top-1/2 left-0 w-full h-2 bg-accent-lime transform -translate-y-1/2"></div>
-                        </div>
-                    </div>
-                </div>
-                <span class="font-display font-bold text-xl tracking-tight">Vergasta Digital</span>
+                <img src="logo_vergasta.png" alt="Logo" class="h-6 w-auto">
+                <span class="font-display font-medium text-lg tracking-tight hover-line">Vergasta Digital</span>
             </a>
 
-            <nav class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-wide">
-                <a href="#services" class="hover:text-accent-blue transition-colors">Expertise</a>
-                <a href="#projets" class="hover:text-accent-blue transition-colors">Réalisations</a>
-                <a href="#contact" class="hover:text-accent-blue transition-colors">Contact</a>
+            <nav class="hidden md:flex gap-12 text-sm font-medium uppercase tracking-widest mt-1">
+                <a href="#expertise" class="hover-line text-xs">Expertise</a>
+                <a href="#projets" class="hover-line text-xs">Réalisations</a>
+                <a href="#contact" class="hover-line text-xs">Contact</a>
             </nav>
 
-            <a href="https://tally.so/r/MeX9kM" target="_blank" class="hidden md:block font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm">
-                Nous contacter
+            <a href="https://tally.so/r/MeX9kM" target="_blank" class="hidden md:block font-mono text-xs uppercase tracking-widest hover-line">
+                Démarrer un projet ↗
             </a>
 
-            <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+            <button id="mobile-menu-btn" class="md:hidden text-lg focus:outline-none uppercase font-mono text-xs tracking-widest">Menu</button>
         </div>
 
-        <!-- Menu mobile -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t-2 border-ink">
-            <nav class="flex flex-col">
-                <a href="#services" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Expertise</a>
-                <a href="#projets" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Réalisations</a>
-                <a href="#contact" class="px-6 py-4 border-b border-ink font-bold uppercase text-sm hover:bg-accent-lime transition-colors">Contact</a>
-                <a href="https://tally.so/r/MeX9kM" target="_blank" class="m-4 text-center font-mono text-xs bg-ink text-white px-4 py-3 hover:bg-accent-blue transition-colors shadow-neo-sm">
-                    Nous contacter
-                </a>
+        <div id="mobile-menu" class="fixed inset-0 bg-paper text-ink z-40 flex flex-col justify-center px-6 opacity-0 pointer-events-none transition-opacity duration-500">
+            <nav class="flex flex-col gap-8 text-4xl font-display uppercase tracking-tighter">
+                <a href="#expertise" class="mobile-link overflow-hidden"><span class="block">Expertise</span></a>
+                <a href="#projets" class="mobile-link overflow-hidden"><span class="block">Réalisations</span></a>
+                <a href="#contact" class="mobile-link overflow-hidden"><span class="block">Contact</span></a>
+                <a href="https://tally.so/r/MeX9kM" target="_blank" class="mobile-link overflow-hidden mt-12 text-xl text-swiss-grey font-mono"><span class="block">Démarrer un projet ↗</span></a>
             </nav>
         </div>
     </header>
 
-    <main class="pt-20">
-
-        <section class="py-12 md:py-32 px-6 border-b-2 border-ink relative overflow-hidden bg-white">
-            <div class="hidden md:flex absolute right-1/4 top-1/2 -translate-y-1/2 w-1/3 h-full items-center justify-center pointer-events-auto">
-                <img src="country.png" alt="" class="country-map h-auto w-full object-contain max-h-[400px]">
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-24 overflow-hidden bg-paper">
+            
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-full md:w-1/2 h-full flex items-center justify-end md:justify-center opacity-[0.04] pointer-events-none mix-blend-multiply">
+                <img src="country.png" alt="" class="h-auto w-full md:w-[120%] object-contain scale-150 transform transition-transform duration-[20s] ease-linear hover:scale-[1.55]">
             </div>
 
-            <div class="max-w-6xl mx-auto relative z-10">
-
-                <div class="inline-flex items-center gap-2 mb-6 border border-ink bg-white px-3 py-1 shadow-neo-sm">
-                    <span class="w-2 h-2 bg-accent-lime rounded-full animate-pulse"></span>
-                    <span class="font-mono text-xs font-bold uppercase">Basé à St-Imier (CH)</span>
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 w-full max-w-[1600px] mx-auto">
+                <div class="md:col-span-2 hidden md:block mt-8">
+                    <div class="font-mono text-[10px] text-swiss-grey gs-reveal opacity-0 tracking-widest leading-loose">
+                        47.1523° N<br>
+                        6.9960° E<br>
+                        ST-IMIER, CH
+                    </div>
                 </div>
 
-                <h1 class="font-display font-bold text-5xl md:text-7xl leading-[1.1] mb-6">
-                    SITES & APPS <br>
-                    <span class="text-accent-blue">SUR MESURE.</span>
-                </h1>
+                <div class="md:col-span-10 flex flex-col items-start">
 
-                <div class="text-xl md:text-2xl font-medium italic border-l-4 border-accent-lime pl-4 mb-8 max-w-2xl">
-                    "Par la région, pour la région."
+                    <h1 class="font-display font-medium text-[13vw] md:text-[9vw] leading-[0.85] tracking-tighter uppercase gs-reveal-title text-ink break-words w-full">
+                        <span id="hero-word-1" class="inline-block relative">SITES & APPS</span><br>
+                        <span class="text-swiss-grey"><span id="hero-word-2" class="inline-block relative">SUR MESURE</span><span class="text-accent-blue">.</span></span>
+                    </h1>
+
+                    <div class="mt-16 md:mt-32 max-w-2xl flex flex-col gap-8 gs-reveal opacity-0">
+                        <p class="text-lg md:text-xl text-ink leading-relaxed font-medium">
+                            Nous agençons des expériences numériques de haute précision pour des entreprises locales exigeantes. 
+                        </p>
+                        <p class="text-sm text-swiss-grey leading-loose">
+                            Par la région, pour la région. Basés dans le Jura bernois, nous accompagnons les PME dans leur transition avec une approche "Swiss Style" alliant esthétique, fonction et performance.
+                        </p>
+                        
+                        <a href="#expertise" class="group flex items-center gap-4 mt-4 w-fit">
+                            <div class="w-10 h-10 rounded-full border border-ink/20 flex items-center justify-center group-hover:bg-ink group-hover:text-paper group-hover:border-ink transition-colors duration-500">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                            </div>
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-ink group-hover:text-swiss-grey transition-colors duration-500">Explorer</span>
+                        </a>
+                    </div>
                 </div>
-
-                <p class="text-swiss-grey max-w-lg mb-10 text-lg">
-                    Nous créons des sites web et des applications sur mesure pour les entreprises locales. Design suisse, efficacité numérique.
-                </p>
-
-                <div class="flex flex-wrap gap-4">
-                    <a href="https://tally.so/r/MeX9kM" target="_blank" class="bg-accent-lime text-ink border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
-                        Nous contacter
-                    </a>
-                    <a href="#projets" class="bg-white text-ink border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
-                        Voir le travail
-                    </a>
-                </div>
-            </div>
-
-            <div class="absolute bottom-4 right-4 font-mono text-[10px] text-swiss-grey hidden md:block">
-                47.1523° N / 6.9960° E
             </div>
         </section>
 
-        <div class="bg-ink text-white py-3 border-b-2 border-ink marquee-container font-mono text-sm uppercase tracking-widest">
+        <!-- MARQUEE -->
+        <div class="bg-ink text-paper py-4 md:py-5 marquee-container font-mono text-xs md:text-sm uppercase tracking-widest border-y border-ink">
             <div class="marquee-content">
-                Sites web ⸱ Applications ⸱ Applications web ⸱ E-commerce ⸱ Design suisse ⸱ 100% Digital Workflow ⸱
+                &nbsp;&nbsp;SITES WEB — APPLICATIONS WEB — E-COMMERCE — STRATÉGIE DIGITALE — UI/UX DESIGN — IDENTITY — DÉVELOPPEMENT SUR MESURE —
             </div>
         </div>
 
-        <section id="services" class="py-24 px-6 max-w-6xl mx-auto">
-            <h2 class="font-display font-bold text-4xl mb-12 uppercase">Ce que nous faisons</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
-                    <div class="w-10 h-10 bg-accent-lime border border-ink mb-6 flex items-center justify-center font-bold text-xl">1</div>
-                    <h3 class="font-display font-bold text-2xl mb-4">Sites vitrines</h3>
-                    <p class="text-sm text-swiss-grey leading-relaxed mb-4">
-                        Pour présenter votre activité, vos horaires et vos services. Un design clair et efficace qui inspire confiance à vos clients locaux.
-                    </p>
-                    <ul class="text-sm text-swiss-grey space-y-2">
-                        <li>✓ Design responsive (mobile & desktop)</li>
-                        <li>✓ Formulaire de contact intégré</li>
-                        <li>✓ Optimisé pour le référencement local</li>
-                        <li>✓ Domaine & hébergement inclus</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
-                    <div class="w-10 h-10 bg-accent-blue text-white border border-ink mb-6 flex items-center justify-center font-bold text-xl">2</div>
-                    <h3 class="font-display font-bold text-2xl mb-4">Outils de gestion</h3>
-                    <p class="text-sm text-swiss-grey leading-relaxed mb-4">
-                        Des applications web sur mesure pour gérer vos stocks, vos réservations, vos plannings ou vos fichiers internes. Simplifiez votre administration quotidienne.
-                    </p>
-                    <ul class="text-sm text-swiss-grey space-y-2">
-                        <li>✓ Interface personnalisée à vos besoins</li>
-                        <li>✓ Gestion de données sécurisée</li>
-                        <li>✓ Accès multi-utilisateurs</li>
-                        <li>✓ Maintenance & support technique</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
-                    <div class="w-10 h-10 bg-white border border-ink mb-6 flex items-center justify-center font-bold text-xl">3</div>
-                    <h3 class="font-display font-bold text-2xl mb-4">E-commerce</h3>
-                    <p class="text-sm text-swiss-grey leading-relaxed mb-4">
-                        Vendez vos produits en ligne avec une boutique moderne. Intégration Stripe pour des paiements sécurisés par carte bancaire, directement sur votre site.
-                    </p>
-                    <ul class="text-sm text-swiss-grey space-y-2">
-                        <li>✓ Catalogue produits avec images</li>
-                        <li>✓ Paiement Stripe (CB, Twint, etc.)</li>
-                        <li>✓ Gestion des commandes</li>
-                        <li>✓ Pack complet : site + domaine + hébergement</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white border-2 border-ink p-8 shadow-neo hover:shadow-neo-sm transition-shadow">
-                    <div class="w-10 h-10 bg-accent-lime border border-ink mb-6 flex items-center justify-center font-bold text-xl">4</div>
-                    <h3 class="font-display font-bold text-2xl mb-4">Applications</h3>
-                    <p class="text-sm text-swiss-grey leading-relaxed mb-4">
-                        Applications mobiles iOS et Android pour digitaliser votre activité et offrir une expérience moderne à vos clients.
-                    </p>
-                    <ul class="text-sm text-swiss-grey space-y-2">
-                        <li>✓ Apps natives iOS & Android</li>
-                        <li>✓ Interface intuitive et fluide</li>
-                        <li>✓ Notifications push</li>
-                        <li>✓ Publication sur les stores</li>
-                    </ul>
-                </div>
-            </div>
-
-        </section>
-
-        <section id="projets" class="py-24 bg-accent-blue border-y-2 border-ink text-white px-6">
-            <div class="max-w-5xl mx-auto">
-                <div class="flex items-end justify-between mb-8">
-                    <h2 class="font-display font-bold text-4xl uppercase">Nos Réalisations</h2>
-                </div>
-
-                <div class="grid gap-8">
-                    <!-- Projet Custom To Lylia -->
-                    <div class="bg-paper border-2 border-ink shadow-[8px_8px_0px_rgba(0,0,0,0.2)] rounded-sm overflow-hidden text-ink">
-                        <div class="border-b border-ink p-3 bg-white flex items-center gap-3">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-accent-blue"></div>
-                                <div class="w-3 h-3 rounded-full border border-ink"></div>
-                            </div>
-                            <div class="flex-1 bg-paper border border-ink/20 rounded px-3 py-1 text-xs font-mono text-swiss-grey truncate">
-                                https://customtolylia.ch
-                            </div>
-                            <span class="font-mono text-xs bg-ink text-white px-2 py-1">E-COMMERCE</span>
-                        </div>
-
-                        <div class="p-8 md:p-12 bg-white">
-                            <div class="mb-6">
-                                <h3 class="font-display font-bold text-3xl mb-2">CUSTOM TO LYLIA</h3>
-                                <p class="text-swiss-grey text-sm mb-4">
-                                    Site E-commerce pour la marque de vêtements Custom To Lylia, avec paiements Stripe intégrés et une interface d'administration complète et intuitive.
-                                </p>
-                                <a href="https://customtolylia.ch" target="_blank" class="inline-block border-b-2 border-accent-blue font-bold hover:text-accent-blue transition-colors">
-                                    Visiter le site en ligne ↗
-                                </a>
-                            </div>
-                        </div>
+        <!-- EXPERTISE -->
+        <section id="expertise" class="py-32 md:py-48 px-6 md:px-12 bg-paper">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-6">
+                    <div class="md:col-span-4 gs-reveal opacity-0">
+                        <h2 class="font-display font-medium text-4xl md:text-6xl tracking-tighter uppercase mb-6">Expertise</h2>
+                        <p class="text-swiss-grey max-w-xs text-sm leading-loose">
+                            Sans templates, sans compromis. L'art et la manière du développement web de pointe.
+                        </p>
                     </div>
 
-                    <!-- Projet Disque Bleu Suisse -->
-                    <div class="bg-paper border-2 border-ink shadow-[8px_8px_0px_rgba(0,0,0,0.2)] rounded-sm overflow-hidden text-ink">
-                        <div class="border-b border-ink p-3 bg-white flex items-center gap-3">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-accent-lime"></div>
-                                <div class="w-3 h-3 rounded-full border border-ink"></div>
-                            </div>
-                            <div class="flex-1 bg-paper border border-ink/20 rounded px-3 py-1 text-xs font-mono text-swiss-grey truncate">
-                                https://disquebleusuisse.ch
-                            </div>
-                            <span class="font-mono text-xs bg-accent-lime text-ink px-2 py-1">APPLICATION</span>
+                    <div class="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24 mt-12 md:mt-0">
+                        <!-- 01 -->
+                        <div class="gs-reveal opacity-0">
+                            <div class="font-mono text-[10px] text-swiss-grey mb-6 tracking-widest">01.</div>
+                            <h3 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight">Sites Vitrines & Éditoriaux</h3>
+                            <p class="text-sm text-swiss-grey leading-loose mb-8">
+                                Plates-formes de communication fluides et performantes. Nous accordons une attention obsessionnelle à la typographie, aux micro-interactions et à la vitesse.
+                            </p>
+                            <ul class="text-[11px] text-ink uppercase tracking-widest space-y-4 font-mono">
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Design responsive</li>
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Optimisation SEO</li>
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Performance extrême</li>
+                            </ul>
                         </div>
 
-                        <div class="p-8 md:p-12 bg-white">
-                            <div class="mb-6">
-                                <h3 class="font-display font-bold text-3xl mb-2">DISQUE BLEU SUISSE</h3>
-                                <p class="text-swiss-grey text-sm mb-4">
-                                    Application iOS et Android simple et intuitive pour ne plus jamais oublier son disque de stationnement. Recevez une alerte avant la fin de votre temps de stationnement et évitez les amendes.
-                                </p>
-                                <a href="https://disquebleusuisse.ch" target="_blank" class="inline-block border-b-2 border-accent-blue font-bold hover:text-accent-blue transition-colors">
-                                    Découvrir l'application ↗
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Projet BD-Pokecards -->
-                    <div class="bg-paper border-2 border-ink shadow-[8px_8px_0px_rgba(0,0,0,0.2)] rounded-sm overflow-hidden text-ink">
-                        <div class="border-b border-ink p-3 bg-white flex items-center gap-3">
-                            <div class="flex gap-1.5">
-                                <div class="w-3 h-3 rounded-full bg-ink"></div>
-                                <div class="w-3 h-3 rounded-full border border-ink"></div>
-                            </div>
-                            <div class="flex-1 bg-paper border border-ink/20 rounded px-3 py-1 text-xs font-mono text-swiss-grey truncate">
-                                https://bd-pokecards.ch
-                            </div>
-                            <span class="font-mono text-xs bg-ink text-white px-2 py-1">E-COMMERCE</span>
+                        <!-- 02 -->
+                        <div class="gs-reveal opacity-0">
+                            <div class="font-mono text-[10px] text-swiss-grey mb-6 tracking-widest">02.</div>
+                            <h3 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight">Ingénierie Web & Apps</h3>
+                            <p class="text-sm text-swiss-grey leading-loose mb-8">
+                                Outils métiers sur mesure et architectures complexes. Nous développons des applications pour digitaliser vos processus internes et votre gestion.
+                            </p>
+                            <ul class="text-[11px] text-ink uppercase tracking-widest space-y-4 font-mono">
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-lime"></span> Interfaces personnalisées</li>
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-lime"></span> Dashboards et statistiques</li>
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-lime"></span> Apps PWA multi-plateformes</li>
+                            </ul>
                         </div>
 
-                        <div class="p-8 md:p-12 bg-white">
-                            <div class="mb-6">
-                                <h3 class="font-display font-bold text-3xl mb-2">BD-POKECARDS.CH</h3>
-                                <p class="text-swiss-grey text-sm mb-4">
-                                    Site E-commerce et de gestion de collection. Une interface dense mais lisible, conçue pour traiter un grand volume de données produits avec paiements Stripe intégrés.
-                                </p>
-                                <a href="https://bd-pokecards.ch" target="_blank" class="inline-block border-b-2 border-accent-blue font-bold hover:text-accent-blue transition-colors">
-                                    Visiter le site en ligne ↗
-                                </a>
-                            </div>
+                        <!-- 03 -->
+                        <div class="gs-reveal opacity-0">
+                            <div class="font-mono text-[10px] text-swiss-grey mb-6 tracking-widest">03.</div>
+                            <h3 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight">E-commerce</h3>
+                            <p class="text-sm text-swiss-grey leading-loose mb-8">
+                                Expériences d'achat sur mesure et fluides. Nous concevons des boutiques qui convertissent, avec des intégrations de paiement modernes.
+                            </p>
+                            <ul class="text-[11px] text-ink uppercase tracking-widest space-y-4 font-mono">
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Stripe & Twint API</li>
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Gestion de catalogue poussée</li>
+                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Tunnels de conversion optimisés</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="py-24 px-6 max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-16">
+        <!-- PROJETS -->
+        <section id="projets" class="py-32 md:py-48 px-6 md:px-12 bg-paper">
+            <div class="max-w-[1600px] mx-auto">
+                <h2 class="font-display font-medium text-4xl md:text-6xl tracking-tighter uppercase mb-20 gs-reveal opacity-0">Nos réalisations</h2>
 
-                <div>
-                    <h2 class="font-display font-bold text-4xl mb-6 uppercase">Parlons de <br>votre projet.</h2>
-                    <p class="text-lg mb-8">
-                        Vous avez une idée de site web ou d'application ? Contactez-nous pour en discuter.
-                    </p>
-
-                    <div class="space-y-6">
-                        <div class="flex gap-4">
-                            <div class="font-mono font-bold text-accent-blue">01.</div>
-                            <div>
-                                <h4 class="font-bold uppercase text-sm">Contact</h4>
-                                <p class="text-sm text-swiss-grey">Décrivez-nous votre projet via notre formulaire de contact.</p>
+                <div class="flex flex-col">
+                    <!-- Krowdle -->
+                    <a href="https://krowdle.com" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
+                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
+                            <div class="project-browser-wrapper">
+                                <div class="browser-chrome">
+                                    <div class="browser-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="browser-url">krowdle.com</div>
+                                </div>
+                                <div class="browser-viewport">
+                                    <iframe src="https://krowdle.com" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="font-mono font-bold text-accent-blue">02.</div>
-                            <div>
-                                <h4 class="font-bold uppercase text-sm">Discussion</h4>
-                                <p class="text-sm text-swiss-grey">Nous échangeons sur vos besoins et objectifs.</p>
+
+                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
+                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2026</span>
+                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
+                                Krowdle
+                            </h3>
+                        </div>
+                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
+                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">Plateforme SaaS</span>
+                        </div>
+                    </a>
+
+                    <!-- Custom To Lylia -->
+                    <a href="https://customtolylia.ch" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
+                        <!-- Browser Frame Preview -->
+                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
+                            <div class="project-browser-wrapper">
+                                <div class="browser-chrome">
+                                    <div class="browser-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="browser-url">customtolylia.ch</div>
+                                </div>
+                                <div class="browser-viewport">
+                                    <iframe src="https://customtolylia.ch" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="font-mono font-bold text-accent-blue">03.</div>
-                            <div>
-                                <h4 class="font-bold uppercase text-sm">Réalisation</h4>
-                                <p class="text-sm text-swiss-grey">Nous créons votre site ou application sur mesure.</p>
+
+                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
+                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2026</span>
+                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
+                                Custom To Lylia
+                            </h3>
+                        </div>
+                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
+                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">E-commerce</span>
+                        </div>
+                    </a>
+
+                    <!-- Disque Bleu Suisse -->
+                    <a href="https://disquebleusuisse.ch" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
+                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
+                            <div class="project-browser-wrapper">
+                                <div class="browser-chrome">
+                                    <div class="browser-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="browser-url">disquebleusuisse.ch</div>
+                                </div>
+                                <div class="browser-viewport">
+                                    <iframe src="https://disquebleusuisse.ch" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mt-12 p-4 bg-accent-lime/20 border border-accent-lime text-sm font-medium">
-                        📍 Nous sommes basés physiquement à St-Imier, mais nous travaillons à distance pour optimiser votre temps et le nôtre.
-                    </div>
-                </div>
+                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
+                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2026</span>
+                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
+                                Disque Bleu Suisse
+                            </h3>
+                        </div>
+                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
+                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">App iOS/Android</span>
+                        </div>
+                    </a>
 
-                <div class="bg-white border-2 border-ink p-8 shadow-neo flex flex-col items-center justify-center text-center min-h-[400px]">
-                    <h3 class="font-display font-bold text-3xl mb-4 uppercase">Une idée en tête ?</h3>
-                    <p class="text-swiss-grey mb-8 max-w-md">
-                        Contactez-nous pour discuter de votre projet de site web ou d'application.
-                    </p>
-                    <a href="https://tally.so/r/MeX9kM" target="_blank" class="bg-accent-lime text-ink border-2 border-ink px-10 py-4 font-bold uppercase text-lg shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all">
-                        Nous contacter →
+                    <!-- BDPokéCards -->
+                    <a href="https://bd-pokecards.ch" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
+                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
+                            <div class="project-browser-wrapper">
+                                <div class="browser-chrome">
+                                    <div class="browser-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="browser-url">bd-pokecards.ch</div>
+                                </div>
+                                <div class="browser-viewport">
+                                    <iframe src="https://bd-pokecards.ch" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
+                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2025</span>
+                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
+                                BDPokéCards
+                            </h3>
+                        </div>
+                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
+                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">E-commerce</span>
+                        </div>
                     </a>
                 </div>
             </div>
         </section>
 
+        <!-- CONTACT -->
+        <section id="contact" class="py-32 md:py-48 px-6 md:px-12 bg-white flex flex-col items-center justify-center text-center min-h-[70vh]">
+            <div class="max-w-4xl mx-auto w-full gs-reveal opacity-0">
+                <div class="font-mono text-[10px] text-swiss-grey uppercase tracking-widest mb-16">Le temps de l'action.</div>
+                
+                <h2 class="font-display font-medium text-5xl md:text-[9vw] leading-[0.85] tracking-tighter uppercase mb-20 text-ink">
+                    Démarrer un<br>Projet.
+                </h2>
+
+                <a href="https://tally.so/r/MeX9kM" target="_blank" class="relative group inline-flex items-center justify-center">
+                    <div class="absolute inset-0 border border-ink rounded-full scale-100 group-hover:bg-ink group-hover:scale-105 transition-all duration-700 ease-out"></div>
+                    <div class="relative z-10 px-12 py-5 font-mono text-[11px] uppercase tracking-widest text-ink group-hover:text-paper transition-colors duration-700">
+                        Nous contacter ↗
+                    </div>
+                </a>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-white border-t-2 border-ink py-8 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-swiss-grey uppercase">
-            <div>© 2025 Vergasta Digital. St-Imier.</div>
-            <div class="flex gap-4">
-                <a href="terms.html" class="hover:text-accent-blue transition-colors">CGV</a>
-                <a href="privacy.html" class="hover:text-accent-blue transition-colors">Confidentialité</a>
-                <a href="imprint.html" class="hover:text-accent-blue transition-colors">Mentions légales</a>
+    <!-- FOOTER -->
+    <footer class="bg-paper py-10 px-6 md:px-12 border-t border-ink/10">
+        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 font-mono text-[10px] text-swiss-grey uppercase tracking-widest">
+            <div class="flex items-center gap-4">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent-blue"></span>
+                © 2025 VERGASTA DIGITAL, ST-IMIER
+            </div>
+            
+            <div class="flex gap-6 md:gap-12">
+                <a href="terms.html" class="hover-line hover:text-ink transition-colors">CGV</a>
+                <a href="privacy.html" class="hover-line hover:text-ink transition-colors">Confidentialité</a>
+                <a href="imprint.html" class="hover-line hover:text-ink transition-colors">Mentions Légales</a>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Duplication automatique du contenu du marquee pour un défilement infini fluide
-            const marqueeContainer = document.querySelector('.marquee-container');
-            const marqueeContent = document.querySelector('.marquee-content');
+            // LENIS SMOOTH SCROLL
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+            });
 
-            if (marqueeContent && marqueeContainer) {
-                // Récupère le contenu HTML original
-                const originalContent = marqueeContent.innerHTML;
+            // GSAP
+            gsap.registerPlugin(ScrollTrigger);
 
-                // Duplique le contenu une fois (2x total) pour que l'animation -50% boucle parfaitement
-                marqueeContent.innerHTML = originalContent + originalContent;
+            lenis.on('scroll', ScrollTrigger.update);
+
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+            
+            const header = document.getElementById('main-header');
+            ScrollTrigger.create({
+                start: 'top -50',
+                end: 99999,
+                toggleClass: {className: 'header-scrolled', targets: header}
+            });
+
+            // REVEALS
+            const reveals = document.querySelectorAll('.gs-reveal');
+            reveals.forEach((el) => {
+                gsap.fromTo(el, 
+                    { y: 50, opacity: 0 }, 
+                    { 
+                        y: 0, opacity: 1, duration: 1.2, ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // TITRE HERO
+            gsap.fromTo('.gs-reveal-title', 
+                { y: 60, opacity: 0, clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" }, 
+                { y: 0, opacity: 1, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", duration: 1.5, delay: 0.1, ease: "power4.out" }
+            );
+
+            // HERO TEXT SWAP ANIMATION (5s interval, letter-by-letter)
+            const heroWord1 = document.getElementById('hero-word-1');
+            const heroWord2 = document.getElementById('hero-word-2');
+            if (heroWord1 && heroWord2) {
+                const textSet1 = ["SITES & APPS", "VERGASTA"];
+                const textSet2 = ["SUR MESURE", "DIGITAL"];
+                let textIndex = 0;
+
+                // Fonction pour découper le texte en spans (lettre par lettre)
+                function splitIntoSpans(element, text) {
+                    element.innerHTML = text.split('').map(char => {
+                        return char === ' ' ? '<span class="inline-block w-[0.25em]">&nbsp;</span>' : `<span class="inline-block">${char}</span>`;
+                    }).join('');
+                    return element.querySelectorAll('span');
+                }
+
+                // Initialisation sur le texte au chargement
+                splitIntoSpans(heroWord1, textSet1[0]);
+                splitIntoSpans(heroWord2, textSet2[0]);
+
+                setInterval(() => {
+                    textIndex = (textIndex + 1) % 2;
+                    
+                    const chars1Out = [...heroWord1.querySelectorAll('span')];
+                    const chars2Out = [...heroWord2.querySelectorAll('span')];
+                    const allOut = [...chars1Out, ...chars2Out];
+                    
+                    gsap.to(allOut, {
+                        y: -30,
+                        opacity: 0,
+                        filter: "blur(6px)",
+                        duration: 0.4,
+                        ease: "power2.in",
+                        stagger: 0.02,
+                        onComplete: () => {
+                            // On insère le nouveau texte découpé
+                            const newChars1 = splitIntoSpans(heroWord1, textSet1[textIndex]);
+                            const newChars2 = splitIntoSpans(heroWord2, textSet2[textIndex]);
+                            const allIn = [...newChars1, ...newChars2];
+                            
+                            // On positionne en bas
+                            gsap.set(allIn, { y: 30, opacity: 0, filter: "blur(6px)" });
+                            
+                            // On anime vers le haut
+                            gsap.to(allIn, {
+                                y: 0,
+                                opacity: 1,
+                                filter: "blur(0px)",
+                                duration: 0.8,
+                                ease: "power3.out",
+                                stagger: 0.03
+                            });
+                        }
+                    });
+                }, 5000);
             }
 
-            // Menu mobile toggle
+            // MOBILE MENU
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            let menuOpen = false;
 
             if (mobileMenuBtn && mobileMenu) {
                 mobileMenuBtn.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
-                    // Change le symbole du bouton
-                    this.textContent = mobileMenu.classList.contains('hidden') ? '☰' : '✕';
+                    menuOpen = !menuOpen;
+                    if(menuOpen) {
+                        mobileMenu.classList.remove('pointer-events-none', 'opacity-0');
+                        mobileMenuBtn.textContent = 'FERMER';
+                        gsap.fromTo(mobileLinks, 
+                            {y: 40, opacity: 0}, 
+                            {y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.1}
+                        );
+                    } else {
+                        mobileMenu.classList.add('pointer-events-none', 'opacity-0');
+                        mobileMenuBtn.textContent = 'MENU';
+                    }
                 });
-
-                // Ferme le menu quand on clique sur un lien
-                const menuLinks = mobileMenu.querySelectorAll('a');
-                menuLinks.forEach(link => {
+                mobileLinks.forEach(link => {
                     link.addEventListener('click', function() {
-                        mobileMenu.classList.add('hidden');
-                        mobileMenuBtn.textContent = '☰';
+                        menuOpen = false;
+                        mobileMenu.classList.add('pointer-events-none', 'opacity-0');
+                        mobileMenuBtn.textContent = 'MENU';
                     });
                 });
             }
+
+            // MARQUEE DUPLICATION
+            const marqueeContent = document.querySelector('.marquee-content');
+            if (marqueeContent) {
+                marqueeContent.innerHTML += marqueeContent.innerHTML;
+            }
+
+            // IFRAME SCALING — fit 1440px into the browser-viewport width
+            function scaleIframes() {
+                document.querySelectorAll('.browser-viewport').forEach(viewport => {
+                    const iframe = viewport.querySelector('iframe');
+                    if (!iframe) return;
+                    const viewportWidth = viewport.offsetWidth;
+                    const scale = viewportWidth / 1440;
+                    iframe.style.transform = `scale(${scale})`;
+                    // Set viewport height to match scaled iframe
+                    viewport.style.height = (900 * scale) + 'px';
+                });
+                // Recalculate GSAP triggers now that the DOM height has changed!
+                ScrollTrigger.refresh();
+            }
+
+            // Run on load + resize
+            scaleIframes();
+            window.addEventListener('resize', scaleIframes);
+            setTimeout(scaleIframes, 500);
+
+            // ULTIMATE FIX FOR GSAP LAYOUT SHIFTS (Fonts, Images, etc)
+            // This watches the body height and refreshes GSAP anytime it changes
+            let lastHeight = document.body.scrollHeight;
+            const resizeObserver = new ResizeObserver(() => {
+                const newHeight = document.body.scrollHeight;
+                if(newHeight !== lastHeight) {
+                    ScrollTrigger.refresh();
+                    lastHeight = newHeight;
+                }
+            });
+            resizeObserver.observe(document.body);
+
+            // Font loading explicitly triggers a refresh as well
+            document.fonts.ready.then(() => {
+                ScrollTrigger.refresh();
+            });
         });
     </script>
-
 </body>
-
 </html>

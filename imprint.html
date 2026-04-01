@@ -1,232 +1,172 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mentions Légales | Vergasta Digital</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'sans-serif'],
-                        'display': ['Space Grotesk', 'sans-serif'],
-                        'mono': ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        'paper': '#F9F9F9',
-                        'ink': '#111111',
-                        'accent-lime': '#D4FF00',
-                        'accent-blue': '#4F46E5',
-                        'swiss-grey': '#666666',
-                    },
-                    boxShadow: {
-                        'neo': '5px 5px 0px 0px #111111',
-                        'neo-sm': '3px 3px 0px 0px #111111',
-                    },
-                    backgroundImage: {
-                        'dot-grid': 'radial-gradient(#cfcfcf 1px, transparent 1px)',
-                    }
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'display': ['Space Grotesk', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                    colors: { 'paper': '#FFFFFF', 'ink': '#111111', 'accent-lime': '#D4FF00', 'accent-blue': '#4F46E5', 'swiss-grey': '#6F6F6F' }
                 }
             }
         }
     </script>
-
     <style>
-        body {
-            background-color: var(--tw-color-paper);
-            background-image: var(--tw-background-image-dot-grid);
-            background-size: 20px 20px;
-        }
+        body { background-color: var(--tw-color-paper); }
+        .hover-line { position: relative; display: inline-block; }
+        .hover-line::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 1px; bottom: -2px; left: 0; background-color: currentColor; transform-origin: bottom right; transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1); }
+        .hover-line:hover::after { transform: scaleX(1); transform-origin: bottom left; }
     </style>
 </head>
+<body class="text-ink font-sans antialiased selection:bg-accent-blue selection:text-white">
 
-<body class="text-ink font-sans antialiased selection:bg-accent-lime selection:text-ink">
-
-    <header class="fixed top-0 w-full z-50 bg-paper/95 backdrop-blur border-b-2 border-ink">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+    <header class="w-full z-50 text-ink border-b border-ink/10">
+        <div class="px-6 md:px-12 py-6 flex justify-between items-center max-w-[1600px] mx-auto">
             <a href="index.html" class="flex items-center gap-3">
-                <div class="relative w-10 h-10">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="relative w-7 h-7">
-                            <div class="absolute left-1/2 top-0 w-2 h-full bg-accent-blue transform -translate-x-1/2"></div>
-                            <div class="absolute top-1/2 left-0 w-full h-2 bg-accent-lime transform -translate-y-1/2"></div>
-                        </div>
-                    </div>
-                </div>
-                <span class="font-display font-bold text-xl tracking-tight">Vergasta Digital</span>
+                <img src="logo_vergasta.png" alt="Logo" class="h-6 w-auto">
+                <span class="font-display font-medium text-lg tracking-tight hover-line">Vergasta Digital</span>
             </a>
-
-            <a href="index.html" class="font-mono text-xs bg-ink text-white px-4 py-2 hover:bg-accent-blue transition-colors shadow-neo-sm">
-                ← Retour
-            </a>
+            <a href="index.html" class="font-mono text-[10px] uppercase tracking-widest hover-line">← Retour</a>
         </div>
     </header>
 
-    <main class="pt-20">
-        <section class="py-16 px-6 max-w-4xl mx-auto">
-            <div class="bg-white border-2 border-ink p-8 md:p-12 shadow-neo mb-8">
-                <h1 class="font-display font-bold text-4xl md:text-5xl mb-6 uppercase">Mentions Légales</h1>
-                <p class="text-sm text-swiss-grey mb-8">Dernière mise à jour : <?php echo date('d/m/Y'); ?></p>
+    <main class="pt-24 pb-32">
+        <article class="px-6 md:px-12 max-w-4xl mx-auto">
+            <h1 class="font-display font-medium text-4xl md:text-7xl mb-8 uppercase tracking-tighter">Mentions Légales</h1>
+            <p class="font-mono text-[10px] text-swiss-grey mb-16 tracking-widest uppercase pb-8 border-b border-ink/10">
+                Dernière mise à jour : <?php echo date('d/m/Y'); ?>
+            </p>
 
-                <div class="space-y-8 text-sm leading-relaxed">
-                    <!-- Éditeur du site -->
-                    <div>
-                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
-                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">1</span>
-                            Éditeur du site
-                        </h2>
-                        <div class="bg-paper border-2 border-ink p-6 space-y-2">
-                            <p><strong class="text-base">Vergasta Digital</strong></p>
-                            <p class="text-swiss-grey mt-3">Bruno Vergasta Paiva</p>
-                            <p class="text-swiss-grey">Rue du Temple 5</p>
-                            <p class="text-swiss-grey">St-Imier</p>
-                            <p class="text-swiss-grey">Suisse</p>
-                            <p class="text-swiss-grey mt-3">📧 Contact : Via formulaire de contact sur le site</p>
-                            <p class="text-swiss-grey">🌐 Site web : www.vergasta.ch</p>
-                        </div>
-                        <p class="mt-4 text-swiss-grey italic text-xs">
-                            Note : En tant qu'activité accessoire, Vergasta Digital n'est pas soumis à l'inscription au Registre du Commerce (art. 36 ORC). TVA non applicable.
-                        </p>
+            <div class="space-y-24 text-sm leading-loose text-swiss-grey">
+                <div>
+                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
+                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">01.</span>
+                        Éditeur du site
+                    </h2>
+                    <div class="border border-ink/10 p-8 space-y-2">
+                        <p><strong class="text-base text-ink font-medium">Vergasta Digital</strong></p>
+                        <p class="mt-4">Bruno Vergasta Paiva</p>
+                        <p>Rue du Temple 5</p>
+                        <p>St-Imier</p>
+                        <p>Suisse</p>
+                        <p class="mt-4">Contact : Via formulaire de contact sur le site</p>
+                        <p>Site web : <a href="index.html" class="hover-line text-ink">www.vergasta.ch</a></p>
                     </div>
+                    <p class="mt-6 italic text-[11px] font-mono tracking-widest text-swiss-grey/50">
+                        Note : En tant qu'activité accessoire, n'est pas soumis à l'inscription au RC (art. 36 ORC). TVA non applicable.
+                    </p>
+                </div>
 
-                    <!-- Hébergement -->
-                    <div>
-                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
-                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">2</span>
-                            Hébergement du site
-                        </h2>
-                        <p class="mb-3">Ce site est hébergé par :</p>
-                        <div class="bg-paper border border-ink p-4">
-                            <p class="font-bold">GitHub, Inc.</p>
-                            <p class="text-swiss-grey">88 Colin P Kelly Jr St</p>
-                            <p class="text-swiss-grey">San Francisco, CA 94107</p>
-                            <p class="text-swiss-grey">États-Unis</p>
-                        </div>
+                <div>
+                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
+                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">02.</span>
+                        Hébergement du site
+                    </h2>
+                    <p class="mb-6">Ce site est hébergé par :</p>
+                    <div class="border border-ink/10 p-8">
+                        <p class="font-medium text-ink mb-2">GitHub, Inc.</p>
+                        <p>88 Colin P Kelly Jr St</p>
+                        <p>San Francisco, CA 94107</p>
+                        <p>États-Unis</p>
                     </div>
+                </div>
 
-                    <!-- Propriété intellectuelle -->
-                    <div>
-                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
-                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">3</span>
-                            Propriété intellectuelle
-                        </h2>
-                        <p class="mb-3">
-                            L'ensemble du contenu de ce site (textes, images, logos, design, code source) est la propriété exclusive de Vergasta Digital, sauf mention contraire.
-                        </p>
-                        <p class="mb-3">
-                            Toute reproduction, distribution, modification ou utilisation de ces éléments sans autorisation écrite préalable est strictement interdite et constitue une contrefaçon sanctionnée par le Code pénal suisse.
-                        </p>
-                        <p class="text-swiss-grey">
-                            <strong>Technologies utilisées :</strong> HTML5, CSS3 (Tailwind CSS), JavaScript. Le site est conçu pour être rapide, accessible et conforme aux standards du web moderne.
-                        </p>
-                    </div>
+                <div>
+                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
+                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">03.</span>
+                        Propriété intell.
+                    </h2>
+                    <p class="mb-4">
+                        L'ensemble du contenu de ce site (textes, images, logos, design, code source) est la propriété exclusive de Vergasta Digital, sauf mention contraire.
+                    </p>
+                    <p class="mb-6">
+                        Toute reproduction ou modification de ces éléments sans autorisation écrite préalable est interdite.
+                    </p>
+                    <p class="font-mono text-[11px] uppercase tracking-widest p-4 bg-gray-50 text-ink">
+                        Technologies : HTML5, CSS3, JS. Design "Swiss Style".
+                    </p>
+                </div>
 
-                    <!-- Responsabilité -->
-                    <div>
-                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
-                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">4</span>
-                            Limitation de responsabilité
-                        </h2>
-                        <p class="mb-3">
-                            Vergasta Digital s'efforce de maintenir les informations de ce site à jour et exactes. Toutefois, nous ne pouvons garantir l'exactitude, la complétude ou l'actualité de toutes les informations publiées.
-                        </p>
-                        <p class="mb-3">
-                            Nous déclinons toute responsabilité en cas de :
-                        </p>
-                        <ul class="list-disc pl-6 space-y-2 text-swiss-grey">
-                            <li>Interruptions temporaires du site (maintenance, problèmes techniques)</li>
-                            <li>Erreurs ou omissions dans le contenu</li>
-                            <li>Dommages directs ou indirects résultant de l'utilisation du site</li>
-                            <li>Contenus de sites tiers accessibles via des liens externes</li>
-                        </ul>
-                    </div>
+                <div>
+                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
+                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">04.</span>
+                        Limitation de responsabilité
+                    </h2>
+                    <p class="mb-6">
+                        Vergasta Digital s'efforce de maintenir les informations à jour. Nous déclinons toutefois toute responsabilité en cas de :
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Interruptions temporaires du site</li>
+                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Erreurs ou omissions</li>
+                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Dommages indirects</li>
+                    </ul>
+                </div>
 
-                    <!-- Liens externes -->
-                    <div>
-                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
-                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">5</span>
-                            Liens externes
-                        </h2>
-                        <p>
-                            Ce site peut contenir des liens vers des sites externes. Vergasta Digital n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu, leur disponibilité ou leurs pratiques en matière de protection des données.
-                        </p>
-                    </div>
+                <div>
+                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
+                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">05.</span>
+                        Liens externes
+                    </h2>
+                    <p>
+                        Ce site peut contenir des liens vers des sites externes. Vergasta Digital n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
+                    </p>
+                </div>
 
-                    <!-- Droit applicable -->
-                    <div>
-                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
-                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">6</span>
-                            Droit applicable et juridiction
-                        </h2>
-                        <p class="mb-3">
-                            Les présentes mentions légales sont régies par le droit suisse. Le for juridique est le canton de Berne, Suisse.
-                        </p>
-                        <p class="text-swiss-grey">
-                            En cas de litige, nous privilégions toujours une résolution amiable avant toute procédure judiciaire.
-                        </p>
-                    </div>
+                <div>
+                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
+                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">06.</span>
+                        Juridiction
+                    </h2>
+                    <p class="mb-4">Le droit suisse s'applique. Le for juridique est le canton de Berne.</p>
+                </div>
 
-                    <!-- Contact -->
-                    <div>
-                        <h2 class="font-display font-bold text-2xl mb-3 flex items-center gap-2">
-                            <span class="w-8 h-8 bg-accent-lime border border-ink flex items-center justify-center text-sm">7</span>
-                            Contact
-                        </h2>
-                        <p class="mb-3">
-                            Pour toute question concernant ces mentions légales ou nos modalités de paiement :
-                        </p>
-                        <a href="index.html#contact" class="inline-block bg-accent-blue text-white border-2 border-ink px-6 py-3 font-bold uppercase text-sm hover:bg-ink transition-colors shadow-neo-sm">
-                            Nous contacter
-                        </a>
-                    </div>
+                <div>
+                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
+                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">07.</span>
+                        Contact
+                    </h2>
+                    <p class="mb-8">Pour les mentions légales :</p>
+                    <a href="index.html#contact" class="inline-block border border-ink text-ink px-8 py-3 font-mono text-[10px] uppercase tracking-widest hover:bg-ink hover:text-white transition-colors duration-500">
+                        Nous contacter ↗
+                    </a>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-4 mb-8">
-                <a href="terms.html" class="bg-white border-2 border-ink p-4 hover:bg-accent-lime transition-colors text-center">
-                    <div class="font-bold mb-1">📄 CGV</div>
-                    <div class="text-xs text-swiss-grey">Conditions de vente</div>
+            <div class="mt-32 pt-12 border-t border-ink/10 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <a href="terms.html" class="flex flex-col gap-2 group">
+                    <span class="font-mono text-[10px] text-swiss-grey tracking-widest uppercase">01</span>
+                    <span class="font-medium text-ink group-hover:text-accent-blue transition-colors">CGV</span>
                 </a>
-                <a href="privacy.html" class="bg-white border-2 border-ink p-4 hover:bg-accent-lime transition-colors text-center">
-                    <div class="font-bold mb-1">🔒 Confidentialité</div>
-                    <div class="text-xs text-swiss-grey">Protection des données</div>
+                <a href="privacy.html" class="flex flex-col gap-2 group">
+                    <span class="font-mono text-[10px] text-swiss-grey tracking-widest uppercase">02</span>
+                    <span class="font-medium text-ink group-hover:text-accent-blue transition-colors">Confidentialité</span>
                 </a>
-                <a href="imprint.html" class="bg-white border-2 border-ink p-4 bg-accent-lime text-center">
-                    <div class="font-bold mb-1">⚖️ Mentions légales</div>
-                    <div class="text-xs text-swiss-grey">Vous êtes ici</div>
-                </a>
+                <div class="flex flex-col gap-2 opacity-30 pointer-events-none">
+                    <span class="font-mono text-[10px] text-swiss-grey tracking-widest uppercase">03</span>
+                    <span class="font-medium text-ink">Mentions légales</span>
+                </div>
             </div>
 
-            <div class="text-center">
-                <a href="index.html" class="inline-block bg-accent-lime border-2 border-ink px-8 py-3 font-bold uppercase shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
-                    ← Retour à l'accueil
-                </a>
-            </div>
-        </section>
+        </article>
     </main>
 
-    <footer class="bg-white border-t-2 border-ink py-8 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-swiss-grey uppercase">
-            <div>© <?php echo date('Y'); ?> Vergasta Digital. St-Imier.</div>
-            <div class="flex gap-4">
-                <a href="terms.html" class="hover:text-accent-blue">CGV</a>
-                <a href="privacy.html" class="hover:text-accent-blue">Confidentialité</a>
-                <a href="imprint.html" class="hover:text-accent-blue">Mentions légales</a>
+    <footer class="bg-paper py-8 px-6 md:px-12 border-t border-ink/10">
+        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 font-mono text-[10px] text-swiss-grey uppercase tracking-widest">
+            <div class="flex items-center gap-4"><span class="w-1.5 h-1.5 rounded-full bg-accent-blue"></span>© <?php echo date('Y'); ?> VERGASTA DIGITAL</div>
+            <div class="flex gap-6 md:gap-12">
+                <a href="terms.html" class="hover-line hover:text-ink transition-colors">CGV</a>
+                <a href="privacy.html" class="hover-line hover:text-ink transition-colors">Confidentialité</a>
+                <a href="imprint.html" class="hover-line hover:text-ink transition-colors">Mentions Légales</a>
             </div>
         </div>
     </footer>
-
 </body>
-
 </html>
