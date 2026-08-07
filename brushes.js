@@ -392,12 +392,16 @@
    * ------------------------------------------------------------------ */
 
   var INKS = {
-    brique: { h: 16, s: 64, l: 40 },
-    ocre: { h: 38, s: 62, l: 44 },
-    bleu: { h: 213, s: 44, l: 38 },
-    sapin: { h: 154, s: 36, l: 31 },
-    prune: { h: 328, s: 30, l: 40 },
-    ardoise: { h: 220, s: 12, l: 32 }
+    /* Les deux barres de la croix du logo. Le lime est illisible sur blanc :
+       il ne sert que dans le pied de page, qui est noir. */
+    lime: { h: 70, s: 100, l: 50 },
+    bleu: { h: 243, s: 75, l: 59 },
+    /* Le reste de la gamme, saturé pour tenir sur du blanc. */
+    magenta: { h: 330, s: 100, l: 59 },
+    cyan: { h: 193, s: 100, l: 42 },
+    olive: { h: 75, s: 100, l: 33 },
+    orange: { h: 25, s: 100, l: 47 },
+    encre: { h: 0, s: 0, l: 6 }
   };
 
   /* ------------------------------------------------------------------ *
@@ -408,85 +412,85 @@
    * ------------------------------------------------------------------ */
 
   var MARKS = {
-    /* Ouverture : deux spirales décalées, brique et ocre, comme une épreuve
+    /* Ouverture : deux spirales décalées, bleu et magenta, comme une épreuve
        imprimée en deux couleurs mal calées. */
     ouverture: [
       {
-        brush: "peigne", ink: "brique",
+        brush: "peigne", ink: "bleu",
         path: function (w, h) {
           return spiral(w * 0.5, h * 0.5, Math.min(w, h) * 0.40, 2.15, -Math.PI * 0.55, 900);
         }
       },
       {
-        brush: "projection", ink: "ocre", alpha: 0.85, delay: 220,
+        brush: "projection", ink: "magenta", alpha: 0.85, delay: 220,
         path: function (w, h) {
           return spiral(w * 0.52, h * 0.48, Math.min(w, h) * 0.34, 1.85, -Math.PI * 0.15, 700);
         }
       }
     ],
 
-    /* Métier : tissage bleu sur un arc. L'empreinte diagonale pivote avec la
+    /* Métier : tissage cyan sur un arc. L'empreinte diagonale pivote avec la
        courbe et les tampons s'entrelacent. */
     metier: [
       {
-        brush: "tissage", ink: "bleu", over: { size: 0.115, spacing: 0.85 },
+        brush: "tissage", ink: "cyan", over: { size: 0.115, spacing: 0.85 },
         path: function (w, h) {
           return arc(w * 0.5, h * 0.72, Math.min(w, h) * 0.36, Math.PI * 1.05, Math.PI * 2.05, 400);
         }
       }
     ],
 
-    /* Déroulé : dérive verte, les tampons quittent le chemin. */
+    /* Déroulé : dérive olive, les tampons quittent le chemin. */
     deroule: [
       {
-        brush: "derive", ink: "sapin", over: { size: 0.10, spacing: 0.45, scatter: 0.55 },
+        brush: "derive", ink: "olive", over: { size: 0.10, spacing: 0.45, scatter: 0.55 },
         path: function (w, h) {
           return wave(w * 0.12, h * 0.5, w * 0.76, h * 0.26, 1.25, 320);
         }
       }
     ],
 
-    /* Réalisations : carrés nets en spirale, prune. Le plus serré du lot. */
+    /* Réalisations : carrés nets en spirale, magenta. Le plus serré du lot. */
     realisations: [
       {
-        brush: "carres", ink: "prune", over: { size: 0.115, spacing: 0.80 },
+        brush: "carres", ink: "magenta", over: { size: 0.115, spacing: 0.80 },
         path: function (w, h) {
           return spiral(w * 0.5, h * 0.5, Math.min(w, h) * 0.36, 1.9, -Math.PI * 0.4, 500);
         }
       }
     ],
 
-    /* Écrire : plume ocre, un coin qui suit la courbe. */
+    /* Écrire : anneaux orange, un coin qui suit la courbe. */
     contact: [
       {
-        brush: "anneaux", ink: "ocre", over: { size: 0.145, spacing: 1.15 },
+        brush: "anneaux", ink: "orange", over: { size: 0.145, spacing: 1.15 },
         path: function (w, h) {
           return arc(w * 0.5, h * 0.35, Math.min(w, h) * 0.34, Math.PI * 0.15, Math.PI * 1.15, 400);
         }
       }
     ],
 
-    /* Anneaux ardoise, pour les pages légales. */
+    /* Croix encre, pour les pages légales. */
     legal: [
       {
-        brush: "croix", ink: "ardoise", over: { size: 0.13, spacing: 1.5 },
+        brush: "croix", ink: "encre", over: { size: 0.13, spacing: 1.5 },
         path: function (w, h) {
           return spiral(w * 0.5, h * 0.5, Math.min(w, h) * 0.34, 1.6, -Math.PI * 0.6, 400);
         }
       }
     ],
 
-    /* Bande de pied de page : une onde longue dont la teinte glisse de la
-       brique vers l'ocre au fil du tracé. */
+    /* Bande de pied de page : sur fond noir, la seule place où le lime
+       du logo tient à pleine intensité. */
     bande: [
       {
-        brush: "semis", ink: "brique", over: { size: 0.30, spacing: 0.55, hueDrift: 26 },
+        brush: "semis", ink: "lime", over: { size: 0.30, spacing: 0.55, hueDrift: 0 },
         path: function (w, h) {
           return wave(w * 0.01, h * 0.5, w * 0.98, h * 0.30, 2.5, 700);
         }
       },
       {
-        brush: "croix", ink: "ocre", alpha: 0.7, delay: 260,
+        brush: "croix", ink: "bleu", alpha: 0.9, delay: 260,
         over: { size: 0.26, spacing: 1.6 },
         path: function (w, h) {
           return wave(w * 0.01, h * 0.5, w * 0.98, h * 0.22, 2.5, 700);
