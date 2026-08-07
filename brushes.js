@@ -395,7 +395,7 @@
     /* Les deux barres de la croix du logo. Le lime est illisible sur blanc :
        il ne sert que dans le pied de page, qui est noir. */
     lime: { h: 70, s: 100, l: 50 },
-    bleu: { h: 243, s: 75, l: 59 },
+    bleu: { h: 243, s: 76, l: 59 },
     /* Le reste de la gamme, saturé pour tenir sur du blanc. */
     magenta: { h: 330, s: 100, l: 59 },
     cyan: { h: 193, s: 100, l: 42 },
@@ -532,7 +532,11 @@
       var w = host.clientWidth;
       var h = host.clientHeight;
       if (!w || !h) return false;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Un écran se contente de 2. L'impression a besoin de bien plus : la
+      // carte de visite force 4, ce qui met les tampons au-dessus de 300 dpi
+      // une fois la marque réduite à sa taille en millimètres.
+      var force = parseFloat(host.getAttribute("data-dpr"));
+      dpr = force > 0 ? force : Math.min(window.devicePixelRatio || 1, 2);
       var bw = Math.round(w * dpr);
       var bh = Math.round(h * dpr);
       if (canvas.width !== bw || canvas.height !== bh) {

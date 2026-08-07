@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carte de visite — Vergasta Digital</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="carte.css">
+  <script src="brushes.js" defer></script>
+</head>
+<body class="atelier">
+
+  <!-- Tout ce qui suit disparaît à l'impression : seules les deux cartes sortent. -->
+  <div class="chrome">
+    <div class="wrap">
+      <h1>Carte de visite</h1>
+      <p class="chapeau">
+        Les deux faces sont aux cotes exactes, fond perdu compris.
+      </p>
+
+      <div class="commandes">
+        <button type="button" class="button" onclick="window.print()">Exporter en PDF</button>
+        <span class="reglages">
+          <label><input type="checkbox" id="reperes" checked> Repères de coupe</label>
+          <label><input type="checkbox" id="zoom"> Agrandir ×2</label>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="planche wrap">
+    <!-- ===================== RECTO ===================== -->
+    <div class="porte-carte">
+      <p class="etiquette chrome-inline">Recto</p>
+      <div class="carte carte--recto">
+        <div class="fond-perdu"></div>
+        <div class="contenu">
+          <svg class="croix" viewBox="0 0 7 7" role="img" aria-label="Logo Vergasta Digital" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="0" width="2" height="7" fill="#4f46e6"/><rect x="0" y="2.5" width="7" height="2" fill="#d4ff00"/></svg>
+          <p class="nom-marque">Vergasta Digital</p>
+          <p class="devise">Par la région, pour la région.</p>
+        </div>
+        <div class="mark bande-carte" data-mark="bande" data-dpr="4" aria-hidden="true"></div>
+        <div class="reperes" aria-hidden="true"><span class="coupe"></span><span class="securite"></span></div>
+      </div>
+    </div>
+
+    <!-- ===================== VERSO ===================== -->
+    <div class="porte-carte">
+      <p class="etiquette chrome-inline">Verso</p>
+      <div class="carte carte--verso">
+        <div class="fond-perdu"></div>
+        <div class="contenu">
+          <div class="colonne-texte">
+            <p class="nom">Bruno Vergasta Paiva</p>
+            <p class="fonction">Sites, applications et boutiques en ligne</p>
+            <ul class="coordonnees">
+              <li>Rue du Temple 5, 2610 St-Imier</li>
+              <li>+41 79 289 89 07</li>
+            </ul>
+            <p class="site">vergasta.ch</p>
+          </div>
+          <div class="colonne-qr">
+            <svg class="qr" viewBox="0 0 25 25" role="img" aria-label="Code QR vers vergasta.ch" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+  <g fill="currentColor"><rect x="0" y="0" width="7" height="1"/><rect x="11" y="0" width="4" height="1"/><rect x="18" y="0" width="7" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="8" y="1" width="2" height="1"/><rect x="12" y="1" width="2" height="1"/><rect x="18" y="1" width="1" height="1"/><rect x="24" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="2" y="2" width="3" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="10" y="2" width="2" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="20" y="2" width="3" height="1"/><rect x="24" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="2" y="3" width="3" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="8" y="3" width="2" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="13" y="3" width="1" height="1"/><rect x="15" y="3" width="2" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="20" y="3" width="3" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="2" y="4" width="3" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="11" y="4" width="3" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="20" y="4" width="3" height="1"/><rect x="24" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="9" y="5" width="4" height="1"/><rect x="16" y="5" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="0" y="6" width="7" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="18" y="6" width="7" height="1"/><rect x="8" y="7" width="3" height="1"/><rect x="12" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="8" y="8" width="4" height="1"/><rect x="15" y="8" width="1" height="1"/><rect x="17" y="8" width="2" height="1"/><rect x="21" y="8" width="3" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="8" y="9" width="2" height="1"/><rect x="11" y="9" width="1" height="1"/><rect x="13" y="9" width="3" height="1"/><rect x="19" y="9" width="5" height="1"/><rect x="0" y="10" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="4" y="10" width="4" height="1"/><rect x="9" y="10" width="3" height="1"/><rect x="13" y="10" width="3" height="1"/><rect x="17" y="10" width="2" height="1"/><rect x="20" y="10" width="2" height="1"/><rect x="23" y="10" width="2" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="9" y="11" width="2" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="16" y="11" width="4" height="1"/><rect x="21" y="11" width="1" height="1"/><rect x="24" y="11" width="1" height="1"/><rect x="0" y="12" width="4" height="1"/><rect x="6" y="12" width="3" height="1"/><rect x="11" y="12" width="3" height="1"/><rect x="15" y="12" width="1" height="1"/><rect x="18" y="12" width="1" height="1"/><rect x="24" y="12" width="1" height="1"/><rect x="0" y="13" width="1" height="1"/><rect x="3" y="13" width="3" height="1"/><rect x="7" y="13" width="2" height="1"/><rect x="15" y="13" width="3" height="1"/><rect x="19" y="13" width="1" height="1"/><rect x="23" y="13" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="2" y="14" width="1" height="1"/><rect x="6" y="14" width="1" height="1"/><rect x="9" y="14" width="4" height="1"/><rect x="15" y="14" width="2" height="1"/><rect x="18" y="14" width="4" height="1"/><rect x="23" y="14" width="2" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="7" y="15" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="11" y="15" width="1" height="1"/><rect x="15" y="15" width="2" height="1"/><rect x="19" y="15" width="1" height="1"/><rect x="21" y="15" width="2" height="1"/><rect x="24" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="4" y="16" width="4" height="1"/><rect x="11" y="16" width="1" height="1"/><rect x="15" y="16" width="6" height="1"/><rect x="22" y="16" width="1" height="1"/><rect x="8" y="17" width="2" height="1"/><rect x="12" y="17" width="5" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="0" y="18" width="7" height="1"/><rect x="10" y="18" width="2" height="1"/><rect x="16" y="18" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="20" y="18" width="1" height="1"/><rect x="24" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="12" y="19" width="2" height="1"/><rect x="15" y="19" width="2" height="1"/><rect x="20" y="19" width="1" height="1"/><rect x="23" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="2" y="20" width="3" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="9" y="20" width="2" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="14" y="20" width="7" height="1"/><rect x="22" y="20" width="1" height="1"/><rect x="24" y="20" width="1" height="1"/><rect x="0" y="21" width="1" height="1"/><rect x="2" y="21" width="3" height="1"/><rect x="6" y="21" width="1" height="1"/><rect x="9" y="21" width="2" height="1"/><rect x="14" y="21" width="5" height="1"/><rect x="23" y="21" width="2" height="1"/><rect x="0" y="22" width="1" height="1"/><rect x="2" y="22" width="3" height="1"/><rect x="6" y="22" width="1" height="1"/><rect x="9" y="22" width="4" height="1"/><rect x="15" y="22" width="1" height="1"/><rect x="21" y="22" width="2" height="1"/><rect x="24" y="22" width="1" height="1"/><rect x="0" y="23" width="1" height="1"/><rect x="6" y="23" width="1" height="1"/><rect x="9" y="23" width="1" height="1"/><rect x="11" y="23" width="1" height="1"/><rect x="14" y="23" width="1" height="1"/><rect x="16" y="23" width="5" height="1"/><rect x="24" y="23" width="1" height="1"/><rect x="0" y="24" width="7" height="1"/><rect x="8" y="24" width="1" height="1"/><rect x="10" y="24" width="1" height="1"/><rect x="13" y="24" width="2" height="1"/><rect x="16" y="24" width="1" height="1"/><rect x="21" y="24" width="1" height="1"/><rect x="24" y="24" width="1" height="1"/></g>
+</svg>
+          </div>
+        </div>
+        <p class="ide">IDE CHE-403.843.646</p>
+        <div class="reperes" aria-hidden="true"><span class="coupe"></span><span class="securite"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chrome">
+    <div class="wrap notes">
+      <section>
+        <h2>Cotes</h2>
+        <table class="fiche">
+          <tbody>
+            <tr><th scope="row">Format fini</th><td>85 × 55 mm</td></tr>
+            <tr><th scope="row">Fond perdu</th><td>3 mm par côté, fichier de 91 × 61 mm</td></tr>
+            <tr><th scope="row">Zone de sécurité</th><td>4 mm</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Exporter</h2>
+        <ol class="marche">
+          <li>Exporter en PDF, ou <kbd>Ctrl</kbd>+<kbd>P</kbd>.</li>
+          <li>Destination : Enregistrer au format PDF.</li>
+          <li>Marges : Aucune.</li>
+          <li>Cocher Graphismes d’arrière-plan.</li>
+        </ol>
+        <p class="remarque">Deux pages sortent, recto puis verso, à la cote exacte. Les repères de coupe ne s’impriment pas.</p>
+      </section>
+
+      <section>
+        <h2>Pour l’imprimeur</h2>
+        <table class="fiche">
+          <thead>
+            <tr><th scope="col">Rôle</th><th scope="col">Écran</th><th scope="col">Quadri</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Lime</th><td><code>#d4ff00</code></td><td>C 17 · M 0 · J 100 · N 0</td></tr>
+            <tr><th scope="row">Bleu</th><td><code>#4f46e6</code></td><td>C 66 · M 70 · J 0 · N 10</td></tr>
+            <tr><th scope="row">Noir</th><td><code>#0a0a0a</code></td><td>noir riche C 60 · M 40 · J 40 · N 100</td></tr>
+          </tbody>
+        </table>
+        <p class="remarque">Le PDF sort en RVB : à convertir en CMJN avec le profil de la presse. Le lime est hors gamut, prévoir un ton direct si l’éclat compte. Recto en aplat noir, pelliculation mate conseillée.</p>
+      </section>
+    </div>
+  </div>
+
+</body>
+</html>

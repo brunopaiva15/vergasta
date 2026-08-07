@@ -3,8 +3,8 @@
 Ce document sert à reprendre le site sans en défaire la cohérence. Il dit ce
 qu'on fait, et surtout ce qu'on ne fait pas et pourquoi.
 
-Le site est statique : quatre pages HTML, une feuille de style, un script, des
-polices. Pas de build, pas de dépendance, pas de gestionnaire de paquets. On
+Le site est statique : quatre pages HTML publiques, une page d'atelier non
+référencée, deux feuilles de style, un script, des polices. Pas de build, pas de dépendance, pas de gestionnaire de paquets. On
 édite les fichiers, on pousse, GitHub Pages sert.
 
 ---
@@ -22,7 +22,7 @@ des années 2000, pas celui d'une brochure imprimée. Le reste du site en décou
 | Encre atténuée | `#545454` | texte secondaire (7,4:1 sur blanc) |
 | Filet | `#d7d7d7` | séparations légères |
 | Lime | `#d4ff00` | surlignage, bandeaux, ombres portées |
-| Bleu | `#4f46e5` | liens, puces |
+| Bleu | `#4f46e6` | liens, puces |
 | Grille | `rgba(10,10,10,.14)` | points du fond |
 
 ### La règle du lime
@@ -220,3 +220,32 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 - JavaScript coupé : aucun trou dans la mise en page,
 - aucune requête vers un domaine tiers,
 - console sans erreur.
+
+---
+
+## 9. La carte de visite
+
+`carte-de-visite.html` avec `carte.css`. Page d'atelier, liée depuis nulle part
+et en `noindex`. Ce n'est pas une protection : qui connaît l'adresse l'ouvre.
+
+Format fini 85 × 55 mm, fond perdu de 3 mm par côté donc un fichier de
+91 × 61 mm, zone de sécurité à 4 mm du trait de coupe. Tout est en millimètres :
+un millimètre CSS vaut 1/25,4 de pouce, les cotes à l'écran sont les cotes
+imprimées. La règle `@page` fait sortir deux pages exactement à la cote.
+
+Points à ne pas défaire :
+
+- `print-color-adjust: exact` sur les cartes, sinon le recto sort blanc.
+- La bande du recto déborde de 1 mm sous le bord : la coupe doit tomber dans la
+  marque, jamais sur son bord.
+- Son canevas porte `data-dpr="4"`, sans quoi elle sortirait à 96 dpi.
+- La grille du verso est en millimètres. En pixels elle grossissait avec la
+  résolution de sortie.
+- Plaque blanche de 3 mm sous le code QR : la grille traversait sa zone de
+  silence et gênait la lecture.
+- Le QR est un tracé figé. Pour changer l'adresse, le regénérer et vérifier
+  qu'il se relit.
+
+Un navigateur exporte en RVB, jamais en CMJN. Le lime et le bleu sont hors
+gamut CMJN : en quadri ils perdent de l'éclat, un ton direct est la seule
+réponse si cet éclat compte.
