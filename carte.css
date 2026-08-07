@@ -1,0 +1,423 @@
+/* ==========================================================================
+   Carte de visite — page d'atelier, non référencée
+   --------------------------------------------------------------------------
+   Tout est en millimètres. Un millimètre CSS vaut exactement 1/25,4 de pouce,
+   donc les cotes à l'écran et les cotes à l'impression sont les mêmes valeurs :
+   il n'y a pas de conversion à faire quelque part.
+
+   Format fini 85 × 55 mm, fond perdu de 3 mm par côté, donc une carte de
+   91 × 61 mm. La zone de sécurité est à 4 mm du trait de coupe, soit 7 mm du
+   bord du fichier : c'est la marge intérieure du contenu.
+   ========================================================================== */
+
+:root {
+  --fini-l: 85mm;
+  --fini-h: 55mm;
+  --perdu: 3mm;
+  --carte-l: 91mm;   /* 85 + 3 + 3 */
+  --carte-h: 61mm;   /* 55 + 3 + 3 */
+  --securite: 4mm;
+  --marge: 7mm;      /* perdu + securite */
+  --zoom: 1;
+}
+
+/* La page d'atelier n'a ni la grille de fond du site ni sa largeur de lecture. */
+body.atelier {
+  background-image: none;
+  background: #ededed;
+}
+
+.chrome {
+  background: var(--paper);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 3px double var(--rule-hard);
+}
+
+.chrome + .chrome,
+.planche + .chrome {
+  border-bottom: 0;
+  border-top: 3px double var(--rule-hard);
+}
+
+.chrome h1 {
+  font-size: 2.6rem;
+  text-transform: uppercase;
+}
+
+.chapeau {
+  max-width: 34rem;
+  margin-top: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.commandes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: 1.5rem;
+}
+
+.commandes .button {
+  margin-top: 0;
+  cursor: pointer;
+  font-family: var(--display);
+}
+
+.reglages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.reglages label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   La planche
+   -------------------------------------------------------------------------- */
+
+.planche {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2.5rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.etiquette {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.porte-carte {
+  /* le zoom agrandit la boîte autant que la carte, sinon les cartes se
+     chevaucheraient une fois la mise à l'échelle appliquée */
+  width: calc(var(--carte-l) * var(--zoom));
+}
+
+.carte {
+  position: relative;
+  width: var(--carte-l);
+  height: var(--carte-h);
+  overflow: hidden;
+  transform: scale(var(--zoom));
+  transform-origin: top left;
+  margin-bottom: calc((var(--carte-h) * var(--zoom)) - var(--carte-h));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+  /* sans quoi le navigateur supprime les aplats à l'impression */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.fond-perdu {
+  position: absolute;
+  inset: 0;
+}
+
+.carte--recto {
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.carte--verso {
+  background: var(--paper);
+  color: var(--ink);
+  /* en millimètres et non en pixels : à l'impression, un point défini en px
+     grossit avec la résolution de sortie et vire au moucheté */
+  background-image: radial-gradient(circle at 0.18mm 0.18mm, rgba(10, 10, 10, 0.18) 0.18mm, transparent 0);
+  background-size: 2mm 2mm;
+}
+
+.contenu {
+  position: absolute;
+  inset: var(--marge);
+}
+
+/* --------------------------------------------------------------------------
+   Recto
+   -------------------------------------------------------------------------- */
+
+.croix {
+  display: block;
+  width: 11mm;
+  height: 11mm;
+}
+
+.nom-marque {
+  font-family: var(--display);
+  font-size: 8.4mm;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--lime);
+  margin-top: 4mm;
+}
+
+.devise {
+  font-size: 2.6mm;
+  line-height: 1.35;
+  color: #9a9a9a;
+  margin-top: 1.6mm;
+}
+
+/* La bande déborde volontairement dans le fond perdu, sur les trois côtés du
+   bas : au massicot, la coupe tombe dans la marque et jamais sur son bord. */
+.bande-carte {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1mm;
+  height: 15mm;
+}
+
+/* --------------------------------------------------------------------------
+   Verso
+   -------------------------------------------------------------------------- */
+
+.carte--verso .contenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4mm;
+}
+
+.nom {
+  font-family: var(--display);
+  font-size: 5.4mm;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.fonction {
+  font-size: 2.5mm;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  margin-top: 1.4mm;
+  padding-bottom: 2.4mm;
+  border-bottom: 0.5mm solid var(--lime);
+  display: inline-block;
+}
+
+.coordonnees {
+  margin-top: 2.6mm;
+  font-size: 2.7mm;
+  line-height: 1.6;
+}
+
+.site {
+  font-family: var(--display);
+  font-size: 4mm;
+  line-height: 1;
+  color: var(--bleu);
+  margin-top: 2.6mm;
+}
+
+/* Un code QR a besoin d'une zone de silence d'au moins quatre modules. La
+   grille du verso la traversait : une plaque blanche la rétablit. */
+.colonne-qr {
+  background: #ffffff;
+  padding: 3mm;
+  flex: none;
+}
+
+.qr {
+  display: block;
+  width: 17mm;
+  height: 17mm;
+  color: var(--ink);
+}
+
+.ide {
+  position: absolute;
+  left: var(--marge);
+  bottom: var(--marge);
+  font-size: 2.1mm;
+  line-height: 1;
+  color: #8d8d8d;
+}
+
+/* Réservations : signalées à l'écran, neutres à l'impression. */
+.a-completer {
+  border-left: 0.6mm solid var(--bleu);
+  padding-left: 1mm;
+  margin-left: -1.6mm;
+}
+
+/* --------------------------------------------------------------------------
+   Repères
+
+   Le trait de coupe et la zone de sécurité sont des aides de contrôle. Ils ne
+   s'impriment jamais : le fichier remis doit être propre.
+   -------------------------------------------------------------------------- */
+
+.reperes span {
+  position: absolute;
+  pointer-events: none;
+}
+
+.coupe {
+  inset: var(--perdu);
+  outline: 0.25mm dashed rgba(255, 0, 0, 0.75);
+}
+
+.securite {
+  inset: var(--marge);
+  outline: 0.25mm dotted rgba(0, 128, 255, 0.75);
+}
+
+body:has(#reperes:not(:checked)) .reperes {
+  display: none;
+}
+
+body:has(#zoom:checked) {
+  --zoom: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Notes
+   -------------------------------------------------------------------------- */
+
+.notes section + section {
+  margin-top: 2.25rem;
+}
+
+.notes h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.fiche {
+  border-collapse: collapse;
+  max-width: 44rem;
+}
+
+.fiche th,
+.fiche td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.45rem 1.5rem 0.45rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.95rem;
+}
+
+.fiche thead th {
+  border-bottom: 2px solid var(--rule-hard);
+}
+
+.fiche tbody th {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.fiche td {
+  color: var(--ink-soft);
+}
+
+.marche {
+  max-width: 40rem;
+  counter-reset: etape;
+}
+
+.marche li {
+  position: relative;
+  counter-increment: etape;
+  padding-left: 1.8rem;
+  color: var(--ink-soft);
+}
+
+.marche li + li {
+  margin-top: 0.35rem;
+}
+
+.marche li::before {
+  content: counter(etape);
+  position: absolute;
+  left: 0;
+  font-family: var(--display);
+  color: var(--ink);
+}
+
+.remarque {
+  max-width: 40rem;
+  margin-top: 0.85rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.notes code,
+.notes kbd {
+  font-family: ui-monospace, monospace;
+  font-size: 0.88em;
+  background: #f0f0f0;
+  padding: 0.05em 0.3em;
+}
+
+.notes strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   Impression
+
+   Deux pages de 91 × 61 mm, sans marge : le fichier est exactement à la cote
+   du fond perdu. Tout le reste de la page disparaît.
+   -------------------------------------------------------------------------- */
+
+@page {
+  size: 91mm 61mm;
+  margin: 0;
+}
+
+@media print {
+  body.atelier {
+    background: #ffffff;
+  }
+
+  .chrome,
+  .chrome-inline,
+  .reperes {
+    display: none !important;
+  }
+
+  .planche {
+    display: block;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
+
+  .porte-carte {
+    width: auto;
+    margin: 0;
+    /* une face par page */
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .porte-carte:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .carte {
+    /* jamais de zoom ni d'ombre sur un fichier destiné au massicot */
+    transform: none;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .a-completer {
+    border-left: 0;
+    padding-left: 0;
+    margin-left: 0;
+  }
+}
