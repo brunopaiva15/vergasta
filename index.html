@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="brushes.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -37,6 +38,7 @@
 
   <main>
     <section class="opening wrap">
+      <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
       <h1>Des sites et des applications pour les entreprises d’ici.</h1>
       <div class="opening-body">
         <p>
@@ -53,7 +55,10 @@
     </section>
 
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
-      <h2 id="metier-title">Ce que nous faisons</h2>
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div>
+        <h2 id="metier-title">Ce que nous faisons</h2>
+      </div>
       <div class="slab-body">
         <dl class="trades">
           <dt>Des sites de présentation</dt>
@@ -83,7 +88,10 @@
     </section>
 
     <section id="deroule" class="slab wrap" aria-labelledby="deroule-title">
-      <h2 id="deroule-title">Déroulé d’un projet</h2>
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="deroule" aria-hidden="true"></div>
+        <h2 id="deroule-title">Déroulé d’un projet</h2>
+      </div>
       <div class="slab-body">
         <div class="run-through">
           <div>
@@ -119,7 +127,10 @@
     </section>
 
     <section id="realisations" class="slab wrap" aria-labelledby="realisations-title">
-      <h2 id="realisations-title">Réalisations</h2>
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="realisations" aria-hidden="true"></div>
+        <h2 id="realisations-title">Réalisations</h2>
+      </div>
       <div class="slab-body">
         <table class="index">
           <caption>Les six projets en ligne aujourd’hui. Ils sont tous consultables.</caption>
@@ -185,7 +196,10 @@
     </section>
 
     <section id="contact" class="slab wrap" aria-labelledby="contact-title">
-      <h2 id="contact-title">Écrire</h2>
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="contact" aria-hidden="true"></div>
+        <h2 id="contact-title">Écrire</h2>
+      </div>
       <div class="slab-body contact-body">
         <p>
           Un projet à chiffrer, un site vieillissant à reprendre, ou simplement une
@@ -209,6 +223,7 @@
 
   <footer class="site-footer">
     <div class="wrap">
+      <div class="mark band" data-mark="bande" aria-hidden="true"></div>
       <div class="colophon">
         <p class="motto">Par la région, pour la région.</p>
         <p>© 2026 Vergasta Digital, St-Imier</p>
