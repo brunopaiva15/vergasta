@@ -240,15 +240,6 @@ body.atelier {
   color: var(--ink);
 }
 
-.ide {
-  position: absolute;
-  left: var(--marge);
-  bottom: var(--marge);
-  font-size: 2.1mm;
-  line-height: 1;
-  color: #8d8d8d;
-}
-
 /* Réservations : signalées à l'écran, neutres à l'impression. */
 .a-completer {
   border-left: 0.6mm solid var(--bleu);
