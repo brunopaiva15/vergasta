@@ -5,19 +5,24 @@
    donc les cotes à l'écran et les cotes à l'impression sont les mêmes valeurs :
    il n'y a pas de conversion à faire quelque part.
 
-   Format fini 85 × 55 mm, fond perdu de 3 mm par côté, donc une carte de
-   91 × 61 mm. La zone de sécurité est à 4 mm du trait de coupe, soit 7 mm du
-   bord du fichier : c'est la marge intérieure du contenu.
+   Cotes prises sur le gabarit de l'imprimeur, et non sur une règle générale :
+   marge perdue 88 × 58 mm, coupe 85 × 55 mm, sécurité 82 × 52 mm. Cela fait
+   1,5 mm de fond perdu par côté et 1,5 mm de sécurité à l'intérieur de la
+   coupe, moitié moins que les 3 mm usuels.
+
+   Le contenu est posé à 5,5 mm du bord du fichier, soit 4 mm à l'intérieur de
+   la coupe : bien plus prudent que le minimum exigé, et la même composition
+   qu'avant puisque la boîte de contenu garde ses 77 × 47 mm.
    ========================================================================== */
 
 :root {
   --fini-l: 85mm;
   --fini-h: 55mm;
-  --perdu: 3mm;
-  --carte-l: 91mm;   /* 85 + 3 + 3 */
-  --carte-h: 61mm;   /* 55 + 3 + 3 */
-  --securite: 4mm;
-  --marge: 7mm;      /* perdu + securite */
+  --perdu: 1.5mm;
+  --carte-l: 88mm;      /* 85 + 1,5 + 1,5 */
+  --carte-h: 58mm;      /* 55 + 1,5 + 1,5 */
+  --securite-mini: 3mm; /* exigence du gabarit : 1,5 mm sous la coupe */
+  --marge: 5.5mm;       /* notre retrait : 4 mm sous la coupe */
   --zoom: 1;
 }
 
@@ -269,7 +274,7 @@ body.atelier {
 }
 
 .securite {
-  inset: var(--marge);
+  inset: var(--securite-mini);
   outline: 0.25mm dotted rgba(0, 128, 255, 0.75);
 }
 
@@ -373,7 +378,7 @@ body:has(#zoom:checked) {
    -------------------------------------------------------------------------- */
 
 @page {
-  size: 91mm 61mm;
+  size: 88mm 58mm;
   margin: 0;
 }
 
