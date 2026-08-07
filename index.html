@@ -3,150 +3,236 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vergasta Digital · Sites &amp; apps sur mesure</title>
-  <meta name="description" content="Vergasta Digital — sites web, applications et e-commerce sur mesure. Basés à St-Imier, Jura bernois.">
+  <title>Vergasta Digital, atelier web à St-Imier</title>
+  <meta name="description" content="Vergasta Digital construit des sites, des applications et des boutiques en ligne pour les entreprises du Jura bernois. Atelier installé rue du Temple, à St-Imier.">
   <link rel="canonical" href="https://vergasta.ch/">
   <link rel="icon" href="favicon.ico">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f1ea">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Vergasta Digital">
   <meta property="og:locale" content="fr_CH">
-  <meta property="og:title" content="Vergasta Digital · Sites &amp; apps sur mesure">
-  <meta property="og:description" content="Vergasta Digital — sites web, applications et e-commerce sur mesure. Basés à St-Imier, Jura bernois.">
+  <meta property="og:title" content="Vergasta Digital, atelier web à St-Imier">
+  <meta property="og:description" content="Vergasta Digital construit des sites, des applications et des boutiques en ligne pour les entreprises du Jura bernois. Atelier installé rue du Temple, à St-Imier.">
   <meta property="og:url" content="https://vergasta.ch/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="brushes.js" defer></script>
 </head>
 <body>
   <header class="site-header">
-    <nav class="nav wrap" aria-label="Navigation principale">
-      <a href="/" class="brand">Vergasta Digital</a>
-      <div class="nav-links">
-        <a href="#expertise" class="nav-link">Expertise</a>
-        <a href="#projets" class="nav-link">Réalisations</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </div>
-    </nav>
+    <div class="masthead wrap">
+      <a href="/" class="brand">
+        <img src="logo_vergasta.png" alt="">
+        Vergasta Digital
+      </a>
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="#metier">Ce que nous faisons</a>
+        <a href="#deroule">Déroulé d’un projet</a>
+        <a href="#realisations">Réalisations</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <h1 class="sr-only">Vergasta Digital</h1>
-
-    <section class="section wrap intro" aria-labelledby="intro-title">
-      <p id="intro-title" class="intro-lead">
-        Sites &amp; apps sur mesure
-      </p>
-      <p>
-        Expériences numériques précises pour des entreprises locales exigeantes.
-        Par la région, pour la région — depuis St-Imier, dans le Jura bernois.
-      </p>
+    <section class="opening wrap">
+      <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
+      <h1>Des sites et des applications pour les entreprises d’ici.</h1>
+      <div class="opening-body">
+        <p>
+          Vergasta Digital est un atelier web installé à la rue du Temple, à St-Imier.
+          Nous écrivons des sites de présentation, des outils internes et des boutiques
+          en ligne pour des menuisiers, des commerçants et des indépendants du Jura bernois.
+        </p>
+        <p>
+          Bruno Vergasta Paiva suit chaque mandat du premier devis à la mise en ligne.
+          C’est une activité menée à côté d’un emploi, donc peu de mandats à la fois,
+          mais un seul interlocuteur et personne à qui faire répéter votre demande.
+        </p>
+      </div>
     </section>
 
-    <section id="expertise" class="section wrap" aria-labelledby="expertise-title">
-      <h2 id="expertise-title" class="section-title">Expertise</h2>
-      <div class="services">
-        <div class="service">
-          <h3>Sites vitrines</h3>
-          <p>Sites de communication clairs et rapides, pensés pour la lisibilité et le référencement.</p>
-        </div>
-        <div class="service">
-          <h3>Applications web</h3>
-          <p>Outils métiers et interfaces sur mesure pour digitaliser vos processus.</p>
-        </div>
-        <div class="service">
-          <h3>E-commerce</h3>
-          <p>Boutiques adaptées à votre catalogue, avec paiements modernes (Stripe, Twint).</p>
+    <section id="metier" class="slab wrap" aria-labelledby="metier-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div>
+        <h2 id="metier-title">Ce que nous faisons</h2>
+      </div>
+      <div class="slab-body">
+        <dl class="trades">
+          <dt>Des sites de présentation</dt>
+          <dd>
+            Montrer une entreprise, ses prestations et ses coordonnées sans que le visiteur
+            ait à chercher, et faire en sorte qu’on la trouve quand on tape son métier et
+            le nom de la commune. C’est ce que nous avons construit pour la menuiserie
+            F. Da Silva sàrl.
+          </dd>
+
+          <dt>Des applications</dt>
+          <dd>
+            Le moment où le classeur ou le fichier Excel ne suffit plus. Disque Bleu est
+            une application de disque de stationnement pour iPhone et Android ; Axolot est
+            une plateforme complète avec comptes, données et tableaux de bord. Les deux
+            partent du même endroit : quelqu’un qui perdait du temps sur une tâche répétée.
+          </dd>
+
+          <dt>Des boutiques en ligne</dt>
+          <dd>
+            Catalogue, panier, paiement par carte et par Twint via Stripe, suivi des
+            commandes depuis une interface que vous tenez vous-même. Custom To Lylia
+            et BDPokéCards vendent sur cette base.
+          </dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="deroule" class="slab wrap" aria-labelledby="deroule-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="deroule" aria-hidden="true"></div>
+        <h2 id="deroule-title">Déroulé d’un projet</h2>
+      </div>
+      <div class="slab-body">
+        <div class="run-through">
+          <div>
+            <p class="lead-in">
+              On commence par un échange, au téléphone ou autour d’un café à St-Imier,
+              pour comprendre l’activité et ce que le site doit réellement faire. Vous
+              recevez ensuite un devis détaillé par email, avec le prix et le calendrier.
+            </p>
+            <p>
+              Une maquette est validée avant la première ligne de code. Pendant le
+              développement, une adresse de test vous permet de regarder où en est le
+              travail quand vous le voulez, sans attendre une présentation.
+            </p>
+            <p>
+              À la mise en ligne, nous nous occupons du domaine, des redirections et des
+              réglages d’indexation. Le code source vous appartient dès que la facture
+              est réglée, et vous restez libre de le confier à quelqu’un d’autre ensuite.
+            </p>
+          </div>
+
+          <aside class="aside">
+            <h3>Bon à savoir</h3>
+            <ul>
+              <li>Devis fixe, acompte à la commande.</li>
+              <li>Correction des bugs de livraison comprise dans le prix.</li>
+              <li>Hébergement et nom de domaine à votre charge, sauf accord contraire.</li>
+              <li>La mention Vergasta Digital reste dans le pied de page du site livré.</li>
+              <li>Contrat de maintenance possible une fois la garantie passée.</li>
+            </ul>
+          </aside>
         </div>
       </div>
     </section>
 
-    <section id="projets" class="section wrap" aria-labelledby="projets-title">
-      <h2 id="projets-title" class="section-title">Réalisations</h2>
-      <ul class="projects">
-        <li>
-          <a href="https://axolot.ch" target="_blank" rel="noopener noreferrer">
-            <span class="project-name">Axolot</span>
-            <span class="project-meta">
-              <span class="project-type">Plateforme SaaS</span>
-              <span class="project-year">2026</span>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="https://fdasilvasarl.ch" target="_blank" rel="noopener noreferrer">
-            <span class="project-name">F. Da Silva sàrl</span>
-            <span class="project-meta">
-              <span class="project-type">Site vitrine</span>
-              <span class="project-year">2026</span>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">
-            <span class="project-name">Yamanote 3D</span>
-            <span class="project-meta">
-              <span class="project-type">Jeu</span>
-              <span class="project-year">2026</span>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">
-            <span class="project-name">Custom To Lylia</span>
-            <span class="project-meta">
-              <span class="project-type">E-commerce</span>
-              <span class="project-year">2026</span>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer">
-            <span class="project-name">Disque Bleu</span>
-            <span class="project-meta">
-              <span class="project-type">App iOS / Android</span>
-              <span class="project-year">2026</span>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">
-            <span class="project-name">BDPokéCards</span>
-            <span class="project-meta">
-              <span class="project-type">E-commerce</span>
-              <span class="project-year">2025</span>
-            </span>
-          </a>
-        </li>
-      </ul>
+    <section id="realisations" class="slab wrap" aria-labelledby="realisations-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="realisations" aria-hidden="true"></div>
+        <h2 id="realisations-title">Réalisations</h2>
+      </div>
+      <div class="slab-body">
+        <table class="index">
+          <caption>Les six projets en ligne aujourd’hui. Ils sont tous consultables.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Projet</th>
+              <th scope="col">Type</th>
+              <th scope="col">Année</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a href="https://axolot.ch" target="_blank" rel="noopener noreferrer">Axolot</a>
+                <span class="host">axolot.ch</span>
+              </td>
+              <td class="kind">Plateforme SaaS</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://fdasilvasarl.ch" target="_blank" rel="noopener noreferrer">F. Da Silva sàrl</a>
+                <span class="host">fdasilvasarl.ch</span>
+              </td>
+              <td class="kind">Site de présentation</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">Yamanote 3D</a>
+                <span class="host">yamanote-3d.com</span>
+              </td>
+              <td class="kind">Jeu</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">Custom To Lylia</a>
+                <span class="host">customtolylia.ch</span>
+              </td>
+              <td class="kind">Boutique en ligne</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer">Disque Bleu</a>
+                <span class="host">disquebleusuisse.ch</span>
+              </td>
+              <td class="kind">Application iOS et Android</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">BDPokéCards</a>
+                <span class="host">bd-pokecards.ch</span>
+              </td>
+              <td class="kind">Boutique en ligne</td>
+              <td class="when">2025</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
-    <section id="contact" class="section wrap" aria-labelledby="contact-title">
-      <h2 id="contact-title" class="section-title">Contact</h2>
-      <div class="contact-block">
-        <p>Un projet en tête ? Écrivons-nous.</p>
-        <a class="contact-link" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Nous contacter →</a>
+    <section id="contact" class="slab wrap" aria-labelledby="contact-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="contact" aria-hidden="true"></div>
+        <h2 id="contact-title">Écrire</h2>
+      </div>
+      <div class="slab-body contact-body">
+        <p>
+          Un projet à chiffrer, un site vieillissant à reprendre, ou simplement une
+          question sur ce qu’une refonte coûterait : le formulaire arrive directement
+          dans notre boîte et nous répondons en général dans les deux jours ouvrables.
+        </p>
+        <p>
+          Si vous préférez en parler de vive voix, dites-le dans le message et nous
+          conviendrons d’un rendez-vous.
+        </p>
+        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Remplir le formulaire</a>
+
+        <p class="whereabouts">
+          Vergasta Digital, Bruno Vergasta Paiva<br>
+          Rue du Temple 5, 2610 St-Imier<br>
+          IDE CHE-403.843.646
+        </p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <div class="footer-top">
-        <div>
-          <p class="footer-brand">Vergasta Digital</p>
-          <p class="footer-tag">Par la région, pour la région · St-Imier, CH</p>
-        </div>
-        <div class="footer-links">
-          <a href="terms.html" class="nav-link">CGV</a>
-          <a href="privacy.html" class="nav-link">Confidentialité</a>
-          <a href="imprint.html" class="nav-link">Mentions légales</a>
-        </div>
+      <div class="mark band" data-mark="bande" aria-hidden="true"></div>
+      <div class="colophon">
+        <p class="motto">Par la région, pour la région.</p>
+        <p>© 2026 Vergasta Digital, St-Imier</p>
       </div>
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2026 Vergasta Digital · Tous droits réservés</p>
-      </div>
+      <nav class="footer-nav" aria-label="Pages légales">
+        <a href="terms.html">Conditions générales</a>
+        <a href="privacy.html">Confidentialité</a>
+        <a href="imprint.html">Mentions légales</a>
+      </nav>
     </div>
   </footer>
 </body>
