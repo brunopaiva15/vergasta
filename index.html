@@ -1,717 +1,153 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
-
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vergasta Digital | Par la région, pour la région.</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'sans-serif'],
-                        'display': ['Space Grotesk', 'sans-serif'],
-                        'mono': ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        'paper': '#FFFFFF',
-                        'ink': '#111111',
-                        'accent-lime': '#D4FF00',
-                        'accent-blue': '#4F46E5',
-                        'swiss-grey': '#6F6F6F',
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body {
-            background-color: var(--tw-color-paper);
-        }
-
-        /* LENIS */
-        html.lenis { height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto !important; }
-        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-        .lenis.lenis-stopped { overflow: hidden; }
-
-        /* MARQUEE */
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 30s linear infinite;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* HOVER LINES (SWISS STYLE) */
-        .hover-line {
-            position: relative;
-            display: inline-block;
-        }
-        .hover-line::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 1px;
-            bottom: -2px;
-            left: 0;
-            background-color: currentColor;
-            transform-origin: bottom right;
-            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
-        }
-        .hover-line:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        /* EDITORIAL LIST */
-        .project-item {
-            border-bottom: 1px solid rgba(17, 17, 17, 0.1);
-        }
-        .project-item:first-child {
-            border-top: 1px solid rgba(17, 17, 17, 0.1);
-        }
-
-        /* PROJECT BROWSER FRAME */
-        .project-browser {
-            opacity: 0;
-            transform: translate(60px, -50%) scale(0.95) !important;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out;
-            pointer-events: none;
-        }
-        .project-item:hover .project-browser {
-            opacity: 1;
-            transform: translate(0, -50%) scale(1) !important;
-        }
-
-        /* HEADER SCROLLED STATE */
-        .header-scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(17, 17, 17, 0.1);
-        }
-
-        /* Browser chrome */
-        .browser-chrome {
-            background: #1a1a1a;
-            border-radius: 12px 12px 0 0;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .browser-dots {
-            display: flex;
-            gap: 6px;
-        }
-        .browser-dots span {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-        .browser-dots span:nth-child(1) { background: #ff5f57; }
-        .browser-dots span:nth-child(2) { background: #ffbd2e; }
-        .browser-dots span:nth-child(3) { background: #28c840; }
-        .browser-url {
-            flex: 1;
-            background: rgba(255,255,255,0.08);
-            border-radius: 6px;
-            padding: 5px 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            color: rgba(255,255,255,0.5);
-            letter-spacing: 0.02em;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .browser-viewport {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0 0 12px 12px;
-            background: #f5f5f5;
-            aspect-ratio: 16 / 10;
-        }
-        .browser-viewport iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 1440px;
-            height: 900px;
-            transform-origin: top left;
-            border: none;
-        }
-
-        /* Shadow for the browser frame */
-        .project-browser-wrapper {
-            filter: drop-shadow(0 25px 60px rgba(0,0,0,0.15)) drop-shadow(0 8px 20px rgba(0,0,0,0.08));
-            border-radius: 12px;
-        }
-
-        /* Overlay gradient for visual polish */
-        .browser-viewport::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.03) 100%);
-            pointer-events: none;
-            z-index: 1;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vergasta Digital · Sites &amp; apps sur mesure</title>
+  <meta name="description" content="Vergasta Digital — sites web, applications et e-commerce sur mesure. Basés à St-Imier, Jura bernois.">
+  <link rel="canonical" href="https://vergasta.ch/">
+  <link rel="icon" href="favicon.ico">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Vergasta Digital">
+  <meta property="og:locale" content="fr_CH">
+  <meta property="og:title" content="Vergasta Digital · Sites &amp; apps sur mesure">
+  <meta property="og:description" content="Vergasta Digital — sites web, applications et e-commerce sur mesure. Basés à St-Imier, Jura bernois.">
+  <meta property="og:url" content="https://vergasta.ch/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Navigation principale">
+      <a href="/" class="brand">Vergasta Digital</a>
+      <div class="nav-links">
+        <a href="#expertise" class="nav-link">Expertise</a>
+        <a href="#projets" class="nav-link">Réalisations</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+    </nav>
+  </header>
 
-<body class="text-ink font-sans antialiased selection:bg-accent-blue selection:text-white">
+  <main>
+    <h1 class="sr-only">Vergasta Digital</h1>
 
-    <header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-500 text-ink">
-        <div class="px-6 md:px-12 py-6 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3">
-                <img src="logo_vergasta.png" alt="Logo" class="h-6 w-auto">
-                <span class="font-display font-medium text-lg tracking-tight hover-line">Vergasta Digital</span>
-            </a>
+    <section class="section wrap intro" aria-labelledby="intro-title">
+      <p id="intro-title" class="intro-lead">
+        Sites &amp; apps sur mesure
+      </p>
+      <p>
+        Expériences numériques précises pour des entreprises locales exigeantes.
+        Par la région, pour la région — depuis St-Imier, dans le Jura bernois.
+      </p>
+    </section>
 
-            <nav class="hidden md:flex gap-12 text-sm font-medium uppercase tracking-widest mt-1">
-                <a href="#expertise" class="hover-line text-xs">Expertise</a>
-                <a href="#projets" class="hover-line text-xs">Réalisations</a>
-                <a href="#contact" class="hover-line text-xs">Contact</a>
-            </nav>
-
-            <a href="https://tally.so/r/MeX9kM" target="_blank" class="hidden md:block font-mono text-xs uppercase tracking-widest hover-line">
-                Démarrer un projet ↗
-            </a>
-
-            <button id="mobile-menu-btn" class="md:hidden text-lg focus:outline-none uppercase font-mono text-xs tracking-widest">Menu</button>
+    <section id="expertise" class="section wrap" aria-labelledby="expertise-title">
+      <h2 id="expertise-title" class="section-title">Expertise</h2>
+      <div class="services">
+        <div class="service">
+          <h3>Sites vitrines</h3>
+          <p>Sites de communication clairs et rapides, pensés pour la lisibilité et le référencement.</p>
         </div>
-
-        <div id="mobile-menu" class="fixed inset-0 bg-paper text-ink z-40 flex flex-col justify-center px-6 opacity-0 pointer-events-none transition-opacity duration-500">
-            <nav class="flex flex-col gap-8 text-4xl font-display uppercase tracking-tighter">
-                <a href="#expertise" class="mobile-link overflow-hidden"><span class="block">Expertise</span></a>
-                <a href="#projets" class="mobile-link overflow-hidden"><span class="block">Réalisations</span></a>
-                <a href="#contact" class="mobile-link overflow-hidden"><span class="block">Contact</span></a>
-                <a href="https://tally.so/r/MeX9kM" target="_blank" class="mobile-link overflow-hidden mt-12 text-xl text-swiss-grey font-mono"><span class="block">Démarrer un projet ↗</span></a>
-            </nav>
+        <div class="service">
+          <h3>Applications web</h3>
+          <p>Outils métiers et interfaces sur mesure pour digitaliser vos processus.</p>
         </div>
-    </header>
-
-    <main>
-        <!-- HERO SECTION -->
-        <section class="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-24 overflow-hidden bg-paper">
-            
-            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-full md:w-1/2 h-full flex items-center justify-end md:justify-center opacity-[0.04] pointer-events-none mix-blend-multiply">
-                <img src="country.png" alt="" class="h-auto w-full md:w-[120%] object-contain scale-150 transform transition-transform duration-[20s] ease-linear hover:scale-[1.55]">
-            </div>
-
-            <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 w-full max-w-[1600px] mx-auto">
-                <div class="md:col-span-2 hidden md:block mt-8">
-                    <div class="font-mono text-[10px] text-swiss-grey gs-reveal opacity-0 tracking-widest leading-loose">
-                        47.1523° N<br>
-                        6.9960° E<br>
-                        ST-IMIER, CH
-                    </div>
-                </div>
-
-                <div class="md:col-span-10 flex flex-col items-start">
-
-                    <h1 class="font-display font-medium text-[13vw] md:text-[9vw] leading-[0.85] tracking-tighter uppercase gs-reveal-title text-ink break-words w-full">
-                        <span id="hero-word-1" class="inline-block relative">SITES & APPS</span><br>
-                        <span class="text-swiss-grey"><span id="hero-word-2" class="inline-block relative">SUR MESURE</span><span class="text-accent-blue">.</span></span>
-                    </h1>
-
-                    <div class="mt-16 md:mt-32 max-w-2xl flex flex-col gap-8 gs-reveal opacity-0">
-                        <p class="text-lg md:text-xl text-ink leading-relaxed font-medium">
-                            Nous agençons des expériences numériques de haute précision pour des entreprises locales exigeantes. 
-                        </p>
-                        <p class="text-sm text-swiss-grey leading-loose">
-                            Par la région, pour la région. Basés dans le Jura bernois, nous accompagnons les PME dans leur transition avec une approche "Swiss Style" alliant esthétique, fonction et performance.
-                        </p>
-                        
-                        <a href="#expertise" class="group flex items-center gap-4 mt-4 w-fit">
-                            <div class="w-10 h-10 rounded-full border border-ink/20 flex items-center justify-center group-hover:bg-ink group-hover:text-paper group-hover:border-ink transition-colors duration-500">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-                            </div>
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-ink group-hover:text-swiss-grey transition-colors duration-500">Explorer</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MARQUEE -->
-        <div class="bg-ink text-paper py-4 md:py-5 marquee-container font-mono text-xs md:text-sm uppercase tracking-widest border-y border-ink">
-            <div class="marquee-content">
-                &nbsp;&nbsp;SITES WEB — APPLICATIONS WEB — E-COMMERCE — STRATÉGIE DIGITALE — UI/UX DESIGN — IDENTITY — DÉVELOPPEMENT SUR MESURE —
-            </div>
+        <div class="service">
+          <h3>E-commerce</h3>
+          <p>Boutiques adaptées à votre catalogue, avec paiements modernes (Stripe, Twint).</p>
         </div>
+      </div>
+    </section>
 
-        <!-- EXPERTISE -->
-        <section id="expertise" class="py-32 md:py-48 px-6 md:px-12 bg-paper">
-            <div class="max-w-[1600px] mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-6">
-                    <div class="md:col-span-4 gs-reveal opacity-0">
-                        <h2 class="font-display font-medium text-4xl md:text-6xl tracking-tighter uppercase mb-6">Expertise</h2>
-                        <p class="text-swiss-grey max-w-xs text-sm leading-loose">
-                            Sans templates, sans compromis. L'art et la manière du développement web de pointe.
-                        </p>
-                    </div>
+    <section id="projets" class="section wrap" aria-labelledby="projets-title">
+      <h2 id="projets-title" class="section-title">Réalisations</h2>
+      <ul class="projects">
+        <li>
+          <a href="https://axolot.ch" target="_blank" rel="noopener noreferrer">
+            <span class="project-name">Axolot</span>
+            <span class="project-meta">
+              <span class="project-type">Plateforme SaaS</span>
+              <span class="project-year">2026</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://fdasilvasarl.ch" target="_blank" rel="noopener noreferrer">
+            <span class="project-name">F. Da Silva sàrl</span>
+            <span class="project-meta">
+              <span class="project-type">Site vitrine</span>
+              <span class="project-year">2026</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">
+            <span class="project-name">Yamanote 3D</span>
+            <span class="project-meta">
+              <span class="project-type">Jeu</span>
+              <span class="project-year">2026</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">
+            <span class="project-name">Custom To Lylia</span>
+            <span class="project-meta">
+              <span class="project-type">E-commerce</span>
+              <span class="project-year">2026</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer">
+            <span class="project-name">Disque Bleu</span>
+            <span class="project-meta">
+              <span class="project-type">App iOS / Android</span>
+              <span class="project-year">2026</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">
+            <span class="project-name">BDPokéCards</span>
+            <span class="project-meta">
+              <span class="project-type">E-commerce</span>
+              <span class="project-year">2025</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
 
-                    <div class="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24 mt-12 md:mt-0">
-                        <!-- 01 -->
-                        <div class="gs-reveal opacity-0">
-                            <div class="font-mono text-[10px] text-swiss-grey mb-6 tracking-widest">01.</div>
-                            <h3 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight">Sites Vitrines & Éditoriaux</h3>
-                            <p class="text-sm text-swiss-grey leading-loose mb-8">
-                                Plates-formes de communication fluides et performantes. Nous accordons une attention obsessionnelle à la typographie, aux micro-interactions et à la vitesse.
-                            </p>
-                            <ul class="text-[11px] text-ink uppercase tracking-widest space-y-4 font-mono">
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Design responsive</li>
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Optimisation SEO</li>
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Performance extrême</li>
-                            </ul>
-                        </div>
+    <section id="contact" class="section wrap" aria-labelledby="contact-title">
+      <h2 id="contact-title" class="section-title">Contact</h2>
+      <div class="contact-block">
+        <p>Un projet en tête ? Écrivons-nous.</p>
+        <a class="contact-link" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Nous contacter →</a>
+      </div>
+    </section>
+  </main>
 
-                        <!-- 02 -->
-                        <div class="gs-reveal opacity-0">
-                            <div class="font-mono text-[10px] text-swiss-grey mb-6 tracking-widest">02.</div>
-                            <h3 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight">Ingénierie Web & Apps</h3>
-                            <p class="text-sm text-swiss-grey leading-loose mb-8">
-                                Outils métiers sur mesure et architectures complexes. Nous développons des applications pour digitaliser vos processus internes et votre gestion.
-                            </p>
-                            <ul class="text-[11px] text-ink uppercase tracking-widest space-y-4 font-mono">
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-lime"></span> Interfaces personnalisées</li>
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-lime"></span> Dashboards et statistiques</li>
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-lime"></span> Apps PWA multi-plateformes</li>
-                            </ul>
-                        </div>
-
-                        <!-- 03 -->
-                        <div class="gs-reveal opacity-0">
-                            <div class="font-mono text-[10px] text-swiss-grey mb-6 tracking-widest">03.</div>
-                            <h3 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight">E-commerce</h3>
-                            <p class="text-sm text-swiss-grey leading-loose mb-8">
-                                Expériences d'achat sur mesure et fluides. Nous concevons des boutiques qui convertissent, avec des intégrations de paiement modernes.
-                            </p>
-                            <ul class="text-[11px] text-ink uppercase tracking-widest space-y-4 font-mono">
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Stripe & Twint API</li>
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Gestion de catalogue poussée</li>
-                                <li class="flex items-center gap-4"><span class="w-6 border-t border-ink text-accent-blue"></span> Tunnels de conversion optimisés</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROJETS -->
-        <section id="projets" class="py-32 md:py-48 px-6 md:px-12 bg-paper">
-            <div class="max-w-[1600px] mx-auto">
-                <h2 class="font-display font-medium text-4xl md:text-6xl tracking-tighter uppercase mb-20 gs-reveal opacity-0">Nos réalisations</h2>
-
-                <div class="flex flex-col">
-                    <!-- Axolot -->
-                    <a href="https://axolot.ch" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
-                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
-                            <div class="project-browser-wrapper">
-                                <div class="browser-chrome">
-                                    <div class="browser-dots">
-                                        <span></span><span></span><span></span>
-                                    </div>
-                                    <div class="browser-url">axolot.ch</div>
-                                </div>
-                                <div class="browser-viewport">
-                                    <iframe src="https://axolot.ch" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
-                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2026</span>
-                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
-                                Axolot
-                            </h3>
-                        </div>
-                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
-                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">Plateforme SaaS</span>
-                        </div>
-                    </a>
-
-                    <!-- F. Da Silva sàrl -->
-                    <a href="https://fdasilvasarl.ch" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
-                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
-                            <div class="project-browser-wrapper">
-                                <div class="browser-chrome">
-                                    <div class="browser-dots">
-                                        <span></span><span></span><span></span>
-                                    </div>
-                                    <div class="browser-url">fdasilvasarl.ch</div>
-                                </div>
-                                <div class="browser-viewport">
-                                    <iframe src="https://fdasilvasarl.ch" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
-                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2026</span>
-                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
-                                F. Da Silva sàrl
-                            </h3>
-                        </div>
-                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
-                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">Site vitrine</span>
-                        </div>
-                    </a>
-
-                    <!-- Yamanote 3D -->
-                    <a href="https://yamanote-3d.com" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
-                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
-                            <div class="project-browser-wrapper">
-                                <div class="browser-chrome">
-                                    <div class="browser-dots">
-                                        <span></span><span></span><span></span>
-                                    </div>
-                                    <div class="browser-url">yamanote-3d.com</div>
-                                </div>
-                                <div class="browser-viewport">
-                                    <iframe src="https://yamanote-3d.com" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
-                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2026</span>
-                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
-                                Yamanote 3D
-                            </h3>
-                        </div>
-                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
-                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">Jeu</span>
-                        </div>
-                    </a>
-
-                    <!-- Custom To Lylia -->
-                    <a href="https://customtolylia.ch" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
-                        <!-- Browser Frame Preview -->
-                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
-                            <div class="project-browser-wrapper">
-                                <div class="browser-chrome">
-                                    <div class="browser-dots">
-                                        <span></span><span></span><span></span>
-                                    </div>
-                                    <div class="browser-url">customtolylia.ch</div>
-                                </div>
-                                <div class="browser-viewport">
-                                    <iframe src="https://customtolylia.ch" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
-                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2026</span>
-                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
-                                Custom To Lylia
-                            </h3>
-                        </div>
-                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
-                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">E-commerce</span>
-                        </div>
-                    </a>
-
-                    <!-- Disque Bleu -->
-                    <a href="https://disquebleusuisse.ch" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
-                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
-                            <div class="project-browser-wrapper">
-                                <div class="browser-chrome">
-                                    <div class="browser-dots">
-                                        <span></span><span></span><span></span>
-                                    </div>
-                                    <div class="browser-url">disquebleusuisse.ch</div>
-                                </div>
-                                <div class="browser-viewport">
-                                    <iframe src="https://disquebleusuisse.ch" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
-                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2026</span>
-                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
-                                Disque Bleu
-                            </h3>
-                        </div>
-                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
-                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">App iOS/Android</span>
-                        </div>
-                    </a>
-
-                    <!-- BDPokéCards -->
-                    <a href="https://bd-pokecards.ch" target="_blank" class="project-item group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8 relative gs-reveal opacity-0">
-                        <div class="project-browser absolute right-8 top-1/2 -translate-y-1/2 w-[420px] z-0 hidden md:block">
-                            <div class="project-browser-wrapper">
-                                <div class="browser-chrome">
-                                    <div class="browser-dots">
-                                        <span></span><span></span><span></span>
-                                    </div>
-                                    <div class="browser-url">bd-pokecards.ch</div>
-                                </div>
-                                <div class="browser-viewport">
-                                    <iframe src="https://bd-pokecards.ch" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-baseline gap-6 md:gap-16 relative z-10 w-full md:w-auto">
-                            <span class="font-mono text-[10px] text-swiss-grey transition-colors duration-500 tracking-widest">2025</span>
-                            <h3 class="font-display font-medium text-4xl md:text-7xl uppercase tracking-tighter text-ink transition-colors duration-500">
-                                BDPokéCards
-                            </h3>
-                        </div>
-                        <div class="relative z-10 flex flex-col md:items-end gap-4 md:mr-[520px] group-hover:md:mr-[520px]">
-                            <span class="font-mono text-[10px] uppercase tracking-widest border border-ink/20 px-3 py-1 bg-white/80 backdrop-blur-sm">E-commerce</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT -->
-        <section id="contact" class="py-32 md:py-48 px-6 md:px-12 bg-white flex flex-col items-center justify-center text-center min-h-[70vh]">
-            <div class="max-w-4xl mx-auto w-full gs-reveal opacity-0">
-                <div class="font-mono text-[10px] text-swiss-grey uppercase tracking-widest mb-16">Le temps de l'action.</div>
-                
-                <h2 class="font-display font-medium text-5xl md:text-[9vw] leading-[0.85] tracking-tighter uppercase mb-20 text-ink">
-                    Démarrer un<br>Projet.
-                </h2>
-
-                <a href="https://tally.so/r/MeX9kM" target="_blank" class="relative group inline-flex items-center justify-center">
-                    <div class="absolute inset-0 border border-ink rounded-full scale-100 group-hover:bg-ink group-hover:scale-105 transition-all duration-700 ease-out"></div>
-                    <div class="relative z-10 px-12 py-5 font-mono text-[11px] uppercase tracking-widest text-ink group-hover:text-paper transition-colors duration-700">
-                        Nous contacter ↗
-                    </div>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-paper py-10 px-6 md:px-12 border-t border-ink/10">
-        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 font-mono text-[10px] text-swiss-grey uppercase tracking-widest">
-            <div class="flex items-center gap-4">
-                <span class="w-1.5 h-1.5 rounded-full bg-accent-blue"></span>
-                © 2025 VERGASTA DIGITAL, ST-IMIER
-            </div>
-            
-            <div class="flex gap-6 md:gap-12">
-                <a href="terms.html" class="hover-line hover:text-ink transition-colors">CGV</a>
-                <a href="privacy.html" class="hover-line hover:text-ink transition-colors">Confidentialité</a>
-                <a href="imprint.html" class="hover-line hover:text-ink transition-colors">Mentions Légales</a>
-            </div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <p class="footer-brand">Vergasta Digital</p>
+          <p class="footer-tag">Par la région, pour la région · St-Imier, CH</p>
         </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // LENIS SMOOTH SCROLL
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                direction: 'vertical',
-                gestureDirection: 'vertical',
-                smooth: true,
-                mouseMultiplier: 1,
-                smoothTouch: false,
-                touchMultiplier: 2,
-            });
-
-            // GSAP
-            gsap.registerPlugin(ScrollTrigger);
-
-            lenis.on('scroll', ScrollTrigger.update);
-
-            gsap.ticker.add((time) => {
-                lenis.raf(time * 1000);
-            });
-            gsap.ticker.lagSmoothing(0);
-            
-            const header = document.getElementById('main-header');
-            ScrollTrigger.create({
-                start: 'top -50',
-                end: 99999,
-                toggleClass: {className: 'header-scrolled', targets: header}
-            });
-
-            // REVEALS
-            const reveals = document.querySelectorAll('.gs-reveal');
-            reveals.forEach((el) => {
-                gsap.fromTo(el, 
-                    { y: 50, opacity: 0 }, 
-                    { 
-                        y: 0, opacity: 1, duration: 1.2, ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: el,
-                            start: "top 85%",
-                            toggleActions: "play none none reverse"
-                        }
-                    }
-                );
-            });
-
-            // TITRE HERO
-            gsap.fromTo('.gs-reveal-title', 
-                { y: 60, opacity: 0, clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" }, 
-                { y: 0, opacity: 1, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", duration: 1.5, delay: 0.1, ease: "power4.out" }
-            );
-
-            // HERO TEXT SWAP ANIMATION (5s interval, letter-by-letter)
-            const heroWord1 = document.getElementById('hero-word-1');
-            const heroWord2 = document.getElementById('hero-word-2');
-            if (heroWord1 && heroWord2) {
-                const textSet1 = ["SITES & APPS", "VERGASTA"];
-                const textSet2 = ["SUR MESURE", "DIGITAL"];
-                let textIndex = 0;
-
-                // Fonction pour découper le texte en spans (lettre par lettre)
-                function splitIntoSpans(element, text) {
-                    element.innerHTML = text.split('').map(char => {
-                        return char === ' ' ? '<span class="inline-block w-[0.25em]">&nbsp;</span>' : `<span class="inline-block">${char}</span>`;
-                    }).join('');
-                    return element.querySelectorAll('span');
-                }
-
-                // Initialisation sur le texte au chargement
-                splitIntoSpans(heroWord1, textSet1[0]);
-                splitIntoSpans(heroWord2, textSet2[0]);
-
-                setInterval(() => {
-                    textIndex = (textIndex + 1) % 2;
-                    
-                    const chars1Out = [...heroWord1.querySelectorAll('span')];
-                    const chars2Out = [...heroWord2.querySelectorAll('span')];
-                    const allOut = [...chars1Out, ...chars2Out];
-                    
-                    gsap.to(allOut, {
-                        y: -30,
-                        opacity: 0,
-                        filter: "blur(6px)",
-                        duration: 0.4,
-                        ease: "power2.in",
-                        stagger: 0.02,
-                        onComplete: () => {
-                            // On insère le nouveau texte découpé
-                            const newChars1 = splitIntoSpans(heroWord1, textSet1[textIndex]);
-                            const newChars2 = splitIntoSpans(heroWord2, textSet2[textIndex]);
-                            const allIn = [...newChars1, ...newChars2];
-                            
-                            // On positionne en bas
-                            gsap.set(allIn, { y: 30, opacity: 0, filter: "blur(6px)" });
-                            
-                            // On anime vers le haut
-                            gsap.to(allIn, {
-                                y: 0,
-                                opacity: 1,
-                                filter: "blur(0px)",
-                                duration: 0.8,
-                                ease: "power3.out",
-                                stagger: 0.03
-                            });
-                        }
-                    });
-                }, 5000);
-            }
-
-            // MOBILE MENU
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            let menuOpen = false;
-
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    menuOpen = !menuOpen;
-                    if(menuOpen) {
-                        mobileMenu.classList.remove('pointer-events-none', 'opacity-0');
-                        mobileMenuBtn.textContent = 'FERMER';
-                        gsap.fromTo(mobileLinks, 
-                            {y: 40, opacity: 0}, 
-                            {y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.1}
-                        );
-                    } else {
-                        mobileMenu.classList.add('pointer-events-none', 'opacity-0');
-                        mobileMenuBtn.textContent = 'MENU';
-                    }
-                });
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        menuOpen = false;
-                        mobileMenu.classList.add('pointer-events-none', 'opacity-0');
-                        mobileMenuBtn.textContent = 'MENU';
-                    });
-                });
-            }
-
-            // MARQUEE DUPLICATION
-            const marqueeContent = document.querySelector('.marquee-content');
-            if (marqueeContent) {
-                marqueeContent.innerHTML += marqueeContent.innerHTML;
-            }
-
-            // IFRAME SCALING — fit 1440px into the browser-viewport width
-            function scaleIframes() {
-                document.querySelectorAll('.browser-viewport').forEach(viewport => {
-                    const iframe = viewport.querySelector('iframe');
-                    if (!iframe) return;
-                    const viewportWidth = viewport.offsetWidth;
-                    const scale = viewportWidth / 1440;
-                    iframe.style.transform = `scale(${scale})`;
-                    // Set viewport height to match scaled iframe
-                    viewport.style.height = (900 * scale) + 'px';
-                });
-                // Recalculate GSAP triggers now that the DOM height has changed!
-                ScrollTrigger.refresh();
-            }
-
-            // Run on load + resize
-            scaleIframes();
-            window.addEventListener('resize', scaleIframes);
-            setTimeout(scaleIframes, 500);
-
-            // ULTIMATE FIX FOR GSAP LAYOUT SHIFTS (Fonts, Images, etc)
-            // This watches the body height and refreshes GSAP anytime it changes
-            let lastHeight = document.body.scrollHeight;
-            const resizeObserver = new ResizeObserver(() => {
-                const newHeight = document.body.scrollHeight;
-                if(newHeight !== lastHeight) {
-                    ScrollTrigger.refresh();
-                    lastHeight = newHeight;
-                }
-            });
-            resizeObserver.observe(document.body);
-
-            // Font loading explicitly triggers a refresh as well
-            document.fonts.ready.then(() => {
-                ScrollTrigger.refresh();
-            });
-        });
-    </script>
+        <div class="footer-links">
+          <a href="terms.html" class="nav-link">CGV</a>
+          <a href="privacy.html" class="nav-link">Confidentialité</a>
+          <a href="imprint.html" class="nav-link">Mentions légales</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Vergasta Digital · Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

@@ -1,182 +1,109 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Politique de Confidentialité | Vergasta Digital</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'display': ['Space Grotesk', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
-                    colors: { 'paper': '#FFFFFF', 'ink': '#111111', 'accent-lime': '#D4FF00', 'accent-blue': '#4F46E5', 'swiss-grey': '#6F6F6F' }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { background-color: var(--tw-color-paper); }
-        .hover-line { position: relative; display: inline-block; }
-        .hover-line::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 1px; bottom: -2px; left: 0; background-color: currentColor; transform-origin: bottom right; transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1); }
-        .hover-line:hover::after { transform: scaleX(1); transform-origin: bottom left; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Politique de confidentialité · Vergasta Digital</title>
+  <meta name="description" content="Politique de confidentialité de Vergasta Digital.">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="text-ink font-sans antialiased selection:bg-accent-blue selection:text-white">
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Navigation principale">
+      <a href="index.html" class="brand">Vergasta Digital</a>
+      <a href="index.html" class="nav-link">← Retour</a>
+    </nav>
+  </header>
 
-    <header class="w-full z-50 text-ink border-b border-ink/10">
-        <div class="px-6 md:px-12 py-6 flex justify-between items-center max-w-[1600px] mx-auto">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="logo_vergasta.png" alt="Logo" class="h-6 w-auto">
-                <span class="font-display font-medium text-lg tracking-tight hover-line">Vergasta Digital</span>
-            </a>
-            <a href="index.html" class="font-mono text-[10px] uppercase tracking-widest hover-line">← Retour</a>
+  <main>
+    <article class="wrap legal">
+      <h1>Politique de confidentialité</h1>
+      <p class="updated">Dernière mise à jour : août 2026</p>
+
+      <section class="legal-section">
+        <p><strong>Vergasta Digital</strong> s'engage à protéger la vie privée des visiteurs de son site et des clients qui utilisent ses services. Cette politique explique quelles données personnelles nous collectons et comment nous les utilisons.</p>
+        <p>Notre politique est conforme à la Loi fédérale suisse sur la protection des données (LPD) et au RGPD.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Responsable du traitement</h2>
+        <p><strong>Vergasta Digital</strong></p>
+        <p>Bruno Vergasta Paiva<br>Rue du Temple 5, St-Imier, Suisse</p>
+        <p>Contact : via le formulaire sur <a href="index.html#contact">vergasta.ch</a></p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Données collectées</h2>
+        <p>Données collectées via le formulaire de contact :</p>
+        <ul>
+          <li>Nom / raison sociale</li>
+          <li>Adresse email</li>
+          <li>Type de projet souhaité</li>
+          <li>Message et détails du projet</li>
+        </ul>
+        <p>Nous n'utilisons aucun cookie de tracking. Ce site n'utilise pas Google Analytics ni aucun outil invasif.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Sécurité des données</h2>
+        <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées :</p>
+        <ul>
+          <li>Connexion HTTPS (chiffrement SSL/TLS)</li>
+          <li>Hébergement sécurisé avec sauvegardes régulières</li>
+          <li>Accès restreint aux données</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>Vos droits</h2>
+        <p>Conformément à la LPD et au RGPD, vous disposez des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité.</p>
+        <p><a href="index.html#contact">Exercer vos droits</a></p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Cookies</h2>
+        <p>Ce site utilise uniquement des cookies techniques essentiels au fonctionnement. Aucun cookie publicitaire tiers n'est utilisé.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Modifications</h2>
+        <p>Nous nous réservons le droit de modifier cette politique. La date de mise à jour est indiquée en haut de page.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Réclamations</h2>
+        <p>En cas de non-respect de vos droits, vous pouvez introduire une réclamation auprès du Préposé fédéral à la protection des données (PFPDT), Feldeggweg 1, CH-3003 Berne — <a href="https://www.edoeb.admin.ch" target="_blank" rel="noopener noreferrer">www.edoeb.admin.ch</a>.</p>
+      </section>
+
+      <nav class="legal-nav" aria-label="Pages légales">
+        <a href="terms.html" class="nav-link">CGV</a>
+        <span class="nav-link is-current">Confidentialité</span>
+        <a href="imprint.html" class="nav-link">Mentions légales</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <p class="footer-brand">Vergasta Digital</p>
+          <p class="footer-tag">Par la région, pour la région · St-Imier, CH</p>
         </div>
-    </header>
-
-    <main class="pt-24 pb-32">
-        <article class="px-6 md:px-12 max-w-4xl mx-auto">
-            <h1 class="font-display font-medium text-4xl md:text-7xl mb-8 uppercase tracking-tighter">Politique de Confidentialité</h1>
-            <p class="font-mono text-[10px] text-swiss-grey mb-16 tracking-widest uppercase pb-8 border-b border-ink/10">
-                Dernière mise à jour : <?php echo date('d/m/Y'); ?>
-            </p>
-
-            <div class="space-y-24 text-sm leading-loose text-swiss-grey">
-                <!-- Intro -->
-                <div>
-                    <p class="mb-6"><strong class="text-ink">Vergasta Digital</strong> s'engage à protéger la vie privée des visiteurs de son site web et des clients qui utilisent ses services. Cette politique explique quelles données personnelles nous collectons et comment nous les utilisons.</p>
-                    <p>Notre politique est conforme à la Loi fédérale suisse sur la protection des données (LPD) et au RGPD.</p>
-                </div>
-
-                <!-- 1 -->
-                <div>
-                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
-                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">01.</span>
-                        Responsable du traitement
-                    </h2>
-                    <div class="border border-ink/10 p-8 space-y-2">
-                        <p><strong class="text-base text-ink font-medium">Vergasta Digital</strong></p>
-                        <p class="mt-4">Bruno Vergasta Paiva</p>
-                        <p>Rue du Temple 5, St-Imier, Suisse</p>
-                        <p class="mt-4">Contact : via formulaire sur <a href="index.html#contact" class="hover-line text-ink">vergasta.ch</a></p>
-                    </div>
-                </div>
-
-                <!-- 2 -->
-                <div>
-                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
-                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">02.</span>
-                        Données collectées
-                    </h2>
-                    <p class="mb-6"><strong class="text-ink font-medium">Données collectées via le formulaire de contact :</strong></p>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Nom / Raison sociale</li>
-                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Adresse email</li>
-                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Type de projet souhaité</li>
-                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Message et détails du projet</li>
-                    </ul>
-                    <p class="font-mono text-[11px] uppercase tracking-widest p-4 bg-gray-50 text-ink">
-                        Information : Nous n'utilisons aucun cookie de tracking. Notre site n'utilise pas Google Analytics ni aucun outil invasif.
-                    </p>
-                </div>
-
-                <!-- 3 -->
-                <div>
-                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
-                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">03.</span>
-                        Sécurité des données
-                    </h2>
-                    <p class="mb-6">Nous mettons en œuvre des mesures techniques et organisationnelles appropriées :</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Connexion HTTPS (chiffrement SSL/TLS)</li>
-                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Hébergement sécurisé avec sauvegardes régulières</li>
-                        <li class="flex items-start gap-4"><span class="w-4 mt-2 border-t border-ink/20 shrink-0"></span> Accès restreint aux données</li>
-                    </ul>
-                </div>
-
-                <!-- 4 -->
-                <div>
-                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
-                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">04.</span>
-                        Vos droits
-                    </h2>
-                    <p class="mb-6">Conformément à la LPD et au RGPD, vous disposez des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité.</p>
-                    <a href="index.html#contact" class="inline-block border border-ink text-ink px-8 py-3 font-mono text-[10px] uppercase tracking-widest hover:bg-ink hover:text-white transition-colors duration-500">
-                        Exercer vos droits ↗
-                    </a>
-                </div>
-
-                <!-- 5 -->
-                <div>
-                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
-                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">05.</span>
-                        Cookies et technologies similaires
-                    </h2>
-                    <p class="mb-4">
-                        <strong class="text-ink">Ce site utilise uniquement des cookies techniques essentiels</strong> au fonctionnement du site. Aucun cookie publicitaire tiers n'est utilisé.
-                    </p>
-                </div>
-
-                <!-- 6 -->
-                <div>
-                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
-                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">06.</span>
-                        Modifications de la politique
-                    </h2>
-                    <p>
-                        Nous nous réservons le droit de modifier cette politique. La date de mise à jour est indiquée en haut de page.
-                    </p>
-                </div>
-
-                <!-- 7 -->
-                <div>
-                    <h2 class="font-display font-medium text-2xl mb-6 uppercase tracking-tight flex items-center gap-4 text-ink">
-                        <span class="font-mono text-[10px] text-swiss-grey tracking-widest">07.</span>
-                        Réclamations
-                    </h2>
-                    <p class="mb-6">
-                        En cas de non respect de vos droits, vous pouvez introduire une réclamation auprès de l'autorité compétente :
-                    </p>
-                    <div class="border border-ink/10 p-8 space-y-2">
-                        <p class="font-medium text-ink mb-2">Préposé fédéral à la protection des données (PFPDT)</p>
-                        <p>Feldeggweg 1, CH-3003 Berne</p>
-                        <p>Site web : <a href="https://www.edoeb.admin.ch" target="_blank" class="hover-line text-ink">www.edoeb.admin.ch</a></p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="mt-32 pt-12 border-t border-ink/10 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <a href="terms.html" class="flex flex-col gap-2 group">
-                    <span class="font-mono text-[10px] text-swiss-grey tracking-widest uppercase">01</span>
-                    <span class="font-medium text-ink group-hover:text-accent-blue transition-colors">CGV</span>
-                </a>
-                <div class="flex flex-col gap-2 opacity-30 pointer-events-none">
-                    <span class="font-mono text-[10px] text-swiss-grey tracking-widest uppercase">02</span>
-                    <span class="font-medium text-ink">Confidentialité</span>
-                </div>
-                <a href="imprint.html" class="flex flex-col gap-2 group">
-                    <span class="font-mono text-[10px] text-swiss-grey tracking-widest uppercase">03</span>
-                    <span class="font-medium text-ink group-hover:text-accent-blue transition-colors">Mentions légales</span>
-                </a>
-            </div>
-
-        </article>
-    </main>
-
-    <footer class="bg-paper py-8 px-6 md:px-12 border-t border-ink/10">
-        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 font-mono text-[10px] text-swiss-grey uppercase tracking-widest">
-            <div class="flex items-center gap-4"><span class="w-1.5 h-1.5 rounded-full bg-accent-blue"></span>© <?php echo date('Y'); ?> VERGASTA DIGITAL</div>
-            <div class="flex gap-6 md:gap-12">
-                <a href="terms.html" class="hover-line hover:text-ink transition-colors">CGV</a>
-                <a href="privacy.html" class="hover-line hover:text-ink transition-colors">Confidentialité</a>
-                <a href="imprint.html" class="hover-line hover:text-ink transition-colors">Mentions Légales</a>
-            </div>
+        <div class="footer-links">
+          <a href="terms.html" class="nav-link">CGV</a>
+          <a href="privacy.html" class="nav-link">Confidentialité</a>
+          <a href="imprint.html" class="nav-link">Mentions légales</a>
         </div>
-    </footer>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Vergasta Digital · Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
