@@ -6,6 +6,7 @@
   <title>Vergasta Digital, atelier web à St-Imier</title>
   <meta name="description" content="Vergasta Digital construit des sites, des applications et des boutiques en ligne pour les entreprises du Jura bernois. Atelier installé rue du Temple, à St-Imier.">
   <link rel="canonical" href="https://vergasta.ch/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="icon" href="favicon.ico">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="website">
@@ -14,10 +15,116 @@
   <meta property="og:title" content="Vergasta Digital, atelier web à St-Imier">
   <meta property="og:description" content="Vergasta Digital construit des sites, des applications et des boutiques en ligne pour les entreprises du Jura bernois. Atelier installé rue du Temple, à St-Imier.">
   <meta property="og:url" content="https://vergasta.ch/">
+  <meta property="og:image" content="https://vergasta.ch/logo_vergasta.png">
+  <meta property="og:image:width" content="435">
+  <meta property="og:image:height" content="520">
+  <meta property="og:image:alt" content="Croix suisse composée de deux barres, l’une lime, l’autre bleue.">
+  <meta name="twitter:card" content="summary">
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script src="brushes.js" defer></script>
+
+  <!--
+    Données structurées. Elles ne changent rien à l'affichage : elles disent aux
+    moteurs où se trouve l'atelier et ce qu'il fait, ce qu'une page de texte ne
+    suffit pas à établir. Chaque valeur est reprise des mentions légales ou du
+    contenu de la page. Rien d'inventé, et pas de coordonnées GPS.
+  -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://vergasta.ch/#atelier",
+        "name": "Vergasta Digital",
+        "alternateName": "Vergasta Digital, Bruno Vergasta Paiva",
+        "description": "Atelier web installé à St-Imier. Sites de présentation, applications et boutiques en ligne pour les entreprises et les indépendants du Jura bernois.",
+        "url": "https://vergasta.ch/",
+        "logo": "https://vergasta.ch/logo_vergasta.png",
+        "image": "https://vergasta.ch/logo_vergasta.png",
+        "slogan": "Par la région, pour la région.",
+        "founder": {
+          "@type": "Person",
+          "name": "Bruno Vergasta Paiva"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rue du Temple 5",
+          "postalCode": "2610",
+          "addressLocality": "St-Imier",
+          "addressRegion": "BE",
+          "addressCountry": "CH"
+        },
+        "identifier": {
+          "@type": "PropertyValue",
+          "name": "IDE",
+          "value": "CHE-403.843.646"
+        },
+        "areaServed": [
+          { "@type": "Place", "name": "St-Imier" },
+          { "@type": "Place", "name": "Jura bernois" },
+          { "@type": "Place", "name": "Canton de Berne" }
+        ],
+        "knowsLanguage": ["fr"],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Demande de devis",
+          "url": "https://tally.so/r/MeX9kM",
+          "availableLanguage": ["fr"]
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Ce que nous faisons",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Site de présentation",
+                "description": "Montrer une entreprise, ses prestations et ses coordonnées, et faire en sorte qu’on la trouve quand on tape son métier et le nom de la commune."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Application web et mobile",
+                "description": "Outils internes et applications iOS et Android, pour le moment où le classeur ou le fichier Excel ne suffit plus."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Boutique en ligne",
+                "description": "Catalogue, panier, paiement par carte et par Twint via Stripe, suivi des commandes depuis une interface que vous tenez vous-même."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://vergasta.ch/#site",
+        "url": "https://vergasta.ch/",
+        "name": "Vergasta Digital",
+        "inLanguage": "fr-CH",
+        "publisher": { "@id": "https://vergasta.ch/#atelier" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://vergasta.ch/#accueil",
+        "url": "https://vergasta.ch/",
+        "name": "Vergasta Digital, atelier web à St-Imier",
+        "isPartOf": { "@id": "https://vergasta.ch/#site" },
+        "about": { "@id": "https://vergasta.ch/#atelier" },
+        "inLanguage": "fr-CH"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="site-header">
