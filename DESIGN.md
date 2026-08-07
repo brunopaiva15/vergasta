@@ -48,7 +48,7 @@ Deux polices, **hébergées dans `fonts/`**, jamais chez un tiers.
 | | Police | Emploi |
 |---|---|---|
 | Titres | **Jersey 25** (bitmap) | `h1`, `h2`, `h3`, marque, noms de projets, bouton, devise |
-| Texte | **Archivo** (variable 400–600) | tout le reste |
+| Texte | **Archivo**, instances statiques 400 / 500 / 600 | tout le reste |
 
 Jersey 25 a été retenue après comparaison au rendu réel avec Pixelify Sans,
 Silkscreen et DotGothic16. Silkscreen s'étale trop en grand corps, Pixelify est
@@ -79,6 +79,12 @@ Pour ajouter une police, récupérer le CSS de Google avec un agent de navigateu
 moderne, ne garder que les sous-ensembles `latin` et `latin-ext`, télécharger
 les `.woff2` dans `fonts/`, et recopier les blocs `@font-face` en tête de
 `styles.css` avec des chemins locaux.
+
+**Jamais de police variable.** Chromium ne sait pas incorporer une instance
+variable dans un PDF : il la remplace par des glyphes Type 3, sans programme de
+police, et les imprimeurs rejettent le fichier. Demander un poids à la fois à
+Google (`wght@400`, puis `wght@500`) : demandés ensemble, il renvoie la police
+variable.
 
 ---
 
@@ -228,16 +234,19 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 `carte-de-visite.html` avec `carte.css`. Page d'atelier, liée depuis nulle part
 et en `noindex`. Ce n'est pas une protection : qui connaît l'adresse l'ouvre.
 
-Format fini 85 × 55 mm, fond perdu de 3 mm par côté donc un fichier de
-91 × 61 mm, zone de sécurité à 4 mm du trait de coupe. Tout est en millimètres :
-un millimètre CSS vaut 1/25,4 de pouce, les cotes à l'écran sont les cotes
-imprimées. La règle `@page` fait sortir deux pages exactement à la cote.
+Cotes prises sur le gabarit de l'imprimeur, et non sur une règle générale :
+marge perdue 88 × 58 mm, coupe 85 × 55 mm, sécurité 82 × 52 mm. Soit 1,5 mm de
+fond perdu par côté, moitié moins que les 3 mm usuels. Le contenu se tient à
+4 mm de la coupe, bien plus prudent que le minimum exigé.
+
+Tout est en millimètres : un millimètre CSS vaut 1/25,4 de pouce, les cotes à
+l'écran sont les cotes imprimées.
 
 Points à ne pas défaire :
 
 - `print-color-adjust: exact` sur les cartes, sinon le recto sort blanc.
-- La bande du recto déborde de 1 mm sous le bord : la coupe doit tomber dans la
-  marque, jamais sur son bord.
+- La bande du recto déborde sous le bord : la coupe doit tomber dans la marque,
+  jamais sur son bord.
 - Son canevas porte `data-dpr="4"`, sans quoi elle sortirait à 96 dpi.
 - La grille du verso est en millimètres. En pixels elle grossissait avec la
   résolution de sortie.
@@ -246,6 +255,12 @@ Points à ne pas défaire :
 - Le QR est un tracé figé. Pour changer l'adresse, le regénérer et vérifier
   qu'il se relit.
 
-Un navigateur exporte en RVB, jamais en CMJN. Le lime et le bleu sont hors
-gamut CMJN : en quadri ils perdent de l'éclat, un ton direct est la seule
-réponse si cet éclat compte.
+Deux limites du PDF produit par un navigateur, connues et acceptées :
+
+- **Cote.** Chromium quantifie la taille de page au pixel CSS entier, donc le
+  fichier sort à 87,88 × 57,83 mm au lieu de 88 × 58. Aucune unité CSS n'y
+  change rien. Il reste 1,44 mm de fond perdu sur les 1,5 demandés, largement
+  au-delà de la tolérance de coupe.
+- **Couleur.** Un navigateur exporte en RVB, jamais en CMJN. Le lime et le bleu
+  sont hors gamut CMJN : en quadri ils perdent de l'éclat, un ton direct est la
+  seule réponse si cet éclat compte.
