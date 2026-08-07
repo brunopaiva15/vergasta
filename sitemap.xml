@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Les quatre pages publiques. carte-de-visite.html en est volontairement
+  absente : c'est une page d'atelier, liée depuis nulle part et en noindex.
+  Mettre à jour lastmod quand le contenu d'une page change réellement.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://vergasta.ch/</loc>
+    <lastmod>2026-08-07</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/terms.html</loc>
+    <lastmod>2026-08-07</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/privacy.html</loc>
+    <lastmod>2026-08-07</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/imprint.html</loc>
+    <lastmod>2026-08-07</lastmod>
+  </url>
+</urlset>

@@ -4,7 +4,8 @@ Ce document sert à reprendre le site sans en défaire la cohérence. Il dit ce
 qu'on fait, et surtout ce qu'on ne fait pas et pourquoi.
 
 Le site est statique : quatre pages HTML publiques, une page d'atelier non
-référencée, deux feuilles de style, un script, des polices. Pas de build, pas de dépendance, pas de gestionnaire de paquets. On
+référencée, deux feuilles de style, un script, des polices, plus `robots.txt` et
+`sitemap.xml`. Pas de build, pas de dépendance, pas de gestionnaire de paquets. On
 édite les fichiers, on pousse, GitHub Pages sert.
 
 ---
@@ -225,7 +226,8 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 - états de survol : navigation, ligne de tableau, bouton,
 - JavaScript coupé : aucun trou dans la mise en page,
 - aucune requête vers un domaine tiers,
-- console sans erreur.
+- console sans erreur,
+- si une page publique a été ajoutée ou renommée, `sitemap.xml` la suit (voir §10).
 
 ---
 
@@ -264,3 +266,50 @@ Deux limites du PDF produit par un navigateur, connues et acceptées :
 - **Couleur.** Un navigateur exporte en RVB, jamais en CMJN. Le lime et le bleu
   sont hors gamut CMJN : en quadri ils perdent de l'éclat, un ton direct est la
   seule réponse si cet éclat compte.
+
+---
+
+## 10. Référencement
+
+Rien de tout cela ne se voit à l'écran, et c'est justement pour ça que ça se
+perd facilement en refondant une page. La surface tient en quatre points.
+
+**`robots.txt`.** Tout est autorisé, et il pointe vers le plan du site.
+`carte-de-visite.html` n'y est **pas** en `Disallow`, volontairement : un robot
+qui n'a pas le droit d'ouvrir la page ne lit pas non plus sa balise `noindex`,
+donc l'adresse peut malgré tout finir listée. C'est la balise qui la tient à
+l'écart, pas `robots.txt`.
+
+**`sitemap.xml`.** Les quatre pages publiques, rien d'autre. Ses `<loc>` doivent
+correspondre exactement aux `<link rel="canonical">` des pages : deux adresses
+concurrentes pour une même page, c'est le moyen le plus simple de diviser son
+propre référencement. Ajouter une page publique veut donc dire trois gestes,
+pas un : la page, son canonique, sa ligne dans le plan.
+
+**Les balises de tête.** Chaque page publique porte un titre, une description
+écrite depuis son contenu réel, un canonique absolu, `robots` en `index,
+follow`, un jeu Open Graph complet et `twitter:card`. L'image de partage est le
+logo, en `summary` et non en `summary_large_image` : le fichier fait 435 × 520,
+une carte large l'étirerait. Une vraie bannière 1200 × 630 serait mieux, mais
+elle reste à dessiner.
+
+**Les données structurées.** Un bloc `application/ld+json` dans la tête de
+l'accueil, en `@graph` : `ProfessionalService`, `WebSite`, `WebPage`. C'est ce
+qui dit à un moteur où se trouve l'atelier, alors que la page ne fait que
+l'écrire en toutes lettres. Deux règles pour l'entretenir :
+
+- **chaque valeur doit exister ailleurs sur le site**, mentions légales ou
+  contenu de l'accueil. Le balisage ne sert pas à affirmer ce que les pages ne
+  disent pas, et une adresse divergente vaut mieux absente que fausse ;
+- **pas de coordonnées GPS, pas d'horaires, pas de fourchette de prix
+  inventés.** Ils sont facultatifs, et le §7 vaut aussi pour ce qui ne se lit
+  pas.
+
+Le balisage cite le domaine `vergasta.ch` et l'adresse du formulaire, mais ce
+sont des chaînes de caractères dans du JSON : **aucune requête n'en part**, et
+la propriété du §2 tient toujours.
+
+Après la mise en ligne, deux gestes qui ne se font pas depuis le dépôt :
+déclarer le site à la Google Search Console et y déposer `sitemap.xml`, et faire
+de même sur Bing Webmaster Tools. Sans cela l'indexation arrive quand même, mais
+sans aucun retour sur ce qui est réellement indexé.

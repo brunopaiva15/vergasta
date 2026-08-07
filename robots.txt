@@ -1,0 +1,9 @@
+# vergasta.ch
+# Le site est entièrement indexable. La seule page tenue hors des moteurs est
+# carte-de-visite.html, et elle l'est par une balise noindex, pas d'ici : un
+# Disallow empêcherait le robot de lire cette balise, donc de la respecter.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://vergasta.ch/sitemap.xml
