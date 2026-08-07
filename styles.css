@@ -252,28 +252,23 @@ em {
   text-wrap: balance;
 }
 
+/* Un seul paragraphe d'accroche depuis le retrait du second : colonne unique,
+   un cran plus large et un cran plus gros que le texte courant, pour qu'il
+   tienne le poids du titre au lieu de flotter dans une demi-colonne. */
 .opening-body {
-  display: grid;
-  gap: 1.25rem;
   margin-top: 2.25rem;
-  max-width: var(--measure);
+  max-width: 38rem;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 800px) {
   .opening-body {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2.5rem;
-    max-width: 52rem;
     margin-top: 3rem;
+    font-size: 1.15rem;
   }
 }
 
-.opening-body p {
-  color: var(--ink-soft);
-}
-
-.opening-body p:first-child {
-  color: var(--ink);
+.opening-body p + p {
+  margin-top: 1.1rem;
 }
 
 .mark-opening {
