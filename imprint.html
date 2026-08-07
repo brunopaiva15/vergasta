@@ -3,24 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mentions légales · Vergasta Digital</title>
+  <title>Mentions légales | Vergasta Digital</title>
   <meta name="description" content="Mentions légales de Vergasta Digital.">
   <link rel="icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
     <nav class="nav wrap" aria-label="Navigation principale">
-      <a href="index.html" class="brand">Vergasta Digital</a>
-      <a href="index.html" class="nav-link">← Retour</a>
+      <a href="index.html" class="brand">
+        <img src="logo_vergasta.png" alt="">
+        <span class="brand-name">Vergasta Digital</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#expertise" class="nav-link">Expertise</a>
+        <a href="index.html#methode" class="nav-link">Méthode</a>
+        <a href="index.html#projets" class="nav-link">Réalisations</a>
+      </div>
+      <a class="nav-cta" href="index.html">Retour au site</a>
     </nav>
   </header>
 
-  <main>
-    <article class="wrap legal">
+  <main class="wrap">
+    <article class="legal">
       <h1>Mentions légales</h1>
       <p class="updated">Dernière mise à jour : août 2026</p>
 
@@ -76,17 +84,36 @@
     <div class="wrap">
       <div class="footer-top">
         <div>
-          <p class="footer-brand">Vergasta Digital</p>
-          <p class="footer-tag">Par la région, pour la région · St-Imier, CH</p>
+          <p class="footer-brand">
+            <img src="logo_vergasta.png" alt="">
+            Vergasta Digital
+          </p>
+          <p class="footer-tag">
+            Sites, applications et boutiques en ligne sur mesure, depuis St-Imier
+            dans le Jura bernois. Par la région, pour la région.
+          </p>
         </div>
-        <div class="footer-links">
-          <a href="terms.html" class="nav-link">CGV</a>
-          <a href="privacy.html" class="nav-link">Confidentialité</a>
-          <a href="imprint.html" class="nav-link">Mentions légales</a>
-        </div>
+        <nav class="footer-col" aria-labelledby="footer-nav-title">
+          <h2 id="footer-nav-title">Navigation</h2>
+          <ul>
+            <li><a href="index.html#expertise">Expertise</a></li>
+            <li><a href="index.html#methode">Méthode</a></li>
+            <li><a href="index.html#projets">Réalisations</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="footer-legal-title">
+          <h2 id="footer-legal-title">Informations</h2>
+          <ul>
+            <li><a href="terms.html">CGV</a></li>
+            <li><a href="privacy.html">Confidentialité</a></li>
+            <li><a href="imprint.html">Mentions légales</a></li>
+          </ul>
+        </nav>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copy">© 2026 Vergasta Digital · Tous droits réservés</p>
+        <p>© 2026 Vergasta Digital, St-Imier</p>
+        <p>IDE CHE-403.843.646</p>
       </div>
     </div>
   </footer>
