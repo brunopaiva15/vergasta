@@ -584,6 +584,27 @@ em {
   color: var(--ink);
 }
 
+.index .stores {
+  display: block;
+  margin-top: 0.35rem;
+}
+
+.index .stores a {
+  font-family: var(--texte);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  text-decoration: underline;
+}
+
+.index .stores a + a {
+  margin-left: 0.9rem;
+}
+
+.index tr:hover .stores a {
+  color: var(--ink);
+}
+
 .index .kind,
 .index .when {
   font-size: 0.9rem;
