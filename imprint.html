@@ -6,12 +6,28 @@
   <title>Mentions légales, Vergasta Digital</title>
   <meta name="description" content="Mentions légales de Vergasta Digital, Bruno Vergasta Paiva, rue du Temple 5 à St-Imier. Éditeur du site, IDE, hébergement, propriété intellectuelle et juridiction.">
   <link rel="canonical" href="https://vergasta.ch/imprint.html">
+
+  <!--
+    Les cinq versions de cette page. Le script de langue lit ces liens plutôt
+    que de recalculer un chemin : une seule source pour les adresses.
+  -->
+  <link rel="alternate" hreflang="fr" href="https://vergasta.ch/imprint.html">
+  <link rel="alternate" hreflang="en" href="https://vergasta.ch/en/imprint.html">
+  <link rel="alternate" hreflang="de" href="https://vergasta.ch/de/imprint.html">
+  <link rel="alternate" hreflang="it" href="https://vergasta.ch/it/imprint.html">
+  <link rel="alternate" hreflang="ja" href="https://vergasta.ch/ja/imprint.html">
+  <link rel="alternate" hreflang="x-default" href="https://vergasta.ch/imprint.html">
+
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="icon" href="favicon.ico">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Vergasta Digital">
   <meta property="og:locale" content="fr_CH">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="de_CH">
+  <meta property="og:locale:alternate" content="it_CH">
+  <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:title" content="Mentions légales, Vergasta Digital">
   <meta property="og:description" content="Mentions légales de Vergasta Digital, Bruno Vergasta Paiva, rue du Temple 5 à St-Imier. Éditeur du site, IDE, hébergement, propriété intellectuelle et juridiction.">
   <meta property="og:url" content="https://vergasta.ch/imprint.html">
@@ -24,20 +40,36 @@
   <link rel="preload" href="fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script src="brushes.js" defer></script>
+
+  <!--
+    Redirection de langue. Placé en fin de tête, après les liens alternes dont
+    il se sert, et sans defer : il doit trancher avant que la page s'affiche,
+    sinon le visiteur voit passer la mauvaise langue.
+  -->
+  <script src="lang.js"></script>
 </head>
 <body>
   <header class="site-header">
     <div class="masthead wrap">
-      <a href="index.html" class="brand">
+      <a href="./" class="brand">
         <img src="logo_vergasta.png" alt="">
         Vergasta Digital
       </a>
-      <nav class="site-nav" aria-label="Navigation principale">
-        <a href="index.html#metier">Ce que nous faisons</a>
-        <a href="index.html#deroule">Déroulé d’un projet</a>
-        <a href="index.html#realisations">Réalisations</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
+      <div class="masthead-tail">
+        <nav class="site-nav" aria-label="Navigation principale">
+          <a href="./#metier">Ce que nous faisons</a>
+          <a href="./#deroule">Déroulé d’un projet</a>
+          <a href="./#realisations">Réalisations</a>
+          <a href="./#contact">Contact</a>
+        </nav>
+        <nav class="lang-nav" aria-label="Langue du site">
+          <span class="is-current" aria-current="true" lang="fr">FR</span>
+          <a href="en/imprint.html" hreflang="en" lang="en" data-langue="en" aria-label="English">EN</a>
+          <a href="de/imprint.html" hreflang="de" lang="de" data-langue="de" aria-label="Deutsch">DE</a>
+          <a href="it/imprint.html" hreflang="it" lang="it" data-langue="it" aria-label="Italiano">IT</a>
+          <a href="ja/imprint.html" hreflang="ja" lang="ja" data-langue="ja" aria-label="日本語">JA</a>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -52,7 +84,7 @@
         <p><strong>Vergasta Digital</strong></p>
         <p>Bruno Vergasta Paiva<br>Rue du Temple 5<br>St-Imier<br>Suisse</p>
         <p>IDE : CHE-403.843.646</p>
-        <p>Contact : via le formulaire sur <a href="index.html#contact">vergasta.ch</a></p>
+        <p>Contact : via le formulaire sur <a href="./#contact">vergasta.ch</a></p>
         <p>En tant qu’activité accessoire, non soumis à l’inscription au RC (art. 36 ORC). TVA non applicable.</p>
       </section>
 
@@ -84,7 +116,7 @@
 
       <section class="legal-section">
         <h2>Contact</h2>
-        <p>Pour les mentions légales : <a href="index.html#contact">nous contacter</a>.</p>
+        <p>Pour les mentions légales : <a href="./#contact">nous contacter</a>.</p>
       </section>
 
       <nav class="legal-nav" aria-label="Pages légales">

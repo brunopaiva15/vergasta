@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vergasta Digital｜サンティミエのウェブ制作アトリエ</title>
+  <meta name="description" content="Vergasta Digital は、ベルン・ジュラ地方の企業に向けてウェブサイト、アプリケーション、オンラインショップを制作しています。アトリエはサンティミエのタンプル通りにあります。">
+  <link rel="canonical" href="https://vergasta.ch/ja/">
+
+  <!--
+    Les cinq versions de cette page. Le script de langue lit ces liens plutôt
+    que de recalculer un chemin : une seule source pour les adresses.
+  -->
+  <link rel="alternate" hreflang="fr" href="https://vergasta.ch/">
+  <link rel="alternate" hreflang="en" href="https://vergasta.ch/en/">
+  <link rel="alternate" hreflang="de" href="https://vergasta.ch/de/">
+  <link rel="alternate" hreflang="it" href="https://vergasta.ch/it/">
+  <link rel="alternate" hreflang="ja" href="https://vergasta.ch/ja/">
+  <link rel="alternate" hreflang="x-default" href="https://vergasta.ch/">
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="icon" href="../favicon.ico">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Vergasta Digital">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="fr_CH">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="de_CH">
+  <meta property="og:locale:alternate" content="it_CH">
+  <meta property="og:title" content="Vergasta Digital｜サンティミエのウェブ制作アトリエ">
+  <meta property="og:description" content="Vergasta Digital は、ベルン・ジュラ地方の企業に向けてウェブサイト、アプリケーション、オンラインショップを制作しています。アトリエはサンティミエのタンプル通りにあります。">
+  <meta property="og:url" content="https://vergasta.ch/ja/">
+  <meta property="og:image" content="https://vergasta.ch/logo_vergasta.png">
+  <meta property="og:image:width" content="435">
+  <meta property="og:image:height" content="520">
+  <meta property="og:image:alt" content="ライムグリーンとブルー、2本のバーで組まれたスイス十字。">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../brushes.js" defer></script>
+
+  <!--
+    Données structurées. Elles ne changent rien à l'affichage : elles disent aux
+    moteurs où se trouve l'atelier et ce qu'il fait, ce qu'une page de texte ne
+    suffit pas à établir. Chaque valeur est reprise des mentions légales ou du
+    contenu de la page. Rien d'inventé, et pas de coordonnées GPS.
+    L'atelier et le site gardent le même @id dans les cinq langues : c'est une
+    seule entreprise, décrite cinq fois.
+  -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://vergasta.ch/#atelier",
+        "name": "Vergasta Digital",
+        "alternateName": "Vergasta Digital, Bruno Vergasta Paiva",
+        "description": "サンティミエにあるウェブ制作のアトリエ。ベルン・ジュラ地方の企業と個人事業主のために、紹介サイト、アプリケーション、オンラインショップを制作しています。",
+        "url": "https://vergasta.ch/",
+        "logo": "https://vergasta.ch/logo_vergasta.png",
+        "image": "https://vergasta.ch/logo_vergasta.png",
+        "slogan": "地元から、地元のために。",
+        "founder": {
+          "@type": "Person",
+          "name": "Bruno Vergasta Paiva"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rue du Temple 5",
+          "postalCode": "2610",
+          "addressLocality": "St-Imier",
+          "addressRegion": "BE",
+          "addressCountry": "CH"
+        },
+        "identifier": {
+          "@type": "PropertyValue",
+          "name": "IDE",
+          "value": "CHE-403.843.646"
+        },
+        "areaServed": [
+          {
+            "@type": "Place",
+            "name": "サンティミエ"
+          },
+          {
+            "@type": "Place",
+            "name": "ベルン・ジュラ"
+          },
+          {
+            "@type": "Place",
+            "name": "ベルン州"
+          }
+        ],
+        "knowsLanguage": [
+          "fr"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "見積もりのご依頼",
+          "url": "https://tally.so/r/MeX9kM",
+          "availableLanguage": [
+            "fr"
+          ]
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "手がけるもの",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "紹介サイト",
+                "description": "会社の概要、提供するサービス、連絡先を、訪問者が探し回らずに見つけられるように示し、その業種で検索されたときに見つけてもらえるようにします。"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "ウェブ・モバイルアプリケーション",
+                "description": "バインダーや Excel ファイルでは追いつかなくなったときに、その先を引き受ける道具。ウェブでも、iPhone や Android でも動きます。"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "オンラインショップ",
+                "description": "カタログ、カート、Stripe を通じたカードまたは TWINT での決済、注文の管理、そしてご自身で操作できる管理画面。"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "クリエイティブな企画",
+                "description": "着想をブラウザーの中で形にするために、一点ずつ設計するポートフォリオとインタラクティブな作品。"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://vergasta.ch/#site",
+        "url": "https://vergasta.ch/",
+        "name": "Vergasta Digital",
+        "inLanguage": [
+          "fr-CH",
+          "en",
+          "de",
+          "it",
+          "ja"
+        ],
+        "publisher": {
+          "@id": "https://vergasta.ch/#atelier"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://vergasta.ch/ja/#accueil",
+        "url": "https://vergasta.ch/ja/",
+        "name": "Vergasta Digital｜サンティミエのウェブ制作アトリエ",
+        "isPartOf": {
+          "@id": "https://vergasta.ch/#site"
+        },
+        "about": {
+          "@id": "https://vergasta.ch/#atelier"
+        },
+        "inLanguage": "ja"
+      }
+    ]
+  }
+  </script>
+
+  <!--
+    Redirection de langue. Placé en fin de tête, après les liens alternes dont
+    il se sert, et sans defer : il doit trancher avant que la page s'affiche,
+    sinon le visiteur voit passer la mauvaise langue.
+  -->
+  <script src="../lang.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead wrap">
+      <a href="./" class="brand">
+        <img src="../logo_vergasta.png" alt="">
+        Vergasta Digital
+      </a>
+      <div class="masthead-tail">
+        <nav class="site-nav" aria-label="メインナビゲーション">
+          <a href="#metier">手がけるもの</a>
+          <a href="#deroule">プロジェクトの流れ</a>
+          <a href="#realisations">実績</a>
+          <a href="#contact">お問い合わせ</a>
+        </nav>
+        <nav class="lang-nav" aria-label="サイトの言語">
+          <a href="../" hreflang="fr" lang="fr" data-langue="fr" aria-label="Français">FR</a>
+          <a href="../en/" hreflang="en" lang="en" data-langue="en" aria-label="English">EN</a>
+          <a href="../de/" hreflang="de" lang="de" data-langue="de" aria-label="Deutsch">DE</a>
+          <a href="../it/" hreflang="it" lang="it" data-langue="it" aria-label="Italiano">IT</a>
+          <span class="is-current" aria-current="true" lang="ja">JA</span>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="opening wrap">
+      <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
+      <h1>地元の企業のためのウェブサイトとアプリケーション。</h1>
+      <div class="opening-body">
+        <p>
+          Vergasta Digital は、サンティミエのタンプル通りにあるウェブ制作のアトリエです。
+          ベルン・ジュラ地方の職人、商店主、個人事業主のために、紹介サイト、社内向けの
+          ツール、オンラインショップを書いています。
+        </p>
+      </div>
+    </section>
+
+    <section id="metier" class="slab wrap" aria-labelledby="metier-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div>
+        <h2 id="metier-title">手がけるもの</h2>
+      </div>
+      <div class="slab-body">
+        <dl class="trades">
+          <div class="trade">
+            <dt>紹介サイト</dt>
+            <dd>
+              会社の概要、提供するサービス、連絡先を、訪問者が探し回らずに見つけられる
+              ように示します。あわせて、その業種で検索されたときに見つけてもらえる
+              ようにします。ペリ＝ラ・ウットのタイル工事会社 <b>F. Da Silva sàrl</b> の
+              ために制作したのが、これにあたります。
+            </dd>
+          </div>
+
+          <div class="trade">
+            <dt>アプリケーション</dt>
+            <dd>
+              バインダーや Excel ファイルでは追いつかなくなったとき、その先を引き受ける
+              道具をつくります。<b>Disque Bleu</b> はパーキングディスクに表示する時刻を
+              計算し、期限の前に知らせます。<b>Axolot</b> はスイスの小規模企業の請求と
+              経理を簡単にします。どちらも出発点は同じで、繰り返しの作業に時間を
+              取られていたことでした。
+            </dd>
+          </div>
+
+          <div class="trade">
+            <dt>オンラインショップ</dt>
+            <dd>
+              カタログ、カート、Stripe を通じたカードまたは TWINT での決済、注文の管理、
+              そしてご自身で操作できる管理画面。<b>Custom To Lylia</b> と
+              <b>BDPokéCards</b> はこの仕組みで動いています。
+            </dd>
+          </div>
+
+          <div class="trade">
+            <dt>クリエイティブな企画</dt>
+            <dd>
+              形にしてみたい着想から始まる企画もあります。<b>Yamanote 3D</b> は、東京の
+              山手線に乗って眺める静かな旅をブラウザーの中に再現しました。
+              <b>Vergasta Photo</b> は、写真のコレクションを専用に設計したポートフォリオ
+              で見せ、公開のための編集画面も備えています。
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="deroule" class="slab wrap" aria-labelledby="deroule-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="deroule" aria-hidden="true"></div>
+        <h2 id="deroule-title">プロジェクトの流れ</h2>
+      </div>
+      <div class="slab-body">
+        <div class="run-through">
+          <div>
+            <p class="lead-in">
+              まずは電話で、あるいはサンティミエで珈琲を飲みながら話をして、事業の内容と、
+              サイトに本当に求められていることを理解します。そのうえで、価格と日程を
+              記した詳しい見積もりをメールでお送りします。
+            </p>
+            <p>
+              最初の一行を書く前に、デザイン案の承認をいただきます。開発中はテスト用の
+              アドレスをお渡しするので、発表を待たずに、いつでも進み具合をご覧
+              いただけます。
+            </p>
+            <p>
+              公開のときには、ドメイン、リダイレクト、検索エンジン向けの設定をこちらで
+              行います。ソースコードは請求書のお支払いが済んだ時点でお客さまのものに
+              なり、その後ほかの方に引き継いでいただいてもかまいません。
+            </p>
+          </div>
+
+          <aside class="aside">
+            <h3>ご参考まで</h3>
+            <ul>
+              <li>見積もりは固定価格、ご発注時に手付金をいただきます。</li>
+              <li>納品時点の不具合の修正は価格に含まれます。</li>
+              <li>サーバーとドメイン名の費用は、別段の合意がない限りお客さまのご負担です。</li>
+              <li>納品するサイトのフッターには Vergasta Digital の表記が残ります。</li>
+              <li>保証期間の終了後は、保守契約を結ぶこともできます。</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="realisations" class="slab wrap" aria-labelledby="realisations-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="realisations" aria-hidden="true"></div>
+        <h2 id="realisations-title">実績</h2>
+      </div>
+      <div class="slab-body">
+        <table class="index">
+          <caption>現在公開している7つのプロジェクト。いずれもご覧いただけます。</caption>
+          <thead>
+            <tr>
+              <th scope="col">プロジェクト</th>
+              <th scope="col">種類</th>
+              <th scope="col">年</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a href="https://axolot.ch" target="_blank" rel="noopener noreferrer">Axolot</a>
+                <span class="host">axolot.ch</span>
+              </td>
+              <td class="kind">SaaS プラットフォーム</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://fdasilvasarl.ch" target="_blank" rel="noopener noreferrer">F. Da Silva sàrl</a>
+                <span class="host">fdasilvasarl.ch</span>
+              </td>
+              <td class="kind">紹介サイト</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">Yamanote 3D</a>
+                <span class="host">yamanote-3d.com</span>
+              </td>
+              <td class="kind">ゲーム</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">Custom To Lylia</a>
+                <span class="host">customtolylia.ch</span>
+              </td>
+              <td class="kind">オンラインショップ</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="name">Disque Bleu</span>
+                <span class="stores">
+                  <a href="https://apps.apple.com/ch/app/disque-bleu/id6756579975" target="_blank" rel="noopener noreferrer" aria-label="App Store の Disque Bleu">App Store</a>
+                  <a href="https://play.google.com/store/apps/details?id=ch.vergasta.disquebleusuisse" target="_blank" rel="noopener noreferrer" aria-label="Google Play の Disque Bleu">Google Play</a>
+                </span>
+              </td>
+              <td class="kind">iOS・Android アプリ</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://vergastaphoto.ch" target="_blank" rel="noopener noreferrer">Vergasta Photo</a>
+                <span class="host">vergastaphoto.ch</span>
+              </td>
+              <td class="kind">写真ポートフォリオ</td>
+              <td class="when">2026</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">BDPokéCards</a>
+                <span class="host">bd-pokecards.ch</span>
+              </td>
+              <td class="kind">オンラインショップ</td>
+              <td class="when">2025</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="contact" class="slab wrap" aria-labelledby="contact-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="contact" aria-hidden="true"></div>
+        <h2 id="contact-title">ご連絡</h2>
+      </div>
+      <div class="slab-body contact-body">
+        <p>
+          見積もりが必要な案件、古くなったサイトの引き継ぎ、あるいは作り直すといくら
+          かかるのかというご質問だけでもかまいません。フォームの内容はそのまま
+          私たちのメールボックスに届き、通常は2営業日以内にお返事します。
+        </p>
+        <p>
+          直接お話ししたい場合は、メッセージにその旨をお書きください。日程を調整
+          いたします。
+        </p>
+        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
+
+        <p class="whereabouts">
+          Vergasta Digital, Bruno Vergasta Paiva<br>
+          Rue du Temple 5, 2610 St-Imier<br>
+          企業識別番号 CHE-403.843.646
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="mark band" data-mark="bande" aria-hidden="true"></div>
+      <div class="colophon">
+        <p class="motto">地元から、地元のために。</p>
+        <p>© 2026 Vergasta Digital, St-Imier</p>
+      </div>
+      <nav class="footer-nav" aria-label="法的情報">
+        <a href="terms.html">一般取引条件</a>
+        <a href="privacy.html">プライバシー</a>
+        <a href="imprint.html">法的表記</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
