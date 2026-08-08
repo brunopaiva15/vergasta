@@ -6,12 +6,28 @@
   <title>Politique de confidentialité, Vergasta Digital</title>
   <meta name="description" content="Politique de confidentialité de Vergasta Digital, conforme à la LPD et au RGPD. Aucun cookie de tracking, ni Google Analytics. Données collectées, sécurité, droits des visiteurs.">
   <link rel="canonical" href="https://vergasta.ch/privacy.html">
+
+  <!--
+    Les cinq versions de cette page. Le script de langue lit ces liens plutôt
+    que de recalculer un chemin : une seule source pour les adresses.
+  -->
+  <link rel="alternate" hreflang="fr" href="https://vergasta.ch/privacy.html">
+  <link rel="alternate" hreflang="en" href="https://vergasta.ch/en/privacy.html">
+  <link rel="alternate" hreflang="de" href="https://vergasta.ch/de/privacy.html">
+  <link rel="alternate" hreflang="it" href="https://vergasta.ch/it/privacy.html">
+  <link rel="alternate" hreflang="ja" href="https://vergasta.ch/ja/privacy.html">
+  <link rel="alternate" hreflang="x-default" href="https://vergasta.ch/privacy.html">
+
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="icon" href="favicon.ico">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Vergasta Digital">
   <meta property="og:locale" content="fr_CH">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="de_CH">
+  <meta property="og:locale:alternate" content="it_CH">
+  <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:title" content="Politique de confidentialité, Vergasta Digital">
   <meta property="og:description" content="Politique de confidentialité de Vergasta Digital, conforme à la LPD et au RGPD. Aucun cookie de tracking, ni Google Analytics. Données collectées, sécurité, droits des visiteurs.">
   <meta property="og:url" content="https://vergasta.ch/privacy.html">
@@ -24,20 +40,36 @@
   <link rel="preload" href="fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script src="brushes.js" defer></script>
+
+  <!--
+    Redirection de langue. Placé en fin de tête, après les liens alternes dont
+    il se sert, et sans defer : il doit trancher avant que la page s'affiche,
+    sinon le visiteur voit passer la mauvaise langue.
+  -->
+  <script src="lang.js"></script>
 </head>
 <body>
   <header class="site-header">
     <div class="masthead wrap">
-      <a href="index.html" class="brand">
+      <a href="./" class="brand">
         <img src="logo_vergasta.png" alt="">
         Vergasta Digital
       </a>
-      <nav class="site-nav" aria-label="Navigation principale">
-        <a href="index.html#metier">Ce que nous faisons</a>
-        <a href="index.html#deroule">Déroulé d’un projet</a>
-        <a href="index.html#realisations">Réalisations</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
+      <div class="masthead-tail">
+        <nav class="site-nav" aria-label="Navigation principale">
+          <a href="./#metier">Ce que nous faisons</a>
+          <a href="./#deroule">Déroulé d’un projet</a>
+          <a href="./#realisations">Réalisations</a>
+          <a href="./#contact">Contact</a>
+        </nav>
+        <nav class="lang-nav" aria-label="Langue du site">
+          <span class="is-current" aria-current="true" lang="fr">FR</span>
+          <a href="en/privacy.html" hreflang="en" lang="en" data-langue="en" aria-label="English">EN</a>
+          <a href="de/privacy.html" hreflang="de" lang="de" data-langue="de" aria-label="Deutsch">DE</a>
+          <a href="it/privacy.html" hreflang="it" lang="it" data-langue="it" aria-label="Italiano">IT</a>
+          <a href="ja/privacy.html" hreflang="ja" lang="ja" data-langue="ja" aria-label="日本語">JA</a>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -56,7 +88,7 @@
         <h2>Responsable du traitement</h2>
         <p><strong>Vergasta Digital</strong></p>
         <p>Bruno Vergasta Paiva<br>Rue du Temple 5, St-Imier, Suisse</p>
-        <p>Contact : via le formulaire sur <a href="index.html#contact">vergasta.ch</a></p>
+        <p>Contact : via le formulaire sur <a href="./#contact">vergasta.ch</a></p>
       </section>
 
       <section class="legal-section">
@@ -84,12 +116,13 @@
       <section class="legal-section">
         <h2>Vos droits</h2>
         <p>Conformément à la LPD et au RGPD, vous disposez des droits d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité.</p>
-        <p><a href="index.html#contact">Exercer vos droits</a></p>
+        <p><a href="./#contact">Exercer vos droits</a></p>
       </section>
 
       <section class="legal-section">
-        <h2>Cookies</h2>
+        <h2>Cookies et stockage local</h2>
         <p>Ce site utilise uniquement des cookies techniques essentiels au fonctionnement. Aucun cookie publicitaire tiers n’est utilisé.</p>
+        <p>La langue que vous choisissez est conservée dans le stockage local de votre navigateur, sous la clé « vergasta-langue ». Elle ne quitte jamais votre appareil et sert uniquement à vous rouvrir le site dans la même langue.</p>
       </section>
 
       <section class="legal-section">

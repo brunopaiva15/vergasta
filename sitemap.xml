@@ -1,24 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Les quatre pages publiques. carte-de-visite.html en est volontairement
-  absente : c'est une page d'atelier, liée depuis nulle part et en noindex.
+  Les quatre pages publiques, dans les cinq langues. carte-de-visite.html en est
+  volontairement absente : c'est une page d'atelier, liée depuis nulle part et
+  en noindex. Les correspondances entre versions ne sont pas répétées ici :
+  elles vivent dans les <link rel="alternate" hreflang> de chaque page.
   Mettre à jour lastmod quand le contenu d'une page change réellement.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://vergasta.ch/</loc>
-    <lastmod>2026-08-07</lastmod>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/en/</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/de/</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/it/</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/ja/</loc>
+    <lastmod>2026-08-08</lastmod>
   </url>
   <url>
     <loc>https://vergasta.ch/terms.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/en/terms.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/de/terms.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/it/terms.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/ja/terms.html</loc>
+    <lastmod>2026-08-08</lastmod>
   </url>
   <url>
     <loc>https://vergasta.ch/privacy.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/en/privacy.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/de/privacy.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/it/privacy.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/ja/privacy.html</loc>
+    <lastmod>2026-08-08</lastmod>
   </url>
   <url>
     <loc>https://vergasta.ch/imprint.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/en/imprint.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/de/imprint.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/it/imprint.html</loc>
+    <lastmod>2026-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/ja/imprint.html</loc>
+    <lastmod>2026-08-08</lastmod>
   </url>
 </urlset>

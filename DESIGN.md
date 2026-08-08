@@ -3,10 +3,10 @@
 Ce document sert à reprendre le site sans en défaire la cohérence. Il dit ce
 qu'on fait, et surtout ce qu'on ne fait pas et pourquoi.
 
-Le site est statique : quatre pages HTML publiques, une page d'atelier non
-référencée, deux feuilles de style, un script, des polices, plus `robots.txt` et
-`sitemap.xml`. Pas de build, pas de dépendance, pas de gestionnaire de paquets. On
-édite les fichiers, on pousse, GitHub Pages sert.
+Le site est statique : quatre pages publiques en cinq langues, une page
+d'atelier non référencée, deux feuilles de style, deux scripts, des polices,
+plus `robots.txt` et `sitemap.xml`. Pas de build, pas de dépendance, pas de
+gestionnaire de paquets. On édite les fichiers, on pousse, GitHub Pages sert.
 
 ---
 
@@ -67,6 +67,26 @@ en grand corps.
 
 Pas d'italique : une bitmap n'en a pas. L'emphase passe par `<em>`, stylé en
 surligneur lime.
+
+### Le japonais
+
+Jersey 25 et Archivo ne dessinent que le latin, et leurs `unicode-range` le
+disent : sur `/ja/`, le navigateur descend d'un cran dans la pile pour tout
+caractère japonais. `html[lang="ja"]` lui donne alors des polices du système
+(Hiragino, Yu Gothic, Meiryo), et **Jersey 25 reste en tête de la pile** : la
+marque, les noms de projets et les chiffres sont en latin et gardent leurs
+marches d'escalier. La ligne mixte est assumée.
+
+Héberger un sous-ensemble japonais coûterait quelques centaines de kilo-octets
+pour 108 Ko aujourd'hui, et il n'existe pas de bitmap japonaise qui tienne le
+registre de Jersey 25. La promesse du présent paragraphe passe avant l'unité
+typographique sur une seule des cinq versions.
+
+Deux réglages suivent de là, dans la feuille de style : `line-height` à 1,3 sur
+les titres, parce qu'une bitmap latine se cale sur 1 mais que les kanji touchent
+la ligne suivante ; et des mesures rouvertes sur les `h1`, parce que l'unité
+`ch` vaut la largeur du zéro de Jersey 25 alors qu'un kana en occupe deux, ce
+qui coupait les titres japonais deux fois trop tôt.
 
 ### Pourquoi les polices ne viennent pas de Google
 
@@ -140,6 +160,13 @@ des cartes. Ligne surlignée en lime au survol. Sous 640 px, les en-têtes
 disparaissent et chaque ligne devient un bloc.
 
 **Navigation.** Liens en casse normale, aplat lime et bordure noire au survol.
+
+**Sélecteur de langue `.lang-nav`.** Cinq codes à deux lettres dans la police
+d'affichage, posés à droite de la navigation, séparés par un filet simple
+au-delà de 800 px. La version courante porte l'aplat lime et la bordure noire :
+c'est le même geste que le survol, tenu en permanence. Pas de menu déroulant,
+pas de drapeau. À cinq entrées une liste ouverte se lit d'un coup d'œil, elle
+fonctionne sans JavaScript, et un drapeau désigne un pays, pas une langue.
 
 ---
 
@@ -235,10 +262,13 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 - rendu en 1440 px et 390 px, accueil et une page légale,
 - états de survol : navigation, ligne de tableau, bouton,
-- JavaScript coupé : aucun trou dans la mise en page,
+- JavaScript coupé : aucun trou dans la mise en page, et le sélecteur de langue
+  reste un jeu de liens qui fonctionnent,
 - aucune requête vers un domaine tiers,
 - console sans erreur,
-- si une page publique a été ajoutée ou renommée, `sitemap.xml` la suit (voir §10).
+- si une page publique a été ajoutée ou renommée, `sitemap.xml` la suit (voir §10),
+- si un texte a bougé, les cinq versions ont bougé ensemble (voir §11), et le
+  rendu allemand et japonais a été regardé : ce sont les deux qui débordent.
 
 ---
 
@@ -291,11 +321,21 @@ qui n'a pas le droit d'ouvrir la page ne lit pas non plus sa balise `noindex`,
 donc l'adresse peut malgré tout finir listée. C'est la balise qui la tient à
 l'écart, pas `robots.txt`.
 
-**`sitemap.xml`.** Les quatre pages publiques, rien d'autre. Ses `<loc>` doivent
-correspondre exactement aux `<link rel="canonical">` des pages : deux adresses
-concurrentes pour une même page, c'est le moyen le plus simple de diviser son
-propre référencement. Ajouter une page publique veut donc dire trois gestes,
-pas un : la page, son canonique, sa ligne dans le plan.
+**`sitemap.xml`.** Les quatre pages publiques dans les cinq langues, soit vingt
+adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
+`<link rel="canonical">` des pages : deux adresses concurrentes pour une même
+page, c'est le moyen le plus simple de diviser son propre référencement.
+Ajouter une page publique veut donc dire trois gestes, pas un : la page, son
+canonique, sa ligne dans le plan. Les correspondances entre versions ne sont
+pas répétées dans le plan : elles vivent dans les `hreflang` de chaque page,
+et une seule déclaration vaut mieux que deux qui divergent.
+
+**Les `hreflang`.** Chaque page porte les six liens `rel="alternate"` : les cinq
+langues plus `x-default`, qui pointe sur le français. Ils doivent être
+**réciproques et absolus** : si `/en/terms.html` déclare `/de/terms.html`, la
+page allemande doit déclarer la page anglaise en retour, sinon un moteur ignore
+tout le groupe. C'est aussi de ces liens que `lang.js` tire les adresses des
+autres versions, ce qui fait d'eux la seule source à tenir à jour.
 
 **Les balises de tête.** Chaque page publique porte un titre, une description
 écrite depuis son contenu réel, un canonique absolu, `robots` en `index,
@@ -324,3 +364,71 @@ Après la mise en ligne, deux gestes qui ne se font pas depuis le dépôt :
 déclarer le site à la Google Search Console et y déposer `sitemap.xml`, et faire
 de même sur Bing Webmaster Tools. Sans cela l'indexation arrive quand même, mais
 sans aucun retour sur ce qui est réellement indexé.
+
+---
+
+## 11. Les cinq langues
+
+Français, anglais, allemand, italien, japonais. Le français reste à la racine :
+ses adresses ne bougent pas, les liens déjà donnés tiennent. Les quatre autres
+vivent dans `/en/`, `/de/`, `/it/`, `/ja/`, avec les mêmes noms de fichiers.
+Vingt pages, quatre par langue.
+
+Ce sont des **pages complètes, pas des textes injectés au chargement**. Une
+traduction posée par JavaScript n'a pas d'adresse propre : elle ne se partage
+pas, ne s'indexe pas, et disparaît si le script échoue. Le prix en est la
+duplication du gabarit, payée à chaque modification.
+
+### Modifier un texte
+
+Un texte se modifie **dans les cinq langues à la fois**, ou dans aucune. Une
+version qui prend de l'avance sur les autres est pire qu'une version absente :
+le visiteur ne peut pas savoir laquelle est à jour. Le contenu est le même
+partout, à trois exceptions près, toutes trois voulues :
+
+- l'allemand suit l'**orthographe suisse** : jamais de `ß`, toujours `ss` ;
+- les pages légales non françaises portent un encart `.legal-note` disant que
+  la version française fait foi, avec un lien vers elle. Un texte contractuel
+  traduit doit dire lequel prime ;
+- le numéro d'identification change de sigle selon la langue : IDE, UID, IDI.
+  C'est la même entreprise et le même numéro.
+
+La typographie française du §7 (espace fine insécable, guillemets `« »`) ne
+s'applique **qu'au français**. L'anglais, l'allemand et l'italien collent la
+ponctuation haute ; le japonais a ses propres signes, `「」` et `、`.
+
+### La détection automatique
+
+`lang.js`, chargé en fin de tête et **sans `defer`** : il doit trancher avant
+que la page s'affiche, sinon le visiteur voit passer la mauvaise langue. Trois
+règles, dans cet ordre :
+
+1. un choix explicite, fait en cliquant sur un des cinq codes, gagne toujours.
+   Il est conservé dans le stockage local sous `vergasta-langue` ;
+2. sans choix enregistré, `navigator.languages` décide, **une seule fois par
+   session**. Le marqueur de session est ce qui permet ensuite d'aller lire une
+   autre version sans être ramené de force à chaque page ;
+3. si rien ne correspond, la page reste telle quelle.
+
+Trois points à ne pas défaire :
+
+- **le script ne calcule aucun chemin.** Il lit les `hreflang` de la tête, dont
+  il ne garde que le chemin, rebranché sur l'hôte courant : sinon un aperçu
+  local se ferait renvoyer sur vergasta.ch. Le site est servi à la racine du
+  domaine, voir `CNAME` ;
+- **`location.replace`, jamais `assign`**, sinon le bouton retour rejoue la
+  redirection en boucle ;
+- **tout lien de langue porte `data-langue`**, y compris celui de l'encart de
+  traduction vers l'original français. Sans lui, un visiteur venu de la version
+  allemande serait renvoyé à l'allemand en arrivant sur la page française.
+
+Rien ne sort de l'appareil : aucune requête, aucun cookie, une seule clé de
+stockage local, déclarée dans `privacy.html`. La propriété du §2 tient toujours.
+
+### Ce que le balisage ne dit pas
+
+`knowsLanguage` et `availableLanguage` des données structurées restent à `fr`
+dans les cinq versions. Le site est traduit ; l'atelier ne promet pas pour
+autant de répondre à une demande en cinq langues. Le §10 demande que chaque
+valeur soit vraie, et celle-là ne le serait pas. À corriger le jour où elle le
+devient, et pas avant.
