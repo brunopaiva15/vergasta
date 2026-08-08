@@ -400,6 +400,12 @@ em {
    Ce que nous faisons
    -------------------------------------------------------------------------- */
 
+/* Quatre entrées lues comme des colonnes de journal : filets francs, pas de
+   cartes. Sous 1080 px elles s'empilent et le filet passe à l'horizontale. */
+.trades {
+  display: grid;
+}
+
 .trades dt {
   font-family: var(--display);
   font-size: 1.7rem;
@@ -412,10 +418,48 @@ em {
   color: var(--ink-soft);
 }
 
-.trades dd + dt {
+/* Les noms de projets servent de points d'accroche à la lecture rapide. */
+.trades b {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.trade + .trade {
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 2px solid var(--rule-hard);
+}
+
+@media (min-width: 1080px) {
+  .trades {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trade + .trade {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* Les filets se croisent au centre du bloc, comme une double page.
+     Les gouttières sont des paddings pour que les filets se rejoignent. */
+  .trade:nth-child(2n + 1) {
+    padding-right: 2.5rem;
+  }
+
+  .trade:nth-child(2n) {
+    padding-left: 2.5rem;
+    border-left: 2px solid var(--rule-hard);
+  }
+
+  .trade:nth-child(-n + 2) {
+    padding-bottom: 2.25rem;
+    border-bottom: 2px solid var(--rule-hard);
+  }
+
+  .trade:nth-child(n + 3) {
+    padding-top: 2.25rem;
+  }
 }
 
 /* --------------------------------------------------------------------------

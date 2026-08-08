@@ -124,6 +124,17 @@ négatif de marge, comme une fenêtre d'époque. Il sert à porter une informati
 réelle et vérifiable, pas un argument : son contenu actuel vient directement
 des CGV.
 
+**Bloc `.trades`.** Les quatre métiers sont un `<dl>`, chaque paire groupée dans
+un `<div class="trade">`. Au-delà de 1080 px, deux colonnes de deux entrées :
+les gouttières sont des paddings et les séparations des bordures, de sorte que
+le filet vertical et le filet horizontal se croisent net au centre du bloc,
+comme une double page. En dessous, une seule colonne et le filet repasse à
+l'horizontale. Ce ne sont pas des cartes : pas de fond, pas de bordure fermée,
+pas de numérotation. Les noms de projets sont en `<b>` (600, encre pleine) pour
+donner des points d'accroche à la lecture rapide, quatre paragraphes d'affilée
+se lisant mal sans repères. Ajouter une cinquième entrée casse le carré : il
+faut alors reprendre les `nth-child` de la grille.
+
 **Index `.index`.** Les réalisations sont un vrai `<table>` avec en-têtes, pas
 des cartes. Ligne surlignée en lime au survol. Sous 640 px, les en-têtes
 disparaissent et chaque ligne devient un bloc.
