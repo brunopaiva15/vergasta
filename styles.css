@@ -563,10 +563,15 @@ em {
   background: var(--lime);
 }
 
-.index a {
+.index a,
+.index .name {
   font-family: var(--display);
   font-size: 1.55rem;
   line-height: 1;
+}
+
+.index .name {
+  display: block;
 }
 
 .index tr:hover a {
