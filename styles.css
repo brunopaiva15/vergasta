@@ -106,6 +106,8 @@
   --bleu: #4f46e6;
   --grille: rgba(10, 10, 10, 0.14);
   --pas: 8px;
+  /* hauteur de la barre de chargement : un pas de grille moins un filet */
+  --barre: 7px;
   --display: "Jersey 25", "Courier New", monospace;
   --texte: "Archivo", system-ui, sans-serif;
   --measure: 34rem;
@@ -234,6 +236,46 @@ em {
 .mark {
   pointer-events: none;
   user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   Barre de chargement
+
+   Le seul élément fixe du site. Il n'est là que pendant une navigation, il ne
+   mesure que sept pixels de haut et il ne recouvre rien : ce n'est pas un
+   en-tête collant. Le canevas est posé par le script ; sans JavaScript
+   l'élément n'existe pas.
+
+   La barre apparaît sans transition et disparaît en fondu : l'attente doit se
+   signaler tout de suite, mais sa fin ne doit pas claquer. La durée du fondu
+   est reprise dans `brushes.js` (SORTIE).
+   -------------------------------------------------------------------------- */
+
+.chargement {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--barre);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.chargement--visible {
+  opacity: 1;
+}
+
+.chargement--sortie {
+  opacity: 0;
+  transition: opacity 320ms linear;
+}
+
+@media print {
+  .chargement {
+    display: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
