@@ -221,6 +221,64 @@ s'arrête** : une image fixe ne mérite pas d'images par seconde.
 `prefers-reduced-motion` peint directement l'état final. Les hôtes sont des
 boîtes vides décoratives : **sans JavaScript la page est identique, sans trou.**
 
+### La barre de chargement
+
+Le site est fait de pages complètes : cliquer un lien fait attendre le visiteur
+devant la page qu'il quitte, sans que rien ne bouge. La barre occupe cette
+attente, et c'est la même brosse que partout ailleurs qui la peint. Sept pixels
+de haut, tout en haut de la fenêtre, deux passes mal calées comme la spirale
+d'ouverture : un rail posé haut, une ombre jetée dessous et en retard d'un poil,
+comme l'ombre portée du bouton ramenée à l'échelle.
+
+Elle sert deux moments : au clic elle avance sur la page qui part et reste à
+l'écran pendant que le navigateur va chercher la suivante ; à l'arrivée elle
+reprend là où le document en est et se termine au chargement complet. Le
+deuxième moment ne se voit qu'à partir d'une certaine lenteur, et c'est voulu :
+tant que rien n'a paru au bout de 120 ms, la navigation est terminée avant que
+la barre existe, et elle ne paraît pas du tout. Une barre qui clignote à chaque
+page est pire que pas de barre.
+
+**Le remplissage n'est pas une mesure.** Rien, dans une page servie en un bloc,
+ne dit où en est le téléchargement. La montée est asymptotique : elle approche
+93 % sans jamais les atteindre, et seule la fin du chargement pousse le trait
+jusqu'au bout. Une barre qui bluffe un pourcentage précis ment ; une barre qui
+ralentit dit seulement « ça vient ».
+
+**Le tracé change à chaque navigation.** Huit variantes, deux brosses et deux
+encres chacune, dans la gamme saturée : la barre est sur du blanc, le lime n'y
+tiendrait pas. Ce qui change, ce sont les brosses et les encres, jamais la
+géométrie : une barre qui changerait aussi de place ou d'épaisseur ne se
+reconnaîtrait plus d'une fois sur l'autre. La variante se lit dans
+`history.length`, qui avance d'un cran à chaque page ouverte dans l'onglet : la
+série tourne donc d'elle-même, sans rien écrire nulle part, et **sans
+`Math.random`**, qui redonnerait un tirage différent à chaque image. La règle du
+§6 tient toujours : le tirage est arrêté au début du tracé et vaut pour tout le
+tracé.
+
+Quatre points à ne pas défaire :
+
+- **le canevas n'est jamais effacé entre deux images.** `stroke` prend un `from`
+  qui saute le dessin des tampons déjà posés sans sauter leur compte : l'aléa
+  vient de l'indice du tampon, donc la marche à vide doit passer par chacun
+  d'eux pour que le suivant tombe exactement où il serait tombé en repartant de
+  zéro. Un redimensionnement, lui, repeint tout d'un coup ;
+- **la barre est `fixed`, ce n'est pas un en-tête collant.** Elle ne recouvre
+  rien, elle ne dure pas, et le §4 tient : le seul `position: sticky` du site
+  reste le titre de section ;
+- **elle apparaît sans transition et disparaît en fondu.** L'attente doit se
+  signaler tout de suite, sa fin ne doit pas claquer. La durée du fondu est
+  écrite deux fois, dans `styles.css` et dans `brushes.js` (`SORTIE`) : les deux
+  vont ensemble ;
+- **un clic qui ne remplace pas le document ne la lance pas** : lien externe,
+  `target="_blank"`, `download`, `mailto:`, ancre dans la page, clic milieu,
+  clic avec une touche de modification. Une navigation qui n'aboutit pas la
+  retire au bout de vingt secondes.
+
+Elle ne demande rien à personne : aucune requête, aucune clé de stockage, rien
+qui sorte de l'appareil. La promesse du §2 tient. `prefers-reduced-motion` pose
+le trait entier sans montée, et **sans JavaScript l'élément n'existe pas**. La
+page d'atelier, qui sert à imprimer une carte, n'en a pas.
+
 ---
 
 ## 7. Ce qu'on ne fait pas
@@ -262,8 +320,10 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 - rendu en 1440 px et 390 px, accueil et une page légale,
 - états de survol : navigation, ligne de tableau, bouton,
-- JavaScript coupé : aucun trou dans la mise en page, et le sélecteur de langue
-  reste un jeu de liens qui fonctionnent,
+- barre de chargement : cliquer un lien interne la lance, un lien externe non,
+  et elle s'efface après l'arrivée sans rien laisser derrière,
+- JavaScript coupé : aucun trou dans la mise en page, le sélecteur de langue
+  reste un jeu de liens qui fonctionnent, et la barre n'existe pas,
 - aucune requête vers un domaine tiers,
 - console sans erreur,
 - si une page publique a été ajoutée ou renommée, `sitemap.xml` la suit (voir §10),

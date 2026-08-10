@@ -288,6 +288,12 @@
    * virent au gris mou. La taille est arrondie et chaque origine plancherée, en
    * pixels périphérique. Le canvas est donc dessiné en espace périphérique, la
    * transformation remise à zéro, et non en pixels CSS.
+   *
+   * `opts.from` saute le dessin des tampons déjà posés sans sauter leur compte :
+   * l'aléa vient de l'indice du tampon, donc la marche à vide doit passer par
+   * chacun d'eux pour que le tampon suivant tombe exactement où il serait tombé
+   * en repartant de zéro. Cela permet de prolonger un tracé sans effacer le
+   * canevas ni le repeindre en entier à chaque image.
    */
   function stroke(ctx, path, brush, shortSide, opts) {
     if (path.length < 2) return;
@@ -295,6 +301,8 @@
     var dpr = opts.dpr || 1;
     var progress = opts.progress == null ? 1 : opts.progress;
     if (progress <= 0) return;
+    var from = opts.from == null ? 0 : opts.from;
+    if (from >= progress) return;
     var ink = opts.ink;
     var alphaMul = opts.alpha == null ? 1 : opts.alpha;
     if (alphaMul <= 0) return;
@@ -327,54 +335,56 @@
         var t = a.t + (b.t - a.t) * f;
         if (t > progress) break;
 
-        var v = a.v + (b.v - a.v) * f;
-        var px = a.x * dpr + dx * f;
-        var py = a.y * dpr + dy * f;
+        if (t >= from) {
+          var v = a.v + (b.v - a.v) * f;
+          var px = a.x * dpr + dx * f;
+          var py = a.y * dpr + dy * f;
 
-        var h1 = hash(idx * 2.17);
-        var h2 = hash(idx * 3.71 + 11.3);
-        var h3 = hash(idx * 5.13 + 27.9);
+          var h1 = hash(idx * 2.17);
+          var h2 = hash(idx * 3.71 + 11.3);
+          var h3 = hash(idx * 5.13 + 27.9);
 
-        // jitter : perpendiculaire à la marche, le trait ondule sans se quitter
-        if (brush.jitter > 0) {
-          var j = (h1 - 0.5) * 2 * brush.jitter * base;
-          px += -uy * j;
-          py += ux * j;
-        }
-        // scatter : jet radial libre, c'est lui qui casse le trait en nuage
-        if (brush.scatter > 0) {
-          var sa = h2 * Math.PI * 2;
-          var sr = h3 * brush.scatter * base;
-          px += Math.cos(sa) * sr;
-          py += Math.sin(sa) * sr;
-        }
+          // jitter : perpendiculaire à la marche, le trait ondule sans se quitter
+          if (brush.jitter > 0) {
+            var j = (h1 - 0.5) * 2 * brush.jitter * base;
+            px += -uy * j;
+            py += ux * j;
+          }
+          // scatter : jet radial libre, c'est lui qui casse le trait en nuage
+          if (brush.scatter > 0) {
+            var sa = h2 * Math.PI * 2;
+            var sr = h3 * brush.scatter * base;
+            px += Math.cos(sa) * sr;
+            py += Math.sin(sa) * sr;
+          }
 
-        // la vitesse amincit la marque, mais jamais jusqu'à rien : un tampon
-        // arrondi à 0 px laisse un trou au lieu d'une zone claire
-        var scale = brush.speedSize > 0 ? 1 - brush.speedSize * v * 0.55 : 1;
-        var cell = Math.max(1, Math.round(base * scale * 0.5));
+          // la vitesse amincit la marque, mais jamais jusqu'à rien : un tampon
+          // arrondi à 0 px laisse un trou au lieu d'une zone claire
+          var scale = brush.speedSize > 0 ? 1 - brush.speedSize * v * 0.55 : 1;
+          var cell = Math.max(1, Math.round(base * scale * 0.5));
 
-        var rot = brush.follow > 0 ? ang * brush.follow : 0;
-        var cos = Math.cos(rot);
-        var sin = Math.sin(rot);
-        var hue = brush.hueDrift * t + (opts.hue || 0);
+          var rot = brush.follow > 0 ? ang * brush.follow : 0;
+          var cos = Math.cos(rot);
+          var sin = Math.sin(rot);
+          var hue = brush.hueDrift * t + (opts.hue || 0);
 
-        for (var c = 0; c < brush.cells.length; c++) {
-          var cellDef = brush.cells[c];
-          var ox = cellDef.x * base * 0.5;
-          var oy = cellDef.y * base * 0.5;
-          var rx = ox * cos - oy * sin;
-          var ry = ox * sin + oy * cos;
-          var w = Math.max(1, Math.round(cell * cellDef.s));
-          // plancher et non arrondi : les tampons voisins pavent exactement au
-          // lieu de se recouvrir d'un pixel et de noircir la couture
-          ctx.fillStyle = inkColor(ink, hue, cellDef.a * alphaMul);
-          ctx.fillRect(
-            Math.floor(px + rx - w / 2),
-            Math.floor(py + ry - w / 2),
-            w,
-            w
-          );
+          for (var c = 0; c < brush.cells.length; c++) {
+            var cellDef = brush.cells[c];
+            var ox = cellDef.x * base * 0.5;
+            var oy = cellDef.y * base * 0.5;
+            var rx = ox * cos - oy * sin;
+            var ry = ox * sin + oy * cos;
+            var w = Math.max(1, Math.round(cell * cellDef.s));
+            // plancher et non arrondi : les tampons voisins pavent exactement au
+            // lieu de se recouvrir d'un pixel et de noircir la couture
+            ctx.fillStyle = inkColor(ink, hue, cellDef.a * alphaMul);
+            ctx.fillRect(
+              Math.floor(px + rx - w / 2),
+              Math.floor(py + ry - w / 2),
+              w,
+              w
+            );
+          }
         }
 
         idx++;
@@ -645,7 +655,369 @@
     });
   }
 
+  /* ------------------------------------------------------------------ *
+   * Barre de chargement
+   * ------------------------------------------------------------------
+   * Le site est fait de pages complètes : cliquer un lien fait attendre le
+   * visiteur devant la page qu'il quitte, sans rien qui bouge. La barre occupe
+   * cette attente, et c'est la même brosse que le reste du site qui la peint :
+   * un trait tamponné de gauche à droite, en deux passes mal calées comme la
+   * spirale d'ouverture. Ni fuseau, ni pourcentage, ni dégradé.
+   *
+   * Elle sert deux moments :
+   *   au clic, elle avance sur la page qui part et reste à l'écran tant que le
+   *   navigateur va chercher la suivante ;
+   *   à l'arrivée, elle reprend là où le document en est et se termine au
+   *   chargement complet.
+   *
+   * Le remplissage n'est pas une mesure : rien, dans une page servie en un
+   * bloc, ne dit où en est le téléchargement. C'est une montée asymptotique
+   * qui approche un plafond sans jamais l'atteindre, et seule la fin du
+   * chargement pousse le trait jusqu'au bout. Une barre qui bluffe une mesure
+   * précise ment ; une barre qui ralentit dit seulement « ça vient ».
+   * ------------------------------------------------------------------ */
+
+  /* Ce qui change d'une navigation à l'autre, ce sont les deux brosses et les
+     deux encres. La géométrie, elle, ne bouge pas : une barre qui changerait
+     aussi de place ou d'épaisseur ne se reconnaîtrait plus d'une fois sur
+     l'autre.
+
+     Le lime ne peut pas servir ici, la barre est posée sur du blanc : les huit
+     variantes tirent dans la gamme saturée, celle des marques sur papier.
+
+     `part` donne la taille du tampon en fraction de la hauteur de la barre. Sur
+     sept pixels tout se joue au pixel près : le rail en occupe trois, l'ombre
+     deux, et il reste un pixel de jeu entre les deux. */
+  var VARIANTES = [
+    {
+      rail: { brush: "carres", ink: "bleu", part: 0.86, over: { spacing: 0.50, jitter: 0.13 } },
+      ombre: { brush: "projection", ink: "magenta", part: 0.52, over: { spacing: 0.58, jitter: 0.26, scatter: 0.08, speedSize: 0 } }
+    },
+    {
+      rail: { brush: "trait", ink: "cyan", part: 0.80, over: { spacing: 0.30, jitter: 0.10 } },
+      ombre: { brush: "carres", ink: "orange", part: 0.46, over: { spacing: 1.20, jitter: 0.20 } }
+    },
+    {
+      rail: { brush: "peigne", ink: "magenta", part: 0.66, over: { spacing: 0.22, hueDrift: 0 } },
+      ombre: { brush: "carres", ink: "cyan", part: 0.36, over: { spacing: 1.10, jitter: 0.24 } }
+    },
+    {
+      rail: { brush: "plume", ink: "olive", part: 0.92, over: { spacing: 0.22 } },
+      ombre: { brush: "semis", ink: "cyan", part: 0.46, over: { spacing: 0.90, scatter: 0.22 } }
+    },
+    {
+      rail: { brush: "tissage", ink: "orange", part: 0.70, over: { spacing: 0.40 } },
+      ombre: { brush: "carres", ink: "bleu", part: 0.40, over: { spacing: 1.05, jitter: 0.30 } }
+    },
+    {
+      rail: { brush: "touffe", ink: "encre", part: 0.62, over: { spacing: 0.45, scatter: 0.05 } },
+      ombre: { brush: "croix", ink: "magenta", part: 0.36, over: { spacing: 1.60 } }
+    },
+    {
+      rail: { brush: "carres", ink: "cyan", part: 0.90, over: { spacing: 0.90, jitter: 0.16 } },
+      ombre: { brush: "trait", ink: "bleu", part: 0.40, over: { spacing: 0.35 } }
+    },
+    {
+      rail: { brush: "projection", ink: "bleu", part: 0.84, over: { spacing: 0.42, jitter: 0.16, scatter: 0.05 } },
+      ombre: { brush: "anneaux", ink: "olive", part: 0.52, over: { spacing: 1.30 } }
+    }
+  ];
+
+  /* Le retard de l'ombre sur le rail, en fraction du trajet. */
+  var RETARD = 0.05;
+
+  /** Les deux couches d'une variante, prêtes pour `stroke`. */
+  function couches(v) {
+    return [
+      { passe: v.rail, lag: 0, alpha: 1, y: 0.34, amp: 0.08 },
+      { passe: v.ombre, lag: RETARD, alpha: 0.85, y: 0.74, amp: 0.12 }
+    ];
+  }
+
+  /** Le chemin de la barre : une onde très basse, une crête tous les 220 px
+   *  environ. Un trait rigoureusement droit ne montrerait rien de la brosse :
+   *  elles se ressemblent toutes sur une droite. */
+  function trace(w, y, amp) {
+    return wave(0, y, w, amp, Math.max(1, w / 220), Math.max(48, Math.round(w / 3)));
+  }
+
+  /** La variante d'une navigation.
+   *
+   *  `history.length` avance d'un cran à chaque page ouverte dans l'onglet : la
+   *  série tourne donc d'elle-même, sans rien écrire nulle part. Ce n'est pas
+   *  `Math.random` : le tirage doit tenir pendant tout le tracé, sinon la barre
+   *  changerait de brosse à chaque image. */
+  function variante() {
+    var n = 1;
+    try {
+      n = window.history.length || 1;
+    } catch (e) {
+      n = 1;
+    }
+    return VARIANTES[n % VARIANTES.length];
+  }
+
+  var MONTEE = 1500;   // constante de temps de la montée, en millisecondes
+  var PLAFOND = 0.93;  // la montée seule ne dépasse jamais cette fraction
+  var FIN_MS = 280;    // course jusqu'au bout une fois la page chargée
+  var TENUE = 90;      // temps où la barre pleine reste lisible
+  var SORTIE = 320;    // fondu de sortie, doit valoir la transition CSS
+  var ATTENTE = 120;   // rien à l'écran avant ce délai : pas de clignotement
+  var ABANDON = 20000; // navigation qui n'aboutit pas : on retire la barre
+
+  function barre() {
+    var host = document.createElement("div");
+    host.className = "chargement";
+    host.setAttribute("aria-hidden", "true");
+    var canvas = document.createElement("canvas");
+    canvas.style.cssText = "display:block;width:100%;height:100%";
+    host.appendChild(canvas);
+    document.body.insertBefore(host, document.body.firstChild);
+
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var dpr = 1;
+    var w = 0;
+    var h = 0;
+    var jeu = couches(variante()); // les deux passes du tracé en cours
+    var paths = [];
+
+    var raf = 0;
+    var minuteurs = [];
+    var phase = "repos";    // repos, montee (on attend la page), course (fin du trait)
+    var visible = false;    // la barre est à l'écran
+    var depart = 0;         // horodatage du début de la montée
+    var course = 0;         // horodatage du début de la course finale
+    var pose = 0;           // fraction déjà peinte sur le canevas
+    var atteint = 0;        // fraction atteinte au moment de la course finale
+
+    function differer(fn, ms) {
+      minuteurs.push(setTimeout(fn, ms));
+    }
+
+    function purger() {
+      for (var i = 0; i < minuteurs.length; i++) clearTimeout(minuteurs[i]);
+      minuteurs = [];
+    }
+
+    /** Mesure le canevas. Renvoie vrai si la géométrie a changé. */
+    function layout() {
+      var nw = host.clientWidth;
+      var nh = host.clientHeight;
+      var ndpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (!nw || !nh) return false;
+      if (nw === w && nh === h && ndpr === dpr) return false;
+      w = nw;
+      h = nh;
+      dpr = ndpr;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      chemins();
+      return true;
+    }
+
+    function chemins() {
+      paths = [];
+      for (var i = 0; i < jeu.length; i++) paths.push(trace(w, h * jeu[i].y, h * jeu[i].amp));
+    }
+
+    function effacer() {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pose = 0;
+    }
+
+    /** Prolonge le tracé de `pose` jusqu'à `p`. Le canevas n'est jamais effacé
+     *  entre deux images : seuls les tampons nouveaux sont posés. */
+    function peindre(p) {
+      if (p <= pose) return;
+      for (var i = 0; i < jeu.length; i++) {
+        var layer = jeu[i];
+        var passe = layer.passe;
+        var brush = BRUSHES[passe.brush];
+        if (!brush || !paths[i]) continue;
+        var merged = {};
+        var k;
+        for (k in brush) if (Object.prototype.hasOwnProperty.call(brush, k)) merged[k] = brush[k];
+        for (k in passe.over) if (Object.prototype.hasOwnProperty.call(passe.over, k)) merged[k] = passe.over[k];
+        // le retard est repris dans l'échelle : à p = 1 les deux passes
+        // touchent le bout, sinon l'ombre s'arrêterait avant le bord
+        var etale = function (x) {
+          return Math.min(1, Math.max(0, (x - layer.lag) / (1 - layer.lag)));
+        };
+        stroke(ctx, paths[i], merged, Math.min(w, h), {
+          progress: etale(p),
+          from: etale(pose),
+          dpr: dpr,
+          ink: INKS[passe.ink],
+          alpha: layer.alpha,
+          sizePx: h * passe.part
+        });
+      }
+      pose = p;
+    }
+
+    function montrer() {
+      if (visible) return;
+      visible = true;
+      host.classList.remove("chargement--sortie");
+      host.classList.add("chargement--visible");
+    }
+
+    function repos() {
+      purger();
+      cancelAnimationFrame(raf);
+      raf = 0;
+      phase = "repos";
+      visible = false;
+      host.classList.remove("chargement--visible", "chargement--sortie");
+      effacer();
+    }
+
+    function tick(now) {
+      raf = 0;
+      if (phase === "repos") return;
+      if (layout()) {
+        // le canevas repart vide après un redimensionnement : on repeint d'un
+        // coup tout ce qui était déjà acquis
+        var acquis = pose;
+        effacer();
+        peindre(acquis);
+      }
+      if (phase === "course") {
+        var f = Math.min(1, (now - course) / FIN_MS);
+        peindre(atteint + (1 - atteint) * easeOut(f));
+        if (f >= 1) return;
+      } else {
+        // montée asymptotique : elle approche le plafond sans jamais l'atteindre
+        peindre(PLAFOND * (1 - Math.exp(-(now - depart) / MONTEE)));
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    function relancer() {
+      if (!raf && phase !== "repos") raf = requestAnimationFrame(tick);
+    }
+
+    /* --- interface ------------------------------------------------- */
+
+    /** Une navigation commence. Sans effet si une autre est déjà en attente. */
+    function ouvrir() {
+      if (phase === "montee") return;
+      repos();
+      // la variante est arrêtée ici, pour tout le tracé
+      jeu = couches(variante());
+      chemins();
+      phase = "montee";
+      depart = performance.now();
+      // rien à l'écran avant ATTENTE : un chargement instantané ne doit pas
+      // laisser passer un éclair de couleur
+      differer(function () {
+        if (phase !== "montee") return;
+        layout();
+        if (!w || !h) return;
+        montrer();
+        if (reduced) {
+          // pas de montée : le trait se pose entier et attend
+          peindre(PLAFOND);
+          return;
+        }
+        relancer();
+      }, ATTENTE);
+      // une navigation qui n'aboutit pas laisserait la barre en plan
+      differer(fermer, ABANDON);
+    }
+
+    /** La page est chargée. La barre finit son trait puis s'efface. */
+    function fermer() {
+      if (phase !== "montee") return;
+      purger();
+      if (!visible) {
+        // chargement plus court que ATTENTE : la barre n'a jamais paru
+        repos();
+        return;
+      }
+      phase = "course";
+      if (reduced) {
+        peindre(1);
+        differer(repos, TENUE);
+        return;
+      }
+      atteint = pose;
+      course = performance.now();
+      relancer();
+      differer(function () {
+        host.classList.add("chargement--sortie");
+        differer(repos, SORTIE);
+      }, FIN_MS + TENUE);
+    }
+
+    layout();
+    window.addEventListener("resize", function () {
+      if (phase === "repos" && !visible) layout();
+    });
+
+    return { ouvrir: ouvrir, fermer: fermer, repos: repos };
+  }
+
+  /** Un lien qui va réellement remplacer le document courant. */
+  function navigue(a, e) {
+    if (e.defaultPrevented || e.button !== 0) return false;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return false;
+    if (!a || !a.href || a.hasAttribute("download")) return false;
+    if (a.target && a.target !== "_self") return false;
+    var url;
+    try {
+      url = new URL(a.href, location.href);
+    } catch (err) {
+      return false;
+    }
+    // mailto:, tel: et les autres protocoles n'emportent pas la page
+    if (url.protocol !== "http:" && url.protocol !== "https:") return false;
+    if (url.origin !== location.origin) return false;
+    // une ancre dans la page courante ne recharge rien
+    if (url.href.split("#")[0] === location.href.split("#")[0]) return false;
+    return true;
+  }
+
+  function chargement() {
+    // la page d'atelier sert à imprimer une carte : pas de barre
+    if (document.body.classList.contains("atelier")) return;
+    var b = barre();
+    if (!b) return;
+    var quitte = false; // un lien a été suivi : cette page ne nous intéresse plus
+
+    // le document courant : la barre ne prend le relais que si le chargement
+    // n'est pas déjà terminé quand ce script s'exécute
+    if (document.readyState !== "complete") {
+      b.ouvrir();
+      window.addEventListener("load", function () {
+        // le visiteur a cliqué avant la fin du chargement : la page qu'il
+        // attend n'est plus celle-ci, la barre n'a pas à annoncer une arrivée
+        if (!quitte) b.fermer();
+      });
+    }
+
+    document.addEventListener("click", function (e) {
+      var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+      if (!a || !navigue(a, e)) return;
+      quitte = true;
+      b.ouvrir();
+    });
+
+    // retour arrière depuis le cache du navigateur : la page est déjà là,
+    // la barre laissée en plan par le départ n'a plus lieu d'être
+    window.addEventListener("pageshow", function (e) {
+      if (e.persisted) b.repos();
+    });
+    window.addEventListener("pagehide", b.repos);
+  }
+
   function init() {
+    chargement();
+    // les marques ont besoin des deux observateurs, la barre non
     if (!window.ResizeObserver || !window.IntersectionObserver) return;
     var hosts = document.querySelectorAll("[data-mark]");
     for (var i = 0; i < hosts.length; i++) mount(hosts[i]);
