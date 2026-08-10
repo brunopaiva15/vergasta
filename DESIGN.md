@@ -191,14 +191,26 @@ des cartes. Ligne surlignée en lime au survol. Sous 640 px, les en-têtes
 disparaissent et chaque ligne devient un bloc.
 
 **Le fil de `story.html`.** La page « Notre histoire » range ses chapitres le
-long d'un trait à la brosse, posé dans un rail à gauche et tiré sur toute la
-hauteur du bloc. Le fil **est** la séparation entre les chapitres : c'est pour
-cela qu'aucun filet ne passe entre eux, deux séparations pour la même charnière
-en faisant une de trop. Chaque chapitre pose sur le trait un nœud carré à ombre
-portée lime, le même geste que le bouton, et le dernier est plus gros parce que
-le fil s'arrête là. Les deux mesures du rail, `--fil` et `--fil-jeu`, sont des
-variables parce qu'elles servent trois fois : largeur du canevas, retrait de la
-colonne de texte, position des nœuds. Elles bougent ensemble ou pas du tout.
+long d'un trait à la brosse tiré sur toute la hauteur du bloc, qui dérive à
+gauche et à droite dans un couloir posé à gauche du texte. Le fil **est** la
+séparation entre les chapitres : c'est pour cela qu'aucun filet ne passe entre
+eux, deux séparations pour la même charnière en faisant une de trop.
+
+Chaque chapitre pose un nœud carré à ombre portée lime, le même geste que le
+bouton, et le dernier est plus gros parce que le fil s'arrête là. Les nœuds
+sont sur l'**axe** du couloir, pas sur le fil : le fil les recoupe en
+descendant, tantôt en plein dessus, tantôt à côté. Ce sont les épingles qui
+tiennent le fil, pas des points de passage obligés, et c'est ce qui autorise le
+tracé à être libre. Les caler sur la courbe demanderait au CSS de connaître une
+géométrie calculée en JavaScript, donc de sauter d'un chapitre à l'autre sur
+une page sans script.
+
+Les deux mesures du couloir, `--fil` et `--fil-jeu`, sont des variables parce
+qu'elles servent trois fois : largeur du canevas, retrait de la colonne de
+texte, position des nœuds. Elles bougent ensemble ou pas du tout. Le couloir
+passe de 3 rem à `clamp(6.5rem, 8vw, 9rem)` au-delà de 800 px : l'amplitude de
+la dérive et la taille des tampons se mesurent toutes deux sur cette largeur,
+donc le fil de bureau est le même fil agrandi, et non un fil plus lâche.
 
 Le repère de temps de chaque chapitre porte l'aplat lime et la bordure noire,
 comme la langue courante du sélecteur : un survol tenu en permanence. Ce ne sont
@@ -282,19 +294,35 @@ sur noir.
 ### Le fil de l'histoire
 
 `fil` est la seule marque qui ne tienne pas dans un carré : son hôte est un
-rail haut et étroit, aussi long que le bloc des chapitres. Deux points en
+couloir haut et étroit, aussi long que le bloc des chapitres. Trois points en
 découlent.
 
-`veine` est le pendant vertical de `wave`, avec la même enveloppe aux deux
-bouts, pour que le trait parte et finisse au milieu du rail plutôt qu'en butée
-contre un bord.
+**Le méandre ne se répète jamais.** `serpente` superpose trois harmoniques dont
+deux sont dans un rapport irrationnel à la première, et module lentement leur
+amplitude, de sorte que certains virages s'ouvrent et d'autres se referment.
+Une sinusoïde seule donnerait un ruban de papier peint sur deux mètres de page ;
+il faut ces quatre fréquences pour qu'un œil arrête d'y trouver la répétition.
+Une enveloppe ramène le tracé vers l'axe aux deux bouts, pour qu'il parte et
+finisse au milieu du couloir plutôt qu'en butée contre un bord. Rien de tout
+cela ne passe par `Math.random` : la règle du §6 vaut, un redimensionnement doit
+redonner le même fil.
 
-Surtout, **`size` se mesure sur le petit côté du canevas**, donc ici sur la
-largeur du rail : la taille des tampons suit le rail, jamais la longueur de la
-page. C'est le nombre de tampons qui croît avec la hauteur, ce qui est
-exactement ce qu'on demande à un fil. Le nombre de points du chemin suit la même
-règle (`h / 4`), sinon un chapitre ajouté étirerait la même poignée de segments
-et le trait s'angulerait.
+**La brosse change en cours de route, l'encre non.** `brin(t0, t1)` découpe une
+portion du même tracé, et la position ne dépend que de `t` : deux portions
+consécutives se raccordent donc exactement, à un cheveu de recouvrement près.
+Cinq brins descendent la page, `plume`, `carres`, `derive`, `tissage`, `touffe`,
+tous en magenta, avec des retards croissants qui font descendre le dessin comme
+une main qui trace. Une passe de croix bleues repasse ensuite sur toute la
+longueur, décalée d'un poil : le tirage en deux couleurs mal calées de
+l'ouverture. **Cinq brosses, une seule encre** : c'est la texture qui change,
+pas l'identité. Cinq encres donneraient cinq traits, plus un fil.
+
+**`size` se mesure sur le petit côté du canevas**, donc ici sur la largeur du
+couloir : la taille des tampons suit le couloir, jamais la longueur de la page.
+C'est le nombre de tampons qui croît avec la hauteur, ce qui est exactement ce
+qu'on demande à un fil. Le nombre de points du chemin suit la même règle, à la
+longueur de chaque brin, sinon un chapitre ajouté étirerait la même poignée de
+segments et le méandre s'angulerait.
 
 ### Ajouter une marque
 

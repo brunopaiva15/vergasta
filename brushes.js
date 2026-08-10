@@ -261,20 +261,51 @@
     return build(pts);
   }
 
-  /** Onde verticale : le pendant de `wave`, l'axe long tenu debout. Elle sert
-   *  au fil de la page d'histoire, qui court sur toute la hauteur du bloc.
-   *  L'enveloppe ramène le trait vers l'axe aux deux bouts, pour qu'il parte
-   *  et finisse au milieu du rail plutôt qu'en butée contre un bord. */
-  function veine(x0, y0, hauteur, amp, cycles, steps) {
+  /** Le fil de la page d'histoire : une descente qui dérive à gauche et à
+   *  droite dans son couloir.
+   *
+   *  Deux harmoniques de rapport irrationnel se superposent, donc le méandre
+   *  ne se répète jamais sur la hauteur d'une page : une sinusoïde seule
+   *  donnerait un ruban de papier peint, pas un fil posé à la main.
+   *  L'enveloppe le ramène vers l'axe aux deux bouts, pour qu'il parte et
+   *  finisse au milieu du couloir plutôt qu'en butée contre un bord.
+   *
+   *  `t0` et `t1` découpent une portion du même tracé. La position ne dépend
+   *  que de `t`, jamais du découpage : deux portions consécutives se
+   *  raccordent donc exactement, ce qui permet de changer de brosse en cours
+   *  de route sans que le fil se casse. `ecart` décale toute la descente, en
+   *  fraction de la largeur du couloir, pour la seconde passe mal calée.
+   */
+  function serpente(w, h, t0, t1, ecart, steps) {
     var pts = [];
+    var cx = w * (0.5 + (ecart || 0));
+    var amp = w * 0.40;
+    var tours = Math.max(1.8, h / 560);
     for (var i = 0; i <= steps; i++) {
-      var t = i / steps;
+      var t = t0 + (t1 - t0) * (i / steps);
+      var a = t * tours * Math.PI * 2;
+      // trois harmoniques, dont deux de rapport irrationnel à la première
+      var d = 0.55 * Math.sin(a)
+        + 0.30 * Math.sin(a * 2.37 + 1.7)
+        + 0.15 * Math.sin(a * 0.61 + 0.9);
+      // une modulation lente ouvre certains virages et en referme d'autres :
+      // sans elle tous les écarts auraient la même largeur
+      var large = 0.72 + 0.28 * Math.sin(a * 0.41 + 2.2);
       pts.push({
-        x: x0 + Math.sin(t * cycles * Math.PI * 2) * amp * (0.35 + 0.65 * Math.sin(t * Math.PI)),
-        y: y0 + hauteur * t
+        x: cx + d * amp * large * (0.45 + 0.55 * Math.sin(t * Math.PI)),
+        y: h * t
       });
     }
     return build(pts);
+  }
+
+  /** Une portion du fil, prête à poser dans `MARKS`. Le nombre de points suit
+   *  la longueur réelle de la portion : sinon un chapitre ajouté étirerait la
+   *  même poignée de segments et le méandre s'angulerait. */
+  function brin(t0, t1, ecart) {
+    return function (w, h) {
+      return serpente(w, h, t0, t1, ecart, Math.max(80, Math.round(h * (t1 - t0) / 3)));
+    };
   }
 
   /** Arc de cercle. */
@@ -516,27 +547,51 @@
       }
     ],
 
-    /* Le fil de la page d'histoire : une veine magenta doublée d'un semis de
-       croix bleues en retard, comme un tirage en deux passes mal calées.
+    /* Le fil de la page d'histoire. Un seul tracé, découpé en cinq brins qui
+       changent de brosse en descendant : la plume ouvre, les carrés détachent,
+       la dérive part en morceaux, le tissage se resserre, la touffe finit. Le
+       fil garde la même encre d'un bout à l'autre, sinon ce ne serait plus un
+       fil mais cinq traits ; c'est la texture qui change, pas l'identité.
+
+       Les retards font descendre le dessin brin après brin, du haut vers le
+       bas, comme une main qui trace.
+
+       Une passe de croix bleues repasse ensuite sur toute la longueur, décalée
+       d'un poil : le tirage en deux couleurs mal calées de l'ouverture.
 
        Le canevas est haut et étroit, et `size` se mesure sur le petit côté :
-       la taille des tampons suit donc la largeur du rail, jamais la longueur
-       de la page. Le nombre de tampons, lui, croît avec la hauteur, ce qui est
-       exactement ce qu'on veut d'un fil. */
+       la taille des tampons suit donc la largeur du couloir, jamais la
+       longueur de la page. Le nombre de tampons, lui, croît avec la hauteur,
+       ce qui est exactement ce qu'on veut d'un fil. */
     fil: [
       {
-        brush: "carres", ink: "magenta",
-        over: { size: 0.22, spacing: 0.42, jitter: 0.10 },
-        path: function (w, h) {
-          return veine(w * 0.5, 0, h, w * 0.22, Math.max(1.5, h / 900), Math.max(160, Math.round(h / 4)));
-        }
+        brush: "plume", ink: "magenta", over: { size: 0.115, spacing: 0.12 },
+        path: brin(0, 0.22, 0)
       },
       {
-        brush: "croix", ink: "bleu", alpha: 0.75, delay: 180,
-        over: { size: 0.14, spacing: 1.6 },
-        path: function (w, h) {
-          return veine(w * 0.56, 0, h, w * 0.16, Math.max(1.5, h / 900), Math.max(160, Math.round(h / 4)));
-        }
+        brush: "carres", ink: "magenta", delay: 150,
+        over: { size: 0.115, spacing: 0.44, jitter: 0.10 },
+        path: brin(0.21, 0.42, 0)
+      },
+      {
+        brush: "derive", ink: "magenta", delay: 300,
+        over: { size: 0.10, spacing: 0.34, scatter: 0.90 },
+        path: brin(0.41, 0.60, 0)
+      },
+      {
+        brush: "tissage", ink: "magenta", delay: 450,
+        over: { size: 0.10, spacing: 0.46 },
+        path: brin(0.59, 0.80, 0)
+      },
+      {
+        brush: "touffe", ink: "magenta", delay: 600,
+        over: { size: 0.105, spacing: 0.36, scatter: 0.14 },
+        path: brin(0.79, 1, 0)
+      },
+      {
+        brush: "croix", ink: "bleu", alpha: 0.7, delay: 350,
+        over: { size: 0.09, spacing: 1.4 },
+        path: brin(0, 1, 0.075)
       }
     ],
 
