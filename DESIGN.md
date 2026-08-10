@@ -199,6 +199,13 @@ c'est le même geste que le survol, tenu en permanence. Pas de menu déroulant,
 pas de drapeau. À cinq entrées une liste ouverte se lit d'un coup d'œil, elle
 fonctionne sans JavaScript, et un drapeau désigne un pays, pas une langue.
 
+**Barre de défilement.** Ramenée à un filet de 6 px, rail transparent pour
+laisser passer la grille, curseur en `--rule` qui passe à `--ink-soft` au
+survol. Rectangle plein, sans arrondi, comme les autres filets. Déclarée deux
+fois — `scrollbar-width` / `scrollbar-color` pour Firefox,
+`::-webkit-scrollbar` pour Chrome, Edge et Safari. Elle n'est jamais masquée :
+c'est le seul repère de position dans une page longue.
+
 ---
 
 ## 6. Les marques à la brosse
