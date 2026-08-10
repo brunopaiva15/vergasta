@@ -214,6 +214,11 @@ c'est le seul repère de position dans une page longue.
 long d'un chemin ; cinq nombres suffisent à passer d'un trait net à une
 projection lâche.
 
+Le point de départ est le travail d'Arlan Marat sur les
+[Pixel Brushes](https://www.arlan.me/vault/pixel-brushes), sous licence MIT. Le
+remerciement est porté en bas de la section « Propriété intellectuelle » des
+mentions légales, dans les cinq langues, et en tête de `brushes.js`.
+
 | Nombre | Effet |
 |---|---|
 | `spacing` | écart entre tampons, **en fraction de la taille du tampon** |

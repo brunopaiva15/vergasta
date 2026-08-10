@@ -21,6 +21,9 @@
    L'aléa vient d'un hachage de l'indice du tampon, jamais de Math.random : une
    marque redessinée après un redimensionnement doit être identique, sinon elle
    se lit comme du bruit.
+
+   Point de départ : le travail d'Arlan Marat sur les Pixel Brushes, licence
+   MIT — https://www.arlan.me/vault/pixel-brushes
    ========================================================================== */
 
 (function () {

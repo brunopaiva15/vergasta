@@ -1066,6 +1066,16 @@ em {
   color: var(--ink);
 }
 
+/* Remerciement, en bas de la propriété intellectuelle. Une dette se cite, mais
+   elle ne se met pas au même corps que le texte qui l'entoure : plus petit,
+   encre atténuée, il se lit quand on le cherche. */
+.legal-section p.credit {
+  margin-top: 1.25rem;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
 .legal-nav {
   display: flex;
   flex-wrap: wrap;
