@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notre histoire, Vergasta Digital</title>
+  <meta name="description" content="D’où vient Vergasta Digital. Bruno Vergasta Paiva raconte le premier ordinateur reçu à neuf ans, la découverte du développement et le goût des choses bien faites, rapporté d’un voyage au Japon.">
+  <link rel="canonical" href="https://vergasta.ch/story.html">
+
+  <!--
+    Les cinq versions de cette page. Le script de langue lit ces liens plutôt
+    que de recalculer un chemin : une seule source pour les adresses.
+  -->
+  <link rel="alternate" hreflang="fr" href="https://vergasta.ch/story.html">
+  <link rel="alternate" hreflang="en" href="https://vergasta.ch/en/story.html">
+  <link rel="alternate" hreflang="de" href="https://vergasta.ch/de/story.html">
+  <link rel="alternate" hreflang="it" href="https://vergasta.ch/it/story.html">
+  <link rel="alternate" hreflang="ja" href="https://vergasta.ch/ja/story.html">
+  <link rel="alternate" hreflang="x-default" href="https://vergasta.ch/story.html">
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="icon" href="favicon.ico">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Vergasta Digital">
+  <meta property="og:locale" content="fr_CH">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="de_CH">
+  <meta property="og:locale:alternate" content="it_CH">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="Notre histoire, Vergasta Digital">
+  <meta property="og:description" content="D’où vient Vergasta Digital. Bruno Vergasta Paiva raconte le premier ordinateur reçu à neuf ans, la découverte du développement et le goût des choses bien faites, rapporté d’un voyage au Japon.">
+  <meta property="og:url" content="https://vergasta.ch/story.html">
+  <meta property="og:image" content="https://vergasta.ch/logo_vergasta.png">
+  <meta property="og:image:width" content="435">
+  <meta property="og:image:height" content="520">
+  <meta property="og:image:alt" content="Croix suisse composée de deux barres, l’une lime, l’autre bleue.">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="brushes.js" defer></script>
+  <script src="age.js" defer></script>
+
+  <!--
+    Données structurées. La page raconte l'atelier : elle se rattache au même
+    @id que l'accueil, dans les cinq langues. Rien n'y est affirmé qui ne soit
+    écrit ailleurs sur le site.
+  -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": "https://vergasta.ch/story.html#histoire",
+    "url": "https://vergasta.ch/story.html",
+    "name": "Notre histoire, Vergasta Digital",
+    "isPartOf": {
+      "@id": "https://vergasta.ch/#site"
+    },
+    "about": {
+      "@id": "https://vergasta.ch/#atelier"
+    },
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Bruno Vergasta Paiva",
+      "jobTitle": "Développeur web",
+      "worksFor": {
+        "@id": "https://vergasta.ch/#atelier"
+      }
+    },
+    "inLanguage": "fr-CH"
+  }
+  </script>
+
+  <!--
+    Redirection de langue. Placé en fin de tête, après les liens alternes dont
+    il se sert, et sans defer : il doit trancher avant que la page s'affiche,
+    sinon le visiteur voit passer la mauvaise langue.
+  -->
+  <script src="lang.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead wrap">
+      <a href="./" class="brand">
+        <img src="logo_vergasta.png" alt="">
+        Vergasta Digital
+      </a>
+      <div class="masthead-tail">
+        <nav class="site-nav" aria-label="Navigation principale">
+          <a href="./#metier">Ce que nous faisons</a>
+          <a href="./#deroule">Déroulé d’un projet</a>
+          <a href="./#realisations">Réalisations</a>
+          <span class="is-current" aria-current="page">Notre histoire</span>
+          <a href="./#contact">Contact</a>
+        </nav>
+        <nav class="lang-nav" aria-label="Langue du site">
+          <span class="is-current" aria-current="true" lang="fr">FR</span>
+          <a href="en/story.html" hreflang="en" lang="en" data-langue="en" aria-label="English">EN</a>
+          <a href="de/story.html" hreflang="de" lang="de" data-langue="de" aria-label="Deutsch">DE</a>
+          <a href="it/story.html" hreflang="it" lang="it" data-langue="it" aria-label="Italiano">IT</a>
+          <a href="ja/story.html" hreflang="ja" lang="ja" data-langue="ja" aria-label="日本語">JA</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="opening wrap">
+      <div class="mark mark-opening" data-mark="histoire" aria-hidden="true"></div>
+      <h1>Notre histoire</h1>
+      <div class="opening-body">
+        <p>
+          Un atelier ressemble à la personne qui le tient. Voici d’où vient
+          celui-ci, raconté par Bruno Vergasta Paiva, depuis le premier
+          ordinateur posé sur un bureau de chambre jusqu’à l’enseigne de la rue
+          du Temple.
+        </p>
+      </div>
+    </section>
+
+    <!--
+      Le fil. Le trait à la brosse court le long des chapitres et tient lieu de
+      séparation : c'est pour cela qu'il n'y a pas de filet entre eux.
+    -->
+    <section class="thread wrap" aria-label="Le fil de l’histoire">
+      <div class="mark thread-mark" data-mark="fil" aria-hidden="true"></div>
+
+      <ol class="chapters">
+        <li class="chapter">
+          <p class="chapter-when">2002</p>
+          <h2>Le point de départ</h2>
+          <p>
+            Je m’appelle Bruno, j’ai <span data-ne-le="2002-08-15">23</span> ans,
+            et j’habite en Suisse. Le Jura bernois est la région où j’ai grandi
+            et où je travaille aujourd’hui. Les distances y sont courtes, on
+            connaît les gens pour qui on travaille, et un site livré finit
+            toujours par se retrouver dans la vitrine d’à côté.
+          </p>
+        </li>
+
+        <li class="chapter">
+          <p class="chapter-when">2011</p>
+          <h2>Le premier ordinateur</h2>
+          <p>
+            J’avais neuf ans quand un ordinateur est arrivé à la maison, et il
+            était le mien. Je crois que je suis né dans l’informatique : ce qui
+            aurait pu rester un jouet est devenu tout de suite un endroit où
+            fabriquer des choses. Depuis ce jour-là, je n’ai jamais eu le
+            moindre doute sur le domaine dans lequel j’allais évoluer.
+          </p>
+        </li>
+
+        <li class="chapter">
+          <p class="chapter-when">Ensuite</p>
+          <h2>Le développement</h2>
+          <p>
+            Me servir de la machine ne m’a pas suffi très longtemps. J’ai voulu
+            savoir ce qu’il y avait derrière la fenêtre : comment un bouton sait
+            qu’on a cliqué dessus, comment une page arrive jusqu’à un écran. La
+            première fois qu’un programme écrit de ma main a fait exactement ce
+            que je lui demandais, la passion était là. Elle n’est jamais
+            repartie.
+          </p>
+        </li>
+
+        <li class="chapter">
+          <p class="chapter-when">Depuis</p>
+          <h2>L’art des choses bien faites</h2>
+          <p>
+            Au fil des projets, une seconde passion s’est installée, plus
+            difficile à nommer en français. Le japonais, lui, a un mot pour
+            elle.
+          </p>
+
+          <figure class="kodawari">
+            <p class="kodawari-word">
+              <span lang="ja">こだわり</span>
+              <span class="kodawari-read">kodawari</span>
+            </p>
+            <figcaption>
+              Le refus de l’à-peu-près. Le soin porté à un détail que personne
+              ne remarquera, sauf le jour où il manque.
+            </figcaption>
+          </figure>
+
+          <p>
+            Cette façon de voir me vient en partie d’un voyage au Japon. Le même
+            soin s’y remarque dans des métiers qui n’ont rien à voir avec le
+            mien, et il ne m’a plus quitté depuis.
+          </p>
+
+          <p>
+            L’alignement d’un pixel, la demi-seconde gagnée au chargement d’une
+            page : rien de cela ne figure sur un devis, et pourtant tout cela se
+            sent à l’usage, des années après la livraison.
+          </p>
+        </li>
+
+        <li class="chapter">
+          <p class="chapter-when">Aujourd’hui</p>
+          <h2>Vergasta Digital</h2>
+          <p>
+            C’est ce que j’essaie de retransmettre dans chacune de mes
+            réalisations, des boutiques en ligne aux applications, et jusqu’à la
+            page que vous êtes en train de lire. C’est une valeur extrêmement
+            précieuse à mes yeux.
+          </p>
+          <p class="chapter-close">Et c’est ça, Vergasta&nbsp;Digital.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="story-after wrap" aria-labelledby="story-after-title">
+      <h2 id="story-after-title">La suite s’écrit avec vous</h2>
+      <p>
+        Un projet à chiffrer, un site vieillissant à reprendre, ou simplement
+        l’envie d’en parler : le formulaire arrive directement dans notre boîte.
+      </p>
+      <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Remplir le formulaire</a>
+      <p class="story-back"><a href="./#realisations">Voir les réalisations</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="mark band" data-mark="bande" aria-hidden="true"></div>
+      <div class="colophon">
+        <p class="motto">Par la région, pour la région.</p>
+        <p>© 2026 Vergasta Digital, St-Imier</p>
+      </div>
+      <nav class="footer-nav" aria-label="Pages légales">
+        <a href="terms.html">Conditions générales</a>
+        <a href="privacy.html">Confidentialité</a>
+        <a href="imprint.html">Mentions légales</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
