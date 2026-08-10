@@ -318,6 +318,169 @@
     return f;
   }
 
+  /* ------------------------------------------------------------------ *
+   * Le mot こだわり, écrit trait par trait
+   *
+   * Ni Jersey 25 ni Archivo ne dessinent les kana, et servir la bitmap
+   * japonaise pour quatre caractères coûterait 122 Ko dans les cinq langues.
+   * Le mot revenait donc à la police du système, différente sur chaque
+   * machine, et la seule page où il tombait juste était la japonaise. Le
+   * tracer à la brosse le rend identique partout et le rattache au fil : ce
+   * n'est plus un mot composé, c'est une marque de plus.
+   *
+   * Chaque trait est décrit par les quelques points où la main tourne, dans
+   * une boîte unité (0..1, y vers le bas) propre au caractère. `avance` est la
+   * largeur que le caractère occupe, chasse comprise : les kana n'ont pas tous
+   * la même largeur, et だ porte son dakuten en plus.
+   * ------------------------------------------------------------------ */
+
+  /** Une coordonnée de Catmull-Rom. La courbe passe par tous ses points de
+   *  contrôle : on décrit un trait par ses tournants, pas par des poignées. */
+  function cr(a, b, c, d, t) {
+    var t2 = t * t;
+    return 0.5 * (2 * b + (c - a) * t + (2 * a - 5 * b + 4 * c - d) * t2 +
+      (3 * b - a - 3 * c + d) * t2 * t);
+  }
+
+  /** Densifie un trait. Deux points restent une droite : le dakuten n'a pas de
+   *  courbure à retrouver. */
+  function lisse(pts, parSegment) {
+    var out = [];
+    var i;
+    if (pts.length < 2) return out;
+    if (pts.length === 2) {
+      return [
+        { x: pts[0][0], y: pts[0][1] },
+        { x: pts[1][0], y: pts[1][1] }
+      ];
+    }
+    for (i = 0; i < pts.length - 1; i++) {
+      var p0 = pts[i > 0 ? i - 1 : 0];
+      var p1 = pts[i];
+      var p2 = pts[i + 1];
+      var p3 = pts[i + 2 < pts.length ? i + 2 : pts.length - 1];
+      for (var j = 0; j < parSegment; j++) {
+        var t = j / parSegment;
+        out.push({
+          x: cr(p0[0], p1[0], p2[0], p3[0], t),
+          y: cr(p0[1], p1[1], p2[1], p3[1], t)
+        });
+      }
+    }
+    out.push({ x: pts[pts.length - 1][0], y: pts[pts.length - 1][1] });
+    return out;
+  }
+
+  /* Les quatre caractères, dans l'ordre des traits. C'est l'ordre d'écriture :
+     こ ses deux traits, だ le ナ puis le こ du bas puis le dakuten, わ la barre
+     puis la boucle, り le trait court puis le long. Le déroulé s'en sert tel
+     quel, donc le mot s'écrit comme il s'écrit à la main. */
+  var MOT = [
+    /* こ */
+    {
+      avance: 1.02,
+      traits: [
+        [[0.09, 0.27], [0.35, 0.22], [0.59, 0.23], [0.82, 0.28]],
+        [[0.13, 0.53], [0.24, 0.64], [0.41, 0.75], [0.61, 0.77], [0.80, 0.67]]
+      ]
+    },
+    /* だ */
+    {
+      avance: 1.32,
+      traits: [
+        [[0.02, 0.31], [0.21, 0.27], [0.42, 0.30]],
+        [[0.32, 0.08], [0.27, 0.29], [0.18, 0.51], [0.04, 0.73]],
+        [[0.38, 0.49], [0.57, 0.45], [0.74, 0.49]],
+        [[0.41, 0.62], [0.46, 0.73], [0.58, 0.80], [0.71, 0.77], [0.78, 0.69]],
+        [[0.86, 0.12], [0.91, 0.25]],
+        [[0.99, 0.10], [1.04, 0.23]]
+      ]
+    },
+    /* わ */
+    {
+      avance: 1.16,
+      traits: [
+        [[0.21, 0.22], [0.18, 0.48], [0.20, 0.74]],
+        [[0.04, 0.31], [0.28, 0.26], [0.50, 0.27], [0.67, 0.36],
+         [0.73, 0.53], [0.64, 0.71], [0.48, 0.78], [0.38, 0.74],
+         [0.45, 0.85], [0.67, 0.90]]
+      ]
+    },
+    /* り */
+    {
+      avance: 1.00,
+      traits: [
+        [[0.28, 0.20], [0.22, 0.42], [0.26, 0.60]],
+        [[0.68, 0.18], [0.70, 0.42], [0.64, 0.66], [0.50, 0.80], [0.36, 0.83]]
+      ]
+    }
+  ];
+
+  /** Un trait replacé dans le canevas. Le mot garde ses proportions et se cale
+   *  au milieu ; `dx` et `dy` décalent une passe entière, en fraction de la
+   *  boîte d'un caractère. Sortie de la boucle pour que chaque fonction
+   *  capture son propre trait. */
+  function traitDuMot(pts, largeur, part, dx, dy) {
+    var f = function (w, h) {
+      var s = Math.min(w / largeur, h);
+      var ox = (w - largeur * s) / 2 + (dx || 0) * s;
+      var oy = (h - s) / 2 + (dy || 0) * s;
+      var out = [];
+      for (var i = 0; i < pts.length; i++) {
+        out.push({ x: ox + pts[i].x * s, y: oy + pts[i].y * s });
+      }
+      return build(out);
+    };
+    f.part = part;
+    return f;
+  }
+
+  /** Les traits du mot mis bout à bout. Chaque trait reçoit sa part de
+   *  l'avancement, proportionnelle à sa longueur : la pointe traverse alors le
+   *  mot à vitesse constante, au lieu d'expédier les longs traits et de
+   *  s'attarder sur les deux barres du dakuten. */
+  function ecriture(dx, dy) {
+    var traits = [];
+    var largeur = 0;
+    var total = 0;
+    var i;
+    for (var c = 0; c < MOT.length; c++) {
+      for (var s = 0; s < MOT[c].traits.length; s++) {
+        var pts = lisse(MOT[c].traits[s], 12);
+        var len = 0;
+        for (i = 0; i < pts.length; i++) {
+          pts[i].x += largeur;
+          if (i > 0) len += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+        }
+        traits.push({ pts: pts, len: len });
+        total += len;
+      }
+      largeur += MOT[c].avance;
+    }
+    var out = [];
+    var acc = 0;
+    for (i = 0; i < traits.length; i++) {
+      var t0 = acc / total;
+      acc += traits[i].len;
+      out.push(traitDuMot(traits[i].pts, largeur, [t0, acc / total], dx, dy));
+    }
+    return out;
+  }
+
+  /** Une passe sur le mot entier : une couche par trait, même brosse et même
+   *  encre pour toutes. */
+  function passeDuMot(couche) {
+    var traits = ecriture(couche.dx, couche.dy);
+    var out = [];
+    for (var i = 0; i < traits.length; i++) {
+      out.push({
+        brush: couche.brush, ink: couche.ink, over: couche.over,
+        alpha: couche.alpha, path: traits[i]
+      });
+    }
+    return out;
+  }
+
   /** Arc de cercle. */
   function arc(cx, cy, r, a0, a1, steps) {
     var pts = [];
@@ -606,6 +769,27 @@
       }
     ],
 
+    /* Le mot こだわり, dans l'encadré du même nom. Deux passes mal calées comme
+       le fil, comme l'ouverture, comme la barre de chargement, mais pas les
+       mêmes encres : le bandeau est lime, et du magenta posé dessus vibre au
+       lieu de se lire. C'est donc l'encre noire qui porte la forme, celle du
+       texte du bandeau, et le magenta du fil qui la double d'un poil. Le mot
+       tient au fil par sa seconde passe, pas par sa lisibilité.
+
+       Il s'écrit au défilement comme le fil se déroule : un mot posé d'un coup
+       n'est plus écrit, c'est une image. Le déroulé suit l'ordre des traits,
+       donc la main passe dans l'ordre où on écrit.
+
+       La plume, seule brosse du jeu dont le tampon s'amincit en fin de course,
+       est celle qui pose une attaque et une levée : sans elle les kana
+       n'auraient ni entrée ni sortie et se liraient comme du tube. */
+    kodawari: passeDuMot({
+      brush: "plume", ink: "encre", over: { size: 0.125, spacing: 0.14 }
+    }).concat(passeDuMot({
+      brush: "carres", ink: "magenta", alpha: 0.75, dx: 0.04, dy: 0.035,
+      over: { size: 0.08, spacing: 0.62 }
+    })),
+
     /* Croix encre, pour les pages légales. */
     legal: [
       {
@@ -642,12 +826,17 @@
   var DRAW_MS = 1100;
 
   /* Les marques qui se déroulent au défilement au lieu d'entrer en scène d'un
-     coup. Le fil de la page d'histoire est le seul, et pour une raison de
-     mesure : les autres marques tiennent dans un carré qu'on embrasse d'un
-     regard, lui est aussi long que le bloc des chapitres. Le dessiner d'un
-     coup à l'entrée dans le champ, ce serait le peindre presque entièrement
-     hors de l'écran, et n'en montrer jamais le tracé. */
-  var AU_DEFILEMENT = { fil: true };
+     coup. Les deux sont sur la page d'histoire, et pour deux raisons
+     différentes.
+
+     Le fil, parce qu'il est aussi long que le bloc des chapitres : le dessiner
+     d'un coup à l'entrée dans le champ, ce serait le peindre presque
+     entièrement hors de l'écran, et n'en montrer jamais le tracé.
+
+     Le mot こだわり, parce qu'il est écrit : ses traits se posent dans l'ordre
+     où une main les pose, et une écriture qui paraît d'un bloc n'est plus une
+     écriture. Il est court, d'où COURSE ci-dessous. */
+  var AU_DEFILEMENT = { fil: true, kodawari: true };
 
   /* La pointe du fil se tient à cette fraction de la hauteur de la fenêtre,
      donc un peu sous la ligne de lecture.
@@ -660,6 +849,22 @@
      dessiné d'avance. Il faut laisser sous la pointe une part visible de
      l'écran encore vierge pour que l'avancée se remarque. */
   var POINTE = 0.62;
+
+  /* La course minimale d'un déroulé, en fraction de la hauteur de la fenêtre.
+     Une marque se déroule sur sa propre hauteur : c'est juste pour le fil, qui
+     fait plusieurs écrans, et absurde pour un mot de trois centimètres, qui
+     s'écrirait alors en trois centimètres de molette, c'est-à-dire d'un coup.
+     Sous cette longueur, le déroulé prend la fenêtre pour mesure et non la
+     marque. */
+  var COURSE = 0.45;
+
+  /* Et la pointe d'une marque courte se tient plus bas que celle du fil. Une
+     marque haute déborde de l'écran : sa pointe est au milieu, mais son début
+     est tracé depuis longtemps et le regard a de quoi se poser. Une marque
+     courte, elle, entre entière dans le champ, et sous POINTE le lecteur
+     regarderait une boîte vide en attendant qu'elle commence. Elle s'écrit donc
+     dès qu'elle paraît, et se termine à mi-hauteur d'écran. */
+  var POINTE_COURTE = 0.98;
 
   function easeOut(t) {
     return 1 - Math.pow(1 - t, 3);
@@ -768,7 +973,10 @@
       var r = host.getBoundingClientRect();
       if (!r.height) return 0;
       var fenetre = window.innerHeight || document.documentElement.clientHeight || 0;
-      return Math.min(1, Math.max(0, (fenetre * POINTE - r.top) / r.height));
+      var courte = r.height < fenetre * COURSE;
+      var course = courte ? fenetre * COURSE : r.height;
+      return Math.min(1, Math.max(0,
+        (fenetre * (courte ? POINTE_COURTE : POINTE) - r.top) / course));
     }
 
     /** Prolonge le tracé de `de` à `a`, sans rien effacer. `from` saute le
@@ -857,7 +1065,17 @@
       raf = requestAnimationFrame(tick);
     }
 
-    if (!layout()) return;
+    /* La brosse prend la main. Les marques décoratives n'en font rien, mais une
+       marque qui remplace du texte a besoin de le dire : sa boîte ne prend sa
+       place qu'ici, et le texte de repli passe alors en lecture d'écran seule.
+       Sans script, ou si le canevas manque, la classe n'arrive jamais : le mot
+       reste écrit et rien ne réserve de place à côté de lui. La mesure vient
+       après, sinon on mesurerait une boîte qui n'a pas encore sa taille. */
+    host.classList.add("mark--pose");
+    if (!layout()) {
+      host.classList.remove("mark--pose");
+      return;
+    }
 
     new ResizeObserver(function () {
       var acquis = pose;

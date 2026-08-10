@@ -218,9 +218,11 @@ pas des numéros d'étape (voir §7), ce sont des dates et des mots.
 
 **Encadré `.kodawari`.** Bordure franche et bandeau de titre, comme
 « Bon à savoir », mais le bandeau porte le mot japonais et sa transcription.
-Ni Jersey 25 ni Archivo ne dessinent les kana : hors de `/ja/`, le mot revient à
-la police du système, et c'est voulu. Servir ici PixelMplus12 obligerait à
-charger 122 Ko dans les cinq langues pour un seul mot.
+Ni Jersey 25 ni Archivo ne dessinent les kana, et servir ici PixelMplus12
+obligerait à charger 122 Ko dans les cinq langues pour un seul mot : le mot est
+**tracé à la brosse**, comme le fil qui descend la page, et ne dépend donc
+d'aucune police. Voir §6, « Le mot こだわり ». Le texte composé reste dans le
+bandeau et ne passe en lecture d'écran seule qu'une fois la brosse en place.
 
 **Les deux sorties `.story-sorties`.** Le bouton et le lien vers les
 réalisations tiennent sur une seule ligne et se lisent comme une paire, dans la
@@ -367,6 +369,52 @@ qu'on demande à un fil. Le nombre de points du chemin suit la même règle, à 
 longueur de chaque brin, sinon un chapitre ajouté étirerait la même poignée de
 segments et le méandre s'angulerait.
 
+### Le mot こだわり
+
+Le mot de l'encadré de `story.html` est la seconde marque de la page, et la
+seule du site qui remplace du texte au lieu de le décorer. `MOT` en donne les
+quatre caractères, chacun dans une boîte unité, chaque trait décrit par les
+quelques points où la main tourne — Catmull-Rom passe par tous ses points de
+contrôle, donc on décrit des tournants et non des poignées de courbe. `avance`
+est la largeur du caractère, chasse comprise : les kana n'ont pas tous la même
+largeur, et だ porte son dakuten en plus.
+
+**Les traits sont dans l'ordre d'écriture**, et le déroulé s'en sert tel quel :
+こ ses deux traits, だ le ナ puis le こ du bas puis le dakuten, わ la barre puis
+la boucle, り le trait court puis le long. Chaque trait reçoit une part de
+l'avancement proportionnelle à sa longueur, sinon la pointe expédierait les
+longs traits pour s'attarder sur les deux barres du dakuten.
+
+**Deux passes mal calées**, comme le fil, l'ouverture et la barre de
+chargement : la plume à l'encre noire, doublée de carrés magenta décalés d'un
+poil. Les encres ne sont pas celles du fil, et c'est le bandeau qui décide : du
+magenta posé sur du lime vibre au lieu de se lire. Le noir porte donc la forme,
+c'est celui du texte du bandeau, et le magenta du fil la double. Le mot tient au
+fil par sa seconde passe, pas par sa lisibilité. La plume, elle, est la seule
+brosse du jeu dont le tampon s'amincit en fin de course, donc la seule qui pose
+une attaque et une levée ; sans elle les kana se liraient comme du tube.
+
+**Il s'écrit au défilement**, comme le fil, mais il est court : `COURSE` donne
+au déroulé une longueur minimale de 45 % de la fenêtre, sans quoi trois
+centimètres de page suffiraient à l'écrire, c'est-à-dire d'un coup. Et sa pointe
+se tient à `POINTE_COURTE`, bien plus bas que celle du fil : une marque haute
+déborde de l'écran et son début est tracé depuis longtemps, une marque courte
+entre entière dans le champ, et sous `POINTE` le lecteur regarderait un bandeau
+vide en attendant qu'elle commence.
+
+**Sans JavaScript, le mot reste composé.** La classe `mark--pose`, posée par le
+script une fois le canevas mesuré, fait deux choses à la fois : elle donne sa
+boîte au canevas et met le texte de repli en lecture d'écran seule. Tant qu'elle
+n'arrive pas, le bandeau est exactement celui d'avant, et rien ne réserve de
+place à côté du mot. C'est la seule entorse à la règle des hôtes vides
+ci-dessous, et elle vaut aussi pour les lecteurs d'écran : le canevas est
+`aria-hidden`, c'est le texte qui porte le mot.
+
+Retoucher un tracé se fait à la main, en agrandissant le canevas le temps du
+réglage — `.kodawari-mark { width: 44rem }` dans l'inspecteur suffit — puis en
+revenant à la taille réelle. Un kana qui tient en grand peut ne plus se lire en
+petit, jamais l'inverse.
+
 ### Ajouter une marque
 
 1. Poser `<div class="mark" data-mark="nom" aria-hidden="true"></div>` dans le
@@ -379,9 +427,11 @@ Les marques se dessinent à l'entrée dans le champ de vision puis **la boucle
 s'arrête** : une image fixe ne mérite pas d'images par seconde.
 `prefers-reduced-motion` peint directement l'état final. Les hôtes sont des
 boîtes vides décoratives : **sans JavaScript la page est identique, sans trou.**
+Le mot こだわり est le seul à porter du contenu, et il a son repli (voir
+ci-dessus).
 
-Une exception, listée dans `AU_DEFILEMENT` : le fil de `story.html`, qui se
-déroule à la lecture. Voir ci-dessous.
+Deux exceptions, listées dans `AU_DEFILEMENT`, toutes deux dans `story.html` :
+le fil et le mot こだわり, qui se tracent à la lecture. Voir ci-dessus.
 
 ### La barre de chargement
 
@@ -540,9 +590,13 @@ pour la même raison.
 - « Notre histoire » : le fil se déroule en descendant et sa pointe reste en
   bas de la fenêtre, remonter ne l'efface pas, il se repeint entier après un
   redimensionnement, et l'âge de la première phrase est celui du jour,
-- JavaScript coupé : aucun trou dans la mise en page, le sélecteur de langue
-  reste un jeu de liens qui fonctionnent, la barre n'existe pas, et l'âge écrit
-  dans le HTML reste lisible,
+- « Notre histoire » : le mot こだわり s'écrit trait par trait en descendant,
+  il est fini quand l'encadré arrive au milieu de l'écran, et il se relit en
+  390 px comme en 1440,
+- JavaScript coupé : aucun trou dans la mise en page, le mot こだわり reste
+  écrit dans son bandeau et rien ne réserve de place à côté de lui, le sélecteur
+  de langue reste un jeu de liens qui fonctionnent, la barre n'existe pas, et
+  l'âge écrit dans le HTML reste lisible,
 - aucune requête vers un domaine tiers,
 - console sans erreur,
 - si un script ou une feuille servie a changé, l'estampille `?v=` a été
