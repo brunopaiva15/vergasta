@@ -664,11 +664,19 @@
    * un trait tamponné de gauche à droite, en deux passes mal calées comme la
    * spirale d'ouverture. Ni fuseau, ni pourcentage, ni dégradé.
    *
-   * Elle sert deux moments :
+   * Elle sert deux moments, réglés différemment :
+   *
    *   au clic, elle avance sur la page qui part et reste à l'écran tant que le
-   *   navigateur va chercher la suivante ;
-   *   à l'arrivée, elle reprend là où le document en est et se termine au
-   *   chargement complet.
+   *   navigateur va chercher la suivante. Rien avant ATTENTE : sur une
+   *   navigation courte, l'écran se remplace avant, et un éclair de couleur
+   *   juste avant ne serait qu'un raté ;
+   *
+   *   à l'arrivée, elle paraît tout de suite et traverse l'écran en PLANCHER
+   *   millisecondes au minimum. Ce site se charge en bien moins que ATTENTE :
+   *   une barre qui ne durerait que le temps réel du chargement ne serait
+   *   jamais visible une seule fois. La durée plancher lui donne le temps de
+   *   traverser, et elle assume alors ce qu'elle est : une transition
+   *   d'arrivée, pas une jauge.
    *
    * Le remplissage n'est pas une mesure : rien, dans une page servie en un
    * bloc, ne dit où en est le téléchargement. C'est une montée asymptotique
@@ -759,11 +767,20 @@
 
   var MONTEE = 1500;   // constante de temps de la montée, en millisecondes
   var PLAFOND = 0.93;  // la montée seule ne dépasse jamais cette fraction
-  var FIN_MS = 280;    // course jusqu'au bout une fois la page chargée
+  var FIN_MS = 280;    // course jusqu'au bout après une vraie attente
+  var PLANCHER = 700;  // durée minimale du trait, de l'apparition au bout
   var TENUE = 90;      // temps où la barre pleine reste lisible
   var SORTIE = 320;    // fondu de sortie, doit valoir la transition CSS
   var ATTENTE = 120;   // rien à l'écran avant ce délai : pas de clignotement
+  var GARDE = 400;     // en mouvement réduit, la barre n'est qu'un signal
+                       // d'attente : rien ne paraît avant ce délai
   var ABANDON = 20000; // navigation qui n'aboutit pas : on retire la barre
+
+  /** Adoucie aux deux bouts. Sur un trait qui traverse l'écran d'un coup, une
+   *  sortie cubique file puis rampe : elle a l'air de caler avant la fin. */
+  function easeInOut(t) {
+    return t * t * (3 - 2 * t);
+  }
 
   function barre() {
     var host = document.createElement("div");
@@ -789,7 +806,10 @@
     var phase = "repos";    // repos, montee (on attend la page), course (fin du trait)
     var visible = false;    // la barre est à l'écran
     var depart = 0;         // horodatage du début de la montée
+    var garde = 0;          // délai demandé avant l'apparition
+    var apparu = 0;         // horodatage de l'apparition à l'écran
     var course = 0;         // horodatage du début de la course finale
+    var duree = FIN_MS;     // durée de la course finale
     var pose = 0;           // fraction déjà peinte sur le canevas
     var atteint = 0;        // fraction atteinte au moment de la course finale
 
@@ -862,6 +882,7 @@
     function montrer() {
       if (visible) return;
       visible = true;
+      apparu = performance.now();
       host.classList.remove("chargement--sortie");
       host.classList.add("chargement--visible");
     }
@@ -887,8 +908,11 @@
         peindre(acquis);
       }
       if (phase === "course") {
-        var f = Math.min(1, (now - course) / FIN_MS);
-        peindre(atteint + (1 - atteint) * easeOut(f));
+        var f = Math.min(1, (now - course) / duree);
+        // une vraie course finale se termine sèchement, un trait qui traverse
+        // tout l'écran d'un coup demande une courbe adoucie aux deux bouts
+        var e = duree > FIN_MS ? easeInOut(f) : easeOut(f);
+        peindre(atteint + (1 - atteint) * e);
         if (f >= 1) return;
       } else {
         // montée asymptotique : elle approche le plafond sans jamais l'atteindre
@@ -903,17 +927,19 @@
 
     /* --- interface ------------------------------------------------- */
 
-    /** Une navigation commence. Sans effet si une autre est déjà en attente. */
-    function ouvrir() {
+    /** Une navigation commence. Sans effet si une autre est déjà en attente.
+     *  `attente` est le délai avant que la barre paraisse. */
+    function ouvrir(attente) {
       if (phase === "montee") return;
       repos();
       // la variante est arrêtée ici, pour tout le tracé
       jeu = couches(variante());
       chemins();
       phase = "montee";
+      // en mouvement réduit la barre ne fait pas la traversée d'arrivée : elle
+      // ne sort que si l'attente est réelle, et le délai de garde le décide
+      garde = reduced ? Math.max(attente || 0, GARDE) : attente || 0;
       depart = performance.now();
-      // rien à l'écran avant ATTENTE : un chargement instantané ne doit pas
-      // laisser passer un éclair de couleur
       differer(function () {
         if (phase !== "montee") return;
         layout();
@@ -925,7 +951,7 @@
           return;
         }
         relancer();
-      }, ATTENTE);
+      }, garde);
       // une navigation qui n'aboutit pas laisserait la barre en plan
       differer(fermer, ABANDON);
     }
@@ -935,9 +961,22 @@
       if (phase !== "montee") return;
       purger();
       if (!visible) {
-        // chargement plus court que ATTENTE : la barre n'a jamais paru
-        repos();
-        return;
+        // Le chargement s'est terminé avant que la barre paraisse. Au clic
+        // c'est tant mieux : la page suivante prend la main. À l'arrivée, sur
+        // un site qui se charge en quelques millisecondes, ce serait ne jamais
+        // rien montrer, donc on la fait paraître pour qu'elle traverse l'écran
+        // une fois. Sauf en mouvement réduit : un trait qui paraît et disparaît
+        // aussitôt n'est qu'un clignotement.
+        if (garde > 0) {
+          repos();
+          return;
+        }
+        layout();
+        if (!w || !h) {
+          repos();
+          return;
+        }
+        montrer();
       }
       phase = "course";
       if (reduced) {
@@ -947,11 +986,15 @@
       }
       atteint = pose;
       course = performance.now();
+      // durée plancher : après une vraie attente il ne reste qu'à solder le
+      // trait, mais quand la page est déjà là le trait doit avoir le temps de
+      // traverser l'écran. Sinon on ne le verrait jamais.
+      duree = Math.max(FIN_MS, PLANCHER - (course - apparu));
       relancer();
       differer(function () {
         host.classList.add("chargement--sortie");
         differer(repos, SORTIE);
-      }, FIN_MS + TENUE);
+      }, duree + TENUE);
     }
 
     layout();
@@ -989,10 +1032,12 @@
     if (!b) return;
     var quitte = false; // un lien a été suivi : cette page ne nous intéresse plus
 
-    // le document courant : la barre ne prend le relais que si le chargement
-    // n'est pas déjà terminé quand ce script s'exécute
+    // Le document courant. La barre paraît tout de suite, sans le délai de
+    // garde du clic : ce site se charge en bien moins de temps que ce délai,
+    // et une barre qu'on n'a jamais l'occasion de voir ne sert à rien. C'est la
+    // durée plancher qui lui donne le temps de traverser l'écran.
     if (document.readyState !== "complete") {
-      b.ouvrir();
+      b.ouvrir(0);
       window.addEventListener("load", function () {
         // le visiteur a cliqué avant la fin du chargement : la page qu'il
         // attend n'est plus celle-ci, la barre n'a pas à annoncer une arrivée
@@ -1004,7 +1049,9 @@
       var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
       if (!a || !navigue(a, e)) return;
       quitte = true;
-      b.ouvrir();
+      // au clic, le délai de garde tient : sur une navigation courte la page
+      // suivante prend la main avant, et la barre d'arrivée fait le travail
+      b.ouvrir(ATTENTE);
     });
 
     // retour arrière depuis le cache du navigateur : la page est déjà là,

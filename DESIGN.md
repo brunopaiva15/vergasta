@@ -230,19 +230,29 @@ de haut, tout en haut de la fenêtre, deux passes mal calées comme la spirale
 d'ouverture : un rail posé haut, une ombre jetée dessous et en retard d'un poil,
 comme l'ombre portée du bouton ramenée à l'échelle.
 
-Elle sert deux moments : au clic elle avance sur la page qui part et reste à
-l'écran pendant que le navigateur va chercher la suivante ; à l'arrivée elle
-reprend là où le document en est et se termine au chargement complet. Le
-deuxième moment ne se voit qu'à partir d'une certaine lenteur, et c'est voulu :
-tant que rien n'a paru au bout de 120 ms, la navigation est terminée avant que
-la barre existe, et elle ne paraît pas du tout. Une barre qui clignote à chaque
-page est pire que pas de barre.
+Elle sert deux moments, et les deux ne se règlent pas pareil.
+
+**Au clic**, elle avance sur la page qui part et reste à l'écran pendant que le
+navigateur va chercher la suivante. Rien ne paraît avant 120 ms : sur une
+navigation courte la page suivante prend la main avant, et un éclair de couleur
+juste avant que l'écran se remplace ne serait qu'un raté.
+
+**À l'arrivée**, elle paraît tout de suite et traverse l'écran en 700 ms au
+minimum. C'est le point à comprendre avant d'y toucher : **ce site se charge en
+bien moins que ces 120 ms.** Une barre honnête, qui ne durerait que le temps
+réel du chargement, ne serait jamais visible une seule fois. La durée plancher
+lui donne le temps de traverser, et elle assume ce qu'elle est alors : une
+transition d'arrivée, pas une jauge. Sur une vraie attente, elle,
+la course finale reprend sa durée sèche de 280 ms, parce qu'il n'y a plus rien à
+donner à voir : le trait est déjà passé sous les yeux du visiteur.
 
 **Le remplissage n'est pas une mesure.** Rien, dans une page servie en un bloc,
 ne dit où en est le téléchargement. La montée est asymptotique : elle approche
 93 % sans jamais les atteindre, et seule la fin du chargement pousse le trait
 jusqu'au bout. Une barre qui bluffe un pourcentage précis ment ; une barre qui
-ralentit dit seulement « ça vient ».
+ralentit dit seulement « ça vient ». Les deux courbes suivent cette logique :
+sortie cubique pour solder une vraie attente, courbe adoucie aux deux bouts pour
+la traversée d'arrivée, qu'une sortie cubique ferait filer puis ramper.
 
 **Le tracé change à chaque navigation.** Huit variantes, deux brosses et deux
 encres chacune, dans la gamme saturée : la barre est sur du blanc, le lime n'y
@@ -274,10 +284,15 @@ Quatre points à ne pas défaire :
   clic avec une touche de modification. Une navigation qui n'aboutit pas la
   retire au bout de vingt secondes.
 
+**`prefers-reduced-motion` ne reçoit pas la traversée d'arrivée.** Elle n'existe
+que pour être regardée, et c'est précisément ce dont ce réglage ne veut pas. La
+barre y redevient ce qu'elle serait sur une connexion lente : rien pendant
+400 ms, puis le trait entier posé d'un coup, sans montée, retiré à l'arrivée de
+la page. Un chargement ordinaire ne montre donc rien du tout.
+
 Elle ne demande rien à personne : aucune requête, aucune clé de stockage, rien
-qui sorte de l'appareil. La promesse du §2 tient. `prefers-reduced-motion` pose
-le trait entier sans montée, et **sans JavaScript l'élément n'existe pas**. La
-page d'atelier, qui sert à imprimer une carte, n'en a pas.
+qui sorte de l'appareil. La promesse du §2 tient, et **sans JavaScript l'élément
+n'existe pas**. La page d'atelier, qui sert à imprimer une carte, n'en a pas.
 
 ---
 
