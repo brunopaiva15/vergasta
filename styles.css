@@ -1067,17 +1067,15 @@ em {
   margin-top: 1.5rem;
 }
 
-/* Le mot japonais, dans un encadré à deux étages : le mot en haut, la
-   traduction dessous, séparés par un filet franc.
-   Ni Jersey 25 ni Archivo ne dessinent les kana, et servir ici la bitmap
-   japonaise coûterait 122 Ko dans les cinq langues pour un seul mot : le mot
-   est tracé à la brosse, comme le fil, et ne dépend donc d'aucune police.
-   Le texte de repli reste en place tant que la brosse n'a pas pris la main.
+/* L'encadré du mot japonais, à deux étages : la transcription en haut, la
+   traduction dessous, séparées par un filet franc.
 
-   Le haut n'a pas d'aplat lime, contrairement à « Bon à savoir ». Un aplat
-   sous une marque à la brosse en fait une vignette collée sur la page, et le
-   lime avale le magenta de la seconde passe. Sur le papier, le mot est du même
-   ordre que le fil qui descend à côté : de l'encre posée, rien derrière. */
+   Le mot lui-même n'est pas dedans. Ni Jersey 25 ni Archivo ne dessinent les
+   kana, et servir ici la bitmap japonaise coûterait 122 Ko dans les cinq
+   langues pour un seul mot : こだわり est écrit à la brosse dans le couloir du
+   fil, à gauche, à la hauteur de cet encadré. Le fil s'y arrête, écrit le mot
+   de haut en bas, et repart. L'encadré en est la lecture et le sens ; le mot
+   composé y reste, en lecture d'écran seule, tant que le fil est là. */
 .kodawari {
   max-width: var(--measure);
   margin-top: 1.5rem;
@@ -1086,6 +1084,10 @@ em {
   padding: 1.25rem;
 }
 
+/* Le haut de l'encadré porte la transcription, et se tient comme le titre de
+   « Bon à savoir » : même police d'affichage, même corps, même filet dessous.
+   Sans aplat lime en revanche, parce que le mot à la brosse passe à sa hauteur
+   dans le couloir, et qu'un aplat de couleur en face lui ferait concurrence. */
 .kodawari-word {
   display: flex;
   flex-wrap: wrap;
@@ -1093,32 +1095,21 @@ em {
   gap: 0.1rem 0.75rem;
   max-width: none;
   margin: -1.25rem -1.25rem 1rem;
-  padding: 0.7rem 1.25rem 0.8rem;
+  padding: 0.45rem 1.25rem 0.5rem;
   border-bottom: 2px solid var(--rule-hard);
-  font-size: clamp(1.9rem, 6vw, 2.6rem);
-  line-height: 1.25;
+  font-family: var(--display);
+  font-size: 1.3rem;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
   color: var(--ink);
 }
 
-/* Le mot à la brosse. La hauteur est celle d'un caractère, la largeur suit les
-   quatre chasses du tracé (voir MOT dans brushes.js) : le rapport est écrit ici
-   une fois, et le canevas ne déforme rien puisque le mot se cale au milieu de
-   ce qu'on lui donne. Sur un petit écran il prend la largeur disponible et
-   perd de la hauteur, comme le ferait un mot composé qui rapetisse. */
-.kodawari-mark {
-  display: none;
-}
-
-.kodawari-mark.mark--pose {
-  display: block;
-  width: min(100%, 13.5rem);
-  aspect-ratio: 4.48 / 1;
-}
-
-/* Le texte de repli. Il n'est mis de côté qu'une fois le canevas posé : sans
-   JavaScript, le bandeau garde le mot composé et rien ne réserve de place à
-   côté de lui. */
-.kodawari-mark.mark--pose + .kodawari-plain {
+/* Le mot composé. Il ne s'efface que lorsque le fil a pris la main, c'est-à-dire
+   quand le canevas du couloir est en place et que le mot y est écrit à la
+   brosse. Sans JavaScript, il reste là et l'encadré est celui d'avant. Il ne
+   quitte jamais la page pour autant : le canevas est décoratif, c'est ce texte
+   que lisent les lecteurs d'écran. */
+.thread-mark.mark--pose ~ .chapters .kodawari-plain {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1131,10 +1122,7 @@ em {
 }
 
 .kodawari-read {
-  font-family: var(--texte);
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-size: inherit;
 }
 
 .kodawari figcaption {

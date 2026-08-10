@@ -217,18 +217,21 @@ comme la langue courante du sélecteur : un survol tenu en permanence. Ce ne son
 pas des numéros d'étape (voir §7), ce sont des dates et des mots.
 
 **Encadré `.kodawari`.** Bordure franche et deux étages séparés d'un filet
-franc, comme « Bon à savoir », mais **sans l'aplat lime** : le haut porte le mot
-japonais et sa transcription, et le mot est **tracé à la brosse**, comme le fil
-qui descend la page. Un aplat sous une marque à la brosse en fait une vignette
-collée sur la page, là où le mot doit être de l'encre posée sur le papier, du
-même ordre que le fil ; et le lime avale le magenta de la seconde passe. C'est
+franc, comme « Bon à savoir », mais **sans l'aplat lime** et **sans le mot** :
+le haut porte la transcription, le bas la traduction. こだわり lui-même est
+écrit à la brosse dans le couloir du fil, à gauche, à la hauteur de ce chapitre
+— le fil s'y arrête, écrit le mot de haut en bas, et repart (voir §6, « Le mot
+こだわり »). L'encadré en est la lecture et le sens. Pas d'aplat lime, donc,
+parce qu'un bandeau de couleur en face du mot lui ferait concurrence, et c'est
 le seul encadré du site dans ce cas.
 
 Ni Jersey 25 ni Archivo ne dessinent les kana, et servir ici PixelMplus12
 obligerait à charger 122 Ko dans les cinq langues pour un seul mot : le mot
-tracé ne dépend donc d'aucune police. Voir §6, « Le mot こだわり ». Le texte
-composé reste en place et ne passe en lecture d'écran seule qu'une fois la
-brosse en place.
+tracé ne dépend d'aucune police. Le mot composé reste dans l'encadré et ne passe
+en lecture d'écran seule qu'une fois le fil en place ; sans JavaScript, il s'y
+lit comme avant. Le chapitre porte `data-fil="mot"` et le suivant
+`data-fil="fin"` : ce sont les deux repères que le fil mesure pour savoir où
+écrire. Les déplacer déplace le mot.
 
 **Les deux sorties `.story-sorties`.** Le bouton et le lien vers les
 réalisations tiennent sur une seule ligne et se lisent comme une paire, dans la
@@ -328,15 +331,21 @@ finisse au milieu du couloir plutôt qu'en butée contre un bord. Rien de tout
 cela ne passe par `Math.random` : la règle du §6 vaut, un redimensionnement doit
 redonner le même fil.
 
-**La brosse change en cours de route, l'encre non.** `brin(t0, t1)` découpe une
-portion du même tracé, et la position ne dépend que de `t` : deux portions
-consécutives se raccordent donc exactement, à un cheveu de recouvrement près.
-Cinq brins descendent la page, `plume`, `carres`, `derive`, `tissage`, `touffe`,
-tous en magenta, avec des retards croissants qui font descendre le dessin comme
-une main qui trace. Une passe de croix bleues repasse ensuite sur toute la
-longueur, décalée d'un poil : le tirage en deux couleurs mal calées de
-l'ouverture. **Cinq brosses, une seule encre** : c'est la texture qui change,
-pas l'identité. Cinq encres donneraient cinq traits, plus un fil.
+**La brosse change en cours de route, l'encre non.** `brin(zone, r0, r1)`
+découpe une portion du même tracé, et la position ne dépend que de `t` : deux
+portions consécutives se raccordent donc exactement, à un cheveu de recouvrement
+près. Cinq brins descendent la page, `plume`, `carres`, `derive` au-dessus du
+mot, `tissage` et `touffe` en dessous, tous en magenta. Une passe de croix bleues
+repasse ensuite sur toute la longueur, mot compris, décalée d'un poil : le tirage
+en deux couleurs mal calées de l'ouverture. **Cinq brosses, une seule encre** :
+c'est la texture qui change, pas l'identité. Cinq encres donneraient cinq traits,
+plus un fil.
+
+`zone` dit de quel côté du mot le brin descend, `r0` et `r1` la part qu'il occupe
+de ce côté-là. Les bornes réelles ne sont donc connues qu'à la mise en page,
+puisqu'elles dépendent de l'endroit où tombe le chapitre du mot, qui bouge d'une
+langue et d'une largeur à l'autre. Chaque brin met à jour la portion qu'il
+couvre à chaque mesure, et c'est cette portion qui donne au déroulé son ordre.
 
 **Le fil se déroule au défilement.** C'est la seule marque du site dans ce cas,
 et c'est une question de mesure : les autres tiennent dans un carré qu'on
@@ -377,50 +386,67 @@ segments et le méandre s'angulerait.
 
 ### Le mot こだわり
 
-Le mot de l'encadré de `story.html` est la seconde marque de la page, et la
-seule du site qui remplace du texte au lieu de le décorer. `MOT` en donne les
-quatre caractères, chacun dans une boîte unité, chaque trait décrit par les
-quelques points où la main tourne — Catmull-Rom passe par tous ses points de
-contrôle, donc on décrit des tournants et non des poignées de courbe. `avance`
-est la largeur du caractère, chasse comprise : les kana n'ont pas tous la même
-largeur, et だ porte son dakuten en plus.
+Le mot n'est pas une marque posée à côté du fil : **c'est le fil**, sur la
+hauteur de quatre caractères. Le méandre descend, s'arrête à hauteur du chapitre
+« L'art des choses bien faites », écrit こだわり de haut en bas dans le couloir,
+et repart dessous. Même canevas, même encre, mêmes brosses, même déroulé.
+
+**C'est l'écriture verticale qui rend la chose possible.** À l'horizontale,
+quatre kana demandent quatre fois la largeur d'un caractère et le couloir n'en
+fait qu'une. À la verticale — comme un titre japonais — la largeur du couloir
+donne la taille du caractère et la page donne la longueur. Une première version
+écrivait le mot à l'horizontale dans l'encadré, sur son propre canevas : ça
+marchait, mais ça faisait deux marques au lieu d'un fil.
+
+`MOT` donne les quatre caractères, chacun dans une boîte unité, chaque trait
+décrit par les quelques points où la main tourne — Catmull-Rom passe par tous
+ses points de contrôle, donc on décrit des tournants et non des poignées de
+courbe. `axe` est l'abscisse qui se pose sur l'axe du couloir : celle du corps
+du caractère, et non le milieu de son encre, sinon le dakuten de だ pousserait
+tout le caractère à gauche pour se faire de la place.
 
 **Les traits sont dans l'ordre d'écriture**, et le déroulé s'en sert tel quel :
 こ ses deux traits, だ le ナ puis le こ du bas puis le dakuten, わ la barre puis
 la boucle, り le trait court puis le long. Chaque trait reçoit une part de
 l'avancement proportionnelle à sa longueur, sinon la pointe expédierait les
-longs traits pour s'attarder sur les deux barres du dakuten.
+longs traits pour s'attarder sur les deux barres du dakuten. Le brin du bas
+n'existe qu'une fois le dernier trait posé : on voit le mot s'écrire, puis le
+fil reprendre.
 
-**Deux passes mal calées**, comme le fil, l'ouverture et la barre de
-chargement : la plume à l'encre noire, doublée de carrés magenta décalés d'un
-poil. Les encres ne sont pas tout à fait celles du fil, qui est en magenta
-doublé de bleu, et la raison est que ce mot est du texte avant d'être une
-marque. Le noir porte la forme, c'est celui du reste de l'encadré ; le magenta
-du fil la double. Le mot tient au fil par sa seconde passe, pas au prix de sa
-lisibilité. La plume, elle, est la seule brosse du jeu dont le tampon s'amincit
-en fin de course, donc la seule qui pose une attaque et une levée ; sans elle
-les kana se liraient comme du tube.
+**La place se mesure, elle ne se décide pas.** Le chapitre du mot porte
+`data-fil="mot"`, le suivant `data-fil="fin"` ; `bandeDuMot` en tire la bande où
+le mot s'écrit, et `MESURES` la donne aux chemins à chaque mise en page. Rien
+n'est fixé d'avance parce que rien n'est fixe : le chapitre ne tombe pas à la
+même hauteur en allemand qu'en japonais, ni en 390 px qu'en 1440. Le caractère
+prend la largeur du couloir, sauf si la hauteur du chapitre ne suffit pas : il
+rapetisse alors plutôt que de déborder, et se centre dans ce qui reste. Deux
+gardes en pixels tiennent le mot à l'écart des nœuds noirs des deux chapitres,
+qui sont posés sur le même axe.
 
-**Il s'écrit au défilement**, comme le fil, mais il est court : `COURSE` donne
-au déroulé une longueur minimale de 45 % de la fenêtre, sans quoi trois
-centimètres de page suffiraient à l'écrire, c'est-à-dire d'un coup. Et sa pointe
-se tient à `POINTE_COURTE`, bien plus bas que celle du fil : une marque haute
-déborde de l'écran et son début est tracé depuis longtemps, une marque courte
-entre entière dans le champ, et sous `POINTE` le lecteur regarderait un bandeau
-vide en attendant qu'elle commence.
+**La taille du tampon suit le caractère, pas le couloir.** C'est la seule
+exception à la règle du §6 : partout ailleurs `size` se mesure sur le petit côté
+du canevas, ce qui est exactement ce qu'il faut pour un fil dont l'épaisseur
+suit son couloir. Mais le caractère, lui, rapetisse quand la place manque, et un
+tampon resté à la mesure du couloir empâterait aussitôt les kana. Les couches du
+mot portent donc `taille`, une fraction du caractère, et `stroke` la reçoit en
+pixels.
 
-**Sans JavaScript, le mot reste composé.** La classe `mark--pose`, posée par le
-script une fois le canevas mesuré, fait deux choses à la fois : elle donne sa
-boîte au canevas et met le texte de repli en lecture d'écran seule. Tant qu'elle
-n'arrive pas, le bandeau est exactement celui d'avant, et rien ne réserve de
-place à côté du mot. C'est la seule entorse à la règle des hôtes vides
+La plume écrit le mot : seule brosse du jeu dont le tampon s'amincit en fin de
+course, donc seule à poser une attaque et une levée. Sans elle les kana se
+liraient comme du tube. La passe de croix bleues du fil repasse dessus, décalée
+d'un poil, comme sur le reste du fil.
+
+**Sans JavaScript, le mot reste composé dans l'encadré.** La classe
+`mark--pose`, posée par le script une fois le canevas mesuré, met le texte de
+repli en lecture d'écran seule. Tant qu'elle n'arrive pas, l'encadré porte le
+mot et la page ne perd rien. C'est la seule entorse à la règle des hôtes vides
 ci-dessous, et elle vaut aussi pour les lecteurs d'écran : le canevas est
-`aria-hidden`, c'est le texte qui porte le mot.
+`aria-hidden`, c'est ce texte-là qui porte le mot.
 
-Retoucher un tracé se fait à la main, en agrandissant le canevas le temps du
-réglage — `.kodawari-mark { width: 44rem }` dans l'inspecteur suffit — puis en
-revenant à la taille réelle. Un kana qui tient en grand peut ne plus se lire en
-petit, jamais l'inverse.
+Retoucher un tracé se fait à la main, en regardant le couloir agrandi le temps
+du réglage. Un kana qui tient en grand peut ne plus se lire en petit, jamais
+l'inverse : le rendu à vérifier est celui de 390 px, où le caractère ne fait plus
+que 42 px.
 
 ### Ajouter une marque
 
@@ -437,8 +463,8 @@ boîtes vides décoratives : **sans JavaScript la page est identique, sans trou.
 Le mot こだわり est le seul à porter du contenu, et il a son repli (voir
 ci-dessus).
 
-Deux exceptions, listées dans `AU_DEFILEMENT`, toutes deux dans `story.html` :
-le fil et le mot こだわり, qui se tracent à la lecture. Voir ci-dessus.
+Une exception, listée dans `AU_DEFILEMENT` : le fil de `story.html`, qui se
+déroule à la lecture, mot compris. Voir ci-dessus.
 
 ### La barre de chargement
 
@@ -597,13 +623,13 @@ pour la même raison.
 - « Notre histoire » : le fil se déroule en descendant et sa pointe reste en
   bas de la fenêtre, remonter ne l'efface pas, il se repeint entier après un
   redimensionnement, et l'âge de la première phrase est celui du jour,
-- « Notre histoire » : le mot こだわり s'écrit trait par trait en descendant,
-  il est fini quand l'encadré arrive au milieu de l'écran, et il se relit en
-  390 px comme en 1440,
-- JavaScript coupé : aucun trou dans la mise en page, le mot こだわり reste
-  écrit dans son bandeau et rien ne réserve de place à côté de lui, le sélecteur
-  de langue reste un jeu de liens qui fonctionnent, la barre n'existe pas, et
-  l'âge écrit dans le HTML reste lisible,
+- « Notre histoire » : le fil s'arrête à hauteur du chapitre du mot, écrit
+  こだわり trait par trait de haut en bas, puis repart ; le mot ne touche ni le
+  nœud du dessus ni celui du dessous, il tient dans le couloir en 390 px comme
+  en 1440, et il se relit après un redimensionnement,
+- JavaScript coupé : aucun trou dans la mise en page, こだわり reste écrit dans
+  son encadré, le sélecteur de langue reste un jeu de liens qui fonctionnent, la
+  barre n'existe pas, et l'âge écrit dans le HTML reste lisible,
 - aucune requête vers un domaine tiers,
 - console sans erreur,
 - si un script ou une feuille servie a changé, l'estampille `?v=` a été
