@@ -72,29 +72,60 @@ surligneur lime.
 
 Jersey 25 et Archivo ne dessinent que le latin, et leurs `unicode-range` le
 disent : sur `/ja/`, le navigateur descend d'un cran dans la pile pour tout
-caractère japonais. `html[lang="ja"]` lui donne alors des polices du système
-(Hiragino, Yu Gothic, Meiryo), et **Jersey 25 reste en tête de la pile** : la
-marque, les noms de projets et les chiffres sont en latin et gardent leurs
-marches d'escalier. La ligne mixte est assumée.
+caractère japonais. **Jersey 25 reste en tête de la pile** : la marque, les noms
+de projets et les chiffres sont en latin et gardent leurs marches d'escalier.
 
-Héberger un sous-ensemble japonais coûterait quelques centaines de kilo-octets
-pour 108 Ko aujourd'hui, et il n'existe pas de bitmap japonaise qui tienne le
-registre de Jersey 25. La promesse du présent paragraphe passe avant l'unité
-typographique sur une seule des cinq versions.
+Les **titres** tombent alors sur **PixelMplus12 Bold**, une bitmap japonaise
+tirée des M+ FONTS ([PixelMplus](https://github.com/itouhiro/PixelMplus)), sous
+M+ FONT LICENSE : usage, copie et redistribution libres, licence recopiée dans
+`fonts/pixelmplus-LICENSE.txt`. Un seul fichier,
+`fonts/pixelmplus12-japonais.woff2`, servi depuis le domaine comme les autres et
+préchargé dans les quatre pages `/ja/`. Son `unicode-range` se limite aux blocs
+japonais (`U+3000-30FF`, `U+4E00-9FFF`, `U+FF01-FF60`, `U+FFE5`), pour qu'elle
+ne prenne jamais la main sur du latin.
+
+Le gras, et pas la graisse normale : ses traits de deux points tiennent le
+registre des marches d'escalier de Jersey 25, là où la normale s'amincit à un
+point et se lit comme un gothique fin à côté du titre latin. Elle est déclarée
+en `font-weight: 400` : c'est la seule graisse servie, et les titres du site
+sont en 400.
+
+**Le sous-ensemble.** La fonte complète pèse 258 Ko : elle couvre les niveaux 1
+et 2 de JIS X 0208, soit 6355 kanji, dont la seconde moitié ne sert jamais. Le
+fichier servi est ramené aux kana, à la ponctuation japonaise et aux 2965 kanji
+du niveau 1, plus `珈琲` qui n'est qu'au niveau 2 et figure dans une réalisation.
+122 Ko. Un titre japonais ordinaire est donc dessiné en entier : c'est ce qui
+compte, un kanji manquant retombant au milieu du mot sur le gothique du système.
+Pour régénérer le fichier après un changement de version — le niveau 1 se
+construit hors ligne, le codec `euc_jp` de Python le contient déjà :
+
+```python
+lvl1 = {bytes([0xA0 + ku, 0xA0 + ten]).decode('euc_jp', 'ignore')
+        for ku in range(16, 48) for ten in range(1, 95)}
+# + les blocs U+3000-30FF, U+FF01-FF60, U+FFE5 et les kanji hors niveau 1
+# utilisés dans ja/*.html, puis pyftsubset --flavor=woff2 --layout-features=
+```
+
+Le **texte courant** garde les polices du système (Hiragino, Yu Gothic, Meiryo) :
+une bitmap de douze points ne se lit pas à 17 px, et les 122 Ko ne se justifient
+que pour les titres. La ligne latine reste mixte, elle : `Vergasta Digital` dans
+un titre japonais sort en Jersey 25.
 
 Deux réglages suivent de là, dans la feuille de style : `line-height` à 1,3 sur
-les titres, parce qu'une bitmap latine se cale sur 1 mais que les kanji touchent
-la ligne suivante ; et des mesures rouvertes sur les `h1`, parce que l'unité
-`ch` vaut la largeur du zéro de Jersey 25 alors qu'un kana en occupe deux, ce
-qui coupait les titres japonais deux fois trop tôt.
+les titres, parce qu'une bitmap latine se cale sur 1 mais que les kanji occupent
+toute la hauteur du corps et touchent la ligne suivante ; et des mesures
+rouvertes sur les `h1`, parce que l'unité `ch` vaut la largeur du zéro de
+Jersey 25 alors qu'un kana en occupe deux, ce qui coupait les titres japonais
+deux fois trop tôt.
 
 ### Pourquoi les polices ne viennent pas de Google
 
 `privacy.html` promet qu'aucun outil tiers ne suit le visiteur. Un appel à
 `fonts.googleapis.com` transmet l'adresse IP de chaque visiteur à Google à
 chaque page vue, ce qui contredit cette promesse et pose un problème sous LPD
-et RGPD. **Le site ne fait aujourd'hui aucune requête externe.** Quatre fichiers
-`.woff2`, 108 Ko au total. Cette propriété est à préserver.
+et RGPD. **Le site ne fait aujourd'hui aucune requête externe.** Neuf fichiers
+`.woff2`, 238 Ko au total, dont 122 Ko qui ne sont chargés que sur `/ja/`. Cette
+propriété est à préserver.
 
 Pour ajouter une police, récupérer le CSS de Google avec un agent de navigateur
 moderne, ne garder que les sous-ensembles `latin` et `latin-ext`, télécharger
