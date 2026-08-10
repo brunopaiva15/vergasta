@@ -304,11 +304,18 @@
 
   /** Une portion du fil, prête à poser dans `MARKS`. Le nombre de points suit
    *  la longueur réelle de la portion : sinon un chapitre ajouté étirerait la
-   *  même poignée de segments et le méandre s'angulerait. */
+   *  même poignée de segments et le méandre s'angulerait.
+   *
+   *  La fonction porte la portion qu'elle couvre. Le déroulé au défilement en a
+   *  besoin pour convertir l'avancement du fil entier en avancement de ce
+   *  brin-là, et la lire ici évite de réécrire les mêmes bornes dans `MARKS`,
+   *  où elles finiraient par diverger. */
   function brin(t0, t1, ecart) {
-    return function (w, h) {
+    var f = function (w, h) {
       return serpente(w, h, t0, t1, ecart, Math.max(80, Math.round(h * (t1 - t0) / 3)));
     };
+    f.part = [t0, t1];
+    return f;
   }
 
   /** Arc de cercle. */
@@ -556,11 +563,12 @@
        fil garde la même encre d'un bout à l'autre, sinon ce ne serait plus un
        fil mais cinq traits ; c'est la texture qui change, pas l'identité.
 
-       Les retards font descendre le dessin brin après brin, du haut vers le
-       bas, comme une main qui trace.
+       Aucun retard ici, contrairement aux autres marques : le fil se déroule
+       au défilement (voir AU_DEFILEMENT), et ce sont les portions qui donnent
+       l'ordre. Le brin du bas ne commence que lorsque la lecture y arrive.
 
-       Une passe de croix bleues repasse ensuite sur toute la longueur, décalée
-       d'un poil : le tirage en deux couleurs mal calées de l'ouverture.
+       Une passe de croix bleues suit sur toute la longueur, décalée d'un poil :
+       le tirage en deux couleurs mal calées de l'ouverture.
 
        Le canevas est haut et étroit, et `size` se mesure sur le petit côté :
        la taille des tampons suit donc la largeur du couloir, jamais la
@@ -572,27 +580,27 @@
         path: brin(0, 0.22, 0)
       },
       {
-        brush: "carres", ink: "magenta", delay: 150,
+        brush: "carres", ink: "magenta",
         over: { size: 0.115, spacing: 0.44, jitter: 0.10 },
         path: brin(0.21, 0.42, 0)
       },
       {
-        brush: "derive", ink: "magenta", delay: 300,
+        brush: "derive", ink: "magenta",
         over: { size: 0.10, spacing: 0.34, scatter: 0.90 },
         path: brin(0.41, 0.60, 0)
       },
       {
-        brush: "tissage", ink: "magenta", delay: 450,
+        brush: "tissage", ink: "magenta",
         over: { size: 0.10, spacing: 0.46 },
         path: brin(0.59, 0.80, 0)
       },
       {
-        brush: "touffe", ink: "magenta", delay: 600,
+        brush: "touffe", ink: "magenta",
         over: { size: 0.105, spacing: 0.36, scatter: 0.14 },
         path: brin(0.79, 1, 0)
       },
       {
-        brush: "croix", ink: "bleu", alpha: 0.7, delay: 350,
+        brush: "croix", ink: "bleu", alpha: 0.7,
         over: { size: 0.09, spacing: 1.4 },
         path: brin(0, 1, 0.075)
       }
@@ -633,21 +641,55 @@
 
   var DRAW_MS = 1100;
 
+  /* Les marques qui se déroulent au défilement au lieu d'entrer en scène d'un
+     coup. Le fil de la page d'histoire est le seul, et pour une raison de
+     mesure : les autres marques tiennent dans un carré qu'on embrasse d'un
+     regard, lui est aussi long que le bloc des chapitres. Le dessiner d'un
+     coup à l'entrée dans le champ, ce serait le peindre presque entièrement
+     hors de l'écran, et n'en montrer jamais le tracé. */
+  var AU_DEFILEMENT = { fil: true };
+
+  /* La pointe du fil se tient à cette fraction de la hauteur de la fenêtre.
+     Assez bas pour que le trait précède toujours la lecture, assez haut pour
+     qu'on le voie se poser. À 1 il serait déjà tracé partout où l'œil se pose
+     et le déroulé ne se verrait jamais. */
+  var POINTE = 0.9;
+
   function easeOut(t) {
     return 1 - Math.pow(1 - t, 3);
   }
 
+  /** Une brosse et les réglages de sa couche, fusionnés une fois pour toutes.
+   *  C'était refait à chaque image auparavant. */
+  function brosse(layer) {
+    var base = BRUSHES[layer.brush];
+    if (!base) return null;
+    if (!layer.over) return base;
+    var out = {};
+    var k;
+    for (k in base) if (Object.prototype.hasOwnProperty.call(base, k)) out[k] = base[k];
+    for (k in layer.over) if (Object.prototype.hasOwnProperty.call(layer.over, k)) out[k] = layer.over[k];
+    return out;
+  }
+
   function mount(host) {
-    var layers = MARKS[host.getAttribute("data-mark")];
+    var nom = host.getAttribute("data-mark");
+    var layers = MARKS[nom];
     if (!layers) return;
 
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // En mouvement réduit, le fil ne se déroule pas : il est posé entier.
+    var defile = AU_DEFILEMENT[nom] === true && !reduced;
     var canvas = document.createElement("canvas");
     canvas.style.cssText = "display:block;width:100%;height:100%";
     host.appendChild(canvas);
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    var brosses = [];
+    for (var b = 0; b < layers.length; b++) brosses.push(brosse(layers[b]));
+
+    var chemins = [];
     var raf = 0;
     var start = 0;
     var running = false;
@@ -655,6 +697,7 @@
     var onScreen = false;
     var hidden = false;
     var dpr = 1;
+    var pose = 0; // fraction du fil déjà déroulée
 
     function layout() {
       var w = host.clientWidth;
@@ -667,42 +710,96 @@
       dpr = force > 0 ? force : Math.min(window.devicePixelRatio || 1, 2);
       var bw = Math.round(w * dpr);
       var bh = Math.round(h * dpr);
-      if (canvas.width !== bw || canvas.height !== bh) {
+      var change = canvas.width !== bw || canvas.height !== bh;
+      if (change) {
         canvas.width = bw;
         canvas.height = bh;
+      }
+      // Les chemins ne dépendent que de la taille : les recalculer à chaque
+      // image d'un déroulé coûterait des milliers de points pour rien.
+      if (change || !chemins.length) {
+        chemins = [];
+        for (var i = 0; i < layers.length; i++) chemins.push(layers[i].path(w, h));
       }
       return true;
     }
 
-    function draw(elapsed) {
-      var w = host.clientWidth;
-      var h = host.clientHeight;
+    function effacer() {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      var short = Math.min(w, h);
+    }
 
+    function draw(elapsed) {
+      effacer();
+      var short = Math.min(host.clientWidth, host.clientHeight);
       for (var i = 0; i < layers.length; i++) {
-        var layer = layers[i];
-        var brush = BRUSHES[layer.brush];
-        if (!brush) continue;
-        if (layer.over) {
-          var merged = {};
-          for (var k in brush) if (Object.prototype.hasOwnProperty.call(brush, k)) merged[k] = brush[k];
-          for (var o in layer.over) if (Object.prototype.hasOwnProperty.call(layer.over, o)) merged[o] = layer.over[o];
-          brush = merged;
-        }
-        var began = layer.delay || 0;
+        if (!brosses[i]) continue;
+        var began = layers[i].delay || 0;
         var p = reduced
           ? 1
           : easeOut(Math.min(1, Math.max(0, (elapsed - began) / DRAW_MS)));
         if (p <= 0) continue;
-        stroke(ctx, layer.path(w, h), brush, short, {
+        stroke(ctx, chemins[i], brosses[i], short, {
           progress: p,
           dpr: dpr,
-          ink: INKS[layer.ink] || INKS.brique,
-          alpha: layer.alpha == null ? 1 : layer.alpha
+          ink: INKS[layers[i].ink] || INKS.encre,
+          alpha: layers[i].alpha == null ? 1 : layers[i].alpha
         });
       }
+    }
+
+    /* ---------------------------------------------------------------- *
+     * Le fil qui se déroule au défilement
+     *
+     * L'avancement ne redescend jamais. Un fil qu'on déroule ne se
+     * rembobine pas, et surtout : le canevas n'est jamais effacé entre deux
+     * images, donc remonter demanderait de repeindre toute la hauteur à
+     * chaque cran de molette. C'est exactement ce que `from` permet
+     * d'éviter.
+     * ---------------------------------------------------------------- */
+
+    function avance() {
+      var r = host.getBoundingClientRect();
+      if (!r.height) return 0;
+      var fenetre = window.innerHeight || document.documentElement.clientHeight || 0;
+      return Math.min(1, Math.max(0, (fenetre * POINTE - r.top) / r.height));
+    }
+
+    /** Prolonge le tracé de `de` à `a`, sans rien effacer. `from` saute le
+     *  dessin des tampons déjà posés sans sauter leur compte : l'aléa vient de
+     *  l'indice du tampon, donc la marche à vide doit passer par chacun d'eux
+     *  pour que le suivant tombe où il serait tombé depuis zéro. */
+    function prolonger(de, a) {
+      var short = Math.min(host.clientWidth, host.clientHeight);
+      for (var i = 0; i < layers.length; i++) {
+        if (!brosses[i]) continue;
+        // Un brin ne couvre qu'une portion du fil : l'avancement du fil entier
+        // se convertit en avancement de ce brin-là avant d'aller à `stroke`.
+        var part = layers[i].path.part || [0, 1];
+        var etendue = Math.max(0.0001, part[1] - part[0]);
+        var haut = Math.min(1, Math.max(0, (a - part[0]) / etendue));
+        var bas = Math.min(1, Math.max(0, (de - part[0]) / etendue));
+        if (haut <= bas) continue;
+        stroke(ctx, chemins[i], brosses[i], short, {
+          progress: haut,
+          from: bas,
+          dpr: dpr,
+          ink: INKS[layers[i].ink] || INKS.encre,
+          alpha: layers[i].alpha == null ? 1 : layers[i].alpha
+        });
+      }
+    }
+
+    function derouler() {
+      raf = 0;
+      var p = avance();
+      if (p <= pose) return;
+      prolonger(pose, p);
+      pose = p;
+    }
+
+    function auDefilement() {
+      if (!raf) raf = requestAnimationFrame(derouler);
     }
 
     function lastDelay() {
@@ -727,6 +824,17 @@
 
     function sync() {
       var should = onScreen && !hidden;
+      if (defile) {
+        if (should) {
+          window.addEventListener("scroll", auDefilement, { passive: true });
+          auDefilement();
+        } else {
+          window.removeEventListener("scroll", auDefilement);
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+        return;
+      }
       if (!should) {
         running = false;
         cancelAnimationFrame(raf);
@@ -746,7 +854,18 @@
     if (!layout()) return;
 
     new ResizeObserver(function () {
+      var acquis = pose;
       if (!layout()) return;
+      if (defile) {
+        // Le canevas repart vide après un redimensionnement, et le méandre a
+        // changé de largeur : on repose d'un coup tout ce qui était déroulé.
+        effacer();
+        pose = 0;
+        prolonger(0, acquis);
+        pose = acquis;
+        auDefilement();
+        return;
+      }
       // Une marque terminée se repeint complète : un redimensionnement n'est
       // pas une seconde entrée en scène.
       if (done) draw(Infinity);

@@ -322,6 +322,30 @@ longueur, décalée d'un poil : le tirage en deux couleurs mal calées de
 l'ouverture. **Cinq brosses, une seule encre** : c'est la texture qui change,
 pas l'identité. Cinq encres donneraient cinq traits, plus un fil.
 
+**Le fil se déroule au défilement.** C'est la seule marque du site dans ce cas,
+et c'est une question de mesure : les autres tiennent dans un carré qu'on
+embrasse d'un regard, lui est aussi long que le bloc des chapitres. Le dessiner
+d'un coup à l'entrée dans le champ, ce serait le peindre presque entièrement
+hors de l'écran et n'en montrer jamais le tracé. Sa pointe se tient à `POINTE`,
+neuf dixièmes de la hauteur de la fenêtre : le trait précède toujours la
+lecture, et on le voit se poser. À 1 il serait déjà tracé partout où l'œil se
+pose, et le déroulé ne se verrait jamais.
+
+Trois points à ne pas défaire :
+
+- **l'avancement ne redescend jamais.** Un fil qu'on déroule ne se rembobine
+  pas, et surtout le canevas n'est jamais effacé entre deux images : remonter
+  demanderait de repeindre toute la hauteur à chaque cran de molette. C'est
+  exactement ce que `from` évite, comme pour la barre de chargement ;
+- **les chemins sont calculés une fois par mise en page**, pas à chaque image.
+  Un déroulé recalculerait sinon des milliers de points par image pour rien ;
+- **`prefers-reduced-motion` ne reçoit pas le déroulé.** Le fil y est posé
+  entier à l'entrée dans le champ, comme les autres marques. Un tracé qui suit
+  le défilement est précisément ce dont ce réglage ne veut pas.
+
+Un redimensionnement repeint d'un coup ce qui était déjà déroulé, et pas plus :
+ce n'est pas une seconde entrée en scène.
+
 **`size` se mesure sur le petit côté du canevas**, donc ici sur la largeur du
 couloir : la taille des tampons suit le couloir, jamais la longueur de la page.
 C'est le nombre de tampons qui croît avec la hauteur, ce qui est exactement ce
@@ -341,6 +365,9 @@ Les marques se dessinent à l'entrée dans le champ de vision puis **la boucle
 s'arrête** : une image fixe ne mérite pas d'images par seconde.
 `prefers-reduced-motion` peint directement l'état final. Les hôtes sont des
 boîtes vides décoratives : **sans JavaScript la page est identique, sans trou.**
+
+Une exception, listée dans `AU_DEFILEMENT` : le fil de `story.html`, qui se
+déroule à la lecture. Voir ci-dessous.
 
 ### La barre de chargement
 
@@ -438,6 +465,16 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 ### Textes
 
 - **Aucun tiret cadratin.** Deux-points, parenthèses, ou deux phrases.
+- **Aucun deux-points dans `story.html`**, dans les cinq langues. La règle
+  ci-dessus vaut pour les pages qui décrivent ou qui règlent ; le deux-points
+  y annonce une liste ou une précision et se lit bien. Dans un récit à la
+  première personne, il revient toutes les trois phrases et sonne rédigé. Deux
+  phrases font le même travail sans le tic. Les autres pages le gardent.
+- Pas de définition en fragments nominaux enchaînés (« Le refus de X. Le soin
+  porté à Y, sauf le jour où Z. »). C'est la tournure d'un texte écrit pour
+  faire joli, et elle s'entend. Une phrase simple et complète, ou rien.
+- Pas de chute assénée en phrase courte (« La passion était là. Elle n'est
+  jamais repartie. »). Dire ce qui s'est passé suffit.
 - Pas de parallélisme négatif (« ce n'est pas X, c'est Y »), pas de triades
   rythmées, pas de chiffres inventés.
 - Écrire ce qui est vrai et vérifiable : l'adresse, les vrais projets cités en
@@ -458,9 +495,9 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 - états de survol : navigation, ligne de tableau, bouton,
 - barre de chargement : cliquer un lien interne la lance, un lien externe non,
   et elle s'efface après l'arrivée sans rien laisser derrière,
-- « Notre histoire » : le fil se repeint en entier après un redimensionnement
-  et couvre bien toute la hauteur du bloc, les nœuds tombent sur le trait, et
-  l'âge de la première phrase est celui du jour,
+- « Notre histoire » : le fil se déroule en descendant et sa pointe reste en
+  bas de la fenêtre, remonter ne l'efface pas, il se repeint entier après un
+  redimensionnement, et l'âge de la première phrase est celui du jour,
 - JavaScript coupé : aucun trou dans la mise en page, le sélecteur de langue
   reste un jeu de liens qui fonctionnent, la barre n'existe pas, et l'âge écrit
   dans le HTML reste lisible,
