@@ -95,23 +95,28 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* x8y12pxDenkiChip, la bitmap japonaise des titres de /ja/. SIL OFL 1.1, texte
-   de la licence dans fonts/denkichip-OFL.txt.
+/* PixelMplus12 Bold, la bitmap japonaise des titres de /ja/. M+ FONT LICENSE,
+   texte dans fonts/pixelmplus-LICENSE.txt.
+
+   Le fichier est un sous-ensemble : kana, ponctuation et les 2965 kanji du
+   niveau 1 de JIS X 0208, plus 珈琲 qui n'est qu'au niveau 2. Un titre japonais
+   ordinaire est donc entièrement dessiné par la fonte, sans retomber au milieu
+   d'un mot sur le gothique du système. Recette du sous-ensemble dans DESIGN.md,
+   § Le japonais.
 
    L'unicode-range se limite aux blocs japonais : le latin, les chiffres et la
    ponctuation occidentale restent à Jersey 25, qui garde ses marches
    d'escalier sur la marque et les noms de projets.
 
-   La fonte ne dessine que les kanji des quatre premières années scolaires
-   (640 signes) ; ceux qui manquent tombent d'eux-mêmes sur la police système,
-   unicode-range ou pas. Voir DESIGN.md, § Le japonais. */
+   Le fichier est le gras de la famille, déclaré ici en 400 : c'est la seule
+   graisse servie, et les titres sont en font-weight 400. */
 @font-face {
-  font-family: 'x8y12pxDenkiChip';
+  font-family: 'PixelMplus12';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(fonts/denkichip-japonais.woff2) format('woff2');
-  unicode-range: U+3000-30FF, U+4E00-9FFF, U+FE10-FE48, U+FF01-FF60, U+FFE5;
+  src: url(fonts/pixelmplus12-japonais.woff2) format('woff2');
+  unicode-range: U+3000-30FF, U+4E00-9FFF, U+FF01-FF60, U+FFE5;
 }
 
 :root {
@@ -142,22 +147,21 @@
 /* Jersey 25 et Archivo ne dessinent que le latin, et leurs unicode-range le
    disent : en japonais le navigateur descend d'un cran dans la pile.
 
-   Les titres tombent alors sur x8y12pxDenkiChip, une bitmap japonaise de 36 Ko
-   servie d'ici, jamais de Google. Jersey 25 reste en tête : la marque, les noms
-   de projets et les chiffres sont en latin et gardent leurs marches d'escalier.
-   Le texte courant, lui, garde les polices du système : héberger un jeu de
-   kanji lisible en petit corps coûterait quelques centaines de kilo-octets et
-   casserait la promesse du §2 sur le poids. */
+   Les titres tombent alors sur PixelMplus12 Bold, une bitmap japonaise servie
+   d'ici, jamais de Google. Jersey 25 reste en tête : la marque, les noms de
+   projets et les chiffres sont en latin et gardent leurs marches d'escalier.
+   Le texte courant, lui, garde les polices du système : une bitmap de 12 points
+   ne se lit pas en petit corps, et les 122 Ko de la fonte ne se justifient que
+   pour les titres. */
 html[lang="ja"] {
   --japonais: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic",
     "YuGothic", "Noto Sans JP", "Meiryo", system-ui, sans-serif;
-  --display: "Jersey 25", "x8y12pxDenkiChip", var(--japonais);
+  --display: "Jersey 25", "PixelMplus12", var(--japonais);
   --texte: "Archivo", var(--japonais);
 }
 
-/* Une bitmap latine se cale sur line-height 1 ; les kanji, non : ceux que
-   DenkiChip ne dessine pas sont rendus par la police système et touchent la
-   ligne suivante. */
+/* Une bitmap latine se cale sur line-height 1 ; les kanji, non : ils occupent
+   toute la hauteur du corps et touchent la ligne suivante. */
 html[lang="ja"] h1,
 html[lang="ja"] h2,
 html[lang="ja"] h3 {

@@ -75,35 +75,48 @@ disent : sur `/ja/`, le navigateur descend d'un cran dans la pile pour tout
 caractère japonais. **Jersey 25 reste en tête de la pile** : la marque, les noms
 de projets et les chiffres sont en latin et gardent leurs marches d'escalier.
 
-Les **titres** tombent alors sur **x8y12pxDenkiChip**, une bitmap japonaise de
-[x0y0pxFreeFont](https://github.com/hicchicc/x8y12pxDenkiChip), sous SIL OFL 1.1.
-Un seul fichier, `fonts/denkichip-japonais.woff2`, 36 Ko, servi depuis le
-domaine comme les autres et préchargé dans les quatre pages `/ja/`. Son
-`unicode-range` se limite aux blocs japonais (`U+3000-30FF`, `U+4E00-9FFF`, les
-formes verticales et pleine chasse), pour qu'elle ne prenne jamais la main sur
-du latin. La licence est recopiée dans `fonts/denkichip-OFL.txt` : l'OFL demande
-que le texte accompagne le fichier redistribué.
+Les **titres** tombent alors sur **PixelMplus12 Bold**, une bitmap japonaise
+tirée des M+ FONTS ([PixelMplus](https://github.com/itouhiro/PixelMplus)), sous
+M+ FONT LICENSE : usage, copie et redistribution libres, licence recopiée dans
+`fonts/pixelmplus-LICENSE.txt`. Un seul fichier,
+`fonts/pixelmplus12-japonais.woff2`, servi depuis le domaine comme les autres et
+préchargé dans les quatre pages `/ja/`. Son `unicode-range` se limite aux blocs
+japonais (`U+3000-30FF`, `U+4E00-9FFF`, `U+FF01-FF60`, `U+FFE5`), pour qu'elle
+ne prenne jamais la main sur du latin.
 
-**Ce que DenkiChip ne dessine pas.** La fonte implémente les kanji des quatre
-premières années scolaires, 640 signes, plus les kana au complet ; les cinquième
-et sixième années sont annoncées par l'auteur mais pas encore publiées. Un kanji
-absent tombe de lui-même sur la police système, dans le titre même : `一般取引条件`
-sort avec `一`, `取` et `引` en points et `般条件` en gothique. La ligne mixte est
-assumée, comme elle l'était déjà entre le latin et le japonais. Avant de récrire
-un titre japonais, vérifier la liste des kanji implémentés, publiée dans le
-README amont (`実装漢字一覧`).
+Le gras, et pas la graisse normale : ses traits de deux points tiennent le
+registre des marches d'escalier de Jersey 25, là où la normale s'amincit à un
+point et se lit comme un gothique fin à côté du titre latin. Elle est déclarée
+en `font-weight: 400` : c'est la seule graisse servie, et les titres du site
+sont en 400.
+
+**Le sous-ensemble.** La fonte complète pèse 258 Ko : elle couvre les niveaux 1
+et 2 de JIS X 0208, soit 6355 kanji, dont la seconde moitié ne sert jamais. Le
+fichier servi est ramené aux kana, à la ponctuation japonaise et aux 2965 kanji
+du niveau 1, plus `珈琲` qui n'est qu'au niveau 2 et figure dans une réalisation.
+122 Ko. Un titre japonais ordinaire est donc dessiné en entier : c'est ce qui
+compte, un kanji manquant retombant au milieu du mot sur le gothique du système.
+Pour régénérer le fichier après un changement de version — le niveau 1 se
+construit hors ligne, le codec `euc_jp` de Python le contient déjà :
+
+```python
+lvl1 = {bytes([0xA0 + ku, 0xA0 + ten]).decode('euc_jp', 'ignore')
+        for ku in range(16, 48) for ten in range(1, 95)}
+# + les blocs U+3000-30FF, U+FF01-FF60, U+FFE5 et les kanji hors niveau 1
+# utilisés dans ja/*.html, puis pyftsubset --flavor=woff2 --layout-features=
+```
 
 Le **texte courant** garde les polices du système (Hiragino, Yu Gothic, Meiryo) :
-héberger un jeu de kanji complet et lisible en petit corps coûterait quelques
-centaines de kilo-octets, et la promesse du §2 sur le poids passe avant l'unité
-typographique sur une seule des cinq versions.
+une bitmap de douze points ne se lit pas à 17 px, et les 122 Ko ne se justifient
+que pour les titres. La ligne latine reste mixte, elle : `Vergasta Digital` dans
+un titre japonais sort en Jersey 25.
 
 Deux réglages suivent de là, dans la feuille de style : `line-height` à 1,3 sur
-les titres, parce qu'une bitmap latine se cale sur 1 mais que les kanji rendus
-par la police système touchent la ligne suivante ; et des mesures rouvertes sur
-les `h1`, parce que l'unité `ch` vaut la largeur du zéro de Jersey 25 alors
-qu'un kana en occupe deux, ce qui coupait les titres japonais deux fois trop
-tôt.
+les titres, parce qu'une bitmap latine se cale sur 1 mais que les kanji occupent
+toute la hauteur du corps et touchent la ligne suivante ; et des mesures
+rouvertes sur les `h1`, parce que l'unité `ch` vaut la largeur du zéro de
+Jersey 25 alors qu'un kana en occupe deux, ce qui coupait les titres japonais
+deux fois trop tôt.
 
 ### Pourquoi les polices ne viennent pas de Google
 
@@ -111,7 +124,7 @@ tôt.
 `fonts.googleapis.com` transmet l'adresse IP de chaque visiteur à Google à
 chaque page vue, ce qui contredit cette promesse et pose un problème sous LPD
 et RGPD. **Le site ne fait aujourd'hui aucune requête externe.** Neuf fichiers
-`.woff2`, 152 Ko au total, dont 36 Ko qui ne sont chargés que sur `/ja/`. Cette
+`.woff2`, 238 Ko au total, dont 122 Ko qui ne sont chargés que sur `/ja/`. Cette
 propriété est à préserver.
 
 Pour ajouter une police, récupérer le CSS de Google avec un agent de navigateur
