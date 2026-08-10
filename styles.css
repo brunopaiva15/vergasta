@@ -203,6 +203,40 @@ body {
   color: var(--ink);
 }
 
+/* La barre de défilement par défaut est large et grise : elle ajoute une
+   colonne d'interface à droite de la mise en page. On la ramène à un filet.
+
+   Pas de coin arrondi, pas de dégradé : un rectangle plein, comme les autres
+   filets du site. Le rail reste transparent pour laisser passer la grille du
+   fond ; seul le curseur se voit, en filet clair, et il passe à l'encre
+   atténuée au survol pour rester saisissable à la souris.
+
+   `scrollbar-width` couvre Firefox, `::-webkit-scrollbar` couvre Chrome,
+   Edge et Safari. Les deux disent la même chose ; aucun ne masque la barre,
+   qui reste un repère de position dans la page. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+::-webkit-scrollbar {
+  /* six pixels : moins d'un pas de grille, assez pour rester attrapable */
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rule);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-soft);
+}
+
 a {
   color: inherit;
   text-decoration: none;
