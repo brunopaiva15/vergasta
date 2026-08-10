@@ -771,10 +771,10 @@
 
     /* Le mot こだわり, dans l'encadré du même nom. Deux passes mal calées comme
        le fil, comme l'ouverture, comme la barre de chargement, mais pas les
-       mêmes encres : le bandeau est lime, et du magenta posé dessus vibre au
-       lieu de se lire. C'est donc l'encre noire qui porte la forme, celle du
-       texte du bandeau, et le magenta du fil qui la double d'un poil. Le mot
-       tient au fil par sa seconde passe, pas par sa lisibilité.
+       mêmes encres : le mot est du texte avant d'être une marque, et c'est
+       l'encre noire, celle du reste de l'encadré, qui porte sa forme. Le
+       magenta du fil la double d'un poil et rattache le mot au fil. Il tient au
+       fil par sa seconde passe, pas au prix de sa lisibilité.
 
        Il s'écrit au défilement comme le fil se déroule : un mot posé d'un coup
        n'est plus écrit, c'est une image. Le déroulé suit l'ordre des traits,

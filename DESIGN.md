@@ -216,13 +216,19 @@ Le repère de temps de chaque chapitre porte l'aplat lime et la bordure noire,
 comme la langue courante du sélecteur : un survol tenu en permanence. Ce ne sont
 pas des numéros d'étape (voir §7), ce sont des dates et des mots.
 
-**Encadré `.kodawari`.** Bordure franche et bandeau de titre, comme
-« Bon à savoir », mais le bandeau porte le mot japonais et sa transcription.
+**Encadré `.kodawari`.** Bordure franche et deux étages séparés d'un filet
+franc, comme « Bon à savoir », mais **sans l'aplat lime** : le haut porte le mot
+japonais et sa transcription, et le mot est **tracé à la brosse**, comme le fil
+qui descend la page. Un aplat sous une marque à la brosse en fait une vignette
+collée sur la page, là où le mot doit être de l'encre posée sur le papier, du
+même ordre que le fil ; et le lime avale le magenta de la seconde passe. C'est
+le seul encadré du site dans ce cas.
+
 Ni Jersey 25 ni Archivo ne dessinent les kana, et servir ici PixelMplus12
-obligerait à charger 122 Ko dans les cinq langues pour un seul mot : le mot est
-**tracé à la brosse**, comme le fil qui descend la page, et ne dépend donc
-d'aucune police. Voir §6, « Le mot こだわり ». Le texte composé reste dans le
-bandeau et ne passe en lecture d'écran seule qu'une fois la brosse en place.
+obligerait à charger 122 Ko dans les cinq langues pour un seul mot : le mot
+tracé ne dépend donc d'aucune police. Voir §6, « Le mot こだわり ». Le texte
+composé reste en place et ne passe en lecture d'écran seule qu'une fois la
+brosse en place.
 
 **Les deux sorties `.story-sorties`.** Le bouton et le lien vers les
 réalisations tiennent sur une seule ligne et se lisent comme une paire, dans la
@@ -387,12 +393,13 @@ longs traits pour s'attarder sur les deux barres du dakuten.
 
 **Deux passes mal calées**, comme le fil, l'ouverture et la barre de
 chargement : la plume à l'encre noire, doublée de carrés magenta décalés d'un
-poil. Les encres ne sont pas celles du fil, et c'est le bandeau qui décide : du
-magenta posé sur du lime vibre au lieu de se lire. Le noir porte donc la forme,
-c'est celui du texte du bandeau, et le magenta du fil la double. Le mot tient au
-fil par sa seconde passe, pas par sa lisibilité. La plume, elle, est la seule
-brosse du jeu dont le tampon s'amincit en fin de course, donc la seule qui pose
-une attaque et une levée ; sans elle les kana se liraient comme du tube.
+poil. Les encres ne sont pas tout à fait celles du fil, qui est en magenta
+doublé de bleu, et la raison est que ce mot est du texte avant d'être une
+marque. Le noir porte la forme, c'est celui du reste de l'encadré ; le magenta
+du fil la double. Le mot tient au fil par sa seconde passe, pas au prix de sa
+lisibilité. La plume, elle, est la seule brosse du jeu dont le tampon s'amincit
+en fin de course, donc la seule qui pose une attaque et une levée ; sans elle
+les kana se liraient comme du tube.
 
 **Il s'écrit au défilement**, comme le fil, mais il est court : `COURSE` donne
 au déroulé une longueur minimale de 45 % de la fenêtre, sans quoi trois

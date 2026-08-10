@@ -1067,12 +1067,17 @@ em {
   margin-top: 1.5rem;
 }
 
-/* Le mot japonais, dans un encadré à bandeau, comme « Bon à savoir ».
+/* Le mot japonais, dans un encadré à deux étages : le mot en haut, la
+   traduction dessous, séparés par un filet franc.
    Ni Jersey 25 ni Archivo ne dessinent les kana, et servir ici la bitmap
    japonaise coûterait 122 Ko dans les cinq langues pour un seul mot : le mot
    est tracé à la brosse, comme le fil, et ne dépend donc d'aucune police.
-   Le texte de repli reste dans le bandeau tant que la brosse n'a pas pris la
-   main. */
+   Le texte de repli reste en place tant que la brosse n'a pas pris la main.
+
+   Le haut n'a pas d'aplat lime, contrairement à « Bon à savoir ». Un aplat
+   sous une marque à la brosse en fait une vignette collée sur la page, et le
+   lime avale le magenta de la seconde passe. Sur le papier, le mot est du même
+   ordre que le fil qui descend à côté : de l'encre posée, rien derrière. */
 .kodawari {
   max-width: var(--measure);
   margin-top: 1.5rem;
@@ -1088,8 +1093,7 @@ em {
   gap: 0.1rem 0.75rem;
   max-width: none;
   margin: -1.25rem -1.25rem 1rem;
-  padding: 0.45rem 1.25rem 0.55rem;
-  background: var(--lime);
+  padding: 0.7rem 1.25rem 0.8rem;
   border-bottom: 2px solid var(--rule-hard);
   font-size: clamp(1.9rem, 6vw, 2.6rem);
   line-height: 1.25;
