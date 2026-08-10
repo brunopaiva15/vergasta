@@ -1132,22 +1132,36 @@ em {
   color: var(--ink-soft);
 }
 
+/* Les deux sorties de la page, sur une seule ligne. Le bouton porte l'action
+   principale, le lien la secondaire : même police d'affichage pour qu'ils se
+   lisent comme une paire, mais le second reste plat, sans bloc noir ni ombre
+   portée. Un petit lien souligné en bleu sous un filet, comme auparavant,
+   traînait là comme un reste de page. */
+.story-sorties {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.75rem;
+  margin-top: 1.75rem;
+}
+
+.story-sorties .button {
+  margin-top: 0;
+}
+
+/* Le geste de la navigation : aplat lime et bordure noire au survol. */
 .story-back {
-  margin-top: 2.25rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--rule);
-  font-size: 0.95rem;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.4rem 0.6rem 0.45rem;
+  border: 1px solid var(--rule);
+  transition: background 0.12s, border-color 0.12s;
 }
 
-.story-back a {
-  color: var(--bleu);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.story-back a:hover {
+.story-back:hover {
   background: var(--lime);
-  color: var(--ink);
+  border-color: var(--rule-hard);
 }
 
 /* --------------------------------------------------------------------------

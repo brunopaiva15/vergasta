@@ -649,11 +649,17 @@
      hors de l'écran, et n'en montrer jamais le tracé. */
   var AU_DEFILEMENT = { fil: true };
 
-  /* La pointe du fil se tient à cette fraction de la hauteur de la fenêtre.
-     Assez bas pour que le trait précède toujours la lecture, assez haut pour
-     qu'on le voie se poser. À 1 il serait déjà tracé partout où l'œil se pose
-     et le déroulé ne se verrait jamais. */
-  var POINTE = 0.9;
+  /* La pointe du fil se tient à cette fraction de la hauteur de la fenêtre,
+     donc un peu sous la ligne de lecture.
+
+     Ce réglage décide si le déroulé se voit ou non, et il se règle par le bas,
+     pas par le haut. Trop près de 1, la pointe colle au bord inférieur de
+     l'écran : le fil est déjà tracé partout où l'œil se pose, il ne reste
+     qu'une bande de rien du tout en bas de la fenêtre, et le déroulé passe
+     pour absent. Un premier essai à 0,9 se lisait exactement comme un fil
+     dessiné d'avance. Il faut laisser sous la pointe une part visible de
+     l'écran encore vierge pour que l'avancée se remarque. */
+  var POINTE = 0.62;
 
   function easeOut(t) {
     return 1 - Math.pow(1 - t, 3);

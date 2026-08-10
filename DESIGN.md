@@ -222,6 +222,14 @@ Ni Jersey 25 ni Archivo ne dessinent les kana : hors de `/ja/`, le mot revient �
 la police du système, et c'est voulu. Servir ici PixelMplus12 obligerait à
 charger 122 Ko dans les cinq langues pour un seul mot.
 
+**Les deux sorties `.story-sorties`.** Le bouton et le lien vers les
+réalisations tiennent sur une seule ligne et se lisent comme une paire, dans la
+même police d'affichage. Le second reste plat, sans bloc noir ni ombre portée,
+et prend au survol l'aplat lime et la bordure noire de la navigation. C'est la
+hiérarchie qui distingue les deux, pas deux traitements sans rapport. Un petit
+lien souligné en bleu posé sous un filet, comme au premier jet, se lisait comme
+un reste de page plutôt que comme une sortie.
+
 **L'âge, et `age.js`.** L'histoire s'ouvre sur « j'ai *n* ans ». Le nombre est
 écrit dans le HTML, juste le jour où la page a été écrite, et le script le
 recalcule à l'ouverture à partir de la date portée par `data-ne-le`. Sans
@@ -327,9 +335,15 @@ et c'est une question de mesure : les autres tiennent dans un carré qu'on
 embrasse d'un regard, lui est aussi long que le bloc des chapitres. Le dessiner
 d'un coup à l'entrée dans le champ, ce serait le peindre presque entièrement
 hors de l'écran et n'en montrer jamais le tracé. Sa pointe se tient à `POINTE`,
-neuf dixièmes de la hauteur de la fenêtre : le trait précède toujours la
-lecture, et on le voit se poser. À 1 il serait déjà tracé partout où l'œil se
-pose, et le déroulé ne se verrait jamais.
+un peu sous la ligne de lecture.
+
+**Ce réglage se règle par le bas, pas par le haut**, et c'est le seul piège du
+déroulé. Trop près de 1, la pointe colle au bord inférieur de l'écran : le fil
+est déjà tracé partout où l'œil se pose, il ne reste qu'une bande de rien du
+tout en bas de la fenêtre, et le déroulé passe pour absent. Un premier essai à
+0,9 se lisait exactement comme un fil dessiné d'avance. Il faut laisser sous la
+pointe une part visible de l'écran encore vierge pour que l'avancée se
+remarque, d'où les 0,62 actuels.
 
 Trois points à ne pas défaire :
 
