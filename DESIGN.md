@@ -503,6 +503,34 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ---
 
+## 7 bis. L'estampille de cache
+
+Les scripts et les feuilles de style sont appelés avec `?v=2`. Ce n'est pas
+décoratif.
+
+GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
+max-age=14400`. Le HTML d'une page se renouvelle vite, mais `brushes.js` et
+`styles.css` restent jusqu'à **quatre heures** dans le cache de bord. Après une
+mise en ligne, le visiteur reçoit donc le nouveau HTML avec l'ancien script, et
+un rechargement forcé n'y change rien : le `no-cache` d'un navigateur ne
+traverse pas le CDN. Le cas s'est produit, et il s'est lu comme une
+fonctionnalité qui ne marchait pas.
+
+Un cache se contourne par l'adresse. La requête porte la chaîne de requête,
+donc `brushes.js?v=3` est une autre entrée de cache que `brushes.js?v=2` et
+part chercher le fichier à la source.
+
+**Changer un de ces cinq fichiers veut donc dire deux gestes, pas un** : le
+fichier, puis l'estampille dans les vingt-six pages qui l'appellent. Elle est
+la même partout, un simple entier, et vaut pour tous les fichiers à la fois :
+une estampille par fichier serait plus fine et cinq fois plus facile à oublier.
+
+Les polices n'en portent pas. Elles ne changent pas, et quand elles changent
+c'est leur nom qui change, ce qui suffit. Les images et `favicon.ico` non plus,
+pour la même raison.
+
+---
+
 ## 8. Vérifications avant de pousser
 
 - rendu en 1440 px et 390 px, accueil et une page légale,
@@ -517,6 +545,9 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
   dans le HTML reste lisible,
 - aucune requête vers un domaine tiers,
 - console sans erreur,
+- si un script ou une feuille servie a changé, l'estampille `?v=` a été
+  incrémentée dans les vingt-six pages (voir §7 bis), sans quoi la
+  modification restera invisible en ligne pendant quatre heures,
 - si une page publique a été ajoutée ou renommée, `sitemap.xml` la suit (voir §10),
 - si un texte a bougé, les cinq versions ont bougé ensemble (voir §11), et le
   rendu allemand et japonais a été regardé : ce sont les deux qui débordent.
