@@ -3,8 +3,8 @@
 Ce document sert à reprendre le site sans en défaire la cohérence. Il dit ce
 qu'on fait, et surtout ce qu'on ne fait pas et pourquoi.
 
-Le site est statique : quatre pages publiques en cinq langues, une page
-d'atelier non référencée, deux feuilles de style, deux scripts, des polices,
+Le site est statique : cinq pages publiques en cinq langues, une page
+d'atelier non référencée, deux feuilles de style, trois scripts, des polices,
 plus `robots.txt` et `sitemap.xml`. Pas de build, pas de dépendance, pas de
 gestionnaire de paquets. On édite les fichiers, on pousse, GitHub Pages sert.
 
@@ -190,7 +190,40 @@ faut alors reprendre les `nth-child` de la grille.
 des cartes. Ligne surlignée en lime au survol. Sous 640 px, les en-têtes
 disparaissent et chaque ligne devient un bloc.
 
+**Le fil de `story.html`.** La page « Notre histoire » range ses chapitres le
+long d'un trait à la brosse, posé dans un rail à gauche et tiré sur toute la
+hauteur du bloc. Le fil **est** la séparation entre les chapitres : c'est pour
+cela qu'aucun filet ne passe entre eux, deux séparations pour la même charnière
+en faisant une de trop. Chaque chapitre pose sur le trait un nœud carré à ombre
+portée lime, le même geste que le bouton, et le dernier est plus gros parce que
+le fil s'arrête là. Les deux mesures du rail, `--fil` et `--fil-jeu`, sont des
+variables parce qu'elles servent trois fois : largeur du canevas, retrait de la
+colonne de texte, position des nœuds. Elles bougent ensemble ou pas du tout.
+
+Le repère de temps de chaque chapitre porte l'aplat lime et la bordure noire,
+comme la langue courante du sélecteur : un survol tenu en permanence. Ce ne sont
+pas des numéros d'étape (voir §7), ce sont des dates et des mots.
+
+**Encadré `.kodawari`.** Bordure franche et bandeau de titre, comme
+« Bon à savoir », mais le bandeau porte le mot japonais et sa transcription.
+Ni Jersey 25 ni Archivo ne dessinent les kana : hors de `/ja/`, le mot revient à
+la police du système, et c'est voulu. Servir ici PixelMplus12 obligerait à
+charger 122 Ko dans les cinq langues pour un seul mot.
+
+**L'âge, et `age.js`.** L'histoire s'ouvre sur « j'ai *n* ans ». Le nombre est
+écrit dans le HTML, juste le jour où la page a été écrite, et le script le
+recalcule à l'ouverture à partir de la date portée par `data-ne-le`. Sans
+JavaScript la phrase se lit normalement : elle prend seulement un an de retard
+au prochain anniversaire, ce qui vaut mieux qu'un trou. Le nombre est le même
+dans les cinq langues, donc le script ne touche qu'au texte de l'élément et
+jamais à la phrase qui l'entoure. La date est découpée à la main plutôt que
+passée à `new Date()`, qui l'interpréterait en UTC et décalerait d'un jour à
+l'ouest de Greenwich, exactement le jour de l'anniversaire. Aucune requête,
+aucun stockage : la propriété du §2 tient.
+
 **Navigation.** Liens en casse normale, aplat lime et bordure noire au survol.
+Cinq entrées depuis l'ajout de « Notre histoire ». La page courante y est un
+`<span class="is-current">` et non un lien, comme dans le sélecteur de langue.
 
 **Sélecteur de langue `.lang-nav`.** Cinq codes à deux lettres dans la police
 d'affichage, posés à droite de la navigation, séparés par un filet simple
@@ -245,6 +278,23 @@ Le lime disparaît sur blanc, donc les marques posées sur le fond blanc
 utilisent une gamme saturée : `bleu`, `magenta`, `cyan`, `olive`, `orange`,
 `encre`. `lime` et `bleu` sont réservés à la bande du pied de page, qui est
 sur noir.
+
+### Le fil de l'histoire
+
+`fil` est la seule marque qui ne tienne pas dans un carré : son hôte est un
+rail haut et étroit, aussi long que le bloc des chapitres. Deux points en
+découlent.
+
+`veine` est le pendant vertical de `wave`, avec la même enveloppe aux deux
+bouts, pour que le trait parte et finisse au milieu du rail plutôt qu'en butée
+contre un bord.
+
+Surtout, **`size` se mesure sur le petit côté du canevas**, donc ici sur la
+largeur du rail : la taille des tampons suit le rail, jamais la longueur de la
+page. C'est le nombre de tampons qui croît avec la hauteur, ce qui est
+exactement ce qu'on demande à un fil. Le nombre de points du chemin suit la même
+règle (`h / 4`), sinon un chapitre ajouté étirerait la même poignée de segments
+et le trait s'angulerait.
 
 ### Ajouter une marque
 
@@ -375,8 +425,12 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 - états de survol : navigation, ligne de tableau, bouton,
 - barre de chargement : cliquer un lien interne la lance, un lien externe non,
   et elle s'efface après l'arrivée sans rien laisser derrière,
+- « Notre histoire » : le fil se repeint en entier après un redimensionnement
+  et couvre bien toute la hauteur du bloc, les nœuds tombent sur le trait, et
+  l'âge de la première phrase est celui du jour,
 - JavaScript coupé : aucun trou dans la mise en page, le sélecteur de langue
-  reste un jeu de liens qui fonctionnent, et la barre n'existe pas,
+  reste un jeu de liens qui fonctionnent, la barre n'existe pas, et l'âge écrit
+  dans le HTML reste lisible,
 - aucune requête vers un domaine tiers,
 - console sans erreur,
 - si une page publique a été ajoutée ou renommée, `sitemap.xml` la suit (voir §10),
@@ -434,8 +488,8 @@ qui n'a pas le droit d'ouvrir la page ne lit pas non plus sa balise `noindex`,
 donc l'adresse peut malgré tout finir listée. C'est la balise qui la tient à
 l'écart, pas `robots.txt`.
 
-**`sitemap.xml`.** Les quatre pages publiques dans les cinq langues, soit vingt
-adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
+**`sitemap.xml`.** Les cinq pages publiques dans les cinq langues, soit
+vingt-cinq adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
 `<link rel="canonical">` des pages : deux adresses concurrentes pour une même
 page, c'est le moyen le plus simple de diviser son propre référencement.
 Ajouter une page publique veut donc dire trois gestes, pas un : la page, son
@@ -460,7 +514,14 @@ elle reste à dessiner.
 **Les données structurées.** Un bloc `application/ld+json` dans la tête de
 l'accueil, en `@graph` : `ProfessionalService`, `WebSite`, `WebPage`. C'est ce
 qui dit à un moteur où se trouve l'atelier, alors que la page ne fait que
-l'écrire en toutes lettres. Deux règles pour l'entretenir :
+l'écrire en toutes lettres. `story.html` en porte un second, plus court : un
+`AboutPage` rattaché aux **mêmes `@id`** que l'accueil, `#site` et `#atelier`,
+avec la personne en `mainEntity`. Un seul atelier, décrit à plusieurs endroits :
+les `@id` sont ce qui l'empêche d'en devenir plusieurs. Pas de date de
+naissance dans le balisage, alors même que la page en porte une dans
+`data-ne-le` : la phrase a besoin d'un âge, un moteur n'a pas besoin d'une date
+d'anniversaire. Les pages légales, elles, n'en portent pas. Deux règles pour
+l'entretenir :
 
 - **chaque valeur doit exister ailleurs sur le site**, mentions légales ou
   contenu de l'accueil. Le balisage ne sert pas à affirmer ce que les pages ne
@@ -485,7 +546,11 @@ sans aucun retour sur ce qui est réellement indexé.
 Français, anglais, allemand, italien, japonais. Le français reste à la racine :
 ses adresses ne bougent pas, les liens déjà donnés tiennent. Les quatre autres
 vivent dans `/en/`, `/de/`, `/it/`, `/ja/`, avec les mêmes noms de fichiers.
-Vingt pages, quatre par langue.
+Vingt-cinq pages, cinq par langue.
+
+Les noms de fichiers sont en anglais dans les cinq langues, `story.html`
+comprise : c'est une adresse, pas un texte, et cinq jeux d'adresses par page
+seraient cinq occasions de diverger.
 
 Ce sont des **pages complètes, pas des textes injectés au chargement**. Une
 traduction posée par JavaScript n'a pas d'adresse propre : elle ne se partage

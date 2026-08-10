@@ -261,6 +261,22 @@
     return build(pts);
   }
 
+  /** Onde verticale : le pendant de `wave`, l'axe long tenu debout. Elle sert
+   *  au fil de la page d'histoire, qui court sur toute la hauteur du bloc.
+   *  L'enveloppe ramène le trait vers l'axe aux deux bouts, pour qu'il parte
+   *  et finisse au milieu du rail plutôt qu'en butée contre un bord. */
+  function veine(x0, y0, hauteur, amp, cycles, steps) {
+    var pts = [];
+    for (var i = 0; i <= steps; i++) {
+      var t = i / steps;
+      pts.push({
+        x: x0 + Math.sin(t * cycles * Math.PI * 2) * amp * (0.35 + 0.65 * Math.sin(t * Math.PI)),
+        y: y0 + hauteur * t
+      });
+    }
+    return build(pts);
+  }
+
   /** Arc de cercle. */
   function arc(cx, cy, r, a0, a1, steps) {
     var pts = [];
@@ -476,6 +492,50 @@
         brush: "anneaux", ink: "orange", over: { size: 0.145, spacing: 1.15 },
         path: function (w, h) {
           return arc(w * 0.5, h * 0.35, Math.min(w, h) * 0.34, Math.PI * 0.15, Math.PI * 1.15, 400);
+        }
+      }
+    ],
+
+    /* Notre histoire : la plume ouvre la spirale, la touffe la double en
+       retard. Deux brosses qui ne servent nulle part ailleurs en tête de page,
+       pour que l'ouverture de l'histoire ne se confonde pas avec celle de
+       l'accueil. */
+    histoire: [
+      {
+        brush: "plume", ink: "cyan", over: { size: 0.072, spacing: 0.14 },
+        path: function (w, h) {
+          return spiral(w * 0.5, h * 0.5, Math.min(w, h) * 0.39, 2.05, -Math.PI * 0.35, 800);
+        }
+      },
+      {
+        brush: "touffe", ink: "orange", alpha: 0.8, delay: 200,
+        over: { size: 0.058, spacing: 0.30 },
+        path: function (w, h) {
+          return spiral(w * 0.53, h * 0.47, Math.min(w, h) * 0.30, 1.7, -Math.PI * 0.05, 600);
+        }
+      }
+    ],
+
+    /* Le fil de la page d'histoire : une veine magenta doublée d'un semis de
+       croix bleues en retard, comme un tirage en deux passes mal calées.
+
+       Le canevas est haut et étroit, et `size` se mesure sur le petit côté :
+       la taille des tampons suit donc la largeur du rail, jamais la longueur
+       de la page. Le nombre de tampons, lui, croît avec la hauteur, ce qui est
+       exactement ce qu'on veut d'un fil. */
+    fil: [
+      {
+        brush: "carres", ink: "magenta",
+        over: { size: 0.22, spacing: 0.42, jitter: 0.10 },
+        path: function (w, h) {
+          return veine(w * 0.5, 0, h, w * 0.22, Math.max(1.5, h / 900), Math.max(160, Math.round(h / 4)));
+        }
+      },
+      {
+        brush: "croix", ink: "bleu", alpha: 0.75, delay: 180,
+        over: { size: 0.14, spacing: 1.6 },
+        path: function (w, h) {
+          return veine(w * 0.56, 0, h, w * 0.16, Math.max(1.5, h / 900), Math.max(160, Math.round(h / 4)));
         }
       }
     ],

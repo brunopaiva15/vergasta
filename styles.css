@@ -946,6 +946,206 @@ em {
 }
 
 /* --------------------------------------------------------------------------
+   Notre histoire
+
+   Le fil : un trait à la brosse posé dans un rail à gauche, qui court sur
+   toute la hauteur du bloc et relie les chapitres. C'est lui la séparation,
+   et c'est pour cela qu'aucun filet ne passe entre deux chapitres : deux
+   séparations pour la même charnière en feraient une de trop.
+
+   Les deux mesures du rail sont des variables parce qu'elles servent trois
+   fois : la largeur du canevas, le retrait de la colonne de texte, et la
+   position des nœuds. Elles doivent bouger ensemble ou pas du tout.
+   -------------------------------------------------------------------------- */
+
+.thread {
+  /* largeur du rail où court le trait */
+  --fil: 2rem;
+  /* jeu entre le rail et la colonne de texte */
+  --fil-jeu: 1.25rem;
+  position: relative;
+  padding-top: 2.75rem;
+  padding-bottom: 3rem;
+  border-top: 3px double var(--rule-hard);
+}
+
+@media (min-width: 800px) {
+  .thread {
+    --fil: 2.75rem;
+    --fil-jeu: 1.5rem;
+    padding-top: 3.5rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* Le canevas prend toute la hauteur du bloc, retraits compris : le trait
+   entre par le filet double du haut et sort par le bas. */
+.thread-mark {
+  position: absolute;
+  top: 1.25rem;
+  bottom: 1.25rem;
+  left: var(--gutter);
+  width: var(--fil);
+}
+
+.chapters {
+  padding-left: calc(var(--fil) + var(--fil-jeu));
+}
+
+.chapter {
+  position: relative;
+}
+
+.chapter + .chapter {
+  margin-top: 3rem;
+}
+
+/* Le nœud posé sur le fil : un carré de la grille, avec l'ombre portée nette
+   du bouton. Il est centré sur le rail, d'où le demi-fil dans le calcul, et
+   les 5 px sont sa propre demi-largeur. */
+.chapter::before {
+  content: "";
+  position: absolute;
+  top: 0.7rem;
+  left: calc((var(--fil-jeu) + var(--fil) / 2 + 5px) * -1);
+  width: 10px;
+  height: 10px;
+  background: var(--ink);
+  box-shadow: 3px 3px 0 var(--lime);
+}
+
+/* Le dernier nœud est plus gros : le fil s'arrête là. */
+.chapter:last-child::before {
+  top: 0.55rem;
+  left: calc((var(--fil-jeu) + var(--fil) / 2 + 7px) * -1);
+  width: 14px;
+  height: 14px;
+}
+
+/* Le repère de temps porte l'aplat lime et la bordure noire, le même geste
+   que la langue courante du sélecteur, tenu en permanence. */
+.chapter-when {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  padding: 0.15rem 0.45rem;
+  background: var(--lime);
+  border: 1px solid var(--rule-hard);
+  color: var(--ink);
+}
+
+.chapter h2 {
+  font-size: 1.9rem;
+  margin: 0.7rem 0;
+}
+
+.chapter p {
+  max-width: var(--measure);
+  color: var(--ink-soft);
+}
+
+.chapter p + p,
+.chapter figure + p {
+  margin-top: 1rem;
+}
+
+/* La dernière phrase de l'histoire, dans la police d'affichage : c'est la
+   chute, elle se lit comme un titre et non comme un paragraphe. */
+.chapter-close {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4.4vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  max-width: 20ch;
+  margin-top: 1.5rem;
+}
+
+/* Le mot japonais, dans un encadré à bandeau, comme « Bon à savoir ».
+   Ni Jersey 25 ni Archivo ne dessinent les kana : le mot revient à la police
+   du système, et c'est voulu. Servir ici la bitmap japonaise coûterait 122 Ko
+   dans les cinq langues pour un seul mot. */
+.kodawari {
+  max-width: var(--measure);
+  margin-top: 1.5rem;
+  border: 2px solid var(--rule-hard);
+  background: var(--paper);
+  padding: 1.25rem;
+}
+
+.kodawari-word {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.1rem 0.75rem;
+  max-width: none;
+  margin: -1.25rem -1.25rem 1rem;
+  padding: 0.45rem 1.25rem 0.55rem;
+  background: var(--lime);
+  border-bottom: 2px solid var(--rule-hard);
+  font-size: clamp(1.9rem, 6vw, 2.6rem);
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.kodawari-read {
+  font-family: var(--texte);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.kodawari figcaption {
+  color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------------------
+   Fin de l'histoire
+   -------------------------------------------------------------------------- */
+
+.story-after {
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
+  border-top: 3px double var(--rule-hard);
+}
+
+@media (min-width: 800px) {
+  .story-after {
+    padding-top: 3.5rem;
+    padding-bottom: 5.5rem;
+  }
+}
+
+.story-after h2 {
+  font-size: 1.9rem;
+  margin-bottom: 1rem;
+}
+
+.story-after > p {
+  max-width: var(--measure);
+  color: var(--ink-soft);
+}
+
+.story-back {
+  margin-top: 2.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.95rem;
+}
+
+.story-back a {
+  color: var(--bleu);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.story-back a:hover {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
    Pages légales
    -------------------------------------------------------------------------- */
 
@@ -1109,6 +1309,11 @@ html[lang="ja"] .opening h1 {
 html[lang="ja"] .legal h1 {
   font-size: clamp(1.9rem, 4.4vw, 2.8rem);
   max-width: 20ch;
+}
+
+html[lang="ja"] .chapter-close {
+  font-size: clamp(1.5rem, 3.6vw, 2rem);
+  max-width: 30ch;
 }
 
 html[lang="ja"] .colophon .motto {
