@@ -191,29 +191,41 @@ des cartes. Ligne surlignée en lime au survol. Sous 640 px, les en-têtes
 disparaissent et chaque ligne devient un bloc.
 
 **Mention de presse `.press`.** Troisième ligne de la cellule d'un projet, sous
-les liens de magasin. Elle se lit d'un trait, « Apparu sur X et Y », les logos
-des journaux tenant la place de leurs noms : c'est la marque qui fait la
-preuve, et la recomposer dans nos polices reviendrait à la citer de mémoire.
-L'alternative textuelle rend les noms à la lecture d'écran, donc la phrase
-reste entière sans les images.
+les liens de magasin. Elle se lit d'un trait, « Apparu sur » suivi des trois
+marques, qui tiennent la place des noms : c'est le logo du journal qui fait la
+preuve, et le recomposer dans nos polices reviendrait à le citer de mémoire.
+Aucune virgule entre les deux premières marques : les cadres séparent déjà, et
+une virgule posée contre un filet se lit comme une salissure. L'alternative
+textuelle rend les noms à la lecture d'écran, donc la phrase reste entière sans
+les images.
 
 Chaque logo est posé dans un cadre blanc à filet franc de 2 px, comme un
 timbre. C'est le survol qui l'exige : la ligne passe au lime, et une marque
-dessinée pour du papier blanc y perd ses réserves blanches. Les deux marques
-n'ont pas la même hauteur, 1,6 rem contre 1,05 rem, parce que le Journal du
-Jura porte un pavé de deux lignes et ArcInfo un mot d'un seul niveau : à
-hauteur égale le second écrase le premier. Les cadres, eux, font les mêmes
-2,4 rem hors tout, le rembourrage rattrapant la différence, sans quoi la ligne
-porterait deux timbres de deux séries. La conjonction et la marque qu'elle
-amène sont groupées dans un `.press-liant` : sur mobile la ligne passe à deux,
-et un « et » resté seul en fin de première ligne se lirait comme une coupure.
+dessinée pour du papier blanc y perd ses réserves blanches. Les trois marques
+n'ont pas la même hauteur, 1,25 rem, 0,9 rem et 1,08 rem, parce que le Journal
+du Jura porte un pavé de deux lignes, ArcInfo un mot d'un seul niveau et Watson
+un bloc noir plein : à hauteur égale les deux dernières écrasent la première.
+Les cadres, eux, font les mêmes 2 rem hors tout, le rembourrage rattrapant la
+différence, sans quoi la ligne porterait trois timbres de trois séries. Ces
+hauteurs sont réglées pour que la ligne entière tienne dans la colonne des
+projets sans pousser celles du type et de l'année, en allemand compris, où
+« Erschienen in » est le plus long des quatre débuts. La conjonction et la
+marque qu'elle amène sont groupées dans un `.press-liant` : sur mobile la ligne
+passe à deux, et un « et » resté seul en fin de première ligne se lirait comme
+une coupure.
 
-Les deux fichiers, `logo_journaldujura.svg` et `logo_arcinfo.svg`, sont servis
-d'ici comme les polices. Un appel aux serveurs des journaux leur donnerait
-l'adresse IP de chaque visiteur, ce que le §2 et `privacy.html` interdisent.
-Ce sont les fichiers officiels, repris tels quels : un logo ne se redessine
-pas. Le tableau japonais ne liste que Yamanote 3D, donc Disque Bleu n'y figure
-pas et la mention n'existe que dans les quatre autres langues.
+Chaque timbre est un lien vers l'article, sans couleur ni soulignement : c'est
+le cadre entier qui se prend. L'ombre portée en encre le dit, et elle se
+rétracte au survol comme celle du bouton, donc le timbre s'enfonce. En encre et
+non en lime : la ligne survolée est déjà lime, et une ombre lime y disparaîtrait.
+
+Les trois fichiers, `logo_journaldujura.svg`, `logo_arcinfo.svg` et
+`logo_watson.png`, sont servis d'ici comme les polices. Un appel aux serveurs
+des journaux leur donnerait l'adresse IP de chaque visiteur, ce que le §2 et
+`privacy.html` interdisent. Ce sont les fichiers officiels, repris tels quels :
+un logo ne se redessine pas, et si Watson est en PNG c'est qu'il ne publie pas
+de SVG. Le tableau japonais ne liste que Yamanote 3D, donc Disque Bleu n'y
+figure pas et la mention n'existe que dans les quatre autres langues.
 
 **Le fil de `story.html`.** La page « Notre histoire » range ses chapitres le
 long d'un trait à la brosse tiré sur toute la hauteur du bloc, qui dérive à
