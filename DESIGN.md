@@ -190,6 +190,31 @@ faut alors reprendre les `nth-child` de la grille.
 des cartes. Ligne surlignée en lime au survol. Sous 640 px, les en-têtes
 disparaissent et chaque ligne devient un bloc.
 
+**Mention de presse `.press`.** Troisième ligne de la cellule d'un projet, sous
+les liens de magasin. Elle se lit d'un trait, « Apparu sur X et Y », les logos
+des journaux tenant la place de leurs noms : c'est la marque qui fait la
+preuve, et la recomposer dans nos polices reviendrait à la citer de mémoire.
+L'alternative textuelle rend les noms à la lecture d'écran, donc la phrase
+reste entière sans les images.
+
+Chaque logo est posé dans un cadre blanc à filet franc de 2 px, comme un
+timbre. C'est le survol qui l'exige : la ligne passe au lime, et une marque
+dessinée pour du papier blanc y perd ses réserves blanches. Les deux marques
+n'ont pas la même hauteur, 1,6 rem contre 1,05 rem, parce que le Journal du
+Jura porte un pavé de deux lignes et ArcInfo un mot d'un seul niveau : à
+hauteur égale le second écrase le premier. Les cadres, eux, font les mêmes
+2,4 rem hors tout, le rembourrage rattrapant la différence, sans quoi la ligne
+porterait deux timbres de deux séries. La conjonction et la marque qu'elle
+amène sont groupées dans un `.press-liant` : sur mobile la ligne passe à deux,
+et un « et » resté seul en fin de première ligne se lirait comme une coupure.
+
+Les deux fichiers, `logo_journaldujura.svg` et `logo_arcinfo.svg`, sont servis
+d'ici comme les polices. Un appel aux serveurs des journaux leur donnerait
+l'adresse IP de chaque visiteur, ce que le §2 et `privacy.html` interdisent.
+Ce sont les fichiers officiels, repris tels quels : un logo ne se redessine
+pas. Le tableau japonais ne liste que Yamanote 3D, donc Disque Bleu n'y figure
+pas et la mention n'existe que dans les quatre autres langues.
+
 **Le fil de `story.html`.** La page « Notre histoire » range ses chapitres le
 long d'un trait à la brosse tiré sur toute la hauteur du bloc, qui dérive à
 gauche et à droite dans un couloir posé à gauche du texte. Le fil **est** la
@@ -505,7 +530,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=2`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=3`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -517,7 +542,7 @@ traverse pas le CDN. Le cas s'est produit, et il s'est lu comme une
 fonctionnalité qui ne marchait pas.
 
 Un cache se contourne par l'adresse. La requête porte la chaîne de requête,
-donc `brushes.js?v=3` est une autre entrée de cache que `brushes.js?v=2` et
+donc `brushes.js?v=4` est une autre entrée de cache que `brushes.js?v=3` et
 part chercher le fichier à la source.
 
 **Changer un de ces cinq fichiers veut donc dire deux gestes, pas un** : le

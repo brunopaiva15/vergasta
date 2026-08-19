@@ -789,6 +789,65 @@ em {
   color: var(--ink);
 }
 
+/* Mention de presse. La ligne se lit d'un trait, « Apparu sur X et Y », les
+   logos tenant la place des noms : c'est la marque du journal qui fait la
+   preuve, pas son nom composé dans notre police. Les deux fichiers sont servis
+   d'ici, jamais depuis les serveurs des journaux, qui recevraient sinon
+   l'adresse IP de chaque visiteur. */
+.index .press {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+/* La conjonction reste collée à la marque qu'elle amène : sous 640 px la ligne
+   passe à deux, et un « et » resté seul en fin de première ligne se lirait
+   comme une coupure. */
+.index .press-liant {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.index .press-lead {
+  font-family: var(--texte);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.index tr:hover .press-lead {
+  color: var(--ink);
+}
+
+/* Chaque marque est posée dans un cadre blanc à filet franc, comme un timbre.
+   Ce n'est pas une décoration : la ligne survolée passe au lime, et un logo
+   dessiné pour du papier blanc y perdrait ses réserves blanches. */
+.index .press-logo {
+  display: block;
+  box-sizing: content-box;
+  width: auto;
+  padding: 0.4rem 0.55rem;
+  background: var(--paper);
+  border: 2px solid var(--rule-hard);
+}
+
+/* Les deux marques ne sont pas construites pareil : le Journal du Jura porte un
+   pavé rouge de deux lignes, ArcInfo un mot d'un seul niveau, et à hauteur
+   égale le second écrase le premier. Les cadres, eux, font la même hauteur hors
+   tout, 2,4 rem : ce sont deux timbres de la même série, et c'est le
+   rembourrage qui rattrape la différence de dessin. */
+.index .press-jdj {
+  height: 1.6rem;
+}
+
+.index .press-arcinfo {
+  height: 1.05rem;
+  padding: 0.675rem 0.75rem;
+}
+
 .index .kind,
 .index .when {
   font-size: 0.9rem;
