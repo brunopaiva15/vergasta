@@ -804,15 +804,6 @@ em {
   margin-top: 0.6rem;
 }
 
-/* La conjonction reste collée à la marque qu'elle amène : sous 640 px la ligne
-   passe à deux, et un « et » resté seul en fin de première ligne se lirait
-   comme une coupure. */
-.index .press-liant {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 /* Chaque timbre mène à son article. Le lien ne porte ni couleur ni
    soulignement : c'est le cadre entier qui se prend, et l'ombre portée dit
    qu'il se prend. */
