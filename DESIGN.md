@@ -209,10 +209,7 @@ Les cadres, eux, font les mêmes 2 rem hors tout, le rembourrage rattrapant la
 différence, sans quoi la ligne porterait trois timbres de trois séries. Ces
 hauteurs sont réglées pour que la ligne entière tienne dans la colonne des
 projets sans pousser celles du type et de l'année, en allemand compris, où
-« Erschienen in » est le plus long des quatre débuts. La conjonction et la
-marque qu'elle amène sont groupées dans un `.press-liant` : sur mobile la ligne
-passe à deux, et un « et » resté seul en fin de première ligne se lirait comme
-une coupure.
+« Erschienen in » est le plus long des quatre débuts.
 
 Chaque timbre est un lien vers l'article, sans couleur ni soulignement : c'est
 le cadre entier qui se prend. L'ombre portée en encre le dit, et elle se
