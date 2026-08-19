@@ -38,8 +38,8 @@
   <meta name="twitter:card" content="summary">
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=2">
-  <script src="../brushes.js?v=2" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <script src="../brushes.js?v=3" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -182,7 +182,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=2"></script>
+  <script src="../lang.js?v=3"></script>
 </head>
 <body>
   <header class="site-header">
@@ -370,6 +370,27 @@
                 <span class="stores">
                   <a href="https://apps.apple.com/ch/app/disque-bleu/id6756579975" target="_blank" rel="noopener noreferrer" aria-label="Disque Bleu im App Store">App Store</a>
                   <a href="https://play.google.com/store/apps/details?id=ch.vergasta.disquebleusuisse" target="_blank" rel="noopener noreferrer" aria-label="Disque Bleu bei Google Play">Google Play</a>
+                </span>
+                <!--
+                  Les trois logos tiennent la place des noms dans la phrase et
+                  mènent chacun à son article. Ils sont servis d'ici comme les
+                  polices, et leur alternative textuelle rend les noms à la
+                  lecture d'écran.
+                -->
+                <span class="press">
+                  <span class="press-lead">Erschienen in</span>
+                  <a class="press-source" href="https://www.lejdj.ch/articles/a-saint-imier-il-oublie-son-disque-bleu-et-cree-une-application-pour-eviter-les-amendes-100885" target="_blank" rel="noopener noreferrer" aria-label="Der Artikel des Journal du Jura über Disque Bleu">
+                    <img class="press-logo press-jdj" src="../logo_journaldujura.svg" width="1243" height="200" alt="Le Journal du Jura">
+                  </a>
+                  <a class="press-source" href="https://www.arcinfo.ch/neuchatel-canton/montagnes/la-chaux-de-fonds/un-ex-chaux-de-fonnier-installe-a-saint-imier-oublie-son-disque-il-cree-une-application-pour-eviter-les-amendes-1510801" target="_blank" rel="noopener noreferrer" aria-label="Der Artikel von ArcInfo über Disque Bleu">
+                    <img class="press-logo press-arcinfo" src="../logo_arcinfo.svg" width="135" height="32" alt="ArcInfo">
+                  </a>
+                  <span class="press-liant">
+                    <span class="press-lead">und</span>
+                    <a class="press-source" href="https://www.watson.ch/fr/suisse/transports/633299012-l-application-disque-bleu-ravira-les-automobilistes-suisses" target="_blank" rel="noopener noreferrer" aria-label="Der Artikel von Watson über Disque Bleu">
+                      <img class="press-logo press-watson" src="../logo_watson.png" width="352" height="112" alt="Watson">
+                    </a>
+                  </span>
                 </span>
               </td>
               <td class="kind">iOS- und Android-Anwendung</td>

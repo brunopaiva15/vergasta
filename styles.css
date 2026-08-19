@@ -789,6 +789,93 @@ em {
   color: var(--ink);
 }
 
+/* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des trois
+   marques, qui tiennent la place des noms : c'est le logo du journal qui fait
+   la preuve, pas son nom composé dans notre police. Aucune virgule entre les
+   deux premières : les cadres séparent déjà, et une virgule posée contre un
+   filet se lit comme une salissure. Les trois fichiers sont servis d'ici,
+   jamais depuis les serveurs des journaux, qui recevraient sinon l'adresse IP
+   de chaque visiteur. */
+.index .press {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+/* La conjonction reste collée à la marque qu'elle amène : sous 640 px la ligne
+   passe à deux, et un « et » resté seul en fin de première ligne se lirait
+   comme une coupure. */
+.index .press-liant {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Chaque timbre mène à son article. Le lien ne porte ni couleur ni
+   soulignement : c'est le cadre entier qui se prend, et l'ombre portée dit
+   qu'il se prend. */
+.index .press-source {
+  display: block;
+  text-decoration: none;
+}
+
+.index .press-lead {
+  font-family: var(--texte);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.index tr:hover .press-lead {
+  color: var(--ink);
+}
+
+/* Chaque marque est posée dans un cadre blanc à filet franc, comme un timbre.
+   Ce n'est pas une décoration : la ligne survolée passe au lime, et un logo
+   dessiné pour du papier blanc y perdrait ses réserves blanches. */
+.index .press-logo {
+  display: block;
+  box-sizing: content-box;
+  width: auto;
+  padding: 0.375rem 0.5rem;
+  background: var(--paper);
+  border: 2px solid var(--rule-hard);
+  box-shadow: 3px 3px 0 var(--rule-hard);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* Même geste que le bouton : l'ombre se rétracte et le timbre s'enfonce. En
+   encre et non en lime, parce que la ligne survolée est déjà lime. */
+.index .press-source:hover .press-logo,
+.index .press-source:focus-visible .press-logo {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--rule-hard);
+}
+
+/* Les trois marques ne sont pas construites pareil : le Journal du Jura porte
+   un pavé rouge de deux lignes, ArcInfo un mot d'un seul niveau, Watson un
+   bloc noir plein, et à hauteur égale les deux dernières écrasent la première.
+   Les cadres, eux, font la même hauteur hors tout, 2 rem : ce sont trois
+   timbres de la même série, et c'est le rembourrage qui rattrape la différence
+   de dessin. Les trois cadres sont réglés pour que la ligne entière tienne dans
+   la colonne des projets sans pousser celles du type et de l'année, y compris
+   en allemand, où « Erschienen in » est le plus long des quatre débuts. */
+.index .press-jdj {
+  height: 1.25rem;
+}
+
+.index .press-arcinfo {
+  height: 0.9rem;
+  padding: 0.55rem 0.7rem;
+}
+
+.index .press-watson {
+  height: 1.08rem;
+  padding: 0.46rem 0.55rem;
+}
+
 .index .kind,
 .index .when {
   font-size: 0.9rem;
