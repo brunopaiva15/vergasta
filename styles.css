@@ -789,10 +789,10 @@ em {
   color: var(--ink);
 }
 
-/* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des quatre
+/* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des cinq
    marques, qui tiennent la place des noms. Aucune virgule entre elles : les
    cadres séparent déjà, et une virgule posée contre un filet se lirait comme
-   une salissure. Les quatre logos sont servis d'ici. Aucune requête ne part
+   une salissure. Les cinq logos sont servis d'ici. Aucune requête ne part
    vers les serveurs des journaux, qui recevraient sinon l'adresse IP de chaque
    visiteur. */
 .index .press {
@@ -845,9 +845,9 @@ em {
 }
 
 /* Les marques ne sont pas construites pareil : le Journal du Jura porte un
-   pavé rouge de deux lignes, ArcInfo un mot d'un seul niveau et Watson un bloc
-   noir plein. Les cadres ont la même hauteur hors tout, 2 rem : c'est le
-   rembourrage qui rattrape la différence de dessin. */
+   pavé rouge de deux lignes, ArcInfo, Le Nouvelliste et La Côte des signatures
+   d'un seul niveau, et Watson un bloc noir plein. Les cadres ont la même
+   hauteur hors tout, 2 rem : le rembourrage rattrape la différence de dessin. */
 .index .press-jdj {
   height: 1.25rem;
 }
@@ -863,6 +863,11 @@ em {
 }
 
 .index .press-nouvelliste {
+  height: 0.9rem;
+  padding: 0.55rem 0.7rem;
+}
+
+.index .press-lacote {
   height: 0.9rem;
   padding: 0.55rem 0.7rem;
 }
