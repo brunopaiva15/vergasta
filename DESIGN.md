@@ -216,9 +216,10 @@ le cadre entier qui se prend. L'ombre portée en encre le dit, et elle se
 rétracte au survol comme celle du bouton, donc le timbre s'enfonce. En encre et
 non en lime : la ligne survolée est déjà lime, et une ombre lime y disparaîtrait.
 
-Les trois fichiers, `logo_journaldujura.svg`, `logo_arcinfo.svg` et
-`logo_watson.png`, sont servis d'ici comme les polices. Un appel aux serveurs
-des journaux leur donnerait l'adresse IP de chaque visiteur, ce que le §2 et
+Les quatre fichiers, `logo_journaldujura.svg`, `logo_arcinfo.svg`,
+`logo_watson.png` et `logo_nouvelliste.svg`, sont servis d'ici comme les
+polices. Un appel aux serveurs des journaux leur donnerait l'adresse IP de
+chaque visiteur, ce que le §2 et
 `privacy.html` interdisent. Ce sont les fichiers officiels, repris tels quels :
 un logo ne se redessine pas, et si Watson est en PNG c'est qu'il ne publie pas
 de SVG. Le tableau japonais ne liste que Yamanote 3D, donc Disque Bleu n'y
