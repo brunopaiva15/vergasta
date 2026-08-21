@@ -789,13 +789,12 @@ em {
   color: var(--ink);
 }
 
-/* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des trois
-   marques, qui tiennent la place des noms : c'est le logo du journal qui fait
-   la preuve, pas son nom composé dans notre police. Aucune virgule entre les
-   deux premières : les cadres séparent déjà, et une virgule posée contre un
-   filet se lit comme une salissure. Les trois fichiers sont servis d'ici,
-   jamais depuis les serveurs des journaux, qui recevraient sinon l'adresse IP
-   de chaque visiteur. */
+/* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des quatre
+   marques, qui tiennent la place des noms. Aucune virgule entre elles : les
+   cadres séparent déjà, et une virgule posée contre un filet se lirait comme
+   une salissure. Les quatre logos sont servis d'ici. Aucune requête ne part
+   vers les serveurs des journaux, qui recevraient sinon l'adresse IP de chaque
+   visiteur. */
 .index .press {
   display: flex;
   flex-wrap: wrap;
@@ -845,14 +844,10 @@ em {
   box-shadow: 1px 1px 0 var(--rule-hard);
 }
 
-/* Les trois marques ne sont pas construites pareil : le Journal du Jura porte
-   un pavé rouge de deux lignes, ArcInfo un mot d'un seul niveau, Watson un
-   bloc noir plein, et à hauteur égale les deux dernières écrasent la première.
-   Les cadres, eux, font la même hauteur hors tout, 2 rem : ce sont trois
-   timbres de la même série, et c'est le rembourrage qui rattrape la différence
-   de dessin. Les trois cadres sont réglés pour que la ligne entière tienne dans
-   la colonne des projets sans pousser celles du type et de l'année, y compris
-   en allemand, où « Erschienen in » est le plus long des quatre débuts. */
+/* Les marques ne sont pas construites pareil : le Journal du Jura porte un
+   pavé rouge de deux lignes, ArcInfo un mot d'un seul niveau et Watson un bloc
+   noir plein. Les cadres ont la même hauteur hors tout, 2 rem : c'est le
+   rembourrage qui rattrape la différence de dessin. */
 .index .press-jdj {
   height: 1.25rem;
 }
@@ -865,6 +860,11 @@ em {
 .index .press-watson {
   height: 1.08rem;
   padding: 0.46rem 0.55rem;
+}
+
+.index .press-nouvelliste {
+  height: 0.9rem;
+  padding: 0.55rem 0.7rem;
 }
 
 .index .kind,
