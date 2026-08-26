@@ -191,7 +191,7 @@ des cartes. Ligne surlignée en lime au survol. Sous 640 px, les en-têtes
 disparaissent et chaque ligne devient un bloc.
 
 **Mention de presse `.press`.** Troisième ligne de la cellule d'un projet, sous
-les liens de magasin. Elle se lit d'un trait, « Apparu sur » suivi des cinq
+les liens de magasin. Elle se lit d'un trait, « Apparu sur » suivi des six
 marques, qui tiennent la place des noms : c'est le logo du journal qui fait la
 preuve, et le recomposer dans nos polices reviendrait à le citer de mémoire.
 Aucune virgule entre les marques : les cadres séparent déjà, et une virgule
@@ -201,13 +201,17 @@ les images.
 
 Chaque logo est posé dans un cadre blanc à filet franc de 2 px, comme un
 timbre. C'est le survol qui l'exige : la ligne passe au lime, et une marque
-dessinée pour du papier blanc y perd ses réserves blanches. Les cinq marques
+dessinée pour du papier blanc y perd ses réserves blanches. Les six marques
 n'ont pas toutes la même hauteur : 1,25 rem pour le Journal du Jura, 1,08 rem
-pour Watson et 0,9 rem pour ArcInfo, Le Nouvelliste et La Côte. Le Journal du
-Jura porte un pavé de deux lignes, Watson un bloc noir plein et les trois autres
-des signatures horizontales : à hauteur égale les dernières écraseraient la
-première. Les cadres, eux, font les mêmes 2 rem hors tout, le rembourrage
-rattrapant la différence, sans quoi la ligne porterait cinq timbres dépareillés.
+pour Watson et 0,9 rem pour ArcInfo, Le Nouvelliste, La Côte et Ajour. Le
+Journal du Jura porte un pavé de deux lignes, Watson un bloc noir plein et les
+quatre autres des signatures horizontales : à hauteur égale les dernières
+écraseraient la première. Ajour tient dans les mêmes 0,9 rem que ses voisines
+bien que la virgule rouge de sa marque monte au-dessus des lettres et descende
+sous la ligne de pied : c'est le mot, pas le dessin qui l'accompagne, qui doit
+peser autant que « La Côte » à côté. Les cadres, eux, font les mêmes 2 rem hors
+tout, le rembourrage rattrapant la différence, sans quoi la ligne porterait six
+timbres dépareillés.
 Ces hauteurs sont réglées pour que la ligne entière tienne dans la colonne des
 projets sans pousser celles du type et de l'année, en allemand compris, où
 « Erschienen in » est le plus long des quatre débuts.
@@ -217,10 +221,10 @@ le cadre entier qui se prend. L'ombre portée en encre le dit, et elle se
 rétracte au survol comme celle du bouton, donc le timbre s'enfonce. En encre et
 non en lime : la ligne survolée est déjà lime, et une ombre lime y disparaîtrait.
 
-Les cinq fichiers, `logo_journaldujura.svg`, `logo_arcinfo.svg`,
-`logo_watson.png`, `logo_nouvelliste.svg` et `logo_lacote.svg`, sont servis
-d'ici comme les polices. Un appel aux serveurs des journaux leur donnerait
-l'adresse IP de chaque visiteur, ce que le §2 et
+Les six fichiers, `logo_journaldujura.svg`, `logo_arcinfo.svg`,
+`logo_watson.png`, `logo_nouvelliste.svg`, `logo_lacote.svg` et
+`logo_ajour.svg`, sont servis d'ici comme les polices. Un appel aux serveurs
+des journaux leur donnerait l'adresse IP de chaque visiteur, ce que le §2 et
 `privacy.html` interdisent. Ce sont les fichiers officiels, repris tels quels :
 un logo ne se redessine pas, et si Watson est en PNG c'est qu'il ne publie pas
 de SVG. Le tableau japonais ne liste que Yamanote 3D, donc Disque Bleu n'y
