@@ -13,35 +13,52 @@ gestionnaire de paquets. On édite les fichiers, on pousse, GitHub Pages sert.
 ## 1. D'où vient l'identité
 
 Tout part de `logo_vergasta.png` : une croix suisse composée de deux barres,
-l'une en lime acide, l'autre en bleu électrique. Le registre est celui du web
-des années 2000, pas celui d'une brochure imprimée. Le reste du site en découle.
+l'une en lime acide, l'autre en bleu électrique. Autour d'elles, un papier
+crème, des cartes blanches à coins ronds posées dessus, et les peintures à la
+brosse par-dessus tout. Le registre n'est pas celui d'une brochure imprimée :
+c'est un atelier, pas une agence.
 
 | Rôle | Valeur | Emploi |
 |---|---|---|
-| Papier | `#f6f6f1` | fond général |
-| Feuille | `#ffffff` | fiches des métiers, timbres de presse |
-| Encre | `#0a0a0a` | texte, scène d'ouverture, encadré des conditions, pied de page |
-| Encre atténuée | `#545454` | texte secondaire (6,9:1 sur le papier) |
-| Filet | `#dddbd2` | séparations |
-| Lime | `#d4ff00` | bandeau défilant, bloc de contact, aplats, ombres portées |
-| Bleu | `#4f46e6` | liens, puces, ombre du bouton sur fond noir |
-| Magenta, cyan, olive, orange | encres des brosses | carrés des quatre métiers |
-| Grille | `rgba(10,10,10,.09)` | points du fond, sur papier |
-| Grille inversée | `rgba(255,255,255,.11)` | points du fond, sur la scène noire |
-| Texte sur noir | `#a8a8a2` | texte courant de la scène et de l'encadré |
-| Filet sur noir | `#333333` | séparations de la scène et du pied de page |
+| Papier | `#e9ebe0` | fond général |
+| Feuille | `#ffffff` | cartes, timbres de presse, pastille |
+| Encre | `#16160f` | texte, pied de page, boutons |
+| Encre atténuée | `#5d5d54` | texte secondaire (6,4:1 sur le papier) |
+| Filet | `#d5d7c9` | séparations internes des cartes |
+| Colonnes | `rgba(22,22,15,.055)` | les six filets verticaux du fond |
+| Lime | `#d4ff00` | bandeau, bloc de contact, survols, pilules de temps |
+| Bleu | `#4f46e6` | liens, puces des pages légales |
+| Magenta, cyan, olive, orange | encres des brosses | étoiles des puces |
+| Sur encre | `#b8b8b3` | texte du pied de page |
+| Filet sur encre | `#33332c` | séparation du pied de page |
 
-Le papier n'est plus le blanc de l'écran. C'est ce qui permet aux **feuilles**
-blanches, les fiches des métiers et les timbres de la presse, de se détacher au
-lieu de se fondre dans le fond : elles sont posées sur la page, elles n'en font
-pas partie. Les encres, elles, n'ont pas bougé d'un degré.
+Le papier n'est pas le blanc de l'écran. C'est ce qui permet aux **cartes**
+blanches de se détacher au lieu de se fondre dans le fond : elles sont posées
+sur la page, elles n'en font pas partie. C'est tout le principe de la mise en
+page (§4), et ça ne marche que si le fond est teinté.
 
 Les quatre encres saturées des brosses (`magenta`, `cyan`, `olive`, `orange`)
-sont recopiées en variables CSS depuis `brushes.js`. Elles servent aux carrés
-posés devant les titres des métiers : le carré d'une fiche est de la couleur de
-la peinture d'à côté, et non d'une gamme d'interface parallèle. **Les deux
-listes doivent rester égales** ; changer une encre dans le script veut dire la
-changer dans la feuille de style.
+sont recopiées en variables CSS depuis `brushes.js`. Elles servent aux étoiles
+posées devant les titres : l'étoile d'une carte est de la couleur de la
+peinture d'à côté, et non d'une gamme d'interface parallèle. **Les deux listes
+doivent rester égales** ; changer une encre dans le script veut dire la changer
+dans la feuille de style.
+
+### Les coins, les ombres
+
+| Jeton | Valeur | Emploi |
+|---|---|---|
+| `--rond` | 24 px | cartes des métiers, encadré des conditions |
+| `--rond-l` | 30 px | tableau, bloc de contact, pied de page |
+| `--rond-s` | 14 px | ligne de tableau survolée, encart de traduction |
+| `--ombre` | deux couches, 20 px de flou à 24 px de décalage | les cartes |
+| `--ombre-basse` | la même, moitié moins haute | boutons, timbres |
+
+L'ombre est **portée par la carte, pas dessinée autour d'elle** : une seule
+teinte, celle de l'encre à 5 % puis à 50 % sur une seconde couche remontée de
+24 px. C'est ce qui la fait lire comme une feuille posée sur une table plutôt
+que comme un rectangle avec un contour flou. Deux couches et pas trois, et
+jamais de halo coloré.
 
 ### La règle du lime
 
@@ -49,59 +66,67 @@ Du lime en texte sur blanc donne **1,1:1 de contraste**. Il est illisible.
 Il ne sert donc jamais de couleur de texte sur du clair. Il ne fonctionne que
 comme aplat sous du noir, ou comme trait sur du noir :
 
-- bandeau défilant sous la scène, et bloc de contact, tous deux en aplat plein
-  sous du texte à l'encre,
-- bandeau de titre de l'encadré « Bon à savoir », et son ombre portée,
-- surlignage des liens de navigation au survol, aplat de la langue courante,
-- ombre portée du bouton sur le papier, et **aplat du bouton sur la scène**,
-  où il passe en couleur de fond avec l'encre en texte,
-- liens de magasin d'une ligne survolée du tableau, qui est noire,
-- marques et devise du pied de page, qui est noir.
+- le bandeau défilant et le bloc de contact, tous deux en aplat plein sous du
+  texte à l'encre,
+- le survol des liens de navigation, l'aplat de la langue courante, les pilules
+  de temps de la page d'histoire,
+- la devise et les marques du pied de page, qui est en encre.
 
-Le pied de page était le seul endroit du site où le lime tenait à pleine
-intensité. La scène d'ouverture, noire elle aussi, lui en donne un second, et
-c'est une des raisons d'être de cette scène. Si un jour on éclaircit l'un de
-ces deux blocs, le lime doit en sortir.
+Le pied de page est le seul bloc sombre du site, et donc le seul endroit où le
+lime tient à pleine intensité en couleur de texte. Si un jour on l'éclaircit,
+le lime doit en sortir.
 
 ---
 
 ## 2. Typographie
 
-Deux polices, **hébergées dans `fonts/`**, jamais chez un tiers.
+Quatre polices, **hébergées dans `fonts/`**, jamais chez un tiers.
 
 | | Police | Emploi |
 |---|---|---|
-| Titres | **Jersey 25** (bitmap) | `h1`, `h2`, `h3`, marque, noms de projets, bouton, devise |
-| Texte | **Archivo**, instances statiques 400 / 500 / 600 | tout le reste |
+| Titres | **Gabarito** 700 et 500 | `h1`, `h2`, `h3`, noms de projets, devise, bandeau, boutons |
+| Texte | **Figtree** 400 et 600 | tout le texte courant |
+| Écriture | **Caveat** 600 | deux endroits, pas plus (voir plus bas) |
+| Signature | **Jersey 25** (bitmap) | la marque de l'en-tête et les cinq codes de langue |
 
-Jersey 25 a été retenue après comparaison au rendu réel avec Pixelify Sans,
-Silkscreen et DotGothic16. Silkscreen s'étale trop en grand corps, Pixelify est
-trop ronde. Les accents français, `œ` compris, sont dessinés dans les trois,
-mais il faut le revérifier avant tout changement de police : le sous-ensemble
-`latin` couvre `U+0152-0153`, le reste des accents est dans `latin` et
-`latin-ext`.
+Gabarito est une géométrique ronde et serrée : elle porte un titre de six mots
+sans le rendre criard, et ses bas de casse tiennent la comparaison avec les
+capitales, ce qui a permis de sortir les titres des capitales forcées. Figtree
+tient le texte courant à 17 px sur 1,75 sans se fatiguer.
 
-Les marches d'escalier de Jersey 25 sont faites des mêmes carrés que les
-marques à la brosse. C'est ce qui tient le site ensemble ; une police
-d'affichage lisse casserait ce lien.
+`letter-spacing: -0.025em` sur les titres, `-0.035em` sur le titre de
+l'accueil : une géométrique en grand corps s'ouvre d'elle-même, et il faut ce
+cran de moins pour que le mot reste un mot.
 
-`letter-spacing: 0.01em` sur les titres : une bitmap se resserre trop d'elle-même
-en grand corps.
+**Jersey 25 reste, mais elle ne parle plus partout.** La bitmap tenait tous les
+titres du site ; elle est maintenant réduite à la marque et aux codes de
+langue. La raison de sa présence n'a pas changé : ses marches d'escalier sont
+faites des mêmes carrés que les marques à la brosse, et c'est ce qui relie
+l'écriture à la peinture. Mais un site entier écrit en bitmap se lit comme une
+console, et ce n'est pas ce qu'est cet atelier. Elle vaut comme signature, pas
+comme voix.
 
-Pas d'italique : une bitmap n'en a pas. L'emphase passe par `<em>`, stylé en
-surligneur lime.
+**Caveat, l'écriture, sert à deux endroits et pas à un troisième** : la légende
+du tableau des réalisations, et le titre de l'encadré des conditions. Les deux
+sont des commentaires en marge d'un contenu, pas du contenu. Une écriture
+manuscrite qui sert partout n'est plus une écriture, c'est une police de plus.
 
-**Plus de capitales forcées.** Le titre de l'accueil et ceux des pages légales
-étaient en `text-transform: uppercase`. Jersey 25 dessine ses bas de casse avec
-les mêmes marches d'escalier : la phrase garde son registre, mais elle se lit
-d'un trait au lieu de se crier, et elle tient sur une ligne de moins.
+Pas d'italique : l'emphase passe par `<em>`, stylé en surligneur lime.
+
+**Aucune capitale forcée dans les titres.** Les capitales interlettrées sont
+réservées aux **libellés d'action** : boutons, pilules de renvoi, repères de
+temps de l'histoire, en-têtes du tableau. C'est ce qui distingue une action
+d'un titre sans avoir à la souligner ni à lui coller une flèche. Le §7 proscrit
+les libellés en petites capitales **au-dessus des titres** ; c'est autre chose,
+et ça n'a pas bougé.
 
 ### Le japonais
 
-Jersey 25 et Archivo ne dessinent que le latin, et leurs `unicode-range` le
+Aucune des quatre polices ne dessine le japonais, et leurs `unicode-range` le
 disent : sur `/ja/`, le navigateur descend d'un cran dans la pile pour tout
-caractère japonais. **Jersey 25 reste en tête de la pile** : la marque, les noms
-de projets et les chiffres sont en latin et gardent leurs marches d'escalier.
+caractère japonais. **Les polices latines restent en tête de la pile** : la
+marque, les noms de projets et les chiffres sont en latin et gardent leur
+dessin, Jersey 25 comprise avec ses marches d'escalier.
 
 Les **titres** tombent alors sur **PixelMplus12 Bold**, une bitmap japonaise
 tirée des M+ FONTS ([PixelMplus](https://github.com/itouhiro/PixelMplus)), sous
@@ -170,39 +195,44 @@ variable.
 
 ## 3. Le fond
 
-Une grille d'un point d'un pixel tous les huit, en `radial-gradient` sur le
-`body`. Elle est passée de 14 % à 9 % d'encre : sur le papier chaud, à cette
-densité, elle se lit comme un grain et non plus comme du papier millimétré. Le
-pas de 8 px est repris dans `--pas`, et la barre de chargement s'y cale.
+**Les colonnes du gabarit, laissées apparentes.** Six filets d'un pixel qui
+traversent la page de haut en bas, au pas de la colonne de texte
+(`74rem / 6`), en `repeating-linear-gradient` sur le `body`, centrés sur la
+page. Ils passent **derrière les cartes** et donc jamais sous un paragraphe :
+c'est ce qui les distingue de la grille de points d'avant, qui se lisait comme
+du papier millimétré sous chaque ligne de texte.
 
-La scène d'ouverture porte la même grille en négatif, blanche à 11 % sur le
-noir. C'est le même fond, retourné, et non une texture de plus.
+Sous 800 px, la colonne fait toute la largeur, les filets n'ont plus rien à
+dire et le fond redevient uni.
+
+Le pas de 8 px de l'ancienne grille survit dans `--pas` : la barre de
+chargement se cale dessus, et les tampons des brosses aussi.
 
 ---
 
 ## 4. Mise en page
+
+Le site est une pile de **cartes posées sur un papier teinté**. Chaque bloc de
+contenu qui se tient tout seul devient une carte : feuille blanche, coins
+ronds, ombre portée, pas de bordure. Le reste, c'est du texte sur le papier.
 
 - `.wrap` : 74 rem au maximum, gouttière de 1,5 rem qui passe à 4 rem au-delà
   de 800 px.
 - `--air` : la respiration verticale d'une section, en haut et en bas.
   3,75 rem, 6,5 rem au-delà de 800 px. **Une seule mesure pour tout le site** :
   si la page doit s'ouvrir davantage, c'est là que ça se règle, et nulle part
-  ailleurs. Le pied de page et les pages intérieures s'y calent aussi.
+  ailleurs. Les pages intérieures s'y calent aussi.
 - `.slab` : le bloc de base. Le titre de section est posé **en tête**, la
   marque à sa gauche, et le contenu prend toute la colonne dessous. Il vivait
   dans une marge de 13 rem, collé au défilement, comme une note portée dans la
   marge d'un manuscrit ; il tenait la lecture, mais il coûtait un quart de la
-  largeur à chaque section, et c'est ce quart qui manquait au tableau des
-  réalisations comme aux quatre métiers. **Il n'y a plus aucun `position:
-  sticky` dans le site.**
-- `--measure` : 36 rem. Toute colonne de texte courant s'y limite. La largeur
-  vide à droite est une marge voulue, pas un oubli.
-- Les séparations sont des **filets simples et clairs** (`1px solid --rule`).
-  Les filets doubles ont disparu : à cette hauteur de blanc, il n'y a plus rien
-  à couper, une section se détache d'elle-même, et le filet ne fait plus que
-  rappeler la colonne. Les bordures franches de 2 px restent, mais elles ne
-  séparent plus rien : elles ferment un objet posé sur la page (fiche, encadré,
-  timbre, bloc de contact).
+  largeur à chaque section. **Il n'y a plus aucun `position: sticky` dans le
+  site**, et plus aucun filet entre les sections : ce sont les cartes qui
+  découpent la page, et l'espace qui sépare.
+- `--measure` : 36 rem. Toute colonne de texte courant s'y limite.
+- Les seuls filets qui restent sont **internes aux cartes** (`1px solid
+  --rule`) : entre deux lignes du tableau, entre deux conditions. Plus aucune
+  bordure fermée, plus aucun filet double.
 - Le corps de page est coupé à droite (`overflow-x: clip`) : l'entrée de la
   marque d'ouverture déborde la fenêtre, et sans cette coupe la page se
   laisserait tirer de côté pendant deux secondes. **La coupe est posée sur le
@@ -212,101 +242,119 @@ noir. C'est le même fond, retourné, et non une texture de plus.
 
 Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 
-1. **la scène**, noire, pleine largeur, en dessous de l'en-tête qui est noir
-   lui aussi. Elle réserve `min(78vh, 42rem)` : l'accueil s'ouvre sur un écran,
-   pas sur un paragraphe ;
-2. **le bandeau défilant**, lime, qui ferme le noir et ouvre le papier ;
-3. les quatre **fiches** des métiers, sur feuille blanche ;
-4. le **déroulé** en trois colonnes, puis l'encadré des conditions en négatif,
-   sur toute la largeur ;
-5. le **tableau** des réalisations, qui s'inverse ligne à ligne au survol ;
-6. le **bloc de contact**, aplat lime ;
-7. le **pied de page**, noir.
+1. **l'ouverture**, sur le papier, qui réserve `min(78vh, 42rem)` : l'accueil
+   s'ouvre sur un écran, pas sur un paragraphe. Le titre et les deux sorties à
+   gauche, la marque à la brosse à droite ;
+2. **le bandeau défilant**, lime, pleine largeur, et **la pastille** posée à
+   cheval dessus ;
+3. les quatre **cartes** des métiers, en bento ;
+4. le **déroulé** en trois colonnes, puis la carte des conditions sur toute la
+   largeur ;
+5. le **tableau** des réalisations, posé sur une grande carte ;
+6. le **bloc de contact**, seule carte en aplat lime ;
+7. le **pied de page**, carte d'encre détachée des bords de la fenêtre.
 
-Soit noir, lime, papier, papier, papier, lime, noir. Les trois blocs de couleur
-tiennent la page ; entre eux, le papier ne porte que du texte.
+Deux blocs de couleur seulement, le bandeau et le contact, et un bloc sombre
+pour finir. Entre eux, du papier et des feuilles blanches.
 
 ---
 
 ## 5. Composants
 
-**La scène `.opening--accueil`.** Le bloc d'ouverture de l'accueil, noir,
-pleine largeur, avec l'en-tête noir au-dessus de lui. Le noir est peint par un
-pseudo-élément de 100 vw et non par un conteneur de plus dans le HTML ; il
-s'arrête net sur le bandeau lime. Le corps de page étant coupé à droite, ce
-100 vw n'ouvre pas de barre de défilement. La classe `page-accueil` sur le
-`<body>` est ce qui bascule l'en-tête ; les pages intérieures gardent
-l'en-tête clair.
+**La carte.** L'objet de base du site, et il n'y en a qu'un : feuille blanche,
+coins ronds, ombre portée, **pas de bordure**. Il sert aux quatre métiers, à
+l'encadré des conditions, au tableau des réalisations, à l'encart de traduction
+des pages légales, à l'encadré japonais de l'histoire, à la pastille et au pied
+de page. Ce qui change d'un emploi à l'autre, c'est le rayon (§1) et le
+rembourrage, jamais le principe. **Une bordure sur une carte annule l'ombre** :
+les deux disent la même chose, et ensemble elles font une boîte.
 
-**Bouton.** Bloc noir, bordure de 2 px, ombre portée nette en lime décalée de
-5 px. Au survol le bloc se déplace de 3 px et l'ombre se rétracte à 2 px : il
-s'enfonce au lieu de s'allumer. Pas d'arrondi, pas de dégradé, pas de flèche.
-Il s'inverse deux fois, et jamais autrement : **sur la scène** il passe en
-aplat lime avec l'encre en texte, **dans le bloc de contact** qui est lime, il
-redevient un bloc d'encre avec le lime en texte. Dans les deux cas l'ombre
-portée passe au bleu, l'autre barre du logo : une ombre lime sur du lime ne se
-voit pas, une ombre lime sur du noir revient à allumer le bouton deux fois.
+**Bouton.** Pilule d'encre, libellé en capitales interlettrées à 0,82 rem. Au
+survol elle se soulève de deux pixels et son ombre s'allonge : elle ne
+s'allume pas, elle ne change pas de couleur. Pas de flèche, pas de dégradé.
+Les capitales sont ce qui distingue une action d'un titre sans la souligner
+(§2). Dans le bloc de contact, qui est lime, le bouton reste une pilule
+d'encre et son libellé passe au lime.
 
 **Les deux sorties `.opening-actions`.** Le formulaire et le renvoi vers les
 réalisations, sur une ligne, sous l'accroche. Même paire et même hiérarchie
-qu'en bas de la page d'histoire : un bloc plein, puis un lien plat qui prend
-l'aplat lime de la navigation au survol. Elles étaient toutes deux en bas de
-page ; le visiteur qui sait déjà ce qu'il veut n'a plus à traverser l'accueil.
-Leurs libellés sont ceux que la page porte déjà ailleurs, pas des formules de
-plus à traduire cinq fois.
+qu'en bas de la page d'histoire : une pilule pleine, puis une pilule à filet
+qui prend l'aplat lime au survol. Elles étaient toutes deux en bas de page ; le
+visiteur qui sait déjà ce qu'il veut n'a plus à traverser l'accueil. Leurs
+libellés sont ceux que la page porte déjà ailleurs, pas des formules de plus à
+traduire cinq fois.
 
-**Bandeau défilant `.ribbon`.** Une bande lime en travers, sous la scène, où la
-devise passe en boucle. C'est le **seul mouvement continu du site**, et il est
-lent : quarante-quatre secondes pour un tour. Six copies identiques de la
-devise, la piste revient sur elle-même à la moitié, donc la boucle ne se voit
-pas. Il est `aria-hidden` : la devise est déjà portée par le pied de page, et
-six fois le même mot ne va pas à la lecture d'écran.
-`prefers-reduced-motion` l'arrête, et il reste une bande lime.
+**Bandeau défilant `.ribbon`.** Une bande lime en travers, sous l'ouverture, où
+la devise passe en boucle, séparée par l'étoile pixel. Quarante-quatre secondes
+pour un tour. Six copies identiques de la devise : la piste revient sur
+elle-même à la moitié, donc la boucle ne se voit pas. Il est `aria-hidden` : la
+devise est déjà portée par le pied de page, et six fois le même mot ne va pas à
+la lecture d'écran. `prefers-reduced-motion` l'arrête, et il reste une bande
+lime.
 
-**Encadré `.aside`.** Bordure franche de 2 px et bandeau de titre lime en
-négatif de marge, comme une fenêtre d'époque. Il est maintenant **en négatif**,
-bloc noir à ombre portée lime, posé sur toute la largeur sous les trois
-colonnes du déroulé, ses cinq conditions rangées en colonnes. Il sert à porter
-une information réelle et vérifiable, pas un argument : son contenu actuel
-vient directement des CGV. Le filet est posé au-dessus de chaque entrée, la
-première comprise, sans quoi la première colonne serait la seule à commencer
-sans trait.
+**Pastille `.pastille`.** Le tampon de l'atelier, posé à cheval sur le
+bandeau : un disque blanc, le nom du lieu qui en fait le tour sur un
+`textPath`, et la croix du logo au centre. C'est le seul objet du site qui
+chevauche deux blocs, et c'est ce qui lui donne l'air d'avoir été collé là
+plutôt que mis en page. Trois points :
 
-**Fiches `.trades`.** Les quatre métiers sont un `<dl>`, chaque paire groupée
-dans un `<div class="trade">`, sur une feuille blanche à bordure franche et
-ombre portée en encre. Deux colonnes au-delà de 1000 px, une seule en dessous ;
-les filets qui les croisaient en double page ont sauté, l'espace sépare.
+- **le texte tourne, la croix ne tourne pas.** Un logo qui tourne se lit comme
+  un chargement. Ce sont deux éléments, l'anneau en SVG et l'image du logo par
+  dessus, et l'animation ne porte que sur le premier ;
+- **le corps du texte est réglé pour faire exactement le tour.** Trop petit, il
+  laisse un trou dans l'anneau ; trop grand, il se recouvre. Changer la phrase
+  veut dire reprendre `font-size` sur `.pastille-anneau text`, et le rayon du
+  chemin si la phrase s'allonge beaucoup ;
+- **elle ne dit rien que la page ne dise déjà**, et elle est `aria-hidden`.
+
+**Étoile pixel.** La puce du site, en `mask-image` sur un SVG de neuf carrés :
+une croix et quatre coins. Elle sert devant les titres des métiers, devant les
+trois moments du déroulé, entre deux passages du bandeau et dans les listes des
+pages légales. Sa couleur est celle de l'encre de la brosse voisine (§1). C'est
+un masque et non une image, donc une seule ressource pour toutes les couleurs.
+
+**Cartes des métiers `.trades`.** Les quatre métiers sont un `<dl>`, chaque
+paire groupée dans un `<div class="trade">`, sur une carte. **Un bento** :
+six colonnes, et des cartes de largeurs inégales, 3 et 3 sur la première ligne,
+2 et 4 sur la seconde. Les largeurs suivent la longueur des textes. Deux
+colonnes égales alignaient quatre pavés de même taille, ce que le §7 appelle
+une grille de cartes identiques.
 
 Ce sont des fiches, pas des cartes de service : pas de numérotation, pas
 d'icône, pas de bouton en pied, et surtout pas quatre fois le même contenu sous
-quatre titres différents (voir §7). Le carré posé devant chaque titre prend une
-des quatre encres des brosses, dans l'ordre où elles descendent la page. Les
-noms de projets sont en `<b>` (600, encre pleine) pour donner des points
-d'accroche à la lecture rapide. Une cinquième entrée s'ajoute sans rien casser :
-la grille n'a plus de `nth-child` de mise en page, seulement les quatre
-couleurs de carrés, à compléter.
+quatre titres différents (voir §7). Les noms de projets sont en `<b>` (600,
+encre pleine) pour donner des points d'accroche à la lecture rapide. Une
+cinquième entrée demande de reprendre les largeurs du bento et d'ajouter une
+couleur d'étoile.
 
 **Déroulé `.run-through`.** Les trois moments du projet sont trois colonnes
-lues de gauche à droite au-delà de 900 px, chacune ouverte par un carré lime
-sous un filet, et l'encadré des conditions passe dessous sur toute la largeur.
-Ils étaient trois paragraphes empilés avec l'encadré en marge. Pas de numéros :
-ce sont trois moments, pas trois étapes numérotées (voir §7).
+lues de gauche à droite au-delà de 900 px, chacune ouverte par une étoile
+olive, et la carte des conditions passe dessous sur toute la largeur. Ils
+étaient trois paragraphes empilés avec l'encadré en marge. Pas de numéros : ce
+sont trois moments, pas trois étapes numérotées (voir §7).
 
-**Index `.index`.** Les réalisations sont un vrai `<table>` avec en-têtes, pas
-des cartes. **La ligne survolée s'inverse** : fond d'encre, texte papier, liens
-de magasin en lime. Elle était surlignée en lime plein, ce qui tenait sur une
-ligne d'une ligne de haut ; sur une entrée qui en fait quatre, avec des liens
-de magasin et six timbres de presse, l'aplat sautait à la figure et les timbres
-y perdaient leurs réserves blanches. Le noir les laisse intacts. Les colonnes du
-type et de l'année sont mesurées (13 rem, 5 rem) : sans mesure, le navigateur
-les serrait au profit des noms et coupait « Application iOS et Android » en
-trois lignes. Sous 640 px, les en-têtes disparaissent et chaque ligne devient
-un bloc.
+**Encadré `.aside`.** La carte des conditions, sous le déroulé, ses cinq
+entrées rangées en colonnes. Son titre est écrit à la main (§2) : c'est une
+note posée en marge, pas une clause de plus. Il sert à porter une information
+réelle et vérifiable, pas un argument : son contenu vient directement des CGV.
+Le filet est posé au-dessus de chaque entrée, la première comprise, sans quoi
+la première colonne serait la seule à commencer sans trait.
 
-**Bloc de contact `.contact-body`.** Aplat lime à bordure franche et ombre
-portée en encre, texte à l'encre pleine (du gris sur du lime ne se lit pas),
-bouton à droite et centré sur les deux paragraphes au-delà de 900 px. C'est la
-dernière chose que lit le visiteur avant le pied de page.
+**Index `.index`.** Les réalisations sont un vrai `<table>` avec en-têtes, posé
+sur une carte. La légende est écrite à la main. **La ligne survolée prend le
+papier de la page** : sur la carte blanche, elle ressort en creux, coins
+arrondis aux deux bouts, sans aplat de couleur. Elle a été surlignée en lime
+plein, puis inversée en noir ; les deux sautaient à la figure sur une entrée
+haute de quatre lignes, et le lime faisait perdre aux timbres de presse leurs
+réserves blanches. Les colonnes du type et de l'année sont mesurées (13 rem,
+5 rem) : sans mesure, le navigateur les serrait au profit des noms et coupait
+« Application iOS et Android » en trois lignes. Sous 640 px, les en-têtes
+disparaissent et chaque ligne devient un bloc.
+
+**Bloc de contact `.contact-body`.** La dernière carte de la page, un cran plus
+grande que les autres, et la seule en aplat lime : texte à l'encre pleine (du
+gris sur du lime ne se lit pas), bouton à droite et centré sur les deux
+paragraphes au-delà de 900 px.
 
 Le décompte annoncé par la légende se compte langue par langue, car les
 tableaux ne portent pas les mêmes lignes : Bruit CH n'étant pas publiée en
@@ -331,9 +379,10 @@ posée contre un filet se lit comme une salissure. L'alternative
 textuelle rend les noms à la lecture d'écran, donc la phrase reste entière sans
 les images.
 
-Chaque logo est posé dans un cadre blanc à filet franc de 2 px, comme un
-timbre. C'est le survol qui l'exige : la ligne passe au lime, et une marque
-dessinée pour du papier blanc y perd ses réserves blanches. Les six marques
+Chaque logo est posé dans un cadre blanc à filet fin et coins ronds, comme un
+timbre. C'est le survol qui l'exige : la ligne prend le papier crème, et une
+marque dessinée pour du papier blanc y perdrait ses réserves blanches.
+Les six marques
 n'ont pas toutes la même hauteur : 1,25 rem pour le Journal du Jura, 1,08 rem
 pour Watson et 0,9 rem pour ArcInfo, Le Nouvelliste, La Côte et Ajour. Le
 Journal du Jura porte un pavé de deux lignes, Watson un bloc noir plein et les
@@ -349,9 +398,8 @@ projets sans pousser celles du type et de l'année, en allemand compris, où
 « Erschienen in » est le plus long des quatre débuts.
 
 Chaque timbre est un lien vers l'article, sans couleur ni soulignement : c'est
-le cadre entier qui se prend. L'ombre portée en encre le dit, et elle se
-rétracte au survol comme celle du bouton, donc le timbre s'enfonce. En encre et
-non en lime : la ligne survolée est déjà lime, et une ombre lime y disparaîtrait.
+le cadre entier qui se prend. L'ombre portée le dit, et elle s'allonge au
+survol comme celle du bouton, donc le timbre se soulève.
 
 Les six fichiers, `logo_journaldujura.svg`, `logo_arcinfo.svg`,
 `logo_watson.png`, `logo_nouvelliste.svg`, `logo_lacote.svg` et
@@ -361,6 +409,12 @@ des journaux leur donnerait l'adresse IP de chaque visiteur, ce que le §2 et
 un logo ne se redessine pas, et si Watson est en PNG c'est qu'il ne publie pas
 de SVG. Le tableau japonais ne liste que Yamanote 3D, donc Disque Bleu n'y
 figure pas et la mention n'existe que dans les quatre autres langues.
+
+**Pied de page.** La dernière carte, en encre, détachée des bords de la
+fenêtre par une marge, avec le même rayon que le bloc de contact. C'est le seul
+bloc sombre du site, et donc le seul endroit où le lime tient en couleur de
+texte (§1) : la devise y est en lime et en grand corps. La bande peinte à la
+brosse le traverse en tête.
 
 **Le fil de `story.html`.** La page « Notre histoire » range ses chapitres le
 long d'un trait à la brosse tiré sur toute la hauteur du bloc, qui dérive à
@@ -384,20 +438,20 @@ passe de 3 rem à `clamp(6.5rem, 8vw, 9rem)` au-delà de 800 px : l'amplitude de
 la dérive et la taille des tampons se mesurent toutes deux sur cette largeur,
 donc le fil de bureau est le même fil agrandi, et non un fil plus lâche.
 
-Le repère de temps de chaque chapitre porte l'aplat lime et la bordure noire,
-comme la langue courante du sélecteur : un survol tenu en permanence. Ce ne sont
-pas des numéros d'étape (voir §7), ce sont des dates et des mots.
+Le repère de temps de chaque chapitre est une pilule lime en capitales
+interlettrées, comme les libellés d'action (§2). Ce ne sont pas des numéros
+d'étape (voir §7), ce sont des dates et des mots.
 
-**Encadré `.kodawari`.** Bordure franche et bandeau de titre, comme
-« Bon à savoir », mais le bandeau porte le mot japonais et sa transcription.
-Ni Jersey 25 ni Archivo ne dessinent les kana : hors de `/ja/`, le mot revient à
-la police du système, et c'est voulu. Servir ici PixelMplus12 obligerait à
+**Encadré `.kodawari`.** Une carte, comme « Bon à savoir », mais elle porte le
+mot japonais et sa transcription en tête.
+Aucune des polices latines ne dessine les kana : hors de `/ja/`, le mot revient
+à la police du système, et c'est voulu. Servir ici PixelMplus12 obligerait à
 charger 122 Ko dans les cinq langues pour un seul mot.
 
 **Les deux sorties `.story-sorties`.** Le bouton et le lien vers les
-réalisations tiennent sur une seule ligne et se lisent comme une paire, dans la
-même police d'affichage. Le second reste plat, sans bloc noir ni ombre portée,
-et prend au survol l'aplat lime et la bordure noire de la navigation. C'est la
+réalisations tiennent sur une seule ligne et se lisent comme une paire, dans le
+même corps. Le second est une pilule à filet, qui prend l'aplat lime au
+survol. C'est la
 hiérarchie qui distingue les deux, pas deux traitements sans rapport. Un petit
 lien souligné en bleu posé sous un filet, comme au premier jet, se lisait comme
 un reste de page plutôt que comme une sortie.
@@ -413,20 +467,24 @@ passée à `new Date()`, qui l'interpréterait en UTC et décalerait d'un jour �
 l'ouest de Greenwich, exactement le jour de l'anniversaire. Aucune requête,
 aucun stockage : la propriété du §2 tient.
 
-**Navigation.** Liens en casse normale, aplat lime et bordure noire au survol.
-Cinq entrées depuis l'ajout de « Notre histoire ». La page courante y est un
+**Navigation.** Liens en casse normale, pilule lime au survol. Cinq entrées
+depuis l'ajout de « Notre histoire ». La page courante y est un
 `<span class="is-current">` et non un lien, comme dans le sélecteur de langue.
+Le corps et les gouttières sont réglés au pixel près : la marque, les cinq
+entrées et les cinq langues tiennent sur une ligne de 66 rem en français, qui
+est la version la plus longue. Y toucher fait tomber la navigation sur une
+seconde ligne.
 
-**Sélecteur de langue `.lang-nav`.** Cinq codes à deux lettres dans la police
-d'affichage, posés à droite de la navigation, séparés par un filet simple
-au-delà de 800 px. La version courante porte l'aplat lime et la bordure noire :
-c'est le même geste que le survol, tenu en permanence. Pas de menu déroulant,
-pas de drapeau. À cinq entrées une liste ouverte se lit d'un coup d'œil, elle
-fonctionne sans JavaScript, et un drapeau désigne un pays, pas une langue.
+**Sélecteur de langue `.lang-nav`.** Cinq codes à deux lettres dans la bitmap,
+posés à droite de la navigation, séparés par un filet simple au-delà de 800 px.
+La version courante porte la pilule lime : c'est le même geste que le survol,
+tenu en permanence. Pas de menu déroulant, pas de drapeau. À cinq entrées une
+liste ouverte se lit d'un coup d'œil, elle fonctionne sans JavaScript, et un
+drapeau désigne un pays, pas une langue.
 
 **Barre de défilement.** Ramenée à un filet de 6 px, rail transparent pour
-laisser passer la grille, curseur en `--rule` qui passe à `--ink-soft` au
-survol. Rectangle plein, sans arrondi, comme les autres filets. Déclarée deux
+laisser passer le fond, curseur en `--rule` qui passe à `--ink-soft` au
+survol. Déclarée deux
 fois — `scrollbar-width` / `scrollbar-color` pour Firefox,
 `::-webkit-scrollbar` pour Chrome, Edge et Safari. Elle n'est jamais masquée :
 c'est le seul repère de position dans une page longue.
@@ -471,7 +529,7 @@ son opacité.
 
 ### Encres
 
-Le lime disparaît sur blanc, donc les marques posées sur le fond blanc
+Le lime disparaît sur du clair, donc les marques posées sur le papier
 utilisent une gamme saturée : `bleu`, `magenta`, `cyan`, `olive`, `orange`,
 `encre`. `lime` et `bleu` sont réservés à la bande du pied de page, qui est
 sur noir.
@@ -633,8 +691,8 @@ sortie cubique pour solder une vraie attente, courbe adoucie aux deux bouts pour
 la traversée d'arrivée, qu'une sortie cubique ferait filer puis ramper.
 
 **Le tracé change à chaque navigation.** Huit variantes, deux brosses et deux
-encres chacune, dans la gamme saturée : la barre est sur du blanc, le lime n'y
-tiendrait pas. Ce qui change, ce sont les brosses et les encres, jamais la
+encres chacune, dans la gamme saturée : la barre est sur du papier clair, le
+lime n'y tiendrait pas. Ce qui change, ce sont les brosses et les encres, jamais la
 géométrie : une barre qui changerait aussi de place ou d'épaisseur ne se
 reconnaîtrait plus d'une fois sur l'autre. La variante se lit dans
 `history.length`, qui avance d'un cran à chaque page ouverte dans l'onglet : la
@@ -682,26 +740,33 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 - indigo `#4f46e5` **en couleur d'interface par défaut**. Ici il vient du logo
   et sert aux liens ; ce n'est pas la même chose qu'un bouton indigo par défaut
   sur fond blanc,
-- Inter, Poppins, Montserrat, Space Grotesk,
+- Inter, Poppins, Montserrat, Space Grotesk. Gabarito et Figtree sont des
+  géométriques comme Poppins, et le rappel a son intérêt : ce qui est proscrit,
+  c'est **la police par défaut d'un gabarit**, celle qu'on ne choisit pas.
+  Celles-ci ont été comparées au rendu réel, et Figtree tient le texte courant
+  là où Poppins, dessinée pour de l'affichage, fatigue à 17 px,
 - libellés en petites majuscules interlettrées au-dessus des titres,
 - monospace décoratif, coordonnées GPS,
 - bandes de chiffres clés, surtout inventés,
 - numérotation `01 / 02 / 03` des services ou des étapes. Le déroulé est en
   trois colonnes depuis la refonte, et il n'en porte toujours pas,
-- **grilles de cartes identiques**. Les quatre métiers sont maintenant sur des
-  feuilles blanches, ce qui est la limite de cette règle et pas son abandon :
-  ce qui est proscrit, c'est le jeu de cartes interchangeables, trois ou quatre
-  fois le même contenu sous un titre différent, avec icône et bouton en pied.
-  Ici chaque fiche porte un texte qui lui est propre et cite des projets réels,
-  il n'y a ni icône ni bouton, et la bordure franche à ombre nette est l'objet
-  du site depuis le premier jour, pas une carte à ombre diffuse,
-- boutons pilules, flèches `↗`, point coloré en fin de titre,
-- en-tête collant en verre dépoli, dégradés, ombres diffuses,
+- **grilles de cartes identiques.** La carte est devenue l'objet de base du
+  site (§5), ce qui déplace cette règle sans l'abolir : ce qui est proscrit,
+  c'est le jeu de cartes **interchangeables**, trois ou quatre fois le même
+  contenu sous un titre différent, avec icône, titre court et bouton en pied.
+  Les quatre métiers y échappent par construction : chacun porte un texte qui
+  lui est propre et cite des projets réels, aucun ne porte d'icône ni de
+  bouton, et le bento leur donne trois largeurs différentes, précisément pour
+  qu'on ne puisse pas les lire comme une grille,
+- flèches `↗`, point coloré en fin de titre,
+- **en-tête collant** en verre dépoli, dégradés de couleur, **ombres diffuses
+  et colorées**. L'ombre des cartes est une ombre portée grise, à une seule
+  teinte, celle de l'encre : elle dit qu'une feuille est posée sur une table.
+  Une ombre teintée de la couleur de l'objet, ou une lueur, est autre chose,
 - **mode sombre par défaut, néon sur noir.** Le site est sur papier clair, du
-  premier au dernier bloc de texte. La scène d'ouverture et le pied de page
-  sont noirs pour une raison qui n'est pas une mode : le lime du logo n'existe
-  à pleine intensité que là (voir §1). Ce n'est pas un thème sombre, c'est un
-  aplat, et il n'y a rien à lire dessus qui ne tienne en trois lignes.
+  premier au dernier bloc de texte. Le pied de page est le seul bloc sombre, et
+  pour une raison qui n'est pas une mode : le lime du logo n'existe à pleine
+  intensité que là (voir §1). Ce n'est pas un thème sombre, c'est un aplat.
 
 ### Textes
 
@@ -732,7 +797,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=7`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=8`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -744,7 +809,7 @@ traverse pas le CDN. Le cas s'est produit, et il s'est lu comme une
 fonctionnalité qui ne marchait pas.
 
 Un cache se contourne par l'adresse. La requête porte la chaîne de requête,
-donc `brushes.js?v=8` est une autre entrée de cache que `brushes.js?v=7` et
+donc `brushes.js?v=9` est une autre entrée de cache que `brushes.js?v=8` et
 part chercher le fichier à la source.
 
 **Changer un de ces cinq fichiers veut donc dire deux gestes, pas un** : le
@@ -764,8 +829,8 @@ pour la même raison.
 - l'entrée de la marque d'ouverture : elle vient du haut à droite, revient à sa
   place en s'enroulant, finit nette, et **la page ne se laisse pas tirer de
   côté pendant ce temps** (§4, §6),
-- états de survol : navigation, ligne de tableau qui s'inverse, bouton sur ses
-  trois fonds (papier, scène noire, bloc lime),
+- états de survol : navigation, ligne de tableau qui passe au papier, cartes,
+  bouton sur ses deux fonds (papier et bloc lime), timbres de presse,
 - barre de chargement : cliquer un lien interne la lance, un lien externe non,
   et elle s'efface après l'arrivée sans rien laisser derrière,
 - « Notre histoire » : le fil se déroule en descendant et sa pointe reste en
@@ -777,7 +842,10 @@ pour la même raison.
 - aucune requête vers un domaine tiers,
 - console sans erreur,
 - mouvement réduit : la marque est posée à plat sans dépliage, le bandeau ne
-  défile plus, et rien d'autre ne bouge,
+  défile plus, la pastille ne tourne plus, et rien d'autre ne bouge,
+- la pastille : sa phrase fait exactement le tour du disque, sans trou ni
+  recouvrement, dans les cinq langues,
+- la navigation tient sur une ligne en français à 1280 px et au-delà,
 - si un script ou une feuille servie a changé, l'estampille `?v=` a été
   incrémentée dans les vingt-six pages (voir §7 bis), sans quoi la
   modification restera invisible en ligne pendant quatre heures,
