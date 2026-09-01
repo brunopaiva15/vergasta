@@ -20,7 +20,7 @@
 
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="icon" href="../favicon.ico">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0a0a0a">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Vergasta Digital">
   <meta property="og:locale" content="it_CH">
@@ -36,10 +36,11 @@
   <meta property="og:image:height" content="520">
   <meta property="og:image:alt" content="Croce svizzera formata da due barre, una lime e una blu.">
   <meta name="twitter:card" content="summary">
+  <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=6">
-  <script src="../brushes.js?v=3" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=8">
+  <script src="../brushes.js?v=8" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -182,9 +183,9 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=3"></script>
+  <script src="../lang.js?v=8"></script>
 </head>
-<body>
+<body class="page-accueil">
   <header class="site-header">
     <div class="masthead wrap">
       <a href="./" class="brand">
@@ -211,7 +212,7 @@
   </header>
 
   <main>
-    <section class="opening wrap">
+    <section class="opening opening--accueil wrap">
       <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
       <h1>Siti e applicazioni per le imprese del territorio.</h1>
       <div class="opening-body">
@@ -221,7 +222,37 @@
           artigiani, commercianti e lavoratori indipendenti del Giura bernese.
         </p>
       </div>
+        <div class="opening-actions">
+          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Compilare il modulo</a>
+          <a class="opening-jump" href="#realisations">Vedere i lavori</a>
+        </div>
     </section>
+
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon-track">
+        <span>Dalla regione, per la regione.</span>
+        <span>Dalla regione, per la regione.</span>
+        <span>Dalla regione, per la regione.</span>
+        <span>Dalla regione, per la regione.</span>
+        <span>Dalla regione, per la regione.</span>
+        <span>Dalla regione, per la regione.</span>
+      </div>
+    </div>
+
+    <!--
+      La pastille : le tampon de l'atelier, posé à cheval sur le bandeau.
+      Le texte tourne, la croix du logo reste droite. Décorative : elle ne
+      dit rien que la page ne dise déjà en toutes lettres.
+    -->
+    <div class="pastille" aria-hidden="true">
+      <svg class="pastille-anneau" viewBox="0 0 200 200">
+        <defs>
+          <path id="pastille-cercle" d="M100 100 m-64 0 a64 64 0 1 1 128 0 a64 64 0 1 1 -128 0"></path>
+        </defs>
+        <text><textPath href="#pastille-cercle">ATELIER WEB A ST-IMIER · GIURA BERNESE · </textPath></text>
+      </svg>
+      <img class="pastille-logo" src="../logo_vergasta.png" alt="">
+    </div>
 
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
       <div class="slab-head">
@@ -449,12 +480,6 @@
           appuntamento.
         </p>
         <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Compilare il modulo</a>
-
-        <p class="whereabouts">
-          Vergasta Digital, Bruno Vergasta Paiva<br>
-          Rue du Temple 5, 2610 St-Imier<br>
-          IDI CHE-403.843.646
-        </p>
       </div>
     </section>
   </main>

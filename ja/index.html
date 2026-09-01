@@ -20,7 +20,7 @@
 
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="icon" href="../favicon.ico">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0a0a0a">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Vergasta Digital">
   <meta property="og:locale" content="ja_JP">
@@ -36,11 +36,12 @@
   <meta property="og:image:height" content="520">
   <meta property="og:image:alt" content="ライムグリーンとブルー、2本のバーで組まれたスイス十字。">
   <meta name="twitter:card" content="summary">
+  <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/pixelmplus12-japonais.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=3">
-  <script src="../brushes.js?v=3" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=8">
+  <script src="../brushes.js?v=8" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -183,9 +184,9 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=3"></script>
+  <script src="../lang.js?v=8"></script>
 </head>
-<body>
+<body class="page-accueil">
   <header class="site-header">
     <div class="masthead wrap">
       <a href="./" class="brand">
@@ -212,7 +213,7 @@
   </header>
 
   <main>
-    <section class="opening wrap">
+    <section class="opening opening--accueil wrap">
       <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
       <h1>地元の企業のためのウェブサイトとアプリケーション。</h1>
       <div class="opening-body">
@@ -222,7 +223,37 @@
           ツール、オンラインショップを書いています。
         </p>
       </div>
+        <div class="opening-actions">
+          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
+          <a class="opening-jump" href="#realisations">実績を見る</a>
+        </div>
     </section>
+
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon-track">
+        <span>地元から、地元のために。</span>
+        <span>地元から、地元のために。</span>
+        <span>地元から、地元のために。</span>
+        <span>地元から、地元のために。</span>
+        <span>地元から、地元のために。</span>
+        <span>地元から、地元のために。</span>
+      </div>
+    </div>
+
+    <!--
+      La pastille : le tampon de l'atelier, posé à cheval sur le bandeau.
+      Le texte tourne, la croix du logo reste droite. Décorative : elle ne
+      dit rien que la page ne dise déjà en toutes lettres.
+    -->
+    <div class="pastille" aria-hidden="true">
+      <svg class="pastille-anneau" viewBox="0 0 200 200">
+        <defs>
+          <path id="pastille-cercle" d="M100 100 m-64 0 a64 64 0 1 1 128 0 a64 64 0 1 1 -128 0"></path>
+        </defs>
+        <text><textPath href="#pastille-cercle">サンティミエのウェブアトリエ ・ ベルン・ジュラ地方 ・ </textPath></text>
+      </svg>
+      <img class="pastille-logo" src="../logo_vergasta.png" alt="">
+    </div>
 
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
       <div class="slab-head">
@@ -358,12 +389,6 @@
           いたします。
         </p>
         <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
-
-        <p class="whereabouts">
-          Vergasta Digital, Bruno Vergasta Paiva<br>
-          Rue du Temple 5, 2610 St-Imier<br>
-          企業識別番号 CHE-403.843.646
-        </p>
       </div>
     </section>
   </main>

@@ -134,7 +134,10 @@ body.atelier {
 }
 
 .carte--verso {
-  background: var(--paper);
+  /* La feuille blanche et non le papier du site : depuis que le fond des pages
+     est teinté, `--paper` sortirait le verso en crème à l'impression. Une
+     carte se tire sur du blanc. */
+  background: var(--sheet);
   color: var(--ink);
   /* en millimètres et non en pixels : à l'impression, un point défini en px
      grossit avec la résolution de sortie et vire au moucheté */
