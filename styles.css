@@ -584,7 +584,7 @@ em {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.75rem 2.5rem;
+  gap: 0.75rem 2rem;
   padding-top: 1.5rem;
   padding-bottom: 1.45rem;
 }
@@ -612,11 +612,15 @@ em {
   gap: 0.5rem 1rem;
 }
 
+/* Cinq entrées, plus la marque et cinq langues, sur une ligne de 66 rem : en
+   français, qui est la version la plus longue, ça passe au pixel près. Toucher
+   à ce corps ou à ces gouttières fait tomber la navigation sur une seconde
+   ligne. */
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.75rem;
-  font-size: 0.95rem;
+  gap: 0.25rem 0.6rem;
+  font-size: 0.9rem;
 }
 
 .site-nav a {
