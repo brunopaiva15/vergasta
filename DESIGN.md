@@ -21,7 +21,7 @@ c'est un atelier, pas une agence.
 | Rôle | Valeur | Emploi |
 |---|---|---|
 | Papier | `#e9ebe0` | fond général |
-| Feuille | `#ffffff` | cartes, timbres de presse, pastille |
+| Feuille | `#ffffff` | cartes, timbres de presse |
 | Encre | `#16160f` | texte, pied de page, boutons |
 | Encre atténuée | `#5d5d54` | texte secondaire (6,4:1 sur le papier) |
 | Filet | `#d5d7c9` | séparations internes des cartes |
@@ -245,8 +245,7 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 1. **l'ouverture**, sur le papier, qui réserve `min(78vh, 42rem)` : l'accueil
    s'ouvre sur un écran, pas sur un paragraphe. Le titre et les deux sorties à
    gauche, la marque à la brosse à droite ;
-2. **le bandeau défilant**, lime, pleine largeur, et **la pastille** posée à
-   cheval dessus ;
+2. **le bandeau défilant**, lime, pleine largeur ;
 3. les quatre **cartes** des métiers, en bento ;
 4. le **déroulé** en trois colonnes, puis la carte des conditions sur toute la
    largeur ;
@@ -264,8 +263,7 @@ pour finir. Entre eux, du papier et des feuilles blanches.
 **La carte.** L'objet de base du site, et il n'y en a qu'un : feuille blanche,
 coins ronds, ombre portée, **pas de bordure**. Il sert aux quatre métiers, à
 l'encadré des conditions, au tableau des réalisations, à l'encart de traduction
-des pages légales, à l'encadré japonais de l'histoire, à la pastille et au pied
-de page. Ce qui change d'un emploi à l'autre, c'est le rayon (§1) et le
+des pages légales, à l'encadré japonais de l'histoire et au pied de page. Ce qui change d'un emploi à l'autre, c'est le rayon (§1) et le
 rembourrage, jamais le principe. **Une bordure sur une carte annule l'ombre** :
 les deux disent la même chose, et ensemble elles font une boîte.
 
@@ -291,21 +289,6 @@ elle-même à la moitié, donc la boucle ne se voit pas. Il est `aria-hidden` : 
 devise est déjà portée par le pied de page, et six fois le même mot ne va pas à
 la lecture d'écran. `prefers-reduced-motion` l'arrête, et il reste une bande
 lime.
-
-**Pastille `.pastille`.** Le tampon de l'atelier, posé à cheval sur le
-bandeau : un disque blanc, le nom du lieu qui en fait le tour sur un
-`textPath`, et la croix du logo au centre. C'est le seul objet du site qui
-chevauche deux blocs, et c'est ce qui lui donne l'air d'avoir été collé là
-plutôt que mis en page. Trois points :
-
-- **le texte tourne, la croix ne tourne pas.** Un logo qui tourne se lit comme
-  un chargement. Ce sont deux éléments, l'anneau en SVG et l'image du logo par
-  dessus, et l'animation ne porte que sur le premier ;
-- **le corps du texte est réglé pour faire exactement le tour.** Trop petit, il
-  laisse un trou dans l'anneau ; trop grand, il se recouvre. Changer la phrase
-  veut dire reprendre `font-size` sur `.pastille-anneau text`, et le rayon du
-  chemin si la phrase s'allonge beaucoup ;
-- **elle ne dit rien que la page ne dise déjà**, et elle est `aria-hidden`.
 
 **Étoile pixel.** La puce du site, en `mask-image` sur un SVG de neuf carrés :
 une croix et quatre coins. Elle sert devant les titres des métiers, devant les
@@ -807,7 +790,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=9`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=10`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -819,7 +802,7 @@ traverse pas le CDN. Le cas s'est produit, et il s'est lu comme une
 fonctionnalité qui ne marchait pas.
 
 Un cache se contourne par l'adresse. La requête porte la chaîne de requête,
-donc `brushes.js?v=10` est une autre entrée de cache que `brushes.js?v=9` et
+donc `brushes.js?v=11` est une autre entrée de cache que `brushes.js?v=10` et
 part chercher le fichier à la source.
 
 **Changer un de ces cinq fichiers veut donc dire deux gestes, pas un** : le
@@ -852,9 +835,7 @@ pour la même raison.
 - aucune requête vers un domaine tiers,
 - console sans erreur,
 - mouvement réduit : la marque est posée à plat sans dépliage, le bandeau ne
-  défile plus, la pastille ne tourne plus, et rien d'autre ne bouge,
-- la pastille : sa phrase fait exactement le tour du disque, sans trou ni
-  recouvrement, dans les cinq langues,
+  défile plus, et rien d'autre ne bouge,
 - la navigation tient sur une ligne en français à 1280 px et au-delà,
 - si un script ou une feuille servie a changé, l'estampille `?v=` a été
   incrémentée dans les vingt-six pages (voir §7 bis), sans quoi la

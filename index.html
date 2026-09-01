@@ -39,8 +39,8 @@
   <link rel="preload" href="fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=9">
-  <script src="brushes.js?v=9" defer></script>
+  <link rel="stylesheet" href="styles.css?v=10">
+  <script src="brushes.js?v=10" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -183,7 +183,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="lang.js?v=9"></script>
+  <script src="lang.js?v=10"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -237,21 +237,6 @@
         <span>Par la région, pour la région.</span>
         <span>Par la région, pour la région.</span>
       </div>
-    </div>
-
-    <!--
-      La pastille : le tampon de l'atelier, posé à cheval sur le bandeau.
-      Le texte tourne, la croix du logo reste droite. Décorative : elle ne
-      dit rien que la page ne dise déjà en toutes lettres.
-    -->
-    <div class="pastille" aria-hidden="true">
-      <svg class="pastille-anneau" viewBox="0 0 200 200">
-        <defs>
-          <path id="pastille-cercle" d="M100 100 m-64 0 a64 64 0 1 1 128 0 a64 64 0 1 1 -128 0"></path>
-        </defs>
-        <text><textPath href="#pastille-cercle">ATELIER WEB À ST-IMIER · JURA BERNOIS · </textPath></text>
-      </svg>
-      <img class="pastille-logo" src="logo_vergasta.png" alt="">
     </div>
 
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
