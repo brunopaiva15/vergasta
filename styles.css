@@ -1,18 +1,25 @@
 /* ==========================================================================
    Vergasta Digital
    --------------------------------------------------------------------------
-   Direction : web Y2K. Fond blanc, grille de pixels, titres en police bitmap,
-   filets francs. Les deux couleurs viennent de la croix du logo : lime acide
-   et bleu électrique.
+   Direction : papier crème, cartes blanches à coins ronds, ombres portées
+   douces, et les peintures à la brosse posées par-dessus. Les deux couleurs
+   viennent de la croix du logo : lime acide et bleu électrique.
+
+   Trois polices de texte et une de signature. Gabarito porte les titres
+   (géométrique, ronde, serrée), Figtree le texte courant, Caveat les mots
+   écrits à la main. Jersey 25, la bitmap, reste sur la marque et les codes de
+   langue : elle est faite des mêmes carrés que les marques à la brosse, et
+   c'est à ce titre qu'elle demeure, comme une signature et non comme la voix
+   de tout le site.
 
    Polices hébergées ici, pas chez Google : la page de confidentialité promet
    qu'aucun outil tiers ne suit le visiteur, et un appel à fonts.googleapis.com
    transmettrait l'adresse IP de chaque visiteur à Google.
 
-   Archivo est figée en trois instances statiques et non servie en police
-   variable : Chromium ne sait pas incorporer une instance variable dans un PDF,
-   il la remplace par des glyphes Type 3 sans programme de police, et les
-   imprimeurs refusent le fichier.
+   Aucune police variable : Chromium ne sait pas incorporer une instance
+   variable dans un PDF, il la remplace par des glyphes Type 3 sans programme
+   de police, et les imprimeurs refusent le fichier. Chaque graisse est un
+   fichier statique demandé séparément à Google.
    ========================================================================== */
 
 /* jersey25 latin-ext */
@@ -35,63 +42,103 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* archivo 400 latin-ext */
+/* gabarito-700-latin latin-ext */
 @font-face {
-  font-family: 'Archivo';
+  font-family: 'Gabarito';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   font-display: swap;
-  src: url(fonts/archivo-400-latin-ext.woff2) format('woff2');
+  src: url(fonts/gabarito-700-latin-ext.woff2) format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* archivo 400 latin */
+/* gabarito-700 latin */
 @font-face {
-  font-family: 'Archivo';
+  font-family: 'Gabarito';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   font-display: swap;
-  src: url(fonts/archivo-400-latin.woff2) format('woff2');
+  src: url(fonts/gabarito-700-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* archivo 500 latin-ext */
+/* gabarito-500-latin latin-ext */
 @font-face {
-  font-family: 'Archivo';
+  font-family: 'Gabarito';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(fonts/archivo-500-latin-ext.woff2) format('woff2');
+  src: url(fonts/gabarito-500-latin-ext.woff2) format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* archivo 500 latin */
+/* gabarito-500 latin */
 @font-face {
-  font-family: 'Archivo';
+  font-family: 'Gabarito';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(fonts/archivo-500-latin.woff2) format('woff2');
+  src: url(fonts/gabarito-500-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* archivo 600 latin-ext */
+/* figtree-400-latin latin-ext */
 @font-face {
-  font-family: 'Archivo';
+  font-family: 'Figtree';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   font-display: swap;
-  src: url(fonts/archivo-600-latin-ext.woff2) format('woff2');
+  src: url(fonts/figtree-400-latin-ext.woff2) format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* archivo 600 latin */
+/* figtree-400 latin */
 @font-face {
-  font-family: 'Archivo';
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/figtree-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* figtree-600-latin latin-ext */
+@font-face {
+  font-family: 'Figtree';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(fonts/archivo-600-latin.woff2) format('woff2');
+  src: url(fonts/figtree-600-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* figtree-600 latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/figtree-600-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* caveat-600-latin latin-ext */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/caveat-600-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* caveat-600 latin */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/caveat-600-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -124,18 +171,23 @@
      laquelle les feuilles blanches (encadrés, timbres de presse, bloc de
      contact) se détachent au lieu de s'y fondre. Les encres, elles, ne bougent
      pas : ce sont toujours les deux barres du logo. */
-  --paper: #f6f6f1;
+  --paper: #e9ebe0;
   --sheet: #ffffff;
-  --ink: #0a0a0a;
-  --ink-soft: #545454;
-  --rule: #dddbd2;
-  --rule-hard: #0a0a0a;
+  --ink: #16160f;
+  --ink-soft: #5d5d54;
+  --rule: #d5d7c9;
+  --rule-hard: #16160f;
+  /* Les colonnes du fond, et les coins et ombres des cartes. */
+  --guide: rgba(22, 22, 15, 0.055);
+  --rond: 24px;
+  --rond-s: 14px;
+  --rond-l: 30px;
+  --ombre: 0 1px 2px rgba(22, 22, 15, 0.05), 0 20px 38px -24px rgba(22, 22, 15, 0.5);
+  --ombre-basse: 0 1px 2px rgba(22, 22, 15, 0.05), 0 10px 20px -14px rgba(22, 22, 15, 0.45);
+  /* L'étoile pixel des puces : le même carré que les tampons des brosses. */
+  --etoile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cg fill='%23000'%3E%3Crect x='4' y='1' width='1' height='7'/%3E%3Crect x='1' y='4' width='7' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='6' y='2' width='1' height='1'/%3E%3Crect x='2' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
   /* les deux barres de la croix du logo */
   --lime: #d4ff00;
-  /* Le même lime, posé à plat. Il tient sous du texte courant, ce que l'aplat
-     plein ne fait que sur une ligne ou deux : voir la ligne survolée du
-     tableau des réalisations. */
-  --lime-pale: rgba(212, 255, 0, 0.42);
   --bleu: #4f46e6;
   /* Les quatre encres saturées des brosses, reprises telles quelles de
      `brushes.js`. Elles ne servaient qu'au canevas ; elles servent maintenant
@@ -145,15 +197,19 @@
   --cyan: hsl(193, 100%, 42%);
   --olive: hsl(75, 100%, 33%);
   --orange: hsl(25, 100%, 47%);
-  /* Sur la scène noire : le texte courant et les filets. */
-  --stage-soft: #a8a8a2;
-  --stage-rule: #333333;
-  --grille: rgba(10, 10, 10, 0.09);
+  /* Sur le bloc noir du pied de page : le texte courant et le filet. */
+  --sur-encre: #b8b8b3;
+  --filet-encre: #33332c;
+  --grille: rgba(22, 22, 15, 0.07);
   --pas: 8px;
   /* hauteur de la barre de chargement : un pas de grille moins un filet */
   --barre: 7px;
-  --display: "Jersey 25", "Courier New", monospace;
-  --texte: "Archivo", system-ui, sans-serif;
+  --display: "Gabarito", system-ui, sans-serif;
+  --texte: "Figtree", system-ui, sans-serif;
+  /* la bitmap du logo, pour la marque et les codes de langue */
+  --pixel: "Jersey 25", "Courier New", monospace;
+  /* les mots écrits à la main */
+  --main: "Caveat", "Segoe Script", cursive;
   --measure: 36rem;
   --gutter: 1.5rem;
   /* La respiration d'une section, haut et bas. Une seule mesure pour tout le
@@ -181,8 +237,9 @@
 html[lang="ja"] {
   --japonais: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic",
     "YuGothic", "Noto Sans JP", "Meiryo", system-ui, sans-serif;
-  --display: "Jersey 25", "PixelMplus12", var(--japonais);
-  --texte: "Archivo", var(--japonais);
+  --display: "Gabarito", var(--japonais);
+  --texte: "Figtree", var(--japonais);
+  --pixel: "Jersey 25", "PixelMplus12", var(--japonais);
 }
 
 /* Une bitmap latine se cale sur line-height 1 ; les kanji, non : ils occupent
@@ -213,12 +270,13 @@ body {
   line-height: 1.75;
   color: var(--ink);
   background-color: var(--paper);
-  /* La grille : un point d'un pixel tous les huit. Elle est passée de 14 % à
-     9 % d'encre : sur le papier chaud, à cette densité, elle se lit comme un
-     grain et non plus comme du papier millimétré. Le pas ne bouge pas, il est
-     repris par la barre de chargement. */
-  background-image: radial-gradient(circle at 1px 1px, var(--grille) 1px, transparent 0);
-  background-size: var(--pas) var(--pas);
+  /* Les colonnes du gabarit, laissées apparentes : six filets d'un pixel qui
+     traversent la page de haut en bas, au pas de la colonne de texte. La
+     grille de points d'avant se lisait comme du papier millimétré sous chaque
+     paragraphe ; celle-ci se lit comme le tracé d'un maquettiste, et elle ne
+     passe pas sous le texte, elle passe derrière les cartes. */
+  background-image: repeating-linear-gradient(to right, var(--guide) 0 1px, transparent 1px calc(74rem / 6));
+  background-position: 50% 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-wrap: pretty;
@@ -234,6 +292,14 @@ body {
      écrit avant, pour les navigateurs qui ne connaissent pas `clip`. */
   overflow-x: hidden;
   overflow-x: clip;
+}
+
+/* Sous 800 px, la colonne fait toute la largeur : les filets du gabarit n'ont
+   plus rien à dire et se mettraient en travers du texte. */
+@media (max-width: 799px) {
+  body {
+    background-image: none;
+  }
 }
 
 ::selection {
@@ -294,19 +360,30 @@ h1,
 h2,
 h3 {
   font-family: var(--display);
-  font-weight: 400;
-  line-height: 1;
-  /* une police bitmap se resserre trop d'elle-même en grand corps */
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  line-height: 1.06;
+  /* Gabarito est une géométrique : elle se resserre sans se fermer, et un
+     titre en grand corps demande ce cran de moins. */
+  letter-spacing: -0.025em;
   /* les composés allemands dépassent volontiers la colonne du titre */
   overflow-wrap: break-word;
+}
+
+/* Les mots écrits à la main : légende du tableau, titre de l'encadré. Deux
+   endroits, pas plus. Une écriture manuscrite qui sert partout n'est plus une
+   écriture, c'est une police de plus. */
+.main-libre {
+  font-family: var(--main);
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 /* Pas d'italique dans une police bitmap : l'emphase passe par le surligneur. */
 em {
   font-style: normal;
   background: var(--lime);
-  padding: 0 0.15em;
+  padding: 0 0.2em;
+  border-radius: 4px;
 }
 
 .wrap {
@@ -544,39 +621,11 @@ em {
    En-tête
    -------------------------------------------------------------------------- */
 
-/* Sur l'accueil, l'en-tête fait partie de la scène : il est noir, sans filet,
-   et il se confond avec le bloc d'ouverture qui le suit. Les autres pages
-   gardent l'en-tête clair. */
-.page-accueil .site-header {
-  background: var(--ink);
-  color: var(--paper);
-  border-bottom: 0;
-}
-
-.page-accueil .site-nav .is-current {
-  border-color: var(--stage-rule);
-  color: var(--stage-soft);
-}
-
-.page-accueil .site-nav a:hover,
-.page-accueil .lang-nav a:hover,
-.page-accueil .lang-nav .is-current {
-  background: var(--lime);
-  color: var(--ink);
-  border-color: var(--lime);
-}
-
-@media (min-width: 800px) {
-  .page-accueil .lang-nav {
-    border-left-color: var(--stage-rule);
-  }
-}
-
+/* L'en-tête ne pose rien : ni fond, ni filet. Le papier passe dessous comme
+   il passe sous le reste, et c'est l'espace qui l'isole. */
 .site-header {
-  background: var(--paper);
-  /* Un filet simple et clair, à la place du filet double : l'en-tête pose la
-     marque et se tait. C'est l'espace sous lui qui ouvre la page. */
-  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  border-bottom: 0;
 }
 
 .masthead {
@@ -584,16 +633,20 @@ em {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.75rem 2rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.45rem;
+  gap: 0.75rem 1.5rem;
+  padding-top: 1.6rem;
+  padding-bottom: 1.5rem;
 }
+/* La marque garde la bitmap : c'est la signature, et elle est faite des mêmes
+   carrés que les marques à la brosse. */
 .brand {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  font-family: var(--display);
-  font-size: 1.75rem;
+  font-family: var(--pixel);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  font-size: 1.55rem;
   line-height: 1;
 }
 
@@ -619,23 +672,25 @@ em {
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.6rem;
-  font-size: 0.9rem;
+  gap: 0.25rem 0.35rem;
+  font-size: 0.86rem;
 }
 
 .site-nav a {
-  padding: 0.3rem 0.55rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
   border: 1px solid transparent;
-  transition: background 0.12s, border-color 0.12s;
+  transition: background 0.14s, border-color 0.14s;
 }
 
 .site-nav a:hover {
   background: var(--lime);
-  border-color: var(--rule-hard);
+  border-color: transparent;
 }
 
 .site-nav .is-current {
-  padding: 0.3rem 0.55rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
   border: 1px solid var(--rule);
   color: var(--ink-soft);
 }
@@ -665,22 +720,21 @@ em {
 
 .lang-nav a,
 .lang-nav .is-current {
-  font-family: var(--display);
+  font-family: var(--pixel);
+  font-weight: 400;
+  letter-spacing: 0.01em;
   font-size: 1.05rem;
   line-height: 1.2;
-  padding: 0.2rem 0.4rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
   border: 1px solid transparent;
-  transition: background 0.12s, border-color 0.12s;
+  transition: background 0.14s, border-color 0.14s;
 }
 
-.lang-nav a:hover {
-  background: var(--lime);
-  border-color: var(--rule-hard);
-}
-
+.lang-nav a:hover,
 .lang-nav .is-current {
   background: var(--lime);
-  border-color: var(--rule-hard);
+  border-color: transparent;
 }
 
 /* --------------------------------------------------------------------------
@@ -693,63 +747,12 @@ em {
 }
 
 /* --------------------------------------------------------------------------
-   La scène d'ouverture
-
-   L'accueil s'ouvre sur du noir. Ce n'est pas un goût pour le sombre : le §1
-   dit que le lime du logo ne tient à pleine intensité que sur du noir, et il
-   n'y avait dans tout le site qu'un pied de page pour le porter. La scène rend
-   à la couleur la place qu'elle n'avait pas, et les brosses saturées y sortent
-   enfin comme elles sortent sur l'écran où elles ont été réglées.
-
-   Le noir tient toute la largeur de la fenêtre alors que le bloc est une
-   colonne de 74 rem : il est peint par un pseudo-élément débordant, plutôt que
-   par un conteneur de plus dans le HTML. Il rejoint l'en-tête, noir lui aussi
-   sur l'accueil, et s'arrête net sur le bandeau lime.
+   L'ouverture de l'accueil
    -------------------------------------------------------------------------- */
 
 .opening--accueil {
   position: relative;
-  color: var(--paper);
-  padding-bottom: clamp(4rem, 9vw, 7.5rem);
-}
-
-.opening--accueil::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
-  background-color: var(--ink);
-  /* la grille du papier, en négatif */
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.11) 1px, transparent 0);
-  background-size: var(--pas) var(--pas);
-}
-
-.opening--accueil .opening-body {
-  color: var(--stage-soft);
-}
-
-/* Sur du noir, le bouton s'inverse : l'aplat passe en lime, à pleine
-   intensité, et l'ombre portée prend l'autre barre du logo. Les deux couleurs
-   de la croix, l'une sur l'autre, à l'endroit du site où c'est possible. */
-.opening--accueil .button {
-  background: var(--lime);
-  color: var(--ink);
-  border-color: var(--lime);
-  box-shadow: 5px 5px 0 var(--bleu);
-}
-
-.opening--accueil .button:hover {
-  box-shadow: 2px 2px 0 var(--bleu);
-}
-
-.opening--accueil .opening-jump:hover {
-  background: var(--lime);
-  color: var(--ink);
-  border-color: var(--lime);
+  padding-bottom: clamp(3.5rem, 8vw, 6.5rem);
 }
 
 /* --------------------------------------------------------------------------
@@ -766,7 +769,6 @@ em {
 .ribbon {
   overflow: hidden;
   background: var(--lime);
-  border-bottom: 2px solid var(--ink);
 }
 
 .ribbon-track {
@@ -782,17 +784,22 @@ em {
   align-items: center;
   white-space: nowrap;
   font-family: var(--display);
-  font-size: 1.4rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.015em;
   line-height: 1;
-  padding: 0.8rem 0;
+  padding: 0.85rem 0;
 }
 
+/* L'étoile pixel entre deux passages, la même que les puces. */
 .ribbon span::after {
   content: "";
-  width: 0.5rem;
-  height: 0.5rem;
-  margin: 0 1.75rem;
-  background: var(--ink);
+  width: 0.75rem;
+  height: 0.75rem;
+  margin: 0 1.6rem;
+  background-color: var(--ink);
+  -webkit-mask: var(--etoile) center / contain no-repeat;
+  mask: var(--etoile) center / contain no-repeat;
 }
 
 @keyframes ruban {
@@ -803,6 +810,74 @@ em {
 
 @media (prefers-reduced-motion: reduce) {
   .ribbon-track {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   La pastille
+
+   Le tampon de l'atelier, posé à cheval sur le bandeau : un disque blanc, le
+   nom du lieu qui en fait le tour, et la croix du logo au centre. C'est le
+   seul objet du site qui chevauche deux blocs, et c'est ce qui lui donne l'air
+   d'avoir été collé là plutôt que mis en page.
+
+   Le texte tourne, la croix ne tourne pas : un logo qui tourne se lit comme un
+   chargement. Vingt-huit secondes le tour, soit assez lent pour qu'on ne le
+   regarde pas.
+   -------------------------------------------------------------------------- */
+
+.pastille {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 9.5rem;
+  height: 9.5rem;
+  margin: -4.75rem auto 0;
+}
+
+.pastille::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--sheet);
+  box-shadow: var(--ombre);
+}
+
+.pastille-anneau {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: tourne 28s linear infinite;
+}
+
+.pastille-anneau text {
+  font-family: var(--display);
+  font-weight: 700;
+  /* Le corps est réglé pour que la phrase fasse exactement le tour : trop
+     petite, elle laisse un trou ; trop grande, elle se recouvre. */
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  fill: var(--ink);
+}
+
+.pastille-logo {
+  position: absolute;
+  width: 2.6rem;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+@keyframes tourne {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pastille-anneau {
     animation: none;
   }
 }
@@ -839,7 +914,7 @@ em {
   }
 
   .opening--accueil h1 {
-    font-size: clamp(3rem, 5.8vw, 5.1rem);
+    font-size: clamp(2.9rem, 5.4vw, 4.7rem);
   }
 
   .opening--accueil {
@@ -859,27 +934,24 @@ em {
   }
 }
 
-/* Le titre n'est plus en capitales. Jersey 25 dessine ses bas de casse avec
-   les mêmes marches d'escalier, la phrase garde donc son registre, mais elle
-   se lit d'un trait au lieu de se crier. */
 .opening h1 {
-  font-size: clamp(2.5rem, 5.6vw, 4.6rem);
-  color: inherit;
-  line-height: 1.1;
-  max-width: 19ch;
+  font-size: clamp(2.4rem, 5.2vw, 4.3rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  max-width: 18ch;
   text-wrap: balance;
 }
 
 .opening-body {
-  margin-top: 2rem;
-  max-width: var(--measure);
+  margin-top: 1.75rem;
+  max-width: 33rem;
   color: var(--ink-soft);
 }
 
 @media (min-width: 800px) {
   .opening-body {
-    margin-top: 2.5rem;
-    font-size: 1.1rem;
+    margin-top: 2rem;
+    font-size: 1.05rem;
   }
 }
 
@@ -906,16 +978,20 @@ em {
 
 .opening-jump {
   font-family: var(--display);
-  font-size: 1.3rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   line-height: 1;
-  padding: 0.45rem 0.6rem;
-  border: 1px solid transparent;
-  transition: background 0.12s, border-color 0.12s;
+  padding: 0.95rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  transition: background 0.14s, border-color 0.14s;
 }
 
 .opening-jump:hover {
   background: var(--lime);
-  border-color: var(--rule-hard);
+  border-color: transparent;
 }
 
 .mark-opening {
@@ -938,12 +1014,11 @@ em {
    site n'a plus aucun `position: sticky`.
    -------------------------------------------------------------------------- */
 
+/* Plus aucun filet entre les sections : ce sont les cartes qui découpent la
+   page, et l'espace qui sépare. */
 .slab {
   padding-top: var(--air);
   padding-bottom: var(--air);
-  /* Filet simple et clair. Le filet double marquait la coupure ; à cette
-     hauteur de blanc, il n'y a plus rien à couper. */
-  border-top: 1px solid var(--rule);
 }
 
 .slab-head {
@@ -955,22 +1030,22 @@ em {
 
 .slab-head h2,
 .slab > h2 {
-  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  font-size: clamp(1.7rem, 2.9vw, 2.3rem);
   line-height: 1.05;
   margin: 0;
 }
 
 .slab-mark {
   flex: none;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 4rem;
+  height: 4rem;
   margin: 0 0 0 -0.35rem;
 }
 
 @media (min-width: 800px) {
   .slab-mark {
-    width: 6.5rem;
-    height: 6.5rem;
+    width: 5.25rem;
+    height: 5.25rem;
   }
 }
 
@@ -999,39 +1074,61 @@ em {
    page. */
 .trades {
   display: grid;
-  gap: 2.75rem;
+  gap: 1.25rem;
 }
 
+/* Un bento : six colonnes, et des fiches qui n'ont pas la même largeur. Deux
+   colonnes égales alignaient quatre pavés de même taille, ce que le §7
+   appelle une grille de cartes identiques. Les largeurs suivent la longueur
+   des textes : 3 et 3 sur la première ligne, 2 et 4 sur la seconde. */
 @media (min-width: 1000px) {
   .trades {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 3.5rem 4.5rem;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .trade:nth-child(1),
+  .trade:nth-child(2) {
+    grid-column: span 3;
+  }
+
+  .trade:nth-child(3) {
+    grid-column: span 2;
+  }
+
+  .trade:nth-child(4) {
+    grid-column: span 4;
   }
 }
 
 .trades dt {
   display: flex;
-  align-items: baseline;
-  gap: 0.7rem;
+  align-items: center;
+  gap: 0.6rem;
   font-family: var(--display);
-  font-size: 1.6rem;
-  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-size: 1.2rem;
+  line-height: 1.15;
 }
 
 .trade {
   background: var(--sheet);
-  border: 2px solid var(--rule-hard);
-  box-shadow: 6px 6px 0 var(--rule-hard);
-  padding: 1.6rem 1.6rem 1.8rem;
+  border: 0;
+  border-radius: var(--rond);
+  box-shadow: var(--ombre);
+  padding: 1.8rem 1.8rem 2rem;
 }
 
 .trades dt::before {
   content: "";
   flex: none;
-  width: 0.6rem;
-  height: 0.6rem;
-  background: var(--magenta);
-  border: 1px solid var(--rule-hard);
+  width: 0.95rem;
+  height: 0.95rem;
+  background-color: var(--magenta);
+  -webkit-mask: var(--etoile) center / contain no-repeat;
+  mask: var(--etoile) center / contain no-repeat;
 }
 
 .trade:nth-child(2) dt::before {
@@ -1048,7 +1145,8 @@ em {
 
 .trades dd {
   max-width: var(--measure);
-  margin-top: 0.85rem;
+  margin-top: 0.75rem;
+  font-size: 0.98rem;
   color: var(--ink-soft);
 }
 
@@ -1099,19 +1197,15 @@ em {
     margin-top: 0;
   }
 
-  .run-through > div > p {
-    padding-top: 1.1rem;
-    border-top: 1px solid var(--rule);
-  }
-
   .run-through > div > p::before {
     content: "";
     display: block;
-    width: 0.6rem;
-    height: 0.6rem;
-    margin-bottom: 1rem;
-    background: var(--lime);
-    border: 1px solid var(--rule-hard);
+    width: 0.95rem;
+    height: 0.95rem;
+    margin-bottom: 0.9rem;
+    background-color: var(--olive);
+    -webkit-mask: var(--etoile) center / contain no-repeat;
+    mask: var(--etoile) center / contain no-repeat;
   }
 
   .run-through .lead-in {
@@ -1124,22 +1218,30 @@ em {
    porte l'ombre nette des timbres de presse : c'est ce qui le pose sur la page
    au lieu de l'y encastrer. L'ombre est en encre et non en lime, qui reste à
    l'action, c'est-à-dire au bouton et à lui seul. */
+/* Les conditions sont sur une carte, comme les métiers, et son titre est
+   écrit à la main : c'est une note posée en marge du déroulé, pas une clause
+   de plus. */
 .aside {
   align-self: start;
-  border: 2px solid var(--rule-hard);
-  background: var(--ink);
-  color: var(--stage-soft);
-  padding: 1.5rem;
-  box-shadow: 6px 6px 0 var(--lime);
+  border: 0;
+  border-radius: var(--rond);
+  background: var(--sheet);
+  color: var(--ink-soft);
+  padding: 1.8rem;
+  box-shadow: var(--ombre);
 }
 
 .aside h3 {
-  font-size: 1.35rem;
-  background: var(--lime);
+  font-family: var(--main);
+  font-weight: 600;
+  letter-spacing: 0;
+  font-size: 1.9rem;
+  line-height: 1;
   color: var(--ink);
-  border-bottom: 2px solid var(--rule-hard);
-  margin: -1.5rem -1.5rem 1.15rem;
-  padding: 0.5rem 1.5rem 0.55rem;
+  background: transparent;
+  border: 0;
+  margin: 0 0 1.2rem;
+  padding: 0;
 }
 
 /* Cinq conditions sur toute la largeur : elles se rangent en colonnes plutôt
@@ -1161,12 +1263,21 @@ em {
   font-size: 0.95rem;
   line-height: 1.6;
   padding: 0.7rem 0;
-  border-top: 1px solid var(--stage-rule);
+  border-top: 1px solid var(--rule);
 }
 
 /* --------------------------------------------------------------------------
    Index des réalisations
    -------------------------------------------------------------------------- */
+
+/* Le tableau entier est posé sur une carte, comme les métiers et les
+   conditions : c'est le troisième objet de la page, et le plus grand. */
+#realisations .slab-body {
+  background: var(--sheet);
+  border-radius: var(--rond-l);
+  box-shadow: var(--ombre);
+  padding: clamp(1.4rem, 3vw, 2.25rem);
+}
 
 .index {
   width: 100%;
@@ -1174,18 +1285,27 @@ em {
   text-align: left;
 }
 
+/* La légende est écrite à la main : elle commente le tableau, elle n'en fait
+   pas partie. */
 .index caption {
   text-align: left;
-  color: var(--ink-soft);
+  font-family: var(--main);
+  font-weight: 600;
+  font-size: 1.55rem;
+  line-height: 1.25;
+  color: var(--ink);
   max-width: var(--measure);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .index th {
-  font-weight: 500;
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
   padding-bottom: 0.8rem;
-  border-bottom: 2px solid var(--rule-hard);
+  border-bottom: 1px solid var(--rule);
 }
 
 /* Le type et l'année sont des colonnes de largeur connue : sans mesure, le
@@ -1205,9 +1325,14 @@ em {
    texte selon qu'elle porte une adresse, des magasins ou la mention de presse,
    et sans ce rembourrage elles se touchaient. */
 .index td {
-  padding: 1.15rem 1.25rem 1.15rem 0;
+  padding: 1.1rem 1.25rem;
   border-bottom: 1px solid var(--rule);
   vertical-align: baseline;
+}
+
+.index td:first-child,
+.index th:first-child {
+  padding-left: 0.9rem;
 }
 
 .index td:last-child,
@@ -1216,23 +1341,29 @@ em {
   text-align: right;
 }
 
-/* La ligne survolée ne se surligne plus, elle s'inverse : le noir de la scène
-   d'ouverture, repris ligne à ligne. L'aplat lime tenait sur une ligne d'une
-   ligne de haut ; sur une entrée qui en fait quatre, avec des liens de
-   magasin et six timbres de presse, il sautait à la figure et les timbres y
-   perdaient leurs réserves blanches. Le noir les laisse intacts, et les liens
-   de magasin y passent au lime, à pleine intensité comme il se doit. */
+/* La ligne survolée prend le papier de la page, sur la carte blanche : elle
+   ressort en creux, sans aplat de couleur et sans que les timbres de presse
+   perdent leurs réserves blanches. Les coins suivent ceux de la carte. */
 .index tr:hover td {
-  background: var(--ink);
-  color: var(--paper);
-  border-bottom-color: var(--ink);
+  background: var(--paper);
+  border-bottom-color: transparent;
+}
+
+.index tr:hover td:first-child {
+  border-radius: var(--rond-s) 0 0 var(--rond-s);
+}
+
+.index tr:hover td:last-child {
+  border-radius: 0 var(--rond-s) var(--rond-s) 0;
 }
 
 .index a,
 .index .name {
   font-family: var(--display);
-  font-size: 1.6rem;
-  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-size: 1.2rem;
+  line-height: 1.15;
 }
 
 .index .name {
@@ -1251,7 +1382,7 @@ em {
 }
 
 .index tr:hover .host {
-  color: var(--stage-soft);
+  color: var(--ink-soft);
 }
 
 /* La ligne des magasins porte les mêmes mesures que ses liens. Sans cela elle
@@ -1279,7 +1410,7 @@ em {
 }
 
 .index tr:hover .stores a {
-  color: var(--lime);
+  color: var(--ink);
 }
 
 /* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des six
@@ -1312,7 +1443,7 @@ em {
 }
 
 .index tr:hover .press-lead {
-  color: var(--stage-soft);
+  color: var(--ink-soft);
 }
 
 /* Chaque marque est posée dans un cadre blanc à filet franc, comme un timbre.
@@ -1322,19 +1453,20 @@ em {
   display: block;
   box-sizing: content-box;
   width: auto;
-  padding: 0.375rem 0.5rem;
-  background: var(--paper);
-  border: 2px solid var(--rule-hard);
-  box-shadow: 3px 3px 0 var(--rule-hard);
-  transition: transform 0.1s, box-shadow 0.1s;
+  padding: 0.375rem 0.55rem;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  box-shadow: var(--ombre-basse);
+  transition: transform 0.16s, box-shadow 0.16s;
 }
 
 /* Même geste que le bouton : l'ombre se rétracte et le timbre s'enfonce. En
    encre et non en lime, parce que la ligne survolée est déjà lime. */
 .index .press-source:hover .press-logo,
 .index .press-source:focus-visible .press-logo {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--rule-hard);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px -12px rgba(22, 22, 15, 0.65);
 }
 
 /* Les marques ne sont pas construites pareil : le Journal du Jura porte un
@@ -1379,7 +1511,7 @@ em {
 
 .index tr:hover .kind,
 .index tr:hover .when {
-  color: var(--stage-soft);
+  color: var(--ink-soft);
 }
 
 @media (max-width: 640px) {
@@ -1420,18 +1552,15 @@ em {
    Contact
    -------------------------------------------------------------------------- */
 
-/* Le bloc d'écriture est un aplat lime. C'est la dernière chose que lit le
-   visiteur avant le pied de page, et le lime tient là ce qu'il ne tient nulle
-   part ailleurs sur du papier : un aplat franc sous du texte noir, comme le
-   bandeau de titre des encadrés, mais de la taille d'un bloc.
-
-   Le texte y passe en encre pleine et non en encre atténuée : du gris sur du
-   lime ne se lit pas. */
+/* La dernière carte de la page, un cran plus grande que les autres, et la
+   seule en aplat lime : le lime tient là ce qu'il ne tient nulle part ailleurs
+   sur du papier, un aplat franc sous du texte à l'encre. */
 .contact-body {
   background: var(--lime);
-  border: 2px solid var(--rule-hard);
-  box-shadow: 8px 8px 0 var(--rule-hard);
-  padding: clamp(1.6rem, 4vw, 2.75rem);
+  border: 0;
+  border-radius: var(--rond-l);
+  box-shadow: var(--ombre);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
 }
 
 .contact-body p {
@@ -1462,36 +1591,35 @@ em {
   }
 }
 
-/* Sur le lime, le bouton reprend l'inversion de la scène : bloc d'encre,
-   ombre portée dans l'autre barre du logo. */
 .contact-body .button {
   color: var(--lime);
-  box-shadow: 5px 5px 0 var(--bleu);
 }
 
-.contact-body .button:hover {
-  box-shadow: 2px 2px 0 var(--bleu);
-}
-
-/* Bloc plein avec une ombre portée nette en lime : elle se rétracte au
-   survol, donc le bouton s'enfonce au lieu de s'allumer. */
+/* Pilule d'encre. Le libellé est en capitales interlettrées et petit : c'est
+   ce qui distingue une action d'un titre, sans avoir à la souligner ni à lui
+   coller une flèche. Au survol elle se soulève de deux pixels, elle ne
+   s'allume pas. */
 .button {
   display: inline-block;
   margin-top: 1.75rem;
-  padding: 0.8rem 1.6rem 0.85rem;
+  padding: 0.95rem 1.7rem;
   background: var(--ink);
   color: var(--sheet);
-  border: 2px solid var(--rule-hard);
-  box-shadow: 5px 5px 0 var(--lime);
+  border: 0;
+  border-radius: 999px;
   font-family: var(--display);
-  font-size: 1.45rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   line-height: 1;
-  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: var(--ombre-basse);
+  transition: transform 0.16s, box-shadow 0.16s;
 }
 
 .button:hover {
-  transform: translate(3px, 3px);
-  box-shadow: 2px 2px 0 var(--lime);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px -14px rgba(22, 22, 15, 0.65);
 }
 
 .whereabouts {
@@ -1510,12 +1638,22 @@ em {
    intensité sans devenir illisible.
    -------------------------------------------------------------------------- */
 
+/* Le pied de page est la dernière carte : même rayon que les autres, mais en
+   encre, et détaché des bords de la fenêtre. C'est le seul bloc noir du site,
+   et donc le seul endroit où le lime tient à pleine intensité. */
 .site-footer {
-  margin-top: 2rem;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  margin: 2rem 1.25rem;
+  padding-top: 2.75rem;
+  padding-bottom: 2.5rem;
+  border-radius: var(--rond-l);
   background: var(--ink);
-  color: #b8b8b8;
+  color: var(--sur-encre);
+}
+
+@media (min-width: 800px) {
+  .site-footer {
+    margin: 2.5rem 2rem;
+  }
 }
 
 .colophon {
@@ -1534,7 +1672,9 @@ em {
    est l'endroit où le lime tient à pleine intensité. */
 .colophon .motto {
   font-family: var(--display);
-  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
   line-height: 1.05;
   color: var(--lime);
 }
@@ -1545,12 +1685,13 @@ em {
   gap: 0.25rem 0.5rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--filet-encre);
   font-size: 0.9rem;
 }
 
 .footer-nav a {
-  padding: 0.25rem 0.5rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
   border: 1px solid transparent;
 }
 
@@ -1660,11 +1801,14 @@ em {
 .chapter-when {
   display: inline-block;
   font-family: var(--display);
-  font-size: 1.25rem;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   line-height: 1.2;
-  padding: 0.15rem 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
   background: var(--lime);
-  border: 1px solid var(--rule-hard);
   color: var(--ink);
 }
 
@@ -1701,10 +1845,12 @@ em {
    dans les cinq langues pour un seul mot. */
 .kodawari {
   max-width: var(--measure);
-  margin-top: 1.5rem;
-  border: 2px solid var(--rule-hard);
-  background: var(--paper);
-  padding: 1.25rem;
+  margin-top: 1.75rem;
+  border: 0;
+  border-radius: var(--rond);
+  background: var(--sheet);
+  box-shadow: var(--ombre);
+  padding: 1.5rem;
 }
 
 .kodawari-word {
@@ -1713,10 +1859,8 @@ em {
   align-items: baseline;
   gap: 0.1rem 0.75rem;
   max-width: none;
-  margin: -1.25rem -1.25rem 1rem;
-  padding: 0.45rem 1.25rem 0.55rem;
-  background: var(--lime);
-  border-bottom: 2px solid var(--rule-hard);
+  margin: 0 0 0.9rem;
+  padding: 0;
   font-size: clamp(1.9rem, 6vw, 2.6rem);
   line-height: 1.25;
   color: var(--ink);
@@ -1779,16 +1923,20 @@ em {
 /* Le geste de la navigation : aplat lime et bordure noire au survol. */
 .story-back {
   font-family: var(--display);
-  font-size: 1.2rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   line-height: 1;
-  padding: 0.4rem 0.6rem 0.45rem;
+  padding: 0.95rem 1.2rem;
+  border-radius: 999px;
   border: 1px solid var(--rule);
-  transition: background 0.12s, border-color 0.12s;
+  transition: background 0.14s, border-color 0.14s;
 }
 
 .story-back:hover {
   background: var(--lime);
-  border-color: var(--rule-hard);
+  border-color: transparent;
 }
 
 /* --------------------------------------------------------------------------
@@ -1839,10 +1987,13 @@ em {
    légales. Il dit laquelle fait foi, ce qu'une traduction d'un texte
    contractuel doit dire. Bordure franche, comme l'encadré « Bon à savoir ». */
 .updated + .legal-note {
-  margin-top: -1.25rem;
+  margin-top: -1rem;
   margin-bottom: 2.25rem;
-  padding: 0.7rem 0.9rem;
-  border: 2px solid var(--rule-hard);
+  padding: 1rem 1.2rem;
+  border: 0;
+  border-radius: var(--rond-s);
+  background: var(--sheet);
+  box-shadow: var(--ombre-basse);
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--ink-soft);
@@ -1896,10 +2047,12 @@ em {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.72em;
-  width: 6px;
-  height: 6px;
-  background: var(--bleu);
+  top: 0.5em;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--bleu);
+  -webkit-mask: var(--etoile) center / contain no-repeat;
+  mask: var(--etoile) center / contain no-repeat;
 }
 
 .legal-section li + li {
@@ -1939,7 +2092,8 @@ em {
 
 .legal-nav a,
 .legal-nav .is-current {
-  padding: 0.25rem 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
   border: 1px solid transparent;
 }
 
