@@ -768,9 +768,16 @@ em {
   color: var(--ink);
 }
 
+/* La ligne des magasins porte les mêmes mesures que ses liens. Sans cela elle
+   garderait la police du tableau, 17 px sur 1,65, et réserverait une ligne de
+   28 px à des liens qui n'en font que 15 : le demi-interligne du montant
+   creusait sous le nom un vide de 12,6 px, là où les lignes à adresse en
+   posent 7,8. */
 .index .stores {
   display: block;
   margin-top: 0.35rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
 .index .stores a {

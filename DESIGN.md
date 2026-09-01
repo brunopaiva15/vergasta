@@ -190,6 +190,20 @@ faut alors reprendre les `nth-child` de la grille.
 des cartes. Ligne surlignée en lime au survol. Sous 640 px, les en-têtes
 disparaissent et chaque ligne devient un bloc.
 
+Le décompte annoncé par la légende se compte langue par langue, car les
+tableaux ne portent pas les mêmes lignes : Bruit CH n'étant pas publiée en
+italien, la version italienne en reste à huit projets quand les quatre autres
+passent à neuf, et le tableau japonais ne liste que Yamanote 3D.
+
+**Ligne des magasins `.stores`.** Deuxième ligne de la cellule, sous le nom,
+là où les projets à adresse posent leur `.host`. Elle reprend les mesures de
+ses liens, 0,85 rem sur 1,4, au lieu d'hériter celles du tableau. Sans cela le
+bloc garderait un montant de 17 px sur 1,65 et réserverait une ligne de 28 px à
+des liens qui n'en font que 15 : le demi-interligne creusait sous le nom un
+vide de 12,6 px, contre 7,8 px sur les lignes à adresse, dont le bloc porte
+déjà sa propre taille. Deux deuxièmes lignes du même tableau ne peuvent pas
+tomber à des hauteurs différentes.
+
 **Mention de presse `.press`.** Troisième ligne de la cellule d'un projet, sous
 les liens de magasin. Elle se lit d'un trait, « Apparu sur » suivi des six
 marques, qui tiennent la place des noms : c'est le logo du journal qui fait la
