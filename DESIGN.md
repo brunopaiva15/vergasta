@@ -807,7 +807,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=8`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=9`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -819,7 +819,7 @@ traverse pas le CDN. Le cas s'est produit, et il s'est lu comme une
 fonctionnalité qui ne marchait pas.
 
 Un cache se contourne par l'adresse. La requête porte la chaîne de requête,
-donc `brushes.js?v=9` est une autre entrée de cache que `brushes.js?v=8` et
+donc `brushes.js?v=10` est une autre entrée de cache que `brushes.js?v=9` et
 part chercher le fichier à la source.
 
 **Changer un de ces cinq fichiers veut donc dire deux gestes, pas un** : le
