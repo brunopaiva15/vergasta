@@ -120,27 +120,52 @@
 }
 
 :root {
-  --paper: #ffffff;
+  /* Le papier n'est plus le blanc de l'écran. Une teinte chaude très pâle, sur
+     laquelle les feuilles blanches (encadrés, timbres de presse, bloc de
+     contact) se détachent au lieu de s'y fondre. Les encres, elles, ne bougent
+     pas : ce sont toujours les deux barres du logo. */
+  --paper: #f6f6f1;
+  --sheet: #ffffff;
   --ink: #0a0a0a;
   --ink-soft: #545454;
-  --rule: #d7d7d7;
+  --rule: #dddbd2;
   --rule-hard: #0a0a0a;
   /* les deux barres de la croix du logo */
   --lime: #d4ff00;
+  /* Le même lime, posé à plat. Il tient sous du texte courant, ce que l'aplat
+     plein ne fait que sur une ligne ou deux : voir la ligne survolée du
+     tableau des réalisations. */
+  --lime-pale: rgba(212, 255, 0, 0.42);
   --bleu: #4f46e6;
-  --grille: rgba(10, 10, 10, 0.14);
+  /* Les quatre encres saturées des brosses, reprises telles quelles de
+     `brushes.js`. Elles ne servaient qu'au canevas ; elles servent maintenant
+     aussi à l'interface, pour que le carré posé devant un titre soit de la
+     même couleur que la peinture d'à côté et non d'une gamme parallèle. */
+  --magenta: hsl(330, 100%, 59%);
+  --cyan: hsl(193, 100%, 42%);
+  --olive: hsl(75, 100%, 33%);
+  --orange: hsl(25, 100%, 47%);
+  /* Sur la scène noire : le texte courant et les filets. */
+  --stage-soft: #a8a8a2;
+  --stage-rule: #333333;
+  --grille: rgba(10, 10, 10, 0.09);
   --pas: 8px;
   /* hauteur de la barre de chargement : un pas de grille moins un filet */
   --barre: 7px;
   --display: "Jersey 25", "Courier New", monospace;
   --texte: "Archivo", system-ui, sans-serif;
-  --measure: 34rem;
+  --measure: 36rem;
   --gutter: 1.5rem;
+  /* La respiration d'une section, haut et bas. Une seule mesure pour tout le
+     site : si la page doit s'ouvrir davantage, c'est ici que ça se règle, et
+     nulle part ailleurs. */
+  --air: 3.75rem;
 }
 
 @media (min-width: 800px) {
   :root {
-    --gutter: 3.5rem;
+    --gutter: 4rem;
+    --air: 6.5rem;
   }
 }
 
@@ -185,17 +210,30 @@ body {
   font-family: var(--texte);
   font-size: 17px;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.75;
   color: var(--ink);
   background-color: var(--paper);
-  /* La grille : un point d'un pixel tous les huit. Assez présente pour se
-     lire comme du papier millimétré, assez discrète pour passer sous du
-     texte courant. */
+  /* La grille : un point d'un pixel tous les huit. Elle est passée de 14 % à
+     9 % d'encre : sur le papier chaud, à cette densité, elle se lit comme un
+     grain et non plus comme du papier millimétré. Le pas ne bouge pas, il est
+     repris par la barre de chargement. */
   background-image: radial-gradient(circle at 1px 1px, var(--grille) 1px, transparent 0);
   background-size: var(--pas) var(--pas);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-wrap: pretty;
+  /* La marque d'ouverture entre par le haut à droite, donc hors cadre, et à
+     trois fois sa taille. Sans cette coupe, la page se laisse pousser sur le
+     côté pendant les deux secondes de son entrée : le débordement d'une
+     transformation compte dans la largeur du document.
+
+     La coupe est posée sur le corps de page et pas sur la racine. Posée sur la
+     racine, elle ne change rien : c'est vérifié, le document garde sa largeur
+     débordée et se laisse encore tirer à droite. `clip` plutôt que `hidden`,
+     qui laisserait un script faire défiler la page de côté ; `hidden` reste
+     écrit avant, pour les navigateurs qui ne connaissent pas `clip`. */
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -273,7 +311,7 @@ em {
 
 .wrap {
   width: 100%;
-  max-width: 68rem;
+  max-width: 74rem;
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
@@ -297,6 +335,169 @@ em {
 .mark {
   pointer-events: none;
   user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   L'entrée en scène
+
+   La marque ne se contente plus d'apparaître : elle se déroule. Elle arrive
+   floue, couchée en arrière et de biais, et se pose à plat pendant que la
+   brosse la peint. Les deux mouvements durent à peu près le même temps, donc
+   le dessin se termine au moment où la marque touche le plan de la page.
+
+   Le dépliage est en trois dimensions et la couleur y monte d'un cran avant de
+   revenir : c'est un geste de 2001, et il va avec des tampons carrés et une
+   police bitmap. Ce que le CSS fait ici, le canevas ne saurait pas le faire
+   sans repeindre chaque tampon en perspective à chaque image.
+
+   La classe est posée par `brushes.js` au moment exact où le tracé commence,
+   pas au chargement : une marque qui entre dans le champ à mi-page se déroule
+   quand on y arrive. Le script ne la pose ni en mouvement réduit, ni sur le
+   fil de la page d'histoire, qui se déroule déjà au défilement. Sans
+   JavaScript, aucune marque n'est peinte et il n'y a donc rien à animer. */
+@keyframes pose-marque {
+  from {
+    opacity: 0;
+    transform: perspective(900px) translateZ(-240px) rotateX(48deg) rotateY(-32deg) rotate(-12deg);
+    filter: blur(13px) saturate(1.7);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  70% {
+    transform: perspective(900px) translateZ(0) rotateX(-7deg) rotateY(6deg) rotate(2deg);
+    filter: blur(2.5px) saturate(1.25);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(900px) translateZ(0) rotateX(0) rotateY(0) rotate(0);
+    filter: blur(0) saturate(1);
+  }
+}
+
+.mark--pose {
+  animation: pose-marque 1.6s cubic-bezier(0.2, 0.86, 0.28, 1) both;
+}
+
+/* L'ouverture de l'accueil ne se contente pas de se déplier sur place. Elle
+   entre par le haut à droite, hors cadre et trois fois trop grande, floue, et
+   elle revient à sa place en s'enroulant sur elle-même : la spirale tourne
+   d'un demi-tour pendant qu'elle rapetisse, donc elle se rembobine au lieu de
+   simplement rétrécir. Le tracé, lui, se peint pendant ce temps-là.
+
+   Elle est nette à la fin et floue au début, ce qui est aussi ce qui sauve le
+   dessin : à trois fois sa taille, un canevas peint pour sa taille normale
+   serait grossi d'autant, et c'est le flou qui le couvre.
+
+   Le geste vaut à toutes les tailles. Les distances sont en fractions de la
+   fenêtre, donc l'entrée est la même sur un téléphone, où la marque emplit
+   l'écran au départ ; et une transformation ne déplace rien dans la page, le
+   corps de page étant coupé à droite. */
+.mark-opening.mark--pose {
+  animation-duration: 2.2s;
+}
+
+@keyframes pose-ouverture {
+  from {
+    opacity: 0;
+    transform: translate(8vw, -30vh) scale(3.2) rotate(-172deg) perspective(1100px)
+      rotateX(34deg) rotateY(-26deg);
+    filter: blur(20px) saturate(1.75);
+  }
+
+  16% {
+    opacity: 1;
+  }
+
+  62% {
+    transform: translate(2.5vw, -8vh) scale(1.6) rotate(-46deg) perspective(1100px)
+      rotateX(11deg) rotateY(-8deg);
+    filter: blur(6px) saturate(1.3);
+  }
+
+  88% {
+    transform: translate(0, 0) scale(1.04) rotate(4deg) perspective(1100px)
+      rotateX(-2deg) rotateY(2deg);
+    filter: blur(0.6px) saturate(1.05);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0) perspective(1100px) rotateX(0)
+      rotateY(0);
+    filter: blur(0) saturate(1);
+  }
+}
+
+.opening--accueil .mark-opening.mark--pose {
+  animation-name: pose-ouverture;
+  animation-duration: 2.6s;
+  animation-timing-function: cubic-bezier(0.2, 0.78, 0.16, 1);
+}
+
+/* Le titre, l'accroche et les sorties montent derrière la marque, avec un
+   reste de flou. L'animation part de l'état voulu (`backwards`) : un
+   navigateur qui ne l'exécute pas affiche la page telle quelle. */
+@keyframes arrivee {
+  from {
+    opacity: 0;
+    transform: translateY(0.9rem);
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.opening h1,
+.opening-body,
+.opening-actions {
+  animation: arrivee 0.9s cubic-bezier(0.2, 0.86, 0.28, 1) backwards;
+}
+
+.opening h1 {
+  animation-delay: 0.1s;
+}
+
+.opening-body {
+  animation-delay: 0.28s;
+}
+
+.opening-actions {
+  animation-delay: 0.42s;
+}
+
+/* La page d'atelier tire une carte de visite : une marque saisie en plein
+   dépliage sortirait floue et de travers dans le PDF. Elle n'entre pas en
+   scène, elle est là. Même raison à l'impression de n'importe quelle page. */
+.atelier .mark--pose {
+  animation: none;
+}
+
+@media print {
+  .mark--pose,
+  .ribbon-track,
+  .opening h1,
+  .opening-body,
+  .opening-actions {
+    animation: none;
+  }
+}
+
+/* Un dépliage en perspective est exactement ce dont ce réglage ne veut pas. */
+@media (prefers-reduced-motion: reduce) {
+  .mark--pose,
+  .opening h1,
+  .opening-body,
+  .opening-actions {
+    animation: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -343,10 +544,39 @@ em {
    En-tête
    -------------------------------------------------------------------------- */
 
+/* Sur l'accueil, l'en-tête fait partie de la scène : il est noir, sans filet,
+   et il se confond avec le bloc d'ouverture qui le suit. Les autres pages
+   gardent l'en-tête clair. */
+.page-accueil .site-header {
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom: 0;
+}
+
+.page-accueil .site-nav .is-current {
+  border-color: var(--stage-rule);
+  color: var(--stage-soft);
+}
+
+.page-accueil .site-nav a:hover,
+.page-accueil .lang-nav a:hover,
+.page-accueil .lang-nav .is-current {
+  background: var(--lime);
+  color: var(--ink);
+  border-color: var(--lime);
+}
+
+@media (min-width: 800px) {
+  .page-accueil .lang-nav {
+    border-left-color: var(--stage-rule);
+  }
+}
+
 .site-header {
   background: var(--paper);
-  /* filet double, comme une règle de tableur */
-  border-bottom: 3px double var(--rule-hard);
+  /* Un filet simple et clair, à la place du filet double : l'en-tête pose la
+     marque et se tait. C'est l'espace sous lui qui ouvre la page. */
+  border-bottom: 1px solid var(--rule);
 }
 
 .masthead {
@@ -354,11 +584,10 @@ em {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.5rem 2rem;
-  padding-top: 1.1rem;
-  padding-bottom: 1.1rem;
+  gap: 0.75rem 2.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.45rem;
 }
-
 .brand {
   display: flex;
   align-items: center;
@@ -386,12 +615,12 @@ em {
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.5rem;
-  font-size: 0.9rem;
+  gap: 0.25rem 0.75rem;
+  font-size: 0.95rem;
 }
 
 .site-nav a {
-  padding: 0.25rem 0.5rem;
+  padding: 0.3rem 0.55rem;
   border: 1px solid transparent;
   transition: background 0.12s, border-color 0.12s;
 }
@@ -402,7 +631,7 @@ em {
 }
 
 .site-nav .is-current {
-  padding: 0.25rem 0.5rem;
+  padding: 0.3rem 0.55rem;
   border: 1px solid var(--rule);
   color: var(--ink-soft);
 }
@@ -455,37 +684,198 @@ em {
    -------------------------------------------------------------------------- */
 
 .opening {
-  position: relative;
-  padding-top: 3.5rem;
-  padding-bottom: 4rem;
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(3.5rem, 8vw, 7rem);
 }
 
-@media (min-width: 800px) {
-  .opening {
-    padding-top: 5.5rem;
-    padding-bottom: 6rem;
+/* --------------------------------------------------------------------------
+   La scène d'ouverture
+
+   L'accueil s'ouvre sur du noir. Ce n'est pas un goût pour le sombre : le §1
+   dit que le lime du logo ne tient à pleine intensité que sur du noir, et il
+   n'y avait dans tout le site qu'un pied de page pour le porter. La scène rend
+   à la couleur la place qu'elle n'avait pas, et les brosses saturées y sortent
+   enfin comme elles sortent sur l'écran où elles ont été réglées.
+
+   Le noir tient toute la largeur de la fenêtre alors que le bloc est une
+   colonne de 74 rem : il est peint par un pseudo-élément débordant, plutôt que
+   par un conteneur de plus dans le HTML. Il rejoint l'en-tête, noir lui aussi
+   sur l'accueil, et s'arrête net sur le bandeau lime.
+   -------------------------------------------------------------------------- */
+
+.opening--accueil {
+  position: relative;
+  color: var(--paper);
+  padding-bottom: clamp(4rem, 9vw, 7.5rem);
+}
+
+.opening--accueil::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background-color: var(--ink);
+  /* la grille du papier, en négatif */
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.11) 1px, transparent 0);
+  background-size: var(--pas) var(--pas);
+}
+
+.opening--accueil .opening-body {
+  color: var(--stage-soft);
+}
+
+/* Sur du noir, le bouton s'inverse : l'aplat passe en lime, à pleine
+   intensité, et l'ombre portée prend l'autre barre du logo. Les deux couleurs
+   de la croix, l'une sur l'autre, à l'endroit du site où c'est possible. */
+.opening--accueil .button {
+  background: var(--lime);
+  color: var(--ink);
+  border-color: var(--lime);
+  box-shadow: 5px 5px 0 var(--bleu);
+}
+
+.opening--accueil .button:hover {
+  box-shadow: 2px 2px 0 var(--bleu);
+}
+
+.opening--accueil .opening-jump:hover {
+  background: var(--lime);
+  color: var(--ink);
+  border-color: var(--lime);
+}
+
+/* --------------------------------------------------------------------------
+   Le bandeau défilant
+
+   Une bande lime posée en travers, sous la scène, où la devise passe en
+   boucle. C'est le seul mouvement continu du site, et il est lent : quarante
+   secondes pour un tour. Il ferme le noir et ouvre le papier.
+
+   La devise est déjà portée par le pied de page : le bandeau est donc
+   `aria-hidden`, et six fois le même mot ne va pas à la lecture d'écran.
+   -------------------------------------------------------------------------- */
+
+.ribbon {
+  overflow: hidden;
+  background: var(--lime);
+  border-bottom: 2px solid var(--ink);
+}
+
+.ribbon-track {
+  display: flex;
+  width: max-content;
+  /* Six copies identiques : la piste revient sur elle-même à la moitié, donc
+     la boucle ne se voit pas. */
+  animation: ruban 44s linear infinite;
+}
+
+.ribbon span {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: var(--display);
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0.8rem 0;
+}
+
+.ribbon span::after {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 1.75rem;
+  background: var(--ink);
+}
+
+@keyframes ruban {
+  to {
+    transform: translateX(-50%);
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-track {
+    animation: none;
+  }
+}
+
+/* L'accueil s'ouvre sur un écran, pas sur un paragraphe. Le bloc réserve une
+   hauteur, la marque passe à droite sur toute cette hauteur, et le reste de la
+   page commence sous la ligne de flottaison : c'est l'entrée qui se déroule
+   qu'on regarde d'abord, le tableau des réalisations attendra.
+
+   Les trois éléments de texte sont épinglés en colonne 1. Sans cela, le
+   placement automatique poserait les sorties dans la case libre de la colonne
+   2, sous la marque. */
+@media (min-width: 1000px) {
+  .opening {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(11rem, 17vw, 15rem);
+    column-gap: 3.5rem;
+  }
+
+  .opening h1,
+  .opening-body,
+  .opening-actions {
+    grid-column: 1;
+  }
+
+  .opening .mark-opening {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    justify-self: end;
+    width: 100%;
+    height: clamp(11rem, 17vw, 15rem);
+    margin: 0;
+  }
+
+  .opening--accueil h1 {
+    font-size: clamp(3rem, 5.8vw, 5.1rem);
+  }
+
+  .opening--accueil {
+    grid-template-columns: minmax(0, 1fr) clamp(16rem, 30vw, 27rem);
+    align-content: center;
+    column-gap: 4.5rem;
+    min-height: min(78vh, 42rem);
+  }
+
+  .opening--accueil .mark-opening {
+    grid-row: 1 / span 3;
+    height: clamp(16rem, 30vw, 27rem);
+    /* La marque sort de la gouttière : sur la scène, le bord de la colonne ne
+       veut plus rien dire, et une spirale qui frôle le bord de la fenêtre se
+       lit comme une image posée là plutôt que comme une vignette rangée. */
+    margin-right: calc(var(--gutter) / -2);
+  }
+}
+
+/* Le titre n'est plus en capitales. Jersey 25 dessine ses bas de casse avec
+   les mêmes marches d'escalier, la phrase garde donc son registre, mais elle
+   se lit d'un trait au lieu de se crier. */
 .opening h1 {
-  font-size: clamp(2.9rem, 7.6vw, 6rem);
-  max-width: 17ch;
-  text-transform: uppercase;
+  font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+  color: inherit;
+  line-height: 1.1;
+  max-width: 19ch;
   text-wrap: balance;
 }
 
-/* Un seul paragraphe d'accroche depuis le retrait du second : colonne unique,
-   un cran plus large et un cran plus gros que le texte courant, pour qu'il
-   tienne le poids du titre au lieu de flotter dans une demi-colonne. */
 .opening-body {
-  margin-top: 2.25rem;
-  max-width: 38rem;
+  margin-top: 2rem;
+  max-width: var(--measure);
+  color: var(--ink-soft);
 }
 
 @media (min-width: 800px) {
   .opening-body {
-    margin-top: 3rem;
-    font-size: 1.15rem;
+    margin-top: 2.5rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -493,76 +883,90 @@ em {
   margin-top: 1.1rem;
 }
 
+/* Les deux sorties de l'ouverture. Même paire que le bas de la page
+   d'histoire, et même hiérarchie : un bloc plein pour le formulaire, un lien
+   plat pour le renvoi, qui prend l'aplat lime de la navigation au survol.
+   Elles étaient toutes deux en bas de page ; le visiteur qui sait déjà ce
+   qu'il veut n'a plus à traverser l'accueil pour les trouver. */
+.opening-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.opening-actions .button {
+  margin-top: 0;
+}
+
+.opening-jump {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid transparent;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.opening-jump:hover {
+  background: var(--lime);
+  border-color: var(--rule-hard);
+}
+
 .mark-opening {
-  width: 8rem;
-  height: 8rem;
-  margin-bottom: 1.5rem;
+  width: 9rem;
+  height: 9rem;
+  margin-bottom: 1.75rem;
   margin-left: -0.4rem;
 }
 
-@media (min-width: 1000px) {
-  .mark-opening {
-    position: absolute;
-    top: 4.25rem;
-    right: var(--gutter);
-    width: clamp(11rem, 17vw, 16rem);
-    height: clamp(11rem, 17vw, 16rem);
-    margin: 0;
-  }
-}
-
 /* --------------------------------------------------------------------------
-   Blocs : titre dans la marge, contenu à droite
+   Blocs : titre en tête, contenu sur toute la largeur
+
+   Le titre de section vivait dans une marge de 13 rem, collé au défilement,
+   comme une note portée dans la marge d'un manuscrit. Il tenait la lecture,
+   mais il coûtait un quart de la largeur à chaque section, et c'est ce quart
+   qui manquait au tableau des réalisations comme aux quatre métiers.
+
+   Il est maintenant posé en tête de section, la marque à sa gauche, et le
+   contenu prend toute la colonne. Plus rien n'est collé au défilement : le
+   site n'a plus aucun `position: sticky`.
    -------------------------------------------------------------------------- */
 
 .slab {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  border-top: 3px double var(--rule-hard);
+  padding-top: var(--air);
+  padding-bottom: var(--air);
+  /* Filet simple et clair. Le filet double marquait la coupure ; à cette
+     hauteur de blanc, il n'y a plus rien à couper. */
+  border-top: 1px solid var(--rule);
 }
 
-@media (min-width: 800px) {
-  .slab {
-    display: grid;
-    grid-template-columns: 13rem minmax(0, 1fr);
-    gap: 3.5rem;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
+.slab-head {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: clamp(2rem, 4vw, 3.25rem);
 }
 
 .slab-head h2,
 .slab > h2 {
-  font-size: 1.9rem;
-  margin-bottom: 1.5rem;
-}
-
-@media (min-width: 800px) {
-  .slab-head h2,
-  .slab > h2 {
-    font-size: 1.75rem;
-    margin-bottom: 0;
-  }
-
-  .slab-head {
-    position: sticky;
-    top: 2rem;
-    align-self: start;
-  }
+  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  line-height: 1.05;
+  margin: 0;
 }
 
 .slab-mark {
-  width: 5.5rem;
-  height: 5.5rem;
-  margin-bottom: 0.6rem;
-  margin-left: -0.35rem;
+  flex: none;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0 0 0 -0.35rem;
 }
 
 @media (min-width: 800px) {
   .slab-mark {
-    width: 7.5rem;
-    height: 7.5rem;
-    margin-bottom: 0.85rem;
+    width: 6.5rem;
+    height: 6.5rem;
   }
 }
 
@@ -579,21 +983,68 @@ em {
    Ce que nous faisons
    -------------------------------------------------------------------------- */
 
-/* Quatre entrées lues comme des colonnes de journal : filets francs, pas de
-   cartes. Sous 1080 px elles s'empilent et le filet passe à l'horizontale. */
+/* Quatre métiers, quatre fiches. Les filets qui les croisaient en double page
+   ont sauté, et le texte est monté sur une feuille blanche à bordure franche
+   et ombre portée : le même objet que l'encadré des conditions et que les
+   timbres de la presse, à une troisième échelle.
+
+   Ce sont des fiches et non des cartes de service : pas de numérotation, pas
+   d'icône, pas de bouton en pied, et surtout pas quatre fois le même contenu
+   sous quatre titres différents. Le carré posé devant chaque titre prend une
+   des quatre encres saturées des brosses, dans l'ordre où elles descendent la
+   page. */
 .trades {
   display: grid;
+  gap: 2.75rem;
+}
+
+@media (min-width: 1000px) {
+  .trades {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3.5rem 4.5rem;
+  }
 }
 
 .trades dt {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
   font-family: var(--display);
-  font-size: 1.7rem;
-  line-height: 1;
+  font-size: 1.6rem;
+  line-height: 1.05;
+}
+
+.trade {
+  background: var(--sheet);
+  border: 2px solid var(--rule-hard);
+  box-shadow: 6px 6px 0 var(--rule-hard);
+  padding: 1.6rem 1.6rem 1.8rem;
+}
+
+.trades dt::before {
+  content: "";
+  flex: none;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: var(--magenta);
+  border: 1px solid var(--rule-hard);
+}
+
+.trade:nth-child(2) dt::before {
+  background: var(--cyan);
+}
+
+.trade:nth-child(3) dt::before {
+  background: var(--olive);
+}
+
+.trade:nth-child(4) dt::before {
+  background: var(--orange);
 }
 
 .trades dd {
   max-width: var(--measure);
-  margin-top: 0.6rem;
+  margin-top: 0.85rem;
   color: var(--ink-soft);
 }
 
@@ -603,65 +1054,29 @@ em {
   color: var(--ink);
 }
 
-.trade + .trade {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 2px solid var(--rule-hard);
-}
-
-@media (min-width: 1080px) {
-  .trades {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .trade + .trade {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: 0;
-  }
-
-  /* Les filets se croisent au centre du bloc, comme une double page.
-     Les gouttières sont des paddings pour que les filets se rejoignent. */
-  .trade:nth-child(2n + 1) {
-    padding-right: 2.5rem;
-  }
-
-  .trade:nth-child(2n) {
-    padding-left: 2.5rem;
-    border-left: 2px solid var(--rule-hard);
-  }
-
-  .trade:nth-child(-n + 2) {
-    padding-bottom: 2.25rem;
-    border-bottom: 2px solid var(--rule-hard);
-  }
-
-  .trade:nth-child(n + 3) {
-    padding-top: 2.25rem;
-  }
-}
-
 /* --------------------------------------------------------------------------
    Déroulé d'un projet
    -------------------------------------------------------------------------- */
 
+/* Les trois moments du projet étaient trois paragraphes empilés dans une
+   colonne, l'encadré des conditions posé à côté. Ils sont maintenant trois
+   colonnes lues de gauche à droite, et l'encadré passe dessous sur toute la
+   largeur : le déroulé se lit dans l'ordre où il se passe, et les conditions
+   ferment la section au lieu de courir en marge.
+
+   Pas de numéros et pas de cartes : trois colonnes de texte, séparées par du
+   blanc, chacune ouverte par un carré lime. */
 .run-through {
   display: grid;
-  gap: 2.5rem;
-}
-
-@media (min-width: 1080px) {
-  .run-through {
-    grid-template-columns: minmax(0, 1fr) 17rem;
-    gap: 3rem;
-  }
+  gap: 3rem;
 }
 
 .run-through p + p {
-  margin-top: 1rem;
+  margin-top: 1.35rem;
 }
 
 .run-through > div > p {
+  max-width: var(--measure);
   color: var(--ink-soft);
 }
 
@@ -669,37 +1084,80 @@ em {
   color: var(--ink);
 }
 
-/* Encadré à bordure franche et bandeau lime, comme une fenêtre d'époque. */
+@media (min-width: 900px) {
+  .run-through > div {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.75rem;
+  }
+
+  .run-through p + p {
+    margin-top: 0;
+  }
+
+  .run-through > div > p {
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .run-through > div > p::before {
+    content: "";
+    display: block;
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-bottom: 1rem;
+    background: var(--lime);
+    border: 1px solid var(--rule-hard);
+  }
+
+  .run-through .lead-in {
+    font-size: 1rem;
+  }
+}
+
+/* Encadré à bordure franche et bandeau lime, comme une fenêtre d'époque. Il
+   est posé sur une feuille blanche, qui se détache maintenant du papier, et il
+   porte l'ombre nette des timbres de presse : c'est ce qui le pose sur la page
+   au lieu de l'y encastrer. L'ombre est en encre et non en lime, qui reste à
+   l'action, c'est-à-dire au bouton et à lui seul. */
 .aside {
   align-self: start;
   border: 2px solid var(--rule-hard);
-  background: var(--paper);
-  padding: 1.25rem;
+  background: var(--ink);
+  color: var(--stage-soft);
+  padding: 1.5rem;
+  box-shadow: 6px 6px 0 var(--lime);
 }
 
 .aside h3 {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   background: var(--lime);
+  color: var(--ink);
   border-bottom: 2px solid var(--rule-hard);
-  margin: -1.25rem -1.25rem 1rem;
-  padding: 0.45rem 1.25rem 0.5rem;
+  margin: -1.5rem -1.5rem 1.15rem;
+  padding: 0.5rem 1.5rem 0.55rem;
+}
+
+/* Cinq conditions sur toute la largeur : elles se rangent en colonnes plutôt
+   que de tirer une liste de cinq lignes en travers de la page. Le filet est
+   posé au-dessus de chaque entrée, la première comprise, sans quoi la première
+   colonne serait la seule à commencer sans trait. */
+.aside ul {
+  display: grid;
+  gap: 0 2.5rem;
+}
+
+@media (min-width: 700px) {
+  .aside ul {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
 }
 
 .aside li {
   font-size: 0.95rem;
-  line-height: 1.55;
-  color: var(--ink-soft);
-  padding: 0.6rem 0;
-  border-top: 1px solid var(--rule);
-}
-
-.aside li:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.aside li:last-child {
-  padding-bottom: 0;
+  line-height: 1.6;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--stage-rule);
 }
 
 /* --------------------------------------------------------------------------
@@ -716,18 +1174,34 @@ em {
   text-align: left;
   color: var(--ink-soft);
   max-width: var(--measure);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .index th {
   font-weight: 500;
   font-size: 0.85rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.8rem;
   border-bottom: 2px solid var(--rule-hard);
 }
 
+/* Le type et l'année sont des colonnes de largeur connue : sans mesure, le
+   navigateur les serrait au profit des noms et coupait « Application iOS et
+   Android » en trois lignes. */
+@media (min-width: 641px) {
+  .index th:nth-child(2) {
+    width: 13rem;
+  }
+
+  .index th:nth-child(3) {
+    width: 5rem;
+  }
+}
+
+/* Les lignes respirent : une entrée du tableau tient deux à quatre lignes de
+   texte selon qu'elle porte une adresse, des magasins ou la mention de presse,
+   et sans ce rembourrage elles se touchaient. */
 .index td {
-  padding: 0.8rem 1rem 0.8rem 0;
+  padding: 1.15rem 1.25rem 1.15rem 0;
   border-bottom: 1px solid var(--rule);
   vertical-align: baseline;
 }
@@ -738,15 +1212,23 @@ em {
   text-align: right;
 }
 
+/* La ligne survolée ne se surligne plus, elle s'inverse : le noir de la scène
+   d'ouverture, repris ligne à ligne. L'aplat lime tenait sur une ligne d'une
+   ligne de haut ; sur une entrée qui en fait quatre, avec des liens de
+   magasin et six timbres de presse, il sautait à la figure et les timbres y
+   perdaient leurs réserves blanches. Le noir les laisse intacts, et les liens
+   de magasin y passent au lime, à pleine intensité comme il se doit. */
 .index tr:hover td {
-  background: var(--lime);
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom-color: var(--ink);
 }
 
 .index a,
 .index .name {
   font-family: var(--display);
-  font-size: 1.55rem;
-  line-height: 1;
+  font-size: 1.6rem;
+  line-height: 1.05;
 }
 
 .index .name {
@@ -765,7 +1247,7 @@ em {
 }
 
 .index tr:hover .host {
-  color: var(--ink);
+  color: var(--stage-soft);
 }
 
 /* La ligne des magasins porte les mêmes mesures que ses liens. Sans cela elle
@@ -793,7 +1275,7 @@ em {
 }
 
 .index tr:hover .stores a {
-  color: var(--ink);
+  color: var(--lime);
 }
 
 /* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des six
@@ -826,7 +1308,7 @@ em {
 }
 
 .index tr:hover .press-lead {
-  color: var(--ink);
+  color: var(--stage-soft);
 }
 
 /* Chaque marque est posée dans un cadre blanc à filet franc, comme un timbre.
@@ -893,7 +1375,7 @@ em {
 
 .index tr:hover .kind,
 .index tr:hover .when {
-  color: var(--ink);
+  color: var(--stage-soft);
 }
 
 @media (max-width: 640px) {
@@ -934,23 +1416,67 @@ em {
    Contact
    -------------------------------------------------------------------------- */
 
+/* Le bloc d'écriture est un aplat lime. C'est la dernière chose que lit le
+   visiteur avant le pied de page, et le lime tient là ce qu'il ne tient nulle
+   part ailleurs sur du papier : un aplat franc sous du texte noir, comme le
+   bandeau de titre des encadrés, mais de la taille d'un bloc.
+
+   Le texte y passe en encre pleine et non en encre atténuée : du gris sur du
+   lime ne se lit pas. */
+.contact-body {
+  background: var(--lime);
+  border: 2px solid var(--rule-hard);
+  box-shadow: 8px 8px 0 var(--rule-hard);
+  padding: clamp(1.6rem, 4vw, 2.75rem);
+}
+
 .contact-body p {
   max-width: var(--measure);
-  color: var(--ink-soft);
+  color: var(--ink);
 }
 
 .contact-body p + p {
-  margin-top: 1rem;
+  margin-top: 1.15rem;
+}
+
+/* Le texte à gauche, le bouton à droite et centré sur les deux paragraphes :
+   sous le texte, il tombait dans le coin d'un bloc lime déjà très présent et
+   se lisait comme une note de bas de bloc. */
+@media (min-width: 900px) {
+  .contact-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 3rem;
+    align-items: center;
+  }
+
+  .contact-body .button {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    margin-top: 0;
+  }
+}
+
+/* Sur le lime, le bouton reprend l'inversion de la scène : bloc d'encre,
+   ombre portée dans l'autre barre du logo. */
+.contact-body .button {
+  color: var(--lime);
+  box-shadow: 5px 5px 0 var(--bleu);
+}
+
+.contact-body .button:hover {
+  box-shadow: 2px 2px 0 var(--bleu);
 }
 
 /* Bloc plein avec une ombre portée nette en lime : elle se rétracte au
    survol, donc le bouton s'enfonce au lieu de s'allumer. */
 .button {
   display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem 0.8rem;
+  margin-top: 1.75rem;
+  padding: 0.8rem 1.6rem 0.85rem;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--sheet);
   border: 2px solid var(--rule-hard);
   box-shadow: 5px 5px 0 var(--lime);
   font-family: var(--display);
@@ -981,9 +1507,9 @@ em {
    -------------------------------------------------------------------------- */
 
 .site-footer {
-  margin-top: 1rem;
-  padding-top: 2rem;
-  padding-bottom: 2.25rem;
+  margin-top: 2rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   background: var(--ink);
   color: #b8b8b8;
 }
@@ -1000,10 +1526,12 @@ em {
   font-size: 0.95rem;
 }
 
+/* La devise ferme la page en grand : c'est la seule ligne du pied, et le noir
+   est l'endroit où le lime tient à pleine intensité. */
 .colophon .motto {
   font-family: var(--display);
-  font-size: 1.7rem;
-  line-height: 1;
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  line-height: 1.05;
   color: var(--lime);
 }
 
@@ -1011,14 +1539,14 @@ em {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 0.5rem;
-  margin-top: 1.75rem;
-  padding-top: 1.25rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
   border-top: 1px solid #333;
   font-size: 0.9rem;
 }
 
 .footer-nav a {
-  padding: 0.2rem 0.45rem;
+  padding: 0.25rem 0.5rem;
   border: 1px solid transparent;
 }
 
@@ -1030,14 +1558,14 @@ em {
 
 .band {
   width: 100%;
-  height: 4rem;
-  margin-bottom: 1.5rem;
+  height: 4.5rem;
+  margin-bottom: 2rem;
 }
 
 @media (min-width: 800px) {
   .band {
-    height: 5.5rem;
-    margin-bottom: 2rem;
+    height: 6rem;
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -1060,9 +1588,9 @@ em {
   /* jeu entre le couloir et la colonne de texte */
   --fil-jeu: 1rem;
   position: relative;
-  padding-top: 2.75rem;
-  padding-bottom: 3rem;
-  border-top: 3px double var(--rule-hard);
+  padding-top: 3.25rem;
+  padding-bottom: 3.5rem;
+  border-top: 1px solid var(--rule);
 }
 
 /* Le couloir triple au-delà de 800 px : c'est la place laissée à la dérive.
@@ -1206,15 +1734,14 @@ em {
    -------------------------------------------------------------------------- */
 
 .story-after {
-  padding-top: 2.5rem;
-  padding-bottom: 4rem;
-  border-top: 3px double var(--rule-hard);
+  padding-top: 3rem;
+  padding-bottom: var(--air);
+  border-top: 1px solid var(--rule);
 }
 
 @media (min-width: 800px) {
   .story-after {
-    padding-top: 3.5rem;
-    padding-bottom: 5.5rem;
+    padding-top: 4rem;
   }
 }
 
@@ -1264,23 +1791,28 @@ em {
    Pages légales
    -------------------------------------------------------------------------- */
 
+/* La colonne des pages légales est centrée dans la page. Elle était calée à
+   gauche d'un bloc de 68 rem, ce qui laissait déjà une marge droite voulue ;
+   la colonne passée à 74 rem, cette marge devenait un trou. Un texte
+   contractuel se lit dans une colonne, pas dans une page. */
 .legal {
-  max-width: 40rem;
+  max-width: 46rem;
+  margin-inline: auto;
   padding-top: 3rem;
   padding-bottom: 4.5rem;
 }
 
 @media (min-width: 800px) {
   .legal {
-    padding-top: 4rem;
-    padding-bottom: 6rem;
+    padding-top: 4.5rem;
+    padding-bottom: var(--air);
   }
 }
 
 .legal h1 {
-  font-size: clamp(2.2rem, 5vw, 3.4rem);
-  max-width: 15ch;
-  text-transform: uppercase;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  max-width: 18ch;
 }
 
 .legal-mark {
@@ -1294,7 +1826,7 @@ em {
   margin-top: 0.85rem;
   padding-bottom: 1.5rem;
   margin-bottom: 2.25rem;
-  border-bottom: 3px double var(--rule-hard);
+  border-bottom: 1px solid var(--rule);
   font-size: 0.95rem;
   color: var(--ink-soft);
 }
@@ -1395,9 +1927,9 @@ em {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 0.5rem;
-  margin-top: 2.5rem;
-  padding-top: 1.25rem;
-  border-top: 3px double var(--rule-hard);
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
   font-size: 0.9rem;
 }
 

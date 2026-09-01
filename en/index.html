@@ -20,7 +20,7 @@
 
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="icon" href="../favicon.ico">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0a0a0a">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Vergasta Digital">
   <meta property="og:locale" content="en_GB">
@@ -38,8 +38,8 @@
   <meta name="twitter:card" content="summary">
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=6">
-  <script src="../brushes.js?v=3" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=7">
+  <script src="../brushes.js?v=7" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -182,9 +182,9 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=3"></script>
+  <script src="../lang.js?v=7"></script>
 </head>
-<body>
+<body class="page-accueil">
   <header class="site-header">
     <div class="masthead wrap">
       <a href="./" class="brand">
@@ -211,7 +211,7 @@
   </header>
 
   <main>
-    <section class="opening wrap">
+    <section class="opening opening--accueil wrap">
       <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
       <h1>Websites and applications for the businesses around here.</h1>
       <div class="opening-body">
@@ -221,7 +221,22 @@
           tradespeople, shopkeepers and self-employed workers of the Bernese Jura.
         </p>
       </div>
+        <div class="opening-actions">
+          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
+          <a class="opening-jump" href="#realisations">See the work</a>
+        </div>
     </section>
+
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon-track">
+        <span>From the region, for the region.</span>
+        <span>From the region, for the region.</span>
+        <span>From the region, for the region.</span>
+        <span>From the region, for the region.</span>
+        <span>From the region, for the region.</span>
+        <span>From the region, for the region.</span>
+      </div>
+    </div>
 
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
       <div class="slab-head">
@@ -457,12 +472,6 @@
           arrange a meeting.
         </p>
         <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
-
-        <p class="whereabouts">
-          Vergasta Digital, Bruno Vergasta Paiva<br>
-          Rue du Temple 5, 2610 St-Imier<br>
-          UID CHE-403.843.646
-        </p>
       </div>
     </section>
   </main>
