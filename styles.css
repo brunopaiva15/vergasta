@@ -477,42 +477,65 @@ em {
   animation-duration: 2.2s;
 }
 
+/* D'où elle vient, et de combien elle est trop grande. Ces trois nombres sont
+   les seuls à changer d'une taille d'écran à l'autre : le geste est écrit une
+   fois, et c'est son point de départ qui se règle. Sur un téléphone, la marque
+   est posée en haut à droite du titre, donc elle vient de plus à droite et de
+   moins haut, et elle est moins agrandie : à 2,4 fois elle emplit déjà la
+   largeur de l'écran. */
+.opening--accueil .mark-opening {
+  --vient-x: 42vw;
+  --vient-y: -13vh;
+  --vient-echelle: 2.4;
+}
+
+@media (min-width: 1000px) {
+  .opening--accueil .mark-opening {
+    --vient-x: 7vw;
+    --vient-y: -27vh;
+    --vient-echelle: 3;
+  }
+}
+
 @keyframes pose-ouverture {
   from {
     opacity: 0;
-    transform: translate(8vw, -30vh) scale(3.2) rotate(-172deg) perspective(1100px)
-      rotateX(34deg) rotateY(-26deg);
-    filter: blur(20px) saturate(1.75);
+    transform: translate(var(--vient-x), var(--vient-y)) scale(var(--vient-echelle))
+      rotate(-150deg) perspective(1100px) rotateX(30deg) rotateY(-24deg);
+    filter: blur(11px);
   }
 
-  16% {
+  12% {
     opacity: 1;
   }
 
-  62% {
-    transform: translate(2.5vw, -8vh) scale(1.6) rotate(-46deg) perspective(1100px)
-      rotateX(11deg) rotateY(-8deg);
-    filter: blur(6px) saturate(1.3);
+  /* Le flou est parti aux deux tiers, et la rotation avec lui : la fin du
+     trajet se fait sur une spirale nette qui se pose, et non sur un nuage. */
+  55% {
+    transform: translate(calc(var(--vient-x) * 0.3), calc(var(--vient-y) * 0.32))
+      scale(calc(1 + (var(--vient-echelle) - 1) * 0.3)) rotate(-34deg)
+      perspective(1100px) rotateX(9deg) rotateY(-7deg);
+    filter: blur(3px);
   }
 
-  88% {
+  82% {
     transform: translate(0, 0) scale(1.04) rotate(4deg) perspective(1100px)
       rotateX(-2deg) rotateY(2deg);
-    filter: blur(0.6px) saturate(1.05);
+    filter: blur(0);
   }
 
   to {
     opacity: 1;
     transform: translate(0, 0) scale(1) rotate(0) perspective(1100px) rotateX(0)
       rotateY(0);
-    filter: blur(0) saturate(1);
+    filter: blur(0);
   }
 }
 
 .opening--accueil .mark-opening.mark--pose {
   animation-name: pose-ouverture;
-  animation-duration: 2.6s;
-  animation-timing-function: cubic-bezier(0.2, 0.78, 0.16, 1);
+  animation-duration: 1.9s;
+  animation-timing-function: cubic-bezier(0.22, 0.72, 0.14, 1);
 }
 
 /* Le titre, l'accroche et les sorties montent derrière la marque, avec un
@@ -999,6 +1022,19 @@ em {
   height: 9rem;
   margin-bottom: 1.75rem;
   margin-left: -0.4rem;
+}
+
+/* Sur l'accueil et sous 1000 px, la marque passe à droite : c'est de là
+   qu'elle vient, et une marque qui traverse l'écran pour se ranger du côté
+   opposé se lit comme un raté. La requête est bornée par le haut : au-delà,
+   c'est la grille de l'ouverture qui la place et qui la dimensionne. */
+@media (max-width: 999px) {
+  .opening--accueil .mark-opening {
+    width: 10.5rem;
+    height: 10.5rem;
+    margin-left: auto;
+    margin-right: -0.4rem;
+  }
 }
 
 /* --------------------------------------------------------------------------

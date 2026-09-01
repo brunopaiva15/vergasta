@@ -618,22 +618,32 @@ d'histoire, qui se déroule déjà au défilement. Sans JavaScript, aucune marqu
 n'est peinte, donc il n'y a rien à animer.
 
 **L'ouverture de l'accueil a son propre geste**, `pose-ouverture`. Elle entre
-par le haut à droite, hors cadre et trois fois trop grande, floue, et revient à
-sa place en s'enroulant sur elle-même : la spirale tourne d'un demi-tour
-pendant qu'elle rapetisse, donc elle se rembobine au lieu de simplement
-rétrécir. Deux secondes six, contre une seconde six pour les autres.
+par la droite, hors cadre et trois fois trop grande, floue, et revient à sa
+place en s'enroulant sur elle-même : la spirale tourne d'un demi-tour pendant
+qu'elle rapetisse, donc elle se rembobine au lieu de simplement rétrécir. Une
+seconde neuf, contre une seconde six pour les autres, et l'essentiel du trajet
+se fait dans la première demi-seconde : la courbe est très en avance, la fin
+n'est qu'un dépôt.
 
-Trois points à ne pas défaire :
+Quatre points à ne pas défaire :
 
 - **le flou n'est pas un effet, c'est ce qui sauve le dessin.** À trois fois sa
-  taille, un canevas peint pour sa taille normale est grossi d'autant. La
-  marque est floue tant qu'elle est grande, et nette quand elle est revenue ;
-- **le geste vaut à toutes les tailles.** Les distances sont en fractions de la
-  fenêtre, donc l'entrée est la même sur un téléphone, où la marque emplit
-  l'écran au départ ;
+  taille, un canevas peint pour sa taille normale est grossi d'autant. Mais il
+  est **parti aux deux tiers du trajet**, en même temps que la rotation : la
+  fin se joue sur une spirale nette qui se pose, et non sur un nuage. Un
+  premier réglage gardait le flou jusqu'au bout, et la marque se lisait comme
+  une tache violette pendant deux secondes ;
+- **d'où elle vient se règle en trois nombres**, `--vient-x`, `--vient-y` et
+  `--vient-echelle`, et rien d'autre ne change d'une taille d'écran à l'autre.
+  Sur un téléphone la marque est posée en haut à droite du titre : elle vient
+  donc de plus à droite, de moins haut, et elle est moins agrandie. Avec les
+  valeurs du grand écran, elle partait du coin **haut gauche** et rentrait
+  presque droit : le geste ne se lisait plus ;
+- **elle se pose du côté d'où elle vient.** Sous 1000 px, la marque est alignée
+  à droite pour cette seule raison. Une marque qui traverse l'écran pour se
+  ranger du côté opposé se lit comme un raté ;
 - **le corps de page est coupé à droite** (`overflow-x: clip`, voir §4). Sans
-  cette coupe, la page se laisse tirer de côté pendant les deux secondes de
-  l'entrée.
+  cette coupe, la page se laisse tirer de côté pendant l'entrée.
 
 `prefers-reduced-motion` ne reçoit ni l'un ni l'autre : un dépliage en
 perspective est exactement ce dont ce réglage ne veut pas. La marque y est
