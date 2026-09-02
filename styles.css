@@ -1067,14 +1067,51 @@ em {
   margin-left: -0.4rem;
 }
 
-/* Sur l'accueil et sous 1000 px, la marque passe à droite : c'est de là
-   qu'elle vient, et une marque qui traverse l'écran pour se ranger du côté
-   opposé se lit comme un raté. La requête est bornée par le haut : au-delà,
-   c'est la grille de l'ouverture qui la place et qui la dimensionne. */
+/* Sous 1000 px, la marque ferme l'ouverture au lieu de l'ouvrir.
+
+   Elle était posée en tête, au-dessus du titre et rangée à droite. Sur un
+   téléphone cela lui donnait une bande à elle seule : cent soixante-huit
+   pixels de haut, deux cent quarante-quatre en comptant les blancs, dont la
+   moitié gauche restait du papier vide, et le titre n'arrivait qu'au milieu du
+   premier écran, les deux sorties passant sous la ligne de flottaison. Une
+   spirale, si c'est la signature de l'atelier, n'a pas à être lue avant la
+   phrase qui dit ce que l'atelier fait.
+
+   Elle passe donc après les deux sorties, où le blanc qu'elle laisse à sa
+   gauche est le blanc qui sépare de toute façon l'ouverture du bandeau. La
+   page s'ouvre sur son titre, et la marque referme la scène avant le lime.
+   Le geste d'entrée ne change pas : il vient du haut à droite en fractions de
+   la fenêtre, donc il reste juste quel que soit l'endroit où la marque se
+   pose.
+
+   La page d'histoire avait le même défaut, sa marque posée sur la gouttière
+   au-dessus du titre : deux cent vingt pixels avant de lire « Notre
+   histoire ». Elle suit la même règle, mais reste alignée à gauche, sur la
+   gouttière du titre qu'elle accompagne.
+
+   `order` plutôt qu'un déplacement dans le HTML : la marque reste le premier
+   enfant de l'ouverture dans les dix pages concernées, donc elle reste le
+   premier élément que la grille de 1000 px place en colonne 2, et rien ne
+   bouge dans le balisage. Elle est `aria-hidden`, donc son rang dans l'ordre
+   de lecture ne regarde personne. */
 @media (max-width: 999px) {
+  .opening {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .opening .mark-opening {
+    order: 1;
+    margin-top: 3rem;
+    margin-bottom: 0;
+  }
+
+  /* Sur l'accueil elle se range à droite, d'où elle vient. Sur les pages
+     intérieures elle reste sur la gouttière, alignée sur le titre qu'elle
+     accompagne. */
   .opening--accueil .mark-opening {
-    width: 10.5rem;
-    height: 10.5rem;
+    width: 9.5rem;
+    height: 9.5rem;
     margin-left: auto;
     margin-right: -0.4rem;
   }

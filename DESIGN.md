@@ -244,7 +244,8 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 
 1. **l'ouverture**, sur le papier, qui réserve `min(78vh, 42rem)` : l'accueil
    s'ouvre sur un écran, pas sur un paragraphe. Le titre et les deux sorties à
-   gauche, la marque à la brosse à droite ;
+   gauche, la marque à la brosse à droite. Sous 1000 px, où il n'y a plus deux
+   colonnes, la marque passe **après les deux sorties** : voir §6 ;
 2. **le bandeau défilant**, lime, pleine largeur ;
 3. les quatre **cartes** des métiers, en bento ;
 4. le **déroulé** en trois colonnes, puis la carte des conditions sur toute la
@@ -666,19 +667,50 @@ Quatre points à ne pas défaire :
   une tache violette pendant deux secondes ;
 - **d'où elle vient se règle en trois nombres**, `--vient-x`, `--vient-y` et
   `--vient-echelle`, et rien d'autre ne change d'une taille d'écran à l'autre.
-  Sur un téléphone la marque est posée en haut à droite du titre : elle vient
-  donc de plus à droite, de moins haut, et elle est moins agrandie. Avec les
-  valeurs du grand écran, elle partait du coin **haut gauche** et rentrait
-  presque droit : le geste ne se lisait plus ;
-- **elle se pose du côté d'où elle vient.** Sous 1000 px, la marque est alignée
-  à droite pour cette seule raison. Une marque qui traverse l'écran pour se
-  ranger du côté opposé se lit comme un raté ;
+  Sur un téléphone elle vient de plus à droite, de moins haut, et elle est
+  moins agrandie. Avec les valeurs du grand écran, elle partait du coin **haut
+  gauche** et rentrait presque droit : le geste ne se lisait plus. Ces trois
+  nombres sont en fractions de la fenêtre, donc le geste reste juste quel que
+  soit l'endroit de la page où la marque se pose ;
+- **elle se pose du côté d'où elle vient.** Sur l'accueil et sous 1000 px, la
+  marque est alignée à droite pour cette seule raison. Une marque qui traverse
+  l'écran pour se ranger du côté opposé se lit comme un raté. Sur les pages
+  intérieures elle reste sur la gouttière, alignée sur le titre qu'elle
+  accompagne ;
 - **le corps de page est coupé à droite** (`overflow-x: clip`, voir §4). Sans
   cette coupe, la page se laisse tirer de côté pendant l'entrée.
 
 `prefers-reduced-motion` ne reçoit ni l'un ni l'autre : un dépliage en
 perspective est exactement ce dont ce réglage ne veut pas. La marque y est
 peinte d'un coup, à plat, comme avant.
+
+### Sous 1000 px, la marque ferme l'ouverture
+
+Au-delà de 1000 px, l'ouverture a deux colonnes et la marque tient dans la
+seconde : elle ne coûte pas une ligne au texte. En dessous il n'y a plus qu'une
+colonne, et la marque était posée **en tête**, au-dessus du titre.
+
+Sur un téléphone elle y prenait une bande à elle seule : 168 px de haut, 244 en
+comptant les blancs, soit près du tiers de l'écran, dont la moitié gauche
+restait du papier vide. Le titre n'arrivait qu'au milieu du premier écran et
+les deux sorties passaient sous la ligne de flottaison. La page d'histoire
+avait le même défaut, 220 px avant de lire « Notre histoire ».
+
+Sous 1000 px la marque passe donc **en dernier** dans l'ouverture, après les
+deux sorties sur l'accueil, après l'accroche sur la page d'histoire. La page
+s'ouvre sur son titre, et la marque referme la scène. Le blanc qu'elle laisse à
+sa gauche est celui qui sépare de toute façon l'ouverture de ce qui suit, donc
+il ne se lit plus comme un trou. Le titre de l'accueil monte de 396 à 200 px,
+celui de l'histoire de 372 à 200 px.
+
+Une spirale, si c'est la signature de l'atelier, n'a pas à être lue avant la
+phrase qui dit ce que l'atelier fait.
+
+C'est `order: 1` sur la marque et une colonne `flex` sur l'ouverture, pas un
+déplacement dans le HTML : la marque reste le premier enfant dans les dix pages
+concernées, donc elle reste ce que la grille de 1000 px place en colonne 2, et
+le balisage ne bouge pas. Elle est `aria-hidden`, donc son rang dans l'ordre de
+lecture ne regarde personne.
 
 ### Ajouter une marque
 
@@ -838,7 +870,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=11`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=12`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -867,6 +899,9 @@ pour la même raison.
 ## 8. Vérifications avant de pousser
 
 - rendu en 1440 px et 390 px, accueil et une page légale,
+- sous 1000 px, la marque de l'ouverture est **après** le texte et le titre
+  tombe juste sous l'en-tête, sur l'accueil comme sur la page d'histoire, dans
+  les cinq langues (voir §6),
 - l'entrée de la marque d'ouverture : elle vient du haut à droite, revient à sa
   place en s'enroulant, finit nette, et **la page ne se laisse pas tirer de
   côté pendant ce temps** (§4, §6),
