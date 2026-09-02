@@ -852,12 +852,10 @@
         done = true;
         return;
       }
-      /* Le dépliage en perspective de la feuille de style. Il est posé ici et
-         pas au chargement : le tracé et le dépliage doivent partir ensemble,
-         donc au moment où la marque entre dans le champ. Le fil de la page
-         d'histoire n'y passe pas, `sync` étant déjà sorti plus haut pour lui,
-         et le mouvement réduit non plus, qui sort juste au-dessus. */
-      host.classList.add("mark--pose");
+      /* La marque se peint à sa place, sans rien autour du tracé : ni dépliage
+         en perspective, ni trajet, ni rebond d'arrivée. Le script posait ici la
+         classe `mark--pose` que la feuille de style animait ; la brosse est le
+         seul mouvement, elle n'a pas besoin d'un second par-dessus. */
       running = true;
       start = performance.now();
       raf = requestAnimationFrame(tick);

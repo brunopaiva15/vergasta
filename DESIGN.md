@@ -20,10 +20,10 @@ c'est un atelier, pas une agence.
 
 | Rôle | Valeur | Emploi |
 |---|---|---|
-| Papier | `#e9ebe0` | fond général |
+| Papier | `#f1f2e9` | fond général |
 | Feuille | `#ffffff` | cartes, timbres de presse |
 | Encre | `#16160f` | texte, pied de page, boutons |
-| Encre atténuée | `#5d5d54` | texte secondaire (6,4:1 sur le papier) |
+| Encre atténuée | `#5d5d54` | texte secondaire (5,9:1 sur le papier) |
 | Filet | `#d5d7c9` | séparations internes des cartes |
 | Colonnes | `rgba(22,22,15,.055)` | les six filets verticaux du fond |
 | Lime | `#d4ff00` | bandeau, bloc de contact, survols, pilules de temps |
@@ -36,6 +36,16 @@ Le papier n'est pas le blanc de l'écran. C'est ce qui permet aux **cartes**
 blanches de se détacher au lieu de se fondre dans le fond : elles sont posées
 sur la page, elles n'en font pas partie. C'est tout le principe de la mise en
 page (§4), et ça ne marche que si le fond est teinté.
+
+Il est tiré vers le blanc autant qu'il peut l'être sans casser ce principe. Il
+valait `#e9ebe0`, un crème franc ; il vaut `#f1f2e9`, la même teinte à un cran
+du blanc. Entre le papier et la feuille il reste un rapport de **1,13**, contre
+1,21 auparavant : l'écart s'est resserré et c'est **l'ombre portée** qui prend
+le relais de la teinte pour poser les cartes. C'est la limite basse. Un cran
+plus clair encore et il n'y a plus de papier, seulement des rectangles blancs
+sur du blanc, avec une ombre pour tout indice.
+
+Le texte, lui, y gagne : l'encre atténuée passe de 5,5:1 à 5,9:1 sur le fond.
 
 Les quatre encres saturées des brosses (`magenta`, `cyan`, `olive`, `orange`)
 sont recopiées en variables CSS depuis `brushes.js`. Elles servent aux étoiles
@@ -233,10 +243,12 @@ ronds, ombre portée, pas de bordure. Le reste, c'est du texte sur le papier.
 - Les seuls filets qui restent sont **internes aux cartes** (`1px solid
   --rule`) : entre deux lignes du tableau, entre deux conditions. Plus aucune
   bordure fermée, plus aucun filet double.
-- Le corps de page est coupé à droite (`overflow-x: clip`) : l'entrée de la
-  marque d'ouverture déborde la fenêtre, et sans cette coupe la page se
-  laisserait tirer de côté pendant deux secondes. **La coupe est posée sur le
-  corps de page et pas sur la racine**, où elle ne change rien ; c'est vérifié.
+- Le corps de page est coupé à droite (`overflow-x: clip`). La coupe avait été
+  posée pour l'entrée de la marque d'ouverture, qui débordait la fenêtre ; cette
+  entrée n'existe plus (§6) et la coupe reste, comme garde-fou : rien ne doit
+  pouvoir tirer la page de côté, en cinq langues et sur six pages. **Elle est
+  posée sur le corps de page et pas sur la racine**, où elle ne change rien ;
+  c'est vérifié.
 
 ### La page d'accueil
 
@@ -638,59 +650,51 @@ segments et le méandre s'angulerait.
 
 ### L'entrée en scène
 
-La marque ne se contente pas d'apparaître : **elle se déroule**. Elle arrive
-couchée en arrière et de biais, et se pose à plat pendant que la brosse
-la peint. Les deux mouvements durent à peu près le même temps, donc le dessin
-se termine au moment où la marque touche le plan de la page.
+Il n'y en a pas. **La marque se peint à sa place, et c'est tout.**
 
-Le dépliage est en perspective et la couleur y monte d'un cran avant de
-revenir : c'est un geste de 2001, et il va avec des tampons carrés et une
-police bitmap. Ce que le CSS fait là, le canevas ne saurait pas le faire sans
-repeindre chaque tampon en perspective à chaque image.
+Elle a longtemps eu un geste d'arrivée par-dessus le tracé. L'ouverture de
+l'accueil venait du haut à droite, hors cadre, et revenait à sa place en
+tournant d'un demi-tour sur elle-même ; les autres marques se dépliaient sur
+place, couchées en arrière et de biais, la couleur montée d'un cran. Les deux
+gestes finissaient de la même façon, en dépassant la position d'arrivée d'un
+degré ou deux pour y revenir : un **rebond**, qui donnait à un tampon de
+peinture le poids d'un objet qui retombe.
 
-**Le partage est net.** `brushes.js` ne connaît qu'une chose de tout cela : il
-pose la classe `mark--pose` sur l'hôte **au moment exact où le tracé commence**,
-et pas au chargement, de sorte qu'une marque qui entre dans le champ à mi-page
-se déroule quand on y arrive. Tout le reste est dans la feuille de style. Le
-script ne pose la classe ni en mouvement réduit, ni sur le fil de la page
-d'histoire, qui se déroule déjà au défilement. Sans JavaScript, aucune marque
-n'est peinte, donc il n'y a rien à animer.
+Deux mouvements se disputaient le même moment. La brosse pose déjà ses tampons
+un par un le long de la spirale, et **ce déroulé est le geste** : il dit qu'une
+main peint, ce qu'aucune rotation ne dira jamais. Le lui faire faire pendant que
+la forme entière voyage, tourne et rebondit, c'est peindre sur un support qui
+bouge : ni l'un ni l'autre ne se lit, et le rebond finit par raconter une
+matière (un objet, une masse, un ressort) qui n'est pas celle d'une peinture.
 
-**L'ouverture de l'accueil a son propre geste**, `pose-ouverture`. Elle entre
-par la droite, hors cadre, et revient à sa place en tournant d'un demi-tour
-sur elle-même, à sa taille du début à la fin. Une
-seconde neuf, contre une seconde six pour les autres, et l'essentiel du trajet
-se fait dans la première demi-seconde : la courbe est très en avance, la fin
-n'est qu'un dépôt.
+Reste le dessin seul, à sa place, dès la première image. **Ce qui bouge est ce
+que la brosse trace, et rien d'autre.**
 
-Quatre points à ne pas défaire :
+Ce qu'il ne faut pas ramener :
 
-- **ni agrandissement, ni flou.** Un premier réglage la faisait entrer à trois
-  fois sa taille et rapetisser en tournant, floue pour couvrir
-  l'agrandissement du canevas. Une forme qui arrive plus grande que sa place
-  et rétrécit ensuite se lit comme un effet, et le flou en faisait une tache
-  violette pendant une seconde. Elle arrive à sa taille, nette, et c'est le
-  trajet et la rotation qui font le geste. La rotation est **partie aux deux
-  tiers du trajet** : la fin se joue sur une spirale qui se pose, et non sur
-  une toupie ;
-- **d'où elle vient se règle en deux nombres**, `--vient-x` et `--vient-y`,
-  et rien d'autre ne change d'une taille d'écran à l'autre. Sur un téléphone
-  elle vient de plus à droite et de moins haut. Avec les valeurs du grand
-  écran, elle partait du coin **haut gauche** et rentrait presque droit : le
-  geste ne se lisait plus. Ces deux nombres sont en fractions de la fenêtre,
-  donc le geste reste juste quel que soit l'endroit de la page où la marque se
-  pose ;
-- **elle se pose du côté d'où elle vient.** Sur l'accueil et sous 1000 px, la
-  marque est alignée à droite pour cette seule raison. Une marque qui traverse
-  l'écran pour se ranger du côté opposé se lit comme un raté. Sur les pages
-  intérieures elle reste sur la gouttière, alignée sur le titre qu'elle
-  accompagne ;
-- **le corps de page est coupé à droite** (`overflow-x: clip`, voir §4). Sans
-  cette coupe, la page se laisse tirer de côté pendant l'entrée.
+- **ni trajet, ni rotation, ni dépliage en perspective.** La marque est là où
+  elle se peint. Une marque qui traverse l'écran avant de se poser oblige à
+  regarder le déplacement plutôt que le tracé ;
+- **ni rebond, ni dépassement de la position d'arrivée.** C'est ce point-là qui
+  a été demandé nommément, et c'est le plus facile à laisser revenir : il suffit
+  d'une courbe d'accélération qui sort de l'intervalle 0-1 ;
+- **ni montée de saturation.** La couleur d'une encre est celle de l'encre.
 
-`prefers-reduced-motion` ne reçoit ni l'un ni l'autre : un dépliage en
-perspective est exactement ce dont ce réglage ne veut pas. La marque y est
-peinte d'un coup, à plat, comme avant.
+Conséquences dans le code, toutes des suppressions. `brushes.js` ne pose plus
+rien sur l'hôte : la classe `mark--pose` n'existe plus, ni les images-clés
+`pose-marque` et `pose-ouverture`, ni les variables `--vient-x` et `--vient-y`.
+Il n'y a donc plus rien à neutraliser à l'impression, sur la page d'atelier qui
+tire la carte de visite, ni en mouvement réduit : ces trois cas recevaient une
+`animation: none` qui n'a plus d'objet.
+
+**Ce qui reste de mouvement sur l'ouverture** est la montée du titre, de
+l'accroche et des sorties (`arrivee`) : un demi-centimètre vers le haut et un
+reste de flou, décalés de 0,1 à 0,42 seconde. C'est la page qui arrive, pas la
+marque. Celle-là est bien neutralisée à l'impression et en mouvement réduit.
+
+**La coupe latérale du corps de page reste** (`overflow-x: clip`, §4). Elle
+avait été posée pour l'entrée hors cadre de la marque ; elle ne coûte rien et
+tient toujours la page à sa largeur, en cinq langues et sur six pages.
 
 ### Sous 1000 px, la marque ferme l'ouverture
 
@@ -728,7 +732,8 @@ lecture ne regarde personne.
    `{ brush, ink, path, over, alpha, delay }`.
 3. Regarder le rendu agrandi et régler `spacing` avant tout le reste.
 
-L'entrée en scène est posée par le script, il n'y a rien à écrire pour elle.
+Il n'y a rien d'autre à écrire : la marque n'a pas d'entrée en scène, elle se
+peint à sa place.
 
 Les marques se dessinent à l'entrée dans le champ de vision puis **la boucle
 s'arrête** : une image fixe ne mérite pas d'images par seconde.
@@ -878,7 +883,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=14`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=15`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -925,8 +930,9 @@ pour la même raison.
   dans le HTML reste lisible,
 - aucune requête vers un domaine tiers,
 - console sans erreur,
-- mouvement réduit : la marque est posée à plat sans dépliage, le bandeau ne
-  défile plus, et rien d'autre ne bouge,
+- mouvement réduit : la marque est peinte d'un coup au lieu d'être tracée, le
+  texte de l'ouverture ne monte pas, le bandeau ne défile plus, et rien d'autre
+  ne bouge,
 - la navigation tient sur une ligne en français à 1280 px et au-delà, et en
   dessous l'en-tête tient sur deux lignes dans les cinq langues, de 320 px à
   1279 px, sans que les langues descendent et sans qu'un libellé quitte la
