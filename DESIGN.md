@@ -284,12 +284,19 @@ libellés sont ceux que la page porte déjà ailleurs, pas des formules de plus 
 traduire cinq fois.
 
 **Bandeau défilant `.ribbon`.** Une bande lime en travers, sous l'ouverture, où
-la devise passe en boucle, séparée par l'étoile pixel. Quarante-quatre secondes
-pour un tour. Six copies identiques de la devise : la piste revient sur
-elle-même à la moitié, donc la boucle ne se voit pas. Il est `aria-hidden` : la
-devise est déjà portée par le pied de page, et six fois le même mot ne va pas à
-la lecture d'écran. `prefers-reduced-motion` l'arrête, et il reste une bande
-lime.
+la devise passe en boucle, séparée par l'étoile pixel. Une copie de la devise
+passe en quinze secondes. **Seize copies identiques, et la piste avance d'une
+seule copie par tour** : quand elle revient à zéro, la copie suivante est
+exactement là où était la précédente, donc la boucle ne se voit pas. Il y en
+avait six, et la piste avançait de moitié ; ça ne tient que si trois copies
+couvrent la fenêtre, soit 800 px, et sur un écran d'ordinateur le lime
+restait nu sur la droite pendant la seconde moitié de chaque tour avant de
+sauter en arrière. Quinze copies devant le point de reprise couvrent 3 900 px
+dans la langue la plus courte. Le nombre 16 est écrit dans `styles.css` et
+dans les cinq pages d'accueil : les deux vont ensemble. Il est
+`aria-hidden` : la devise est déjà portée par le pied de page, et seize fois
+le même mot ne va pas à la lecture d'écran. `prefers-reduced-motion`
+l'arrête, et il reste une bande lime.
 
 **Étoile pixel.** La puce du site, en `mask-image` sur un SVG de neuf carrés :
 une croix et quatre coins. Elle sert devant les titres des métiers, devant les
@@ -632,7 +639,7 @@ segments et le méandre s'angulerait.
 ### L'entrée en scène
 
 La marque ne se contente pas d'apparaître : **elle se déroule**. Elle arrive
-floue, couchée en arrière et de biais, et se pose à plat pendant que la brosse
+couchée en arrière et de biais, et se pose à plat pendant que la brosse
 la peint. Les deux mouvements durent à peu près le même temps, donc le dessin
 se termine au moment où la marque touche le plan de la page.
 
@@ -650,7 +657,7 @@ d'histoire, qui se déroule déjà au défilement. Sans JavaScript, aucune marqu
 n'est peinte, donc il n'y a rien à animer.
 
 **L'ouverture de l'accueil a son propre geste**, `pose-ouverture`. Elle entre
-par la droite, hors cadre et trois fois trop grande, floue, et revient à sa
+par la droite, hors cadre et trois fois trop grande, et revient à sa
 place en s'enroulant sur elle-même : la spirale tourne d'un demi-tour pendant
 qu'elle rapetisse, donc elle se rembobine au lieu de simplement rétrécir. Une
 seconde neuf, contre une seconde six pour les autres, et l'essentiel du trajet
@@ -659,12 +666,13 @@ n'est qu'un dépôt.
 
 Quatre points à ne pas défaire :
 
-- **le flou n'est pas un effet, c'est ce qui sauve le dessin.** À trois fois sa
-  taille, un canevas peint pour sa taille normale est grossi d'autant. Mais il
-  est **parti aux deux tiers du trajet**, en même temps que la rotation : la
-  fin se joue sur une spirale nette qui se pose, et non sur un nuage. Un
-  premier réglage gardait le flou jusqu'au bout, et la marque se lisait comme
-  une tache violette pendant deux secondes ;
+- **pas de flou.** Il y en a eu, pour couvrir l'agrandissement du canevas
+  pendant l'entrée : à trois fois sa taille, un canevas peint pour sa taille
+  normale est grossi d'autant. Mais des tampons carrés agrandis restent des
+  tampons carrés, il n'y avait rien à cacher, et le flou faisait de la marque
+  une tache violette pendant une seconde. La rotation, elle, est **partie aux
+  deux tiers du trajet** : la fin se joue sur une spirale qui se pose, et non
+  sur une toupie ;
 - **d'où elle vient se règle en trois nombres**, `--vient-x`, `--vient-y` et
   `--vient-echelle`, et rien d'autre ne change d'une taille d'écran à l'autre.
   Sur un téléphone elle vient de plus à droite, de moins haut, et elle est
@@ -870,7 +878,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=12`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=13`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
