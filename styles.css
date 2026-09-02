@@ -1421,10 +1421,15 @@ em {
    l'entrée tient dans la seconde colonne de cette grille : l'adresse, les
    magasins et la mention de presse s'alignent donc sur le nom et non sous
    l'icône. La cellule n'est plus une case de tableau depuis que les entrées
-   sont des blocs, donc la grille s'y pose sans détour. */
+   sont des blocs, donc la grille s'y pose sans détour.
+
+   La première colonne est mesurée et non `auto` : un projet sans icône laisse
+   sa case vide, et en `auto` cette case se refermerait, son nom rentrant d'un
+   pouce et demi sur les neuf autres. Une place tenue vaut mieux qu'un
+   alignement rompu. */
 .index td:first-child {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: 1.5rem minmax(0, 1fr);
   column-gap: 0.7rem;
 }
 

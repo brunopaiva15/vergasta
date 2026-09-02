@@ -402,17 +402,17 @@ choix méritent d'être notés, parce qu'ils ne se relisent pas dans les fichier
   pas un : c'est un PNG encodé en base64 dans une enveloppe SVG, 46 Ko pour les
   pixels que `favicon-96x96.png` porte en 5. Prendre le SVG aurait coûté neuf
   fois le poids pour exactement la même image ;
-- **Vergasta Photo est pris à son `favicon.ico` et non à son `favicon.svg`**,
-  bien que le second soit vectoriel. Les deux ne portent pas le même dessin :
-  le `.ico` est la marque telle qu'un onglet la montre, la lettre blanche
-  détourée d'une tuile noire avec son accent magenta, quand le SVG n'en garde
-  que la lettre, pleine et sans tuile. C'est la tuile qu'on reconnaît, et c'est
-  elle qui répond aux autres icônes carrées de la liste. Le SVG avait de toute
-  façon un défaut qui l'écartait : il porte un `@media (prefers-color-scheme:
-  dark)` qui repeint la marque en blanc, et un SVG chargé dans une `<img>` lit
-  cette règle sur le réglage du système du visiteur, pas sur la page qui
-  l'affiche. Sur notre papier clair, la marque disparaissait purement et
-  simplement chez qui a son système en sombre ;
+- **Vergasta Photo n'a pas d'icône, et sa case reste vide.** Le site sert
+  encore les deux favicons livrés avec Astro, sa tuile noire à la lettre
+  blanche et son accent magenta : c'est la marque du générateur, pas celle du
+  projet. Elle a été posée ici une journée, et c'est l'erreur à ne pas refaire
+  quand un site répond `/favicon.ico` sans l'avoir choisi. Sa marque à lui est
+  un mot, « VERGASTA PHOTO » animé en tête de page, et la recomposer dans nos
+  polices reviendrait à la citer de mémoire, ce que la mention de presse
+  s'interdit déjà pour les journaux. La case est mesurée et non `auto`
+  précisément pour ce cas : elle reste tenue, et les dix noms s'alignent. Le
+  jour où vergastaphoto.ch se donne un favicon, il se pose ici comme les
+  autres ;
 - **BDPokéCards n'existe qu'en 32 px.** Son site ne publie pas d'icône plus
   grande, et une marque agrandie vaut mieux qu'une marque redessinée.
 
@@ -944,7 +944,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=16`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=17`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
