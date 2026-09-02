@@ -1327,6 +1327,14 @@ em {
   padding: clamp(1.4rem, 3vw, 2.25rem);
 }
 
+/* Les réalisations sont des données tabulaires — un projet, un genre, une
+   année — et le balisage reste un `<table>`. La présentation, elle, ne l'est
+   plus : les entrées se rangent en deux colonnes, chacune en bloc, ce qui est
+   déjà la forme que le tableau prenait sous 640 px. Une seule mise en page pour
+   toutes les largeurs vaut mieux que deux qui divergent. Les en-têtes tombent
+   avec les colonnes qu'ils nommaient : le nom, le genre et l'année se lisent
+   d'eux-mêmes dans un bloc, et un en-tête posé sur une colonne qui porte deux
+   projets côte à côte ne nommerait plus rien. */
 .index {
   width: 100%;
   border-collapse: collapse;
@@ -1346,70 +1354,98 @@ em {
   margin-bottom: 1.25rem;
 }
 
-.index th {
-  font-weight: 600;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid var(--rule);
+.index thead {
+  display: none;
 }
 
-/* Le type et l'année sont des colonnes de largeur connue : sans mesure, le
-   navigateur les serrait au profit des noms et coupait « Application iOS et
-   Android » en trois lignes. */
-@media (min-width: 641px) {
-  .index th:nth-child(2) {
-    width: 13rem;
-  }
+/* Deux colonnes à partir de 900 px, une seule en dessous. La gouttière est
+   franche : sans elle, deux entrées voisines se liraient comme une seule à
+   deux niveaux, puisque le survol d'une ligne va d'un bord à l'autre. */
+.index tbody {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 1.5rem;
+}
 
-  .index th:nth-child(3) {
-    width: 5rem;
+@media (min-width: 900px) {
+  .index tbody {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-/* Les lignes respirent : une entrée du tableau tient deux à quatre lignes de
-   texte selon qu'elle porte une adresse, des magasins ou la mention de presse,
-   et sans ce rembourrage elles se touchaient. */
-.index td {
+/* Le filet est posé au-dessus de chaque entrée et non en dessous. Un filet
+   sépare deux lignes (§4) : posé au-dessus, il ne peut pas se retrouver sous la
+   dernière, où il fermerait le tableau d'un trait à quelques millimètres du
+   bord de la carte. La règle vaut pour les deux colonnes à la fois, alors
+   qu'une exception `:last-child` aurait manqué le bas de la première.
+
+   L'entrée se cale en haut de sa case plutôt que de s'y étirer : deux entrées
+   voisines n'ont pas la même hauteur, et sans ce calage le creux du survol
+   descendrait, sur la plus courte des deux, jusqu'au bas de la plus longue. */
+.index tr {
+  display: block;
+  align-self: start;
   padding: 1.1rem 1.25rem;
-  border-bottom: 1px solid var(--rule);
-  vertical-align: baseline;
+  border-top: 1px solid var(--rule);
 }
 
-/* Un filet est là pour séparer deux lignes (§4). Sous la dernière il ne sépare
-   plus rien : il ferme le tableau d'un trait à quelques millimètres du bord de
-   la carte, et deux traits parallèles se lisent comme une bordure ratée. */
-.index tbody tr:last-child td {
-  border-bottom: 0;
+/* La première entrée de chaque colonne ouvre sa pile : rien à séparer
+   au-dessus d'elle. En une colonne, seule la première est concernée. */
+.index tbody tr:first-child {
+  border-top: 0;
 }
 
-.index td:first-child,
-.index th:first-child {
-  padding-left: 0.9rem;
+@media (min-width: 900px) {
+  .index tbody tr:nth-child(2) {
+    border-top: 0;
+  }
 }
 
-.index td:last-child,
-.index th:last-child {
-  padding-right: 0;
-  text-align: right;
+.index td {
+  display: block;
+  padding: 0;
+  border: 0;
 }
 
-/* La ligne survolée prend le papier de la page, sur la carte blanche : elle
+/* L'entrée survolée prend le papier de la page, sur la carte blanche : elle
    ressort en creux, sans aplat de couleur et sans que les timbres de presse
-   perdent leurs réserves blanches. Les coins suivent ceux de la carte. */
-.index tr:hover td {
+   perdent leurs réserves blanches. Les coins suivent ceux de la carte, et le
+   filet s'efface pour ne pas barrer le haut du creux. */
+.index tr:hover {
   background: var(--paper);
-  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-radius: var(--rond-s);
 }
 
-.index tr:hover td:first-child {
-  border-radius: var(--rond-s) 0 0 var(--rond-s);
+/* L'icône est posée en tête de la cellule, sur la ligne du nom, et le reste de
+   l'entrée tient dans la seconde colonne de cette grille : l'adresse, les
+   magasins et la mention de presse s'alignent donc sur le nom et non sous
+   l'icône. La cellule n'est plus une case de tableau depuis que les entrées
+   sont des blocs, donc la grille s'y pose sans détour. */
+.index td:first-child {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.7rem;
 }
 
-.index tr:hover td:last-child {
-  border-radius: 0 var(--rond-s) var(--rond-s) 0;
+.index td:first-child > :not(.projet-icone) {
+  grid-column: 2;
+}
+
+/* Chaque projet porte sa propre marque, reprise de son favicon ou de l'icône
+   de son application, servie d'ici comme les timbres de presse. Les coins sont
+   arrondis parce que la moitié de ces marques sont des carrés pleins — icônes
+   d'application ou pavés de couleur — et qu'un carré vif à angles droits est le
+   seul objet du site qui n'ait pas les coins ronds du §1. Sur les marques
+   détourées, le rayon ne se voit pas : il ne rogne que du vide. */
+.index .projet-icone {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+  border-radius: 6px;
 }
 
 .index a,
@@ -1469,22 +1505,31 @@ em {
 }
 
 /* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des six
-   marques, qui tiennent la place des noms. Aucune virgule entre elles : les
-   cadres séparent déjà, et une virgule posée contre un filet se lirait comme
-   une salissure. Les six logos sont servis d'ici. Aucune requête ne part
-   vers les serveurs des journaux, qui recevraient sinon l'adresse IP de chaque
-   visiteur. */
+   marques, qui tiennent la place des noms. Aucune virgule entre elles : une
+   virgule posée entre deux logos se lit comme une salissure. Les six logos sont
+   servis d'ici. Aucune requête ne part vers les serveurs des journaux, qui
+   recevraient sinon l'adresse IP de chaque visiteur.
+
+   Les marques sont désaturées et posées en demi-teinte, et reprennent leur
+   encre au survol. C'est le traitement ordinaire d'une barre de presse, et il
+   vaut ici pour une raison qui lui est propre : six logos à pleine couleur,
+   dont deux pavés rouges et un bloc noir, tenaient dans l'entrée plus de place
+   que le nom du projet. En gris, ils redeviennent ce qu'ils sont, une preuve
+   posée en petit sous le nom.
+
+   La ligne se replie quand la colonne est trop courte, et c'est voulu : à deux
+   colonnes, six marques côte à côte ne tiennent pas sur une seule ligne sans
+   descendre à une hauteur où plus aucune ne se lit. */
 .index .press {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem 0.85rem;
   margin-top: 0.6rem;
 }
 
-/* Chaque timbre mène à son article. Le lien ne porte ni couleur ni
-   soulignement : c'est le cadre entier qui se prend, et l'ombre portée dit
-   qu'il se prend. */
+/* Chaque marque mène à son article. Le lien ne porte ni couleur ni
+   soulignement : c'est la marque entière qui se prend. */
 .index .press-source {
   display: block;
   text-decoration: none;
@@ -1501,119 +1546,66 @@ em {
   color: var(--ink-soft);
 }
 
-/* Chaque marque est posée dans un cadre blanc à filet franc, comme un timbre.
-   Ce n'est pas une décoration : la ligne survolée passe au lime, et un logo
-   dessiné pour du papier blanc y perdrait ses réserves blanches. */
 .index .press-logo {
   display: block;
-  box-sizing: content-box;
   width: auto;
-  padding: 0.375rem 0.55rem;
-  background: var(--sheet);
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  box-shadow: var(--ombre-basse);
-  transition: transform 0.16s, box-shadow 0.16s;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter 0.16s, opacity 0.16s;
 }
 
-/* Même geste que le bouton : l'ombre se rétracte et le timbre s'enfonce. En
-   encre et non en lime, parce que la ligne survolée est déjà lime. */
 .index .press-source:hover .press-logo,
 .index .press-source:focus-visible .press-logo {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 22px -12px rgba(22, 22, 15, 0.65);
+  filter: none;
+  opacity: 1;
 }
 
 /* Les marques ne sont pas construites pareil : le Journal du Jura porte un
    pavé rouge de deux lignes, ArcInfo, Le Nouvelliste, La Côte et Ajour des
-   signatures d'un seul niveau, et Watson un bloc noir plein. Les cadres ont la
-   même hauteur hors tout, 2 rem : le rembourrage rattrape la différence de
-   dessin. */
+   signatures d'un seul niveau, et Watson un bloc noir plein. À hauteur égale,
+   les signatures d'un seul niveau écraseraient le pavé : ces trois hauteurs
+   sont ce qui leur donne le même poids à l'œil. */
 .index .press-jdj {
-  height: 1.25rem;
+  height: 1.15rem;
 }
 
 .index .press-arcinfo {
-  height: 0.9rem;
-  padding: 0.55rem 0.7rem;
+  height: 0.82rem;
 }
 
 .index .press-watson {
-  height: 1.08rem;
-  padding: 0.46rem 0.55rem;
+  height: 0.98rem;
 }
 
 .index .press-nouvelliste {
-  height: 0.9rem;
-  padding: 0.55rem 0.7rem;
+  height: 0.82rem;
 }
 
 .index .press-lacote {
-  height: 0.9rem;
-  padding: 0.55rem 0.7rem;
+  height: 0.82rem;
 }
 
 .index .press-ajour {
-  height: 0.9rem;
-  padding: 0.55rem 0.7rem;
+  height: 0.82rem;
 }
 
+/* Le genre et l'année tiennent sur une seule ligne, en fin d'entrée : ce sont
+   deux cellules devenues deux mots, et la virgule est ce qui les relie depuis
+   que la colonne qui les séparait n'existe plus. */
 .index .kind,
 .index .when {
+  display: inline;
   font-size: 0.9rem;
   color: var(--ink-soft);
+}
+
+.index .kind::after {
+  content: ",";
 }
 
 .index tr:hover .kind,
 .index tr:hover .when {
   color: var(--ink-soft);
-}
-
-@media (max-width: 640px) {
-  .index thead {
-    display: none;
-  }
-
-  .index tr,
-  .index td {
-    display: block;
-    border: 0;
-  }
-
-  .index tr {
-    padding: 0.8rem 0;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .index tbody tr:last-child {
-    border-bottom: 0;
-  }
-
-  /* `.index td:first-child` porte un rembourrage à gauche pour dégager le nom
-     du bord de la carte. En pile, cette colonne n'a plus de voisine à sa
-     gauche, et ce rembourrage est plus spécifique que le `padding: 0`
-     ci-dessus : le nom et son adresse rentraient de quatorze pixels sur le
-     type et l'année, qui tombaient, eux, sur le bord du bloc. */
-  .index td {
-    padding: 0;
-  }
-
-  .index td:first-child {
-    padding-left: 0;
-  }
-
-  .index td:last-child {
-    text-align: left;
-  }
-
-  .index .kind::after {
-    content: ",";
-  }
-
-  .index .kind,
-  .index .when {
-    display: inline;
-  }
 }
 
 /* --------------------------------------------------------------------------
@@ -2203,8 +2195,9 @@ html[lang="ja"] .colophon .motto {
   font-size: 1.35rem;
 }
 
-@media (max-width: 640px) {
-  html[lang="ja"] .index .kind::after {
-    content: "、";
-  }
+/* La virgule qui relie le genre à l'année n'est plus réservée à la pile : les
+   entrées sont en blocs à toutes les largeurs, donc la virgule japonaise
+   non plus. */
+html[lang="ja"] .index .kind::after {
+  content: "、";
 }
