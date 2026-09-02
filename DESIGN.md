@@ -244,7 +244,8 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 
 1. **l'ouverture**, sur le papier, qui réserve `min(78vh, 42rem)` : l'accueil
    s'ouvre sur un écran, pas sur un paragraphe. Le titre et les deux sorties à
-   gauche, la marque à la brosse à droite ;
+   gauche, la marque à la brosse à droite. Sous 1000 px, où il n'y a plus deux
+   colonnes, la marque passe **après les deux sorties** : voir §6 ;
 2. **le bandeau défilant**, lime, pleine largeur ;
 3. les quatre **cartes** des métiers, en bento ;
 4. le **déroulé** en trois colonnes, puis la carte des conditions sur toute la
@@ -316,6 +317,14 @@ olive, et la carte des conditions passe dessous sur toute la largeur. Ils
 étaient trois paragraphes empilés avec l'encadré en marge. Pas de numéros : ce
 sont trois moments, pas trois étapes numérotées (voir §7).
 
+**L'étoile vaut à toutes les largeurs.** Elle n'a longtemps vécu que dans la
+requête à 900 px, avec les colonnes : en dessous, les trois moments
+redevenaient trois paragraphes à la file, et plus rien ne disait où l'un
+finissait ni où le suivant commençait. C'est pourtant sur un téléphone que la
+colonne unique en a le plus besoin, puisque la lecture s'y fait à la verticale
+et que le blanc entre deux paragraphes est le seul repère. Elle est donc posée
+partout, un peu plus petite en pile (0,8 rem contre 0,95 rem).
+
 **Encadré `.aside`.** La carte des conditions, sous le déroulé, ses cinq
 entrées rangées en colonnes. Son titre est écrit à la main (§2) : c'est une
 note posée en marge, pas une clause de plus. Il sert à porter une information
@@ -332,7 +341,15 @@ haute de quatre lignes, et le lime faisait perdre aux timbres de presse leurs
 réserves blanches. Les colonnes du type et de l'année sont mesurées (13 rem,
 5 rem) : sans mesure, le navigateur les serrait au profit des noms et coupait
 « Application iOS et Android » en trois lignes. Sous 640 px, les en-têtes
-disparaissent et chaque ligne devient un bloc.
+disparaissent et chaque ligne devient un bloc. En pile, la première cellule
+perd le rembourrage qui dégageait le nom du bord de la carte : elle n'a plus
+de voisine à sa gauche, et ce rembourrage rentrait le nom et son adresse de
+quatorze pixels sur le type et l'année, restés, eux, sur le bord du bloc.
+
+**Pas de filet sous la dernière ligne.** Un filet sépare deux lignes (§4) ;
+sous la dernière il ne sépare plus rien, et il ferme le tableau d'un trait à
+quelques millimètres du bord de la carte, où deux traits parallèles se lisent
+comme une bordure ratée. Vrai des deux côtés de 640 px.
 
 **Bloc de contact `.contact-body`.** La dernière carte de la page, un cran plus
 grande que les autres, et la seule en aplat lime : texte à l'encre pleine (du
@@ -458,8 +475,40 @@ entrées et les cinq langues tiennent sur une ligne de 66 rem en français, qui
 est la version la plus longue. Y toucher fait tomber la navigation sur une
 seconde ligne.
 
+**L'en-tête sous 1280 px.** Cette ligne unique ne tient qu'à partir de 1280 px.
+En dessous, la coupe est choisie plutôt que subie : `.masthead` devient une
+grille de deux lignes, la marque à gauche et les cinq langues à droite sur la
+première, la navigation sur toute la largeur sur la seconde. Le groupe de queue
+passe en `display: contents` pour que ses deux navigations deviennent des cases
+de cette grille, ce qui évite de toucher au HTML des vingt-six pages.
+
+Avant cela, l'enroulement du `flex` cassait où il pouvait : sur un téléphone,
+la marque, puis la navigation coupée en deux, puis les langues, quatre lignes
+et deux cents pixels de haut avant le premier mot de la page, soit le quart
+d'un écran. Il en reste cent cinquante, et l'ouverture de l'accueil tient
+maintenant sur le premier écran, ses deux sorties comprises.
+
+**Rien ne se replie derrière un bouton**, ni ici ni ailleurs. À cinq entrées,
+une liste ouverte se lit d'un coup d'œil et fonctionne sans JavaScript : c'est
+déjà la raison qui vaut pour le sélecteur de langue, et elle vaut deux fois
+pour une navigation de cinq mots.
+
+**Les libellés tombent sur la gouttière.** Les pilules de la navigation sont
+invisibles au repos, mais leur rembourrage compte : sans marge négative sur les
+deux navigations, le premier libellé rentrait de douze pixels sur la gouttière
+et le dernier code de langue s'en écartait d'autant, alors que la marque et le
+titre de la page, eux, tombent dessus. C'est le même décalage optique que
+celui des marques à la brosse (`-0,35 rem` sur `.slab-mark`). La seule pilule
+visible au repos, celle de la page courante, déborde donc la gouttière du
+rembourrage : c'est un alinéa négatif, et il vaut mieux que cinq libellés
+décalés.
+
 **Sélecteur de langue `.lang-nav`.** Cinq codes à deux lettres dans la bitmap,
-posés à droite de la navigation, séparés par un filet simple au-delà de 800 px.
+posés à droite de la navigation, séparés par un filet simple à partir de
+1280 px. Le filet ne sépare les langues de la navigation que lorsque les deux
+se suivent sur la même ligne ; en grille, les langues sont posées au bout de la
+ligne de la marque, et un filet à leur gauche couperait la marque de son propre
+en-tête.
 La version courante porte la pilule lime : c'est le même geste que le survol,
 tenu en permanence. Pas de menu déroulant, pas de drapeau. À cinq entrées une
 liste ouverte se lit d'un coup d'œil, elle fonctionne sans JavaScript, et un
@@ -618,19 +667,50 @@ Quatre points à ne pas défaire :
   une tache violette pendant deux secondes ;
 - **d'où elle vient se règle en trois nombres**, `--vient-x`, `--vient-y` et
   `--vient-echelle`, et rien d'autre ne change d'une taille d'écran à l'autre.
-  Sur un téléphone la marque est posée en haut à droite du titre : elle vient
-  donc de plus à droite, de moins haut, et elle est moins agrandie. Avec les
-  valeurs du grand écran, elle partait du coin **haut gauche** et rentrait
-  presque droit : le geste ne se lisait plus ;
-- **elle se pose du côté d'où elle vient.** Sous 1000 px, la marque est alignée
-  à droite pour cette seule raison. Une marque qui traverse l'écran pour se
-  ranger du côté opposé se lit comme un raté ;
+  Sur un téléphone elle vient de plus à droite, de moins haut, et elle est
+  moins agrandie. Avec les valeurs du grand écran, elle partait du coin **haut
+  gauche** et rentrait presque droit : le geste ne se lisait plus. Ces trois
+  nombres sont en fractions de la fenêtre, donc le geste reste juste quel que
+  soit l'endroit de la page où la marque se pose ;
+- **elle se pose du côté d'où elle vient.** Sur l'accueil et sous 1000 px, la
+  marque est alignée à droite pour cette seule raison. Une marque qui traverse
+  l'écran pour se ranger du côté opposé se lit comme un raté. Sur les pages
+  intérieures elle reste sur la gouttière, alignée sur le titre qu'elle
+  accompagne ;
 - **le corps de page est coupé à droite** (`overflow-x: clip`, voir §4). Sans
   cette coupe, la page se laisse tirer de côté pendant l'entrée.
 
 `prefers-reduced-motion` ne reçoit ni l'un ni l'autre : un dépliage en
 perspective est exactement ce dont ce réglage ne veut pas. La marque y est
 peinte d'un coup, à plat, comme avant.
+
+### Sous 1000 px, la marque ferme l'ouverture
+
+Au-delà de 1000 px, l'ouverture a deux colonnes et la marque tient dans la
+seconde : elle ne coûte pas une ligne au texte. En dessous il n'y a plus qu'une
+colonne, et la marque était posée **en tête**, au-dessus du titre.
+
+Sur un téléphone elle y prenait une bande à elle seule : 168 px de haut, 244 en
+comptant les blancs, soit près du tiers de l'écran, dont la moitié gauche
+restait du papier vide. Le titre n'arrivait qu'au milieu du premier écran et
+les deux sorties passaient sous la ligne de flottaison. La page d'histoire
+avait le même défaut, 220 px avant de lire « Notre histoire ».
+
+Sous 1000 px la marque passe donc **en dernier** dans l'ouverture, après les
+deux sorties sur l'accueil, après l'accroche sur la page d'histoire. La page
+s'ouvre sur son titre, et la marque referme la scène. Le blanc qu'elle laisse à
+sa gauche est celui qui sépare de toute façon l'ouverture de ce qui suit, donc
+il ne se lit plus comme un trou. Le titre de l'accueil monte de 396 à 200 px,
+celui de l'histoire de 372 à 200 px.
+
+Une spirale, si c'est la signature de l'atelier, n'a pas à être lue avant la
+phrase qui dit ce que l'atelier fait.
+
+C'est `order: 1` sur la marque et une colonne `flex` sur l'ouverture, pas un
+déplacement dans le HTML : la marque reste le premier enfant dans les dix pages
+concernées, donc elle reste ce que la grille de 1000 px place en colonne 2, et
+le balisage ne bouge pas. Elle est `aria-hidden`, donc son rang dans l'ordre de
+lecture ne regarde personne.
 
 ### Ajouter une marque
 
@@ -790,7 +870,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=10`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=12`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -819,6 +899,9 @@ pour la même raison.
 ## 8. Vérifications avant de pousser
 
 - rendu en 1440 px et 390 px, accueil et une page légale,
+- sous 1000 px, la marque de l'ouverture est **après** le texte et le titre
+  tombe juste sous l'en-tête, sur l'accueil comme sur la page d'histoire, dans
+  les cinq langues (voir §6),
 - l'entrée de la marque d'ouverture : elle vient du haut à droite, revient à sa
   place en s'enroulant, finit nette, et **la page ne se laisse pas tirer de
   côté pendant ce temps** (§4, §6),
@@ -836,7 +919,10 @@ pour la même raison.
 - console sans erreur,
 - mouvement réduit : la marque est posée à plat sans dépliage, le bandeau ne
   défile plus, et rien d'autre ne bouge,
-- la navigation tient sur une ligne en français à 1280 px et au-delà,
+- la navigation tient sur une ligne en français à 1280 px et au-delà, et en
+  dessous l'en-tête tient sur deux lignes dans les cinq langues, de 320 px à
+  1279 px, sans que les langues descendent et sans qu'un libellé quitte la
+  gouttière (voir §5),
 - si un script ou une feuille servie a changé, l'estampille `?v=` a été
   incrémentée dans les vingt-six pages (voir §7 bis), sans quoi la
   modification restera invisible en ligne pendant quatre heures,
