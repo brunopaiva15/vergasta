@@ -1423,10 +1423,9 @@ em {
    l'icône. La cellule n'est plus une case de tableau depuis que les entrées
    sont des blocs, donc la grille s'y pose sans détour.
 
-   La première colonne est mesurée et non `auto` : un projet sans icône laisse
-   sa case vide, et en `auto` cette case se refermerait, son nom rentrant d'un
-   pouce et demi sur les neuf autres. Une place tenue vaut mieux qu'un
-   alignement rompu. */
+   La première colonne est mesurée et non `auto` : elle tient sa place même si
+   un projet arrive sans icône, là où `auto` refermerait la case et ferait
+   rentrer ce nom-là de vingt-quatre pixels sur tous les autres. */
 .index td:first-child {
   display: grid;
   grid-template-columns: 1.5rem minmax(0, 1fr);
