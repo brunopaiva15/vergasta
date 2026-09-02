@@ -657,29 +657,29 @@ d'histoire, qui se déroule déjà au défilement. Sans JavaScript, aucune marqu
 n'est peinte, donc il n'y a rien à animer.
 
 **L'ouverture de l'accueil a son propre geste**, `pose-ouverture`. Elle entre
-par la droite, hors cadre et trois fois trop grande, et revient à sa
-place en s'enroulant sur elle-même : la spirale tourne d'un demi-tour pendant
-qu'elle rapetisse, donc elle se rembobine au lieu de simplement rétrécir. Une
+par la droite, hors cadre, et revient à sa place en tournant d'un demi-tour
+sur elle-même, à sa taille du début à la fin. Une
 seconde neuf, contre une seconde six pour les autres, et l'essentiel du trajet
 se fait dans la première demi-seconde : la courbe est très en avance, la fin
 n'est qu'un dépôt.
 
 Quatre points à ne pas défaire :
 
-- **pas de flou.** Il y en a eu, pour couvrir l'agrandissement du canevas
-  pendant l'entrée : à trois fois sa taille, un canevas peint pour sa taille
-  normale est grossi d'autant. Mais des tampons carrés agrandis restent des
-  tampons carrés, il n'y avait rien à cacher, et le flou faisait de la marque
-  une tache violette pendant une seconde. La rotation, elle, est **partie aux
-  deux tiers du trajet** : la fin se joue sur une spirale qui se pose, et non
-  sur une toupie ;
-- **d'où elle vient se règle en trois nombres**, `--vient-x`, `--vient-y` et
-  `--vient-echelle`, et rien d'autre ne change d'une taille d'écran à l'autre.
-  Sur un téléphone elle vient de plus à droite, de moins haut, et elle est
-  moins agrandie. Avec les valeurs du grand écran, elle partait du coin **haut
-  gauche** et rentrait presque droit : le geste ne se lisait plus. Ces trois
-  nombres sont en fractions de la fenêtre, donc le geste reste juste quel que
-  soit l'endroit de la page où la marque se pose ;
+- **ni agrandissement, ni flou.** Un premier réglage la faisait entrer à trois
+  fois sa taille et rapetisser en tournant, floue pour couvrir
+  l'agrandissement du canevas. Une forme qui arrive plus grande que sa place
+  et rétrécit ensuite se lit comme un effet, et le flou en faisait une tache
+  violette pendant une seconde. Elle arrive à sa taille, nette, et c'est le
+  trajet et la rotation qui font le geste. La rotation est **partie aux deux
+  tiers du trajet** : la fin se joue sur une spirale qui se pose, et non sur
+  une toupie ;
+- **d'où elle vient se règle en deux nombres**, `--vient-x` et `--vient-y`,
+  et rien d'autre ne change d'une taille d'écran à l'autre. Sur un téléphone
+  elle vient de plus à droite et de moins haut. Avec les valeurs du grand
+  écran, elle partait du coin **haut gauche** et rentrait presque droit : le
+  geste ne se lisait plus. Ces deux nombres sont en fractions de la fenêtre,
+  donc le geste reste juste quel que soit l'endroit de la page où la marque se
+  pose ;
 - **elle se pose du côté d'où elle vient.** Sur l'accueil et sous 1000 px, la
   marque est alignée à droite pour cette seule raison. Une marque qui traverse
   l'écran pour se ranger du côté opposé se lit comme un raté. Sur les pages
@@ -878,7 +878,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=13`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=14`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:

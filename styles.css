@@ -280,10 +280,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-wrap: pretty;
-  /* La marque d'ouverture entre par le haut à droite, donc hors cadre, et à
-     trois fois sa taille. Sans cette coupe, la page se laisse pousser sur le
-     côté pendant les deux secondes de son entrée : le débordement d'une
-     transformation compte dans la largeur du document.
+  /* La marque d'ouverture entre par le haut à droite, donc hors cadre. Sans
+     cette coupe, la page se laisse pousser sur le côté pendant les deux
+     secondes de son entrée : le débordement d'une transformation compte dans
+     la largeur du document.
 
      La coupe est posée sur le corps de page et pas sur la racine. Posée sur la
      racine, elle ne change rien : c'est vérifié, le document garde sa largeur
@@ -460,49 +460,43 @@ em {
 }
 
 /* L'ouverture de l'accueil ne se contente pas de se déplier sur place. Elle
-   entre par le haut à droite, hors cadre et trois fois trop grande, et elle
-   revient à sa place en s'enroulant sur elle-même : la spirale tourne d'un
-   demi-tour pendant qu'elle rapetisse, donc elle se rembobine au lieu de
-   simplement rétrécir. Le tracé, lui, se peint pendant ce temps-là.
+   entre par le haut à droite, hors cadre, et revient à sa place en tournant
+   d'un demi-tour sur elle-même. Le tracé, lui, se peint pendant ce temps-là.
 
-   Sans flou, du début à la fin. Un premier réglage en mettait pour couvrir
-   l'agrandissement du canevas, mais des tampons carrés agrandis restent des
-   tampons carrés : il n'y avait rien à cacher, et le flou faisait de la
-   marque une tache violette pendant une seconde.
+   À sa taille du début à la fin, et sans flou. Un premier réglage la faisait
+   entrer à trois fois sa taille et rapetisser en tournant, floue pour couvrir
+   l'agrandissement du canevas. Une forme qui arrive plus grande que sa place
+   et rétrécit ensuite se lit comme un effet, et le flou en faisait une tache
+   violette pendant une seconde. Reste le trajet et la rotation.
 
    Le geste vaut à toutes les tailles. Les distances sont en fractions de la
-   fenêtre, donc l'entrée est la même sur un téléphone, où la marque emplit
-   l'écran au départ ; et une transformation ne déplace rien dans la page, le
-   corps de page étant coupé à droite. */
+   fenêtre, donc l'entrée est la même sur un téléphone ; et une transformation
+   ne déplace rien dans la page, le corps de page étant coupé à droite. */
 .mark-opening.mark--pose {
   animation-duration: 2.2s;
 }
 
-/* D'où elle vient, et de combien elle est trop grande. Ces trois nombres sont
-   les seuls à changer d'une taille d'écran à l'autre : le geste est écrit une
-   fois, et c'est son point de départ qui se règle. Sur un téléphone, la marque
-   est posée en haut à droite du titre, donc elle vient de plus à droite et de
-   moins haut, et elle est moins agrandie : à 2,4 fois elle emplit déjà la
-   largeur de l'écran. */
+/* D'où elle vient. Ces deux nombres sont les seuls à changer d'une taille
+   d'écran à l'autre : le geste est écrit une fois, et c'est son point de
+   départ qui se règle. Sur un téléphone, la marque se range à droite, donc
+   elle vient de plus à droite et de moins haut. */
 .opening--accueil .mark-opening {
   --vient-x: 42vw;
   --vient-y: -13vh;
-  --vient-echelle: 2.4;
 }
 
 @media (min-width: 1000px) {
   .opening--accueil .mark-opening {
     --vient-x: 7vw;
     --vient-y: -27vh;
-    --vient-echelle: 3;
   }
 }
 
 @keyframes pose-ouverture {
   from {
     opacity: 0;
-    transform: translate(var(--vient-x), var(--vient-y)) scale(var(--vient-echelle))
-      rotate(-150deg) perspective(1100px) rotateX(30deg) rotateY(-24deg);
+    transform: translate(var(--vient-x), var(--vient-y)) rotate(-150deg)
+      perspective(1100px) rotateX(30deg) rotateY(-24deg);
   }
 
   12% {
@@ -513,18 +507,17 @@ em {
      spirale qui se pose, et non sur une toupie. */
   55% {
     transform: translate(calc(var(--vient-x) * 0.3), calc(var(--vient-y) * 0.32))
-      scale(calc(1 + (var(--vient-echelle) - 1) * 0.3)) rotate(-34deg)
-      perspective(1100px) rotateX(9deg) rotateY(-7deg);
+      rotate(-34deg) perspective(1100px) rotateX(9deg) rotateY(-7deg);
   }
 
   82% {
-    transform: translate(0, 0) scale(1.04) rotate(4deg) perspective(1100px)
-      rotateX(-2deg) rotateY(2deg);
+    transform: translate(0, 0) rotate(4deg) perspective(1100px) rotateX(-2deg)
+      rotateY(2deg);
   }
 
   to {
     opacity: 1;
-    transform: translate(0, 0) scale(1) rotate(0) perspective(1100px) rotateX(0)
+    transform: translate(0, 0) rotate(0) perspective(1100px) rotateX(0)
       rotateY(0);
   }
 }
