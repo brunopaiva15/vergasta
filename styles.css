@@ -167,11 +167,18 @@
 }
 
 :root {
-  /* Le papier n'est plus le blanc de l'écran. Une teinte chaude très pâle, sur
-     laquelle les feuilles blanches (encadrés, timbres de presse, bloc de
-     contact) se détachent au lieu de s'y fondre. Les encres, elles, ne bougent
-     pas : ce sont toujours les deux barres du logo. */
-  --paper: #e9ebe0;
+  /* Le papier n'est pas le blanc de l'écran, mais il n'en est plus très loin :
+     une teinte très pâle, tirée vers le blanc, sur laquelle les feuilles
+     blanches (encadrés, timbres de presse, bloc de contact) se détachent
+     encore au lieu de s'y fondre.
+
+     C'est ce dernier point qui fixe la limite. Entre le papier et la feuille il
+     reste un rapport de 1,13 contre 1,21 auparavant : l'écart s'est resserré,
+     et c'est l'ombre portée des cartes qui prend le relais de la teinte. Un cran
+     plus clair et les cartes ne seraient plus posées sur la page, elles en
+     feraient partie. Les encres, elles, ne bougent pas : ce sont toujours les
+     deux barres du logo. */
+  --paper: #f1f2e9;
   --sheet: #ffffff;
   --ink: #16160f;
   --ink-soft: #5d5d54;
@@ -280,12 +287,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-wrap: pretty;
-  /* La marque d'ouverture entre par le haut à droite, donc hors cadre. Sans
-     cette coupe, la page se laisse pousser sur le côté pendant les deux
-     secondes de son entrée : le débordement d'une transformation compte dans
-     la largeur du document.
+  /* La coupe latérale. Elle a été posée pour l'entrée de la marque
+     d'ouverture, qui venait du haut à droite, hors cadre : sans elle, la page
+     se laissait pousser sur le côté pendant les deux secondes du trajet, le
+     débordement d'une transformation comptant dans la largeur du document.
+     Cette entrée n'existe plus, la coupe reste : elle ne coûte rien et elle
+     tient toujours la page à sa largeur, en cinq langues et sur six pages, là
+     où un mot long ou une marge négative suffirait à ouvrir un défilement de
+     côté sur un téléphone.
 
-     La coupe est posée sur le corps de page et pas sur la racine. Posée sur la
+     Elle est posée sur le corps de page et pas sur la racine. Posée sur la
      racine, elle ne change rien : c'est vérifié, le document garde sa largeur
      débordée et se laisse encore tirer à droite. `clip` plutôt que `hidden`,
      qui laisserait un script faire défiler la page de côté ; `hidden` reste
@@ -417,120 +428,36 @@ em {
 /* --------------------------------------------------------------------------
    L'entrée en scène
 
-   La marque ne se contente plus d'apparaître : elle se déroule. Elle arrive
-   couchée en arrière et de biais, et se pose à plat pendant que la brosse
-   la peint. Les deux mouvements durent à peu près le même temps, donc
-   le dessin se termine au moment où la marque touche le plan de la page.
+   La marque n'entre pas en scène : elle se peint, et c'est tout.
 
-   Le dépliage est en trois dimensions et la couleur y monte d'un cran avant de
-   revenir : c'est un geste de 2001, et il va avec des tampons carrés et une
-   police bitmap. Ce que le CSS fait ici, le canevas ne saurait pas le faire
-   sans repeindre chaque tampon en perspective à chaque image.
+   Elle a longtemps eu un geste d'arrivée par-dessus le tracé. Elle venait du
+   haut à droite, hors cadre, en tournant d'un demi-tour sur elle-même, couchée
+   en arrière et de biais, la couleur montée d'un cran ; les autres marques se
+   dépliaient sur place en perspective. Les deux gestes finissaient de la même
+   façon, en dépassant la position d'arrivée d'un degré ou deux pour y revenir :
+   un rebond, qui donnait à un tampon de peinture le poids d'un objet qui
+   retombe.
 
-   La classe est posée par `brushes.js` au moment exact où le tracé commence,
-   pas au chargement : une marque qui entre dans le champ à mi-page se déroule
-   quand on y arrive. Le script ne la pose ni en mouvement réduit, ni sur le
-   fil de la page d'histoire, qui se déroule déjà au défilement. Sans
-   JavaScript, aucune marque n'est peinte et il n'y a donc rien à animer. */
-@keyframes pose-marque {
-  from {
-    opacity: 0;
-    transform: perspective(900px) translateZ(-240px) rotateX(48deg) rotateY(-32deg) rotate(-12deg);
-    filter: saturate(1.7);
-  }
+   Deux mouvements se disputaient alors le même moment. La brosse pose déjà
+   ses tampons un par un le long de la spirale, et ce déroulé est le geste : il
+   dit qu'une main peint. Le lui faire faire pendant que la forme entière
+   voyage, tourne et rebondit, c'est peindre sur un support qui bouge, et ni
+   l'un ni l'autre ne se lit.
 
-  35% {
-    opacity: 1;
-  }
+   Reste donc le dessin seul, à sa place, dès la première image. Ce qui bouge
+   est ce que la brosse trace, et rien d'autre. Le titre, l'accroche et les
+   sorties gardent leur montée : c'est la page qui arrive, pas la marque.
 
-  70% {
-    transform: perspective(900px) translateZ(0) rotateX(-7deg) rotateY(6deg) rotate(2deg);
-    filter: saturate(1.25);
-  }
+   `brushes.js` ne pose donc plus rien sur l'hôte, et il n'y a plus de classe
+   `mark--pose` : la marque est un canevas, le script le peint, la feuille de
+   style se contente de lui donner sa taille. Rien à neutraliser à l'impression,
+   ni sur la page d'atelier qui tire la carte de visite, ni en mouvement
+   réduit. */
 
-  to {
-    opacity: 1;
-    transform: perspective(900px) translateZ(0) rotateX(0) rotateY(0) rotate(0);
-    filter: saturate(1);
-  }
-}
-
-.mark--pose {
-  animation: pose-marque 1.6s cubic-bezier(0.2, 0.86, 0.28, 1) both;
-}
-
-/* L'ouverture de l'accueil ne se contente pas de se déplier sur place. Elle
-   entre par le haut à droite, hors cadre, et revient à sa place en tournant
-   d'un demi-tour sur elle-même. Le tracé, lui, se peint pendant ce temps-là.
-
-   À sa taille du début à la fin, et sans flou. Un premier réglage la faisait
-   entrer à trois fois sa taille et rapetisser en tournant, floue pour couvrir
-   l'agrandissement du canevas. Une forme qui arrive plus grande que sa place
-   et rétrécit ensuite se lit comme un effet, et le flou en faisait une tache
-   violette pendant une seconde. Reste le trajet et la rotation.
-
-   Le geste vaut à toutes les tailles. Les distances sont en fractions de la
-   fenêtre, donc l'entrée est la même sur un téléphone ; et une transformation
-   ne déplace rien dans la page, le corps de page étant coupé à droite. */
-.mark-opening.mark--pose {
-  animation-duration: 2.2s;
-}
-
-/* D'où elle vient. Ces deux nombres sont les seuls à changer d'une taille
-   d'écran à l'autre : le geste est écrit une fois, et c'est son point de
-   départ qui se règle. Sur un téléphone, la marque se range à droite, donc
-   elle vient de plus à droite et de moins haut. */
-.opening--accueil .mark-opening {
-  --vient-x: 42vw;
-  --vient-y: -13vh;
-}
-
-@media (min-width: 1000px) {
-  .opening--accueil .mark-opening {
-    --vient-x: 7vw;
-    --vient-y: -27vh;
-  }
-}
-
-@keyframes pose-ouverture {
-  from {
-    opacity: 0;
-    transform: translate(var(--vient-x), var(--vient-y)) rotate(-150deg)
-      perspective(1100px) rotateX(30deg) rotateY(-24deg);
-  }
-
-  12% {
-    opacity: 1;
-  }
-
-  /* La rotation est partie aux deux tiers : la fin du trajet se fait sur une
-     spirale qui se pose, et non sur une toupie. */
-  55% {
-    transform: translate(calc(var(--vient-x) * 0.3), calc(var(--vient-y) * 0.32))
-      rotate(-34deg) perspective(1100px) rotateX(9deg) rotateY(-7deg);
-  }
-
-  82% {
-    transform: translate(0, 0) rotate(4deg) perspective(1100px) rotateX(-2deg)
-      rotateY(2deg);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(0, 0) rotate(0) perspective(1100px) rotateX(0)
-      rotateY(0);
-  }
-}
-
-.opening--accueil .mark-opening.mark--pose {
-  animation-name: pose-ouverture;
-  animation-duration: 1.9s;
-  animation-timing-function: cubic-bezier(0.22, 0.72, 0.14, 1);
-}
-
-/* Le titre, l'accroche et les sorties montent derrière la marque, avec un
-   reste de flou. L'animation part de l'état voulu (`backwards`) : un
-   navigateur qui ne l'exécute pas affiche la page telle quelle. */
+/* Ce qui reste d'une entrée : le titre, l'accroche et les sorties montent d'un
+   demi-centimètre, avec un reste de flou. C'est la page qui arrive, et rien de
+   plus. L'animation part de l'état voulu (`backwards`) : un navigateur qui ne
+   l'exécute pas affiche la page telle quelle. */
 @keyframes arrivee {
   from {
     opacity: 0;
@@ -563,15 +490,8 @@ em {
   animation-delay: 0.42s;
 }
 
-/* La page d'atelier tire une carte de visite : une marque saisie en plein
-   dépliage sortirait de travers dans le PDF. Elle n'entre pas en
-   scène, elle est là. Même raison à l'impression de n'importe quelle page. */
-.atelier .mark--pose {
-  animation: none;
-}
-
+/* Sur le papier, rien ne monte ni ne défile : la page est déjà arrivée. */
 @media print {
-  .mark--pose,
   .ribbon-track,
   .opening h1,
   .opening-body,
@@ -580,9 +500,9 @@ em {
   }
 }
 
-/* Un dépliage en perspective est exactement ce dont ce réglage ne veut pas. */
+/* Une montée avec un reste de flou est exactement ce dont ce réglage ne veut
+   pas. Le texte est là, à sa place, net. */
 @media (prefers-reduced-motion: reduce) {
-  .mark--pose,
   .opening h1,
   .opening-body,
   .opening-actions {
@@ -1081,9 +1001,6 @@ em {
    Elle passe donc après les deux sorties, où le blanc qu'elle laisse à sa
    gauche est le blanc qui sépare de toute façon l'ouverture du bandeau. La
    page s'ouvre sur son titre, et la marque referme la scène avant le lime.
-   Le geste d'entrée ne change pas : il vient du haut à droite en fractions de
-   la fenêtre, donc il reste juste quel que soit l'endroit où la marque se
-   pose.
 
    La page d'histoire avait le même défaut, sa marque posée sur la gouttière
    au-dessus du titre : deux cent vingt pixels avant de lire « Notre
@@ -1107,9 +1024,11 @@ em {
     margin-bottom: 0;
   }
 
-  /* Sur l'accueil elle se range à droite, d'où elle vient. Sur les pages
-     intérieures elle reste sur la gouttière, alignée sur le titre qu'elle
-     accompagne. */
+  /* Sur l'accueil elle se range à droite : le titre, l'accroche et les deux
+     sorties sont tous alignés à gauche, et une spirale posée sous eux, à
+     gauche elle aussi, ne ferait qu'allonger la même colonne. À droite, elle
+     ferme le bloc en diagonale. Sur les pages intérieures elle reste sur la
+     gouttière, alignée sur le titre qu'elle accompagne. */
   .opening--accueil .mark-opening {
     width: 9.5rem;
     height: 9.5rem;
