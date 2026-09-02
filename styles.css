@@ -734,7 +734,11 @@ em {
   gap: 0.2rem;
 }
 
-@media (min-width: 800px) {
+/* Le filet ne sépare les langues de la navigation que lorsque les deux se
+   suivent sur la même ligne. En grille, les langues sont posées au bout de la
+   ligne de la marque : un filet à leur gauche y couperait la marque de son
+   propre en-tête, et ne séparerait plus rien. */
+@media (min-width: 1280px) {
   .lang-nav {
     padding-left: 1rem;
     border-left: 1px solid var(--rule);
@@ -758,6 +762,113 @@ em {
 .lang-nav .is-current {
   background: var(--lime);
   border-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   L'en-tête tant que la ligne unique ne tient pas
+
+   La marque, les cinq entrées et les cinq langues tiennent sur une seule ligne
+   à partir de 1280 px, et c'est le réglage au pixel près décrit au §5. En
+   dessous elles n'y tiennent pas, et l'enroulement du `flex` les cassait
+   n'importe où : sur un téléphone, la marque, puis la navigation coupée en
+   deux, puis les langues, quatre lignes et deux cents pixels avant le premier
+   mot de la page ; sur une tablette, la marque seule au-dessus d'une queue qui
+   reprenait toute la largeur.
+
+   Ici la coupe est choisie plutôt que subie, en deux lignes tenues :
+
+   1. la marque à gauche, les cinq langues à droite. Le sélecteur est court et
+      il ne descend jamais : il tient sur la ligne de la marque comme il tient
+      au bout de la navigation sur grand écran ;
+   2. la navigation dessous, sur toute la largeur.
+
+   `display: contents` sur le groupe de queue : la navigation et les langues
+   deviennent des cases de la grille de l'en-tête sans que le HTML des
+   vingt-six pages change.
+
+   Rien ne se replie derrière un bouton. À cinq entrées, une liste ouverte se
+   lit d'un coup d'œil, et c'est déjà la raison qui vaut pour les langues (§5).
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1279px) {
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.65rem 0.75rem;
+  }
+
+  .masthead-tail {
+    display: contents;
+  }
+
+  .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Les pilules sont invisibles au repos, mais leur rembourrage compte : sans
+     ces marges négatives, le premier libellé de la navigation rentrerait de
+     douze pixels sur la gouttière et le dernier code de langue s'en écarterait
+     d'autant. La marque et le titre de la page tombent sur la gouttière ; ces
+     deux lignes doivent y tomber aussi. C'est le même décalage optique que
+     celui des marques à la brosse. */
+  .lang-nav {
+    grid-column: 2;
+    grid-row: 1;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    margin-right: -0.5rem;
+  }
+
+  .site-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+}
+
+/* Sur un téléphone, les deux lignes se resserrent encore : la marque cède du
+   corps, c'est le seul des trois blocs dont la largeur se règle sans toucher à
+   un texte traduit cinq fois, et la navigation passe à un corps qui laisse
+   deux entrées françaises tenir côte à côte. */
+@media (max-width: 799px) {
+  .masthead {
+    padding-top: 1.25rem;
+    padding-bottom: 1.1rem;
+  }
+
+  .brand {
+    font-size: clamp(1.15rem, 5.2vw, 1.45rem);
+  }
+
+  .brand img {
+    height: 1.1rem;
+  }
+
+  .lang-nav {
+    gap: 0.05rem;
+    margin-right: -0.4rem;
+  }
+
+  .lang-nav a,
+  .lang-nav .is-current {
+    font-size: 0.95rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .site-nav {
+    gap: 0.1rem 0;
+    font-size: 0.82rem;
+    margin-left: -0.6rem;
+    margin-right: -0.6rem;
+  }
+
+  .site-nav a,
+  .site-nav .is-current {
+    padding: 0.4rem 0.6rem;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1154,6 +1265,23 @@ em {
   color: var(--ink);
 }
 
+/* L'étoile qui ouvre chaque moment. Elle ne vivait que dans la requête à
+   900 px, avec les trois colonnes : sous cette largeur, les trois moments
+   redevenaient trois paragraphes à la file, et rien ne disait plus où l'un
+   finissait et où le suivant commençait. Or c'est sur un téléphone que la
+   colonne unique en a le plus besoin, puisque la lecture s'y fait à la
+   verticale et que le blanc entre deux paragraphes est le seul repère. */
+.run-through > div > p::before {
+  content: "";
+  display: block;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-bottom: 0.7rem;
+  background-color: var(--olive);
+  -webkit-mask: var(--etoile) center / contain no-repeat;
+  mask: var(--etoile) center / contain no-repeat;
+}
+
 @media (min-width: 900px) {
   .run-through > div {
     display: grid;
@@ -1166,14 +1294,9 @@ em {
   }
 
   .run-through > div > p::before {
-    content: "";
-    display: block;
     width: 0.95rem;
     height: 0.95rem;
     margin-bottom: 0.9rem;
-    background-color: var(--olive);
-    -webkit-mask: var(--etoile) center / contain no-repeat;
-    mask: var(--etoile) center / contain no-repeat;
   }
 
   .run-through .lead-in {
@@ -1296,6 +1419,13 @@ em {
   padding: 1.1rem 1.25rem;
   border-bottom: 1px solid var(--rule);
   vertical-align: baseline;
+}
+
+/* Un filet est là pour séparer deux lignes (§4). Sous la dernière il ne sépare
+   plus rien : il ferme le tableau d'un trait à quelques millimètres du bord de
+   la carte, et deux traits parallèles se lisent comme une bordure ratée. */
+.index tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 .index td:first-child,
@@ -1498,8 +1628,21 @@ em {
     border-bottom: 1px solid var(--rule);
   }
 
+  .index tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  /* `.index td:first-child` porte un rembourrage à gauche pour dégager le nom
+     du bord de la carte. En pile, cette colonne n'a plus de voisine à sa
+     gauche, et ce rembourrage est plus spécifique que le `padding: 0`
+     ci-dessus : le nom et son adresse rentraient de quatorze pixels sur le
+     type et l'année, qui tombaient, eux, sur le bord du bloc. */
   .index td {
     padding: 0;
+  }
+
+  .index td:first-child {
+    padding-left: 0;
   }
 
   .index td:last-child {

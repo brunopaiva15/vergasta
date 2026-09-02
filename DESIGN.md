@@ -316,6 +316,14 @@ olive, et la carte des conditions passe dessous sur toute la largeur. Ils
 étaient trois paragraphes empilés avec l'encadré en marge. Pas de numéros : ce
 sont trois moments, pas trois étapes numérotées (voir §7).
 
+**L'étoile vaut à toutes les largeurs.** Elle n'a longtemps vécu que dans la
+requête à 900 px, avec les colonnes : en dessous, les trois moments
+redevenaient trois paragraphes à la file, et plus rien ne disait où l'un
+finissait ni où le suivant commençait. C'est pourtant sur un téléphone que la
+colonne unique en a le plus besoin, puisque la lecture s'y fait à la verticale
+et que le blanc entre deux paragraphes est le seul repère. Elle est donc posée
+partout, un peu plus petite en pile (0,8 rem contre 0,95 rem).
+
 **Encadré `.aside`.** La carte des conditions, sous le déroulé, ses cinq
 entrées rangées en colonnes. Son titre est écrit à la main (§2) : c'est une
 note posée en marge, pas une clause de plus. Il sert à porter une information
@@ -332,7 +340,15 @@ haute de quatre lignes, et le lime faisait perdre aux timbres de presse leurs
 réserves blanches. Les colonnes du type et de l'année sont mesurées (13 rem,
 5 rem) : sans mesure, le navigateur les serrait au profit des noms et coupait
 « Application iOS et Android » en trois lignes. Sous 640 px, les en-têtes
-disparaissent et chaque ligne devient un bloc.
+disparaissent et chaque ligne devient un bloc. En pile, la première cellule
+perd le rembourrage qui dégageait le nom du bord de la carte : elle n'a plus
+de voisine à sa gauche, et ce rembourrage rentrait le nom et son adresse de
+quatorze pixels sur le type et l'année, restés, eux, sur le bord du bloc.
+
+**Pas de filet sous la dernière ligne.** Un filet sépare deux lignes (§4) ;
+sous la dernière il ne sépare plus rien, et il ferme le tableau d'un trait à
+quelques millimètres du bord de la carte, où deux traits parallèles se lisent
+comme une bordure ratée. Vrai des deux côtés de 640 px.
 
 **Bloc de contact `.contact-body`.** La dernière carte de la page, un cran plus
 grande que les autres, et la seule en aplat lime : texte à l'encre pleine (du
@@ -458,8 +474,40 @@ entrées et les cinq langues tiennent sur une ligne de 66 rem en français, qui
 est la version la plus longue. Y toucher fait tomber la navigation sur une
 seconde ligne.
 
+**L'en-tête sous 1280 px.** Cette ligne unique ne tient qu'à partir de 1280 px.
+En dessous, la coupe est choisie plutôt que subie : `.masthead` devient une
+grille de deux lignes, la marque à gauche et les cinq langues à droite sur la
+première, la navigation sur toute la largeur sur la seconde. Le groupe de queue
+passe en `display: contents` pour que ses deux navigations deviennent des cases
+de cette grille, ce qui évite de toucher au HTML des vingt-six pages.
+
+Avant cela, l'enroulement du `flex` cassait où il pouvait : sur un téléphone,
+la marque, puis la navigation coupée en deux, puis les langues, quatre lignes
+et deux cents pixels de haut avant le premier mot de la page, soit le quart
+d'un écran. Il en reste cent cinquante, et l'ouverture de l'accueil tient
+maintenant sur le premier écran, ses deux sorties comprises.
+
+**Rien ne se replie derrière un bouton**, ni ici ni ailleurs. À cinq entrées,
+une liste ouverte se lit d'un coup d'œil et fonctionne sans JavaScript : c'est
+déjà la raison qui vaut pour le sélecteur de langue, et elle vaut deux fois
+pour une navigation de cinq mots.
+
+**Les libellés tombent sur la gouttière.** Les pilules de la navigation sont
+invisibles au repos, mais leur rembourrage compte : sans marge négative sur les
+deux navigations, le premier libellé rentrait de douze pixels sur la gouttière
+et le dernier code de langue s'en écartait d'autant, alors que la marque et le
+titre de la page, eux, tombent dessus. C'est le même décalage optique que
+celui des marques à la brosse (`-0,35 rem` sur `.slab-mark`). La seule pilule
+visible au repos, celle de la page courante, déborde donc la gouttière du
+rembourrage : c'est un alinéa négatif, et il vaut mieux que cinq libellés
+décalés.
+
 **Sélecteur de langue `.lang-nav`.** Cinq codes à deux lettres dans la bitmap,
-posés à droite de la navigation, séparés par un filet simple au-delà de 800 px.
+posés à droite de la navigation, séparés par un filet simple à partir de
+1280 px. Le filet ne sépare les langues de la navigation que lorsque les deux
+se suivent sur la même ligne ; en grille, les langues sont posées au bout de la
+ligne de la marque, et un filet à leur gauche couperait la marque de son propre
+en-tête.
 La version courante porte la pilule lime : c'est le même geste que le survol,
 tenu en permanence. Pas de menu déroulant, pas de drapeau. À cinq entrées une
 liste ouverte se lit d'un coup d'œil, elle fonctionne sans JavaScript, et un
@@ -790,7 +838,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=10`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=11`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -836,7 +884,10 @@ pour la même raison.
 - console sans erreur,
 - mouvement réduit : la marque est posée à plat sans dépliage, le bandeau ne
   défile plus, et rien d'autre ne bouge,
-- la navigation tient sur une ligne en français à 1280 px et au-delà,
+- la navigation tient sur une ligne en français à 1280 px et au-delà, et en
+  dessous l'en-tête tient sur deux lignes dans les cinq langues, de 320 px à
+  1279 px, sans que les langues descendent et sans qu'un libellé quitte la
+  gouttière (voir §5),
 - si un script ou une feuille servie a changé, l'estampille `?v=` a été
   incrémentée dans les vingt-six pages (voir §7 bis), sans quoi la
   modification restera invisible en ligne pendant quatre heures,
