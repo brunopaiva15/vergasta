@@ -402,13 +402,17 @@ choix méritent d'être notés, parce qu'ils ne se relisent pas dans les fichier
   pas un : c'est un PNG encodé en base64 dans une enveloppe SVG, 46 Ko pour les
   pixels que `favicon-96x96.png` porte en 5. Prendre le SVG aurait coûté neuf
   fois le poids pour exactement la même image ;
-- **le SVG de Vergasta Photo est servi sans sa règle de mode sombre.** Il porte
-  un `@media (prefers-color-scheme: dark)` qui repeint la marque en blanc, et un
-  SVG chargé dans une `<img>` lit cette règle sur le réglage du système du
-  visiteur, pas sur la page qui l'affiche. Sur notre papier clair, la marque
-  disparaissait purement et simplement chez qui a son système en sombre. Le
-  dessin ne change pas : c'est la variante claire, celle que le papier demande,
-  qui est retenue ;
+- **Vergasta Photo est pris à son `favicon.ico` et non à son `favicon.svg`**,
+  bien que le second soit vectoriel. Les deux ne portent pas le même dessin :
+  le `.ico` est la marque telle qu'un onglet la montre, la lettre blanche
+  détourée d'une tuile noire avec son accent magenta, quand le SVG n'en garde
+  que la lettre, pleine et sans tuile. C'est la tuile qu'on reconnaît, et c'est
+  elle qui répond aux autres icônes carrées de la liste. Le SVG avait de toute
+  façon un défaut qui l'écartait : il porte un `@media (prefers-color-scheme:
+  dark)` qui repeint la marque en blanc, et un SVG chargé dans une `<img>` lit
+  cette règle sur le réglage du système du visiteur, pas sur la page qui
+  l'affiche. Sur notre papier clair, la marque disparaissait purement et
+  simplement chez qui a son système en sombre ;
 - **BDPokéCards n'existe qu'en 32 px.** Son site ne publie pas d'icône plus
   grande, et une marque agrandie vaut mieux qu'une marque redessinée.
 
