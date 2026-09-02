@@ -21,7 +21,7 @@ c'est un atelier, pas une agence.
 | Rôle | Valeur | Emploi |
 |---|---|---|
 | Papier | `#f1f2e9` | fond général |
-| Feuille | `#ffffff` | cartes, timbres de presse |
+| Feuille | `#ffffff` | cartes |
 | Encre | `#16160f` | texte, pied de page, boutons |
 | Encre atténuée | `#5d5d54` | texte secondaire (5,9:1 sur le papier) |
 | Filet | `#d5d7c9` | séparations internes des cartes |
@@ -62,7 +62,7 @@ dans la feuille de style.
 | `--rond-l` | 30 px | tableau, bloc de contact, pied de page |
 | `--rond-s` | 14 px | ligne de tableau survolée, encart de traduction |
 | `--ombre` | deux couches, 20 px de flou à 24 px de décalage | les cartes |
-| `--ombre-basse` | la même, moitié moins haute | boutons, timbres |
+| `--ombre-basse` | la même, moitié moins haute | boutons, encart de traduction |
 
 L'ombre est **portée par la carte, pas dessinée autour d'elle** : une seule
 teinte, celle de l'encre à 5 % puis à 50 % sur une seconde couche remontée de
@@ -351,24 +351,66 @@ réelle et vérifiable, pas un argument : son contenu vient directement des CGV.
 Le filet est posé au-dessus de chaque entrée, la première comprise, sans quoi
 la première colonne serait la seule à commencer sans trait.
 
-**Index `.index`.** Les réalisations sont un vrai `<table>` avec en-têtes, posé
-sur une carte. La légende est écrite à la main. **La ligne survolée prend le
-papier de la page** : sur la carte blanche, elle ressort en creux, coins
-arrondis aux deux bouts, sans aplat de couleur. Elle a été surlignée en lime
-plein, puis inversée en noir ; les deux sautaient à la figure sur une entrée
-haute de quatre lignes, et le lime faisait perdre aux timbres de presse leurs
-réserves blanches. Les colonnes du type et de l'année sont mesurées (13 rem,
-5 rem) : sans mesure, le navigateur les serrait au profit des noms et coupait
-« Application iOS et Android » en trois lignes. Sous 640 px, les en-têtes
-disparaissent et chaque ligne devient un bloc. En pile, la première cellule
-perd le rembourrage qui dégageait le nom du bord de la carte : elle n'a plus
-de voisine à sa gauche, et ce rembourrage rentrait le nom et son adresse de
-quatorze pixels sur le type et l'année, restés, eux, sur le bord du bloc.
+**Index `.index`.** Les réalisations sont un `<table>` posé sur une carte : le
+balisage reste tabulaire, parce que les données le sont, un projet, un genre,
+une année. La présentation, elle, ne l'est plus. **Les entrées se rangent en
+deux colonnes au-delà de 900 px**, chacune en bloc, et le genre et l'année
+tombent en fin d'entrée, reliés par une virgule. C'est exactement la forme que
+le tableau prenait déjà sous 640 px : elle vaut maintenant à toutes les
+largeurs, et une seule mise en page vaut mieux que deux qui divergent. La
+légende est écrite à la main.
 
-**Pas de filet sous la dernière ligne.** Un filet sépare deux lignes (§4) ;
-sous la dernière il ne sépare plus rien, et il ferme le tableau d'un trait à
-quelques millimètres du bord de la carte, où deux traits parallèles se lisent
-comme une bordure ratée. Vrai des deux côtés de 640 px.
+Les en-têtes tombent avec les colonnes qu'ils nommaient. Un en-tête « Projet »
+posé sur une colonne qui porte deux projets côte à côte ne nomme plus rien, et
+dans un bloc le nom, le genre et l'année se lisent d'eux-mêmes. Les mesures des
+colonnes du type et de l'année (13 rem, 5 rem) tombent avec eux.
+
+**La ligne survolée prend le papier de la page** : sur la carte blanche, elle
+ressort en creux, coins arrondis, sans aplat de couleur. Elle a été surlignée en
+lime plein, puis inversée en noir ; les deux sautaient à la figure sur une
+entrée haute de quatre lignes. L'entrée se cale en haut de sa case et ne s'y
+étire pas : deux entrées voisines n'ont pas la même hauteur, et sans ce calage
+le creux de la plus courte descendrait jusqu'au bas de la plus longue.
+
+**Le filet est posé au-dessus de chaque entrée, jamais en dessous.** Un filet
+sépare deux lignes (§4) ; sous la dernière il ne sépare plus rien, et il ferme
+le tableau d'un trait à quelques millimètres du bord de la carte, où deux traits
+parallèles se lisent comme une bordure ratée. Posé au-dessus, il ne peut pas s'y
+trouver, et la règle vaut pour les deux colonnes à la fois là où une exception
+sur la dernière entrée aurait manqué le bas de la première colonne. Ce sont donc
+les deux entrées de tête qui n'en portent pas, et non la seule première.
+
+**Icône de projet `.projet-icone`.** Chaque entrée porte à gauche la marque de
+son projet, sur la ligne du nom, dans un carré de 1,5 rem. L'adresse, les
+magasins et la mention de presse s'alignent sur le nom et non sous l'icône :
+la cellule est une grille de deux colonnes, l'icône dans la première, tout le
+reste dans la seconde.
+
+**Les coins sont arrondis à 6 px.** La moitié de ces marques sont des carrés
+pleins — icônes d'application, pavés de couleur — et un carré vif à angles
+droits serait le seul objet du site à ne pas avoir les coins ronds du §1. Sur
+les marques détourées, le rayon ne se voit pas : il ne rogne que du vide.
+
+Les dix fichiers sont servis d'ici, comme les polices et les logos de presse.
+Un appel aux serveurs des projets leur donnerait l'adresse IP de chaque
+visiteur, ce que le §2 et `privacy.html` interdisent. Ce sont les fichiers
+officiels de chaque projet, repris tels quels : le favicon du site quand il y en
+a un, l'icône de l'application quand le projet n'est qu'une application. Trois
+choix méritent d'être notés, parce qu'ils ne se relisent pas dans les fichiers :
+
+- **Axolot est servi en PNG alors que le site publie un SVG.** Ce SVG n'en est
+  pas un : c'est un PNG encodé en base64 dans une enveloppe SVG, 46 Ko pour les
+  pixels que `favicon-96x96.png` porte en 5. Prendre le SVG aurait coûté neuf
+  fois le poids pour exactement la même image ;
+- **le SVG de Vergasta Photo est servi sans sa règle de mode sombre.** Il porte
+  un `@media (prefers-color-scheme: dark)` qui repeint la marque en blanc, et un
+  SVG chargé dans une `<img>` lit cette règle sur le réglage du système du
+  visiteur, pas sur la page qui l'affiche. Sur notre papier clair, la marque
+  disparaissait purement et simplement chez qui a son système en sombre. Le
+  dessin ne change pas : c'est la variante claire, celle que le papier demande,
+  qui est retenue ;
+- **BDPokéCards n'existe qu'en 32 px.** Son site ne publie pas d'icône plus
+  grande, et une marque agrandie vaut mieux qu'une marque redessinée.
 
 **Bloc de contact `.contact-body`.** La dernière carte de la page, un cran plus
 grande que les autres, et la seule en aplat lime : texte à l'encre pleine (du
@@ -377,8 +419,11 @@ paragraphes au-delà de 900 px.
 
 Le décompte annoncé par la légende se compte langue par langue, car les
 tableaux ne portent pas les mêmes lignes : Bruit CH n'étant pas publiée en
-italien, la version italienne en reste à huit projets quand les quatre autres
-passent à neuf, et le tableau japonais ne liste que Yamanote 3D.
+italien, la version italienne en reste à neuf projets quand les quatre autres
+passent à dix, et le tableau japonais ne liste que Yamanote 3D. Stellar Rebirth
+ouvre la liste dans les quatre langues latines et ne figure pas au tableau
+japonais, pour la même raison que les autres : il ne s'adresse pas à ce
+lecteur-là.
 
 **Ligne des magasins `.stores`.** Deuxième ligne de la cellule, sous le nom,
 là où les projets à adresse posent leur `.host`. Elle reprend les mesures de
@@ -389,36 +434,48 @@ vide de 12,6 px, contre 7,8 px sur les lignes à adresse, dont le bloc porte
 déjà sa propre taille. Deux deuxièmes lignes du même tableau ne peuvent pas
 tomber à des hauteurs différentes.
 
-**Mention de presse `.press`.** Troisième ligne de la cellule d'un projet, sous
+**Mention de presse `.press`.** Troisième ligne de l'entrée d'un projet, sous
 les liens de magasin. Elle se lit d'un trait, « Apparu sur » suivi des six
 marques, qui tiennent la place des noms : c'est le logo du journal qui fait la
 preuve, et le recomposer dans nos polices reviendrait à le citer de mémoire.
-Aucune virgule entre les marques : les cadres séparent déjà, et une virgule
-posée contre un filet se lit comme une salissure. L'alternative
-textuelle rend les noms à la lecture d'écran, donc la phrase reste entière sans
-les images.
+Aucune virgule entre les marques : une virgule posée entre deux logos se lit
+comme une salissure. L'alternative textuelle rend les noms à la lecture
+d'écran, donc la phrase reste entière sans les images.
 
-Chaque logo est posé dans un cadre blanc à filet fin et coins ronds, comme un
-timbre. C'est le survol qui l'exige : la ligne prend le papier crème, et une
-marque dessinée pour du papier blanc y perdrait ses réserves blanches.
-Les six marques
-n'ont pas toutes la même hauteur : 1,25 rem pour le Journal du Jura, 1,08 rem
-pour Watson et 0,9 rem pour ArcInfo, Le Nouvelliste, La Côte et Ajour. Le
-Journal du Jura porte un pavé de deux lignes, Watson un bloc noir plein et les
-quatre autres des signatures horizontales : à hauteur égale les dernières
-écraseraient la première. Ajour tient dans les mêmes 0,9 rem que ses voisines
-bien que la virgule rouge de sa marque monte au-dessus des lettres et descende
-sous la ligne de pied : c'est le mot, pas le dessin qui l'accompagne, qui doit
-peser autant que « La Côte » à côté. Les cadres, eux, font les mêmes 2 rem hors
-tout, le rembourrage rattrapant la différence, sans quoi la ligne porterait six
-timbres dépareillés.
-Ces hauteurs sont réglées pour que la ligne entière tienne dans la colonne des
-projets sans pousser celles du type et de l'année, en allemand compris, où
-« Erschienen in » est le plus long des quatre débuts.
+**Les marques sont désaturées et posées en demi-teinte, et reprennent leur
+encre au survol.** C'est le traitement ordinaire d'une barre de presse, et il
+vaut ici pour une raison qui lui est propre : six logos à pleine couleur, dont
+deux pavés rouges et un bloc noir, tenaient dans l'entrée plus de place que le
+nom du projet qu'ils servaient à prouver. En gris, ils redeviennent ce qu'ils
+sont, une preuve posée en petit sous le nom.
 
-Chaque timbre est un lien vers l'article, sans couleur ni soulignement : c'est
-le cadre entier qui se prend. L'ombre portée le dit, et elle s'allonge au
-survol comme celle du bouton, donc le timbre se soulève.
+Elles ont porté un cadre blanc à filet fin, comme des timbres, tant que la ligne
+survolée passait au lime et faisait perdre aux marques leurs réserves blanches.
+Le survol prend le papier crème depuis, et aucune des six ne s'appuie sur du
+blanc : celui de Watson est enfermé dans son propre bloc noir. Six cadres dans
+une colonne deux fois plus étroite qu'avant faisaient six objets de plus à
+lire ; ils tombent avec la raison qui les tenait.
+
+Les six marques n'ont pas toutes la même hauteur : 1,15 rem pour le Journal du
+Jura, 0,98 rem pour Watson et 0,82 rem pour ArcInfo, Le Nouvelliste, La Côte et
+Ajour. Le Journal du Jura porte un pavé de deux lignes, Watson un bloc noir
+plein et les quatre autres des signatures horizontales : à hauteur égale les
+dernières écraseraient la première. Ajour tient dans les mêmes 0,82 rem que ses
+voisines bien que la virgule rouge de sa marque monte au-dessus des lettres et
+descende sous la ligne de pied : c'est le mot, pas le dessin qui l'accompagne,
+qui doit peser autant que « La Côte » à côté.
+
+**La ligne se replie quand la colonne est trop courte, et c'est voulu.** À deux
+colonnes, six marques côte à côte ne tiennent pas sur une seule ligne sans
+descendre à une hauteur où plus aucune ne se lit. Elle a été tenue de force sur
+une ligne, les six marques empilées en biseau comme des coupures posées les unes
+sur les autres : de chaque marque il ne restait qu'une tranche, et six tranches
+de mots coupés font du bruit, pas une pile. Ce que le calage en haut de case a
+réglé du côté de l'entrée voisine, le repli le règle ici : la ligne prend deux
+rangs quand il le faut sans allonger personne d'autre.
+
+Chaque marque est un lien vers l'article, sans couleur ni soulignement : c'est
+la marque entière qui se prend.
 
 Les six fichiers, `logo_journaldujura.svg`, `logo_arcinfo.svg`,
 `logo_watson.png`, `logo_nouvelliste.svg`, `logo_lacote.svg` et
@@ -883,7 +940,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=15`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=16`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -904,8 +961,8 @@ la même partout, un simple entier, et vaut pour tous les fichiers à la fois :
 une estampille par fichier serait plus fine et cinq fois plus facile à oublier.
 
 Les polices n'en portent pas. Elles ne changent pas, et quand elles changent
-c'est leur nom qui change, ce qui suffit. Les images et `favicon.ico` non plus,
-pour la même raison.
+c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
+`favicon.ico` non plus, pour la même raison.
 
 ---
 
@@ -919,7 +976,8 @@ pour la même raison.
   place en s'enroulant, finit nette, et **la page ne se laisse pas tirer de
   côté pendant ce temps** (§4, §6),
 - états de survol : navigation, ligne de tableau qui passe au papier, cartes,
-  bouton sur ses deux fonds (papier et bloc lime), timbres de presse,
+  bouton sur ses deux fonds (papier et bloc lime), marques de presse, qui
+  passent du gris à leur encre,
 - barre de chargement : cliquer un lien interne la lance, un lien externe non,
   et elle s'efface après l'arrivée sans rien laisser derrière,
 - « Notre histoire » : le fil se déroule en descendant et sa pointe reste en
