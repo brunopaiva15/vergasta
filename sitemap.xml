@@ -3,14 +3,55 @@
   Pages publiques de Vergasta Digital. carte-de-visite.html en est
   volontairement absente : c'est une page d'atelier, liée depuis nulle part et
   en noindex. Les correspondances entre versions traduites vivent dans les
-  <link rel="alternate" hreflang> de chaque page.
+  <link rel="alternate" hreflang> de chaque page. Les pages d'Auxine
+  déclarent en plus leurs captures, pour la recherche d'images.
 -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url><loc>https://vergasta.ch/</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://vergasta.ch/auxine/</loc><lastmod>2026-09-23</lastmod></url>
-  <url><loc>https://vergasta.ch/auxine/en/</loc><lastmod>2026-09-23</lastmod></url>
-  <url><loc>https://vergasta.ch/auxine/de/</loc><lastmod>2026-09-23</lastmod></url>
-  <url><loc>https://vergasta.ch/auxine/it/</loc><lastmod>2026-09-23</lastmod></url>
+  <url>
+    <loc>https://vergasta.ch/auxine/</loc><lastmod>2026-09-23</lastmod>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/fr/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/fr/4-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/fr/3-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/fr/2-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/fr/5-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/fr/8-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/fr/7-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/fr/6-grand.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/auxine/en/</loc><lastmod>2026-09-23</lastmod>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/en/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/en/4-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/en/3-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/en/2-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/en/5-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/en/8-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/en/7-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/en/6-grand.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/auxine/de/</loc><lastmod>2026-09-23</lastmod>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/de/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/de/4-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/de/3-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/de/2-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/de/5-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/de/8-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/de/7-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/de/6-grand.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://vergasta.ch/auxine/it/</loc><lastmod>2026-09-23</lastmod>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/it/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/it/4-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/it/3-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/it/2-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/it/5-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/it/8-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/it/7-grand.webp</image:loc></image:image>
+    <image:image><image:loc>https://vergasta.ch/auxine/img/it/6-grand.webp</image:loc></image:image>
+  </url>
   <url><loc>https://vergasta.ch/auxine/privacy.html</loc><lastmod>2026-09-23</lastmod></url>
   <url><loc>https://vergasta.ch/auxine/terms.html</loc><lastmod>2026-09-23</lastmod></url>
   <url><loc>https://vergasta.ch/auxine/en/privacy.html</loc><lastmod>2026-09-23</lastmod></url>
