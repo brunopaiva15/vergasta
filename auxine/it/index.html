@@ -2,37 +2,178 @@
 <html lang="it">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#358354">
-  <meta name="description" content="Auxine, il diario delle tue piante. Identificazione con Iris, diagnosi fotografica, calendario delle cure, diario, enciclopedia e giardini condivisi. Acquisto unico, senza abbonamento e senza account obbligatorio. Beta iOS disponibile.">
-  <title>Auxine: Diario delle piante</title>
+  <meta name="description" content="Auxine riconosce le tue piante da una foto, anche offline, e ne segue cure, diario e crescita. Per iPhone e iPad, acquisto unico senza abbonamento.">
+  <title>Auxine: riconoscere le piante offline, diario di cura per iPhone</title>
   <link rel="canonical" href="https://vergasta.ch/auxine/it/">
   <link rel="alternate" hreflang="fr" href="https://vergasta.ch/auxine/"><link rel="alternate" hreflang="en" href="https://vergasta.ch/auxine/en/"><link rel="alternate" hreflang="de" href="https://vergasta.ch/auxine/de/"><link rel="alternate" hreflang="it" href="https://vergasta.ch/auxine/it/"><link rel="alternate" hreflang="x-default" href="https://vergasta.ch/auxine/">
-  <meta property="og:type" content="website"><meta property="og:title" content="Auxine: Diario delle piante"><meta property="og:description" content="Identificazione con Iris, cure, diagnosi, diario, enciclopedia e giardini condivisi. Beta iOS disponibile su TestFlight."><meta property="og:url" content="https://vergasta.ch/auxine/it/"><meta property="og:image" content="https://vergasta.ch/auxine/img/it/1.jpg">
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png"><link rel="stylesheet" href="../styles.css?v=5">
+  <meta property="og:type" content="website"><meta property="og:title" content="Auxine: le tue piante, riconosciute offline"><meta property="og:description" content="Auxine riconosce le tue piante da una foto, anche offline, e ne segue cure, diario e crescita. Per iPhone e iPad, acquisto unico senza abbonamento."><meta property="og:url" content="https://vergasta.ch/auxine/it/"><meta property="og:image" content="https://vergasta.ch/auxine/img/it/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Auxine, il diario delle tue piante: schermate dell’elenco delle piante e dell’identificazione con Iris."><meta property="og:site_name" content="Auxine"><meta property="og:locale" content="it_CH"><meta property="og:locale:alternate" content="fr_CH"><meta property="og:locale:alternate" content="en_GB"><meta property="og:locale:alternate" content="de_CH">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Auxine: le tue piante, riconosciute offline"><meta name="twitter:description" content="Auxine riconosce le tue piante da una foto, anche offline, e ne segue cure, diario e crescita. Per iPhone e iPad, acquisto unico senza abbonamento."><meta name="twitter:image" content="https://vergasta.ch/auxine/img/it/og.jpg"><meta name="twitter:image:alt" content="Auxine, il diario delle tue piante: schermate dell’elenco delle piante e dell’identificazione con Iris.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="preconnect" href="https://raw.githubusercontent.com"><link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png"><link rel="stylesheet" href="../styles.css?v=6">
   <script src="../launch.js?v=1"></script>
   <script src="../vine.js?v=1" defer></script>
+  <!-- Données structurées : l'application, la page et sa FAQ. Tout est repris
+       du contenu visible ; pas de prix tant qu'il n'est pas fixé. -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MobileApplication",
+      "@id": "https://vergasta.ch/auxine/#app",
+      "name": "Auxine",
+      "description": "Auxine riconosce le tue piante da una foto, anche offline, e ne segue cure, diario e crescita. Per iPhone e iPad, acquisto unico senza abbonamento.",
+      "url": "https://vergasta.ch/auxine/it/",
+      "image": "https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png",
+      "screenshot": [
+        "https://vergasta.ch/auxine/img/it/4-grand.webp",
+        "https://vergasta.ch/auxine/img/it/2-grand.webp",
+        "https://vergasta.ch/auxine/img/it/3-grand.webp",
+        "https://vergasta.ch/auxine/img/it/5-grand.webp",
+        "https://vergasta.ch/auxine/img/it/8-grand.webp",
+        "https://vergasta.ch/auxine/img/it/6-grand.webp",
+        "https://vergasta.ch/auxine/img/it/7-grand.webp"
+      ],
+      "operatingSystem": "iOS",
+      "applicationCategory": "LifestyleApplication",
+      "availableOnDevice": "iPhone, iPad",
+      "inLanguage": [
+        "fr",
+        "de",
+        "en",
+        "it"
+      ],
+      "featureList": [
+        "Identificazione delle piante offline con Iris",
+        "Cure di oggi e promemoria",
+        "Calendario delle cure",
+        "Diario fotografico, misure di crescita e timelapse",
+        "Diagnosi fotografica",
+        "Schede di cura per specie",
+        "Enciclopedia delle piante",
+        "Giardini condivisi",
+        "Widget iOS",
+        "Backup e ripristino"
+      ],
+      "installUrl": "https://testflight.apple.com/join/N6GUhS18",
+      "publisher": {
+        "@id": "https://vergasta.ch/#atelier"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://vergasta.ch/#atelier",
+      "name": "Vergasta Digital",
+      "url": "https://vergasta.ch/",
+      "logo": "https://vergasta.ch/logo_vergasta.png"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://vergasta.ch/auxine/it/#page",
+      "url": "https://vergasta.ch/auxine/it/",
+      "name": "Auxine: riconoscere le piante offline, diario di cura per iPhone",
+      "description": "Auxine riconosce le tue piante da una foto, anche offline, e ne segue cure, diario e crescita. Per iPhone e iPad, acquisto unico senza abbonamento.",
+      "inLanguage": "it",
+      "about": {
+        "@id": "https://vergasta.ch/auxine/#app"
+      },
+      "primaryImageOfPage": "https://vergasta.ch/auxine/img/it/og.jpg"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://vergasta.ch/auxine/it/#faq",
+      "inLanguage": "it",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Auxine funziona senza connessione?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sì. Il diario, le cure, i promemoria e l’identificazione con Iris funzionano offline: il modello è incluso nell’app. La diagnosi fotografica, la ricerca facoltativa con Pl@ntNet, il meteo e la sincronizzazione richiedono una connessione."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Serve un abbonamento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Acquisti Auxine una sola volta sull’App Store. Tutte le funzioni sono incluse, senza acquisti in-app e senza pubblicità."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Serve un account?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. I dati vengono salvati sul dispositivo. Un account è necessario solo per la sincronizzazione e i giardini condivisi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Come si identifica una pianta con Auxine?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Scatta una o più foto della pianta. Iris le analizza insieme sul dispositivo e propone delle specie con un livello di confidenza. Confermi la specie prima di aggiungerla alla scheda."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dove vengono analizzate le foto della diagnosi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La diagnosi fotografica richiede una connessione. Le immagini vengono analizzate da Infomaniak in Svizzera."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Su quali dispositivi e in quali lingue?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Auxine funziona su iPhone e iPad, in francese, tedesco, inglese e italiano. La beta è aperta su TestFlight."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <a class="skip" href="#content">Vai al contenuto</a>
 <header class="wrap nav"><a class="brand" href="./" aria-label="Pagina iniziale Auxine"><img src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" width="45" height="45" alt="">Auxine</a><div class="nav-right"><nav class="nav-links" aria-label="Navigazione principale"><a class="nav-link" href="#discover">Scopri</a><a class="nav-link" href="#iris">Iris</a><a class="nav-link" href="#tools">Strumenti</a></nav><nav class="langs" aria-label="Lingua"><a href="../" hreflang="fr">FR</a><a href="../en/" hreflang="en">EN</a><a href="../de/" hreflang="de">DE</a><span>IT</span></nav><a class="pill small" href="https://testflight.apple.com/join/N6GUhS18" target="_blank" rel="noopener noreferrer">Beta iOS</a></div></header>
 <main id="content" class="wrap">
-  <section class="hero" aria-labelledby="hero-title"><p class="eyebrow">Auxine · iPhone e iPad</p><h1 id="hero-title">Il diario<span>delle tue piante.</span></h1><p class="lead">Identificazione con Iris, cure, diagnosi e diario fotografico. Per piante da interno, balcone e giardino.</p><div class="hero-actions"><a class="pill" href="https://testflight.apple.com/join/N6GUhS18" target="_blank" rel="noopener noreferrer">Prova la beta iOS</a><p class="fine">Acquisto unico · Nessun account obbligatorio</p></div><img class="hero-art left" src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/assets/onboarding/collection_monstera.webp" alt="" aria-hidden="true"><img class="hero-art right" src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/assets/objects/arrosoir.webp" alt="" aria-hidden="true"></section>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">Auxine · Il diario delle tue piante</p>
+      <h1 id="hero-title">Le tue piante,<span>riconosciute offline.</span></h1>
+      <p class="lead">Iris identifica una pianta da una foto, direttamente sul dispositivo. Auxine ne segue poi le cure, il diario e la crescita.</p>
+      <div class="hero-actions"><a class="pill" href="https://testflight.apple.com/join/N6GUhS18" target="_blank" rel="noopener noreferrer">Prova Auxine su TestFlight</a><p class="fine">Acquisto unico, senza abbonamento · iPhone e iPad</p></div>
+    </div>
+    <figure class="shot hero-shot"><a href="../img/it/4-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/4.webp" width="660" height="1430" fetchpriority="high" alt="Elenco delle piante in Auxine con foto, specie, stanza e prossima annaffiatura."></a><img class="hero-art" src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/assets/onboarding/collection_monstera.webp" alt="" aria-hidden="true"></figure>
+  </section>
 
-  <section class="section" id="discover" aria-labelledby="discover-title"><div class="section-head"><h2 id="discover-title">Collezione, cure e calendario.</h2></div><div class="stage"><div class="tabs" role="tablist" aria-label="Scopri le funzioni"><button class="tab" id="tab-garden" role="tab" aria-selected="true" aria-controls="panel-garden">Giardino</button><button class="tab" id="tab-care" role="tab" aria-selected="false" aria-controls="panel-care">Cure</button><button class="tab" id="tab-calendar" role="tab" aria-selected="false" aria-controls="panel-calendar">Calendario</button></div>
-  <div class="panel" role="tabpanel" id="panel-garden" aria-labelledby="tab-garden"><div class="panel-copy"><h3>Collezione e posizioni.</h3><p>Una scheda per ogni pianta, con specie, foto e cronologia delle cure. Organizzazione per stanza o posizione esterna.</p></div><figure class="shot"><a href="../img/it/4-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/4.webp" width="660" height="1430" loading="lazy" alt="Collezione di piante in Auxine."></a></figure></div>
-  <div class="panel" role="tabpanel" id="panel-care" aria-labelledby="tab-care" hidden><div class="panel-copy"><h3>Le cure di oggi.</h3><p>Annaffiature e altre cure previste in un unico posto, con promemoria all’orario scelto.</p></div><figure class="shot"><a href="../img/it/2-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/2.webp" width="660" height="1430" loading="lazy" alt="Schermata Oggi in Auxine."></a></figure></div>
-  <div class="panel" role="tabpanel" id="panel-calendar" aria-labelledby="tab-calendar" hidden><div class="panel-copy"><h3>Calendario e attività.</h3><p>Cure future in vista agenda o mensile, più attività ed eventi personalizzati per piantagioni, rinvasi e lavori in giardino.</p><p class="smallprint">Posizioni e inventario raggruppano stanze, spazi esterni, vasi, terricci e fertilizzanti.</p></div><figure class="shot"><a href="../img/it/7-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/7.webp" width="660" height="1430" loading="lazy" alt="Calendario delle cure in Auxine."></a></figure></div></div></section>
+  <section class="section" id="discover" aria-labelledby="discover-title">
+    <div class="section-head"><p class="kicker">L’essenziale</p><h2 id="discover-title">Riconoscere, curare, veder crescere.</h2></div>
+    <div class="essentials">
+      <article class="essential" id="iris"><div><p class="kicker">01 · Identificazione</p><h3>Iris riconosce le tue piante, anche offline.</h3><p>Le foto della stessa pianta vengono analizzate insieme. Le specie proposte sono mostrate con un livello di confidenza e la scelta viene confermata prima di aggiungerla alla scheda.</p><dl class="facts"><div><dt>Analisi sul dispositivo</dt><dd>Il modello è incluso nell’app. L’identificazione offline viene eseguita direttamente sul telefono.</dd></div><div><dt>Ricerca online facoltativa</dt><dd>Se il risultato locale è incerto, Pl@ntNet può completare Iris. Le foto vengono inviate solo quando la ricerca online è attiva.</dd></div></dl></div><figure class="shot"><a href="../img/it/3-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/3.webp" width="660" height="1430" loading="lazy" alt="Identificazione di un ficus lyrata con Iris in Auxine."></a></figure></article>
+      <article class="essential"><div><p class="kicker">02 · Cure</p><h3>Ogni mattina, le cure di oggi.</h3><p>Annaffiature e altre cure previste in un unico posto, con promemoria all’orario scelto.</p><p>Il calendario mostra le cure future in vista agenda o mensile.</p></div><figure class="shot"><a href="../img/it/2-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/2.webp" width="660" height="1430" loading="lazy" alt="Schermata Oggi di Auxine con le cure della settimana e il meteo."></a></figure></article>
+      <article class="essential"><div><p class="kicker">03 · Crescita</p><h3>Il diario di ogni pianta, in foto.</h3><p>Cronologia delle cure, note e misure di crescita. Confronta due foto affiancate, consulta i grafici e riproduci le foto della pianta come timelapse.</p></div><figure class="shot"><a href="../img/it/5-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/5.webp" width="660" height="1430" loading="lazy" alt="Diario di un basilico in Auxine con le prossime cure."></a></figure></article>
+    </div>
+  </section>
 
-  <section class="section" id="iris" aria-labelledby="iris-title"><div class="section-head"><p class="kicker">Identificazione</p><h2 id="iris-title">Iris, integrato in Auxine.</h2><p>Identifica le piante dalle foto direttamente sul dispositivo, anche senza connessione.</p></div>
-  <div class="iris-card"><div><h3>Una o più foto.</h3><p>Le foto della stessa pianta vengono analizzate insieme. Le specie proposte sono mostrate con un livello di confidenza e la scelta viene confermata prima di aggiungerla alla scheda.</p><dl class="facts"><div><dt>Analisi sul dispositivo</dt><dd>Il modello è incluso nell’app. L’identificazione offline viene eseguita direttamente sul telefono.</dd></div><div><dt>Ricerca online facoltativa</dt><dd>Se il risultato locale è incerto, Pl@ntNet può completare Iris. Le foto vengono inviate solo quando la ricerca online è attiva.</dd></div></dl></div><figure class="shot"><a href="../img/it/3-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/3.webp" width="660" height="1430" loading="lazy" alt="Identificazione con Iris in Auxine."></a></figure></div>
-  <div class="diagnosis"><div><p class="kicker">Diagnosi fotografica</p><h3>Sintomi, possibili cause e cure.</h3><p>Una foto e una descrizione dei sintomi forniscono ipotesi ordinate per probabilità, segnali da controllare e azioni correttive.</p><p>La diagnosi utilizza un catalogo di disturbi, parassiti e malattie. I risultati restano indicazioni da verificare.</p><p class="smallprint">Questa funzione richiede una connessione. Le immagini vengono analizzate da Infomaniak in Svizzera.</p></div><figure class="shot"><a href="../img/it/8-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/8.webp" width="660" height="1430" loading="lazy" alt="Diagnosi fotografica in Auxine."></a></figure></div>
-  <div class="features"><article class="feature"><h3>Diario e foto.</h3><p>Cronologia delle cure, note e misure di crescita. Confronta due foto affiancate, consulta i grafici e riproduci le foto della pianta come timelapse.</p><figure class="shot"><a href="../img/it/5-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/5.webp" width="660" height="1430" loading="lazy" alt="Diario di una pianta in Auxine."></a></figure></article><article class="feature"><h3>Schede di cura.</h3><p>Annaffiatura stagionale, luce, umidità, temperatura, fertilizzante e rinvaso. Le schede per specie includono anche substrato, propagazione e tossicità.</p><figure class="shot"><a href="../img/it/6-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/6.webp" width="660" height="1430" loading="lazy" alt="Scheda di cura in Auxine."></a></figure></article></div></section>
+  <section class="moment" aria-labelledby="moment-title"><img src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/assets/objects/arrosoir.webp" width="150" height="150" loading="lazy" alt=""><h2 id="moment-title">Il piacere di vederle crescere.</h2><p>Una foglia nuova sulla pilea, il primo fiore della hoya, il basilico che riparte in primavera. Auxine conserva questi momenti nel diario di ogni pianta, da rivedere in timelapse.</p></section>
 
-  <section class="section" id="tools" aria-labelledby="tools-title"><div class="section-head"><h2 id="tools-title">Gli strumenti del giardino.</h2><p>Documentazione, organizzazione, condivisione e backup.</p></div><dl class="tool-list"><div><dt>Enciclopedia</dt><dd>Schede delle specie, disturbi, parassiti e malattie, ricerca e glossario dei termini di coltivazione.</dd></div><div><dt>Guide alla propagazione</dt><dd>Passaggi illustrati e animati per talee, divisione e polloni, con metodi adattati alla specie.</dd></div><div><dt>Ricerca delle piante</dt><dd>Filtra per luce, posizione, cure desiderate e tossicità. Per l’esterno può essere considerato anche il clima locale.</dd></div><div><dt>Meteo e Apple Casa</dt><dd>Previsioni per la città scelta e consigli in base alle condizioni. I sensori compatibili con Apple Casa forniscono temperatura e umidità delle stanze.</dd></div><div><dt>Inventario e organizzazione</dt><dd>Vasi, terricci, fertilizzanti e materiale, più etichette, filtri, campi personalizzati e allegati.</dd></div><div><dt>Etichette QR</dt><dd>Codici da scansionare per aprire una scheda pianta e fogli di etichette PDF da stampare.</dd></div><div><dt>Giardini condivisi</dt><dd>Con un account puoi sincronizzare e invitare altre persone a gestire insieme un giardino.</dd></div><div><dt>Consigli della community</dt><dd>Leggi consigli per specie senza account, pubblica con un account e vota i suggerimenti utili.</dd></div><div><dt>Widget e scorciatoie iOS</dt><dd>Le cure di oggi nella schermata Home e di blocco, con accesso rapido ad aggiunta, scansione e ricerca.</dd></div><div><dt>Backup e ripristino</dt><dd>Esporta tutto o categorie selezionate, compresi dati e foto, e reimporta i backup in Auxine.</dd></div></dl></section>
+  <section class="section" id="tools" aria-labelledby="tools-title"><div class="section-head"><p class="kicker">E inoltre</p><h2 id="tools-title">Gli strumenti del giardino.</h2><p>Documentazione, organizzazione, condivisione e backup.</p></div>
+    <div class="more"><article class="more-card"><h3>Diagnosi fotografica.</h3><p>Sintomi, possibili cause e azioni correttive, ordinati per probabilità. Indicazioni da verificare.</p><p class="smallprint">Richiede una connessione. Immagini analizzate da Infomaniak in Svizzera.</p><figure class="shot"><a href="../img/it/8-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/8.webp" width="660" height="1430" loading="lazy" alt="Diagnosi fotografica in Auxine con le possibili cause."></a></figure></article><article class="more-card"><h3>Luoghi, attività e inventario.</h3><p>Stanze e spazi esterni, attività ed eventi per piantagioni e rinvasi, inventario di vasi, terricci e fertilizzanti.</p><figure class="shot"><a href="../img/it/7-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/7.webp" width="660" height="1430" loading="lazy" alt="Calendario delle annaffiature nella sezione Giardino di Auxine."></a></figure></article><article class="more-card"><h3>Schede di cura.</h3><p>Annaffiatura stagionale, luce, umidità, fertilizzante e rinvaso. Per ogni specie: substrato, propagazione e tossicità.</p><figure class="shot"><a href="../img/it/6-grand.webp" target="_blank" rel="noopener noreferrer"><img src="../img/it/6.webp" width="660" height="1430" loading="lazy" alt="Scheda di cura di una specie in Auxine: posizione ideale ed esigenze."></a></figure></article></div>
+    <dl class="tool-list"><div><dt>Enciclopedia</dt><dd>Schede delle specie, disturbi, parassiti e malattie, ricerca e glossario dei termini di coltivazione.</dd></div><div><dt>Guide alla propagazione</dt><dd>Passaggi illustrati e animati per talee, divisione e polloni, con metodi adattati alla specie.</dd></div><div><dt>Ricerca delle piante</dt><dd>Filtra per luce, posizione, cure desiderate e tossicità. Per l’esterno può essere considerato anche il clima locale.</dd></div><div><dt>Meteo e Apple Casa</dt><dd>Previsioni per la città scelta e consigli in base alle condizioni. I sensori compatibili con Apple Casa forniscono temperatura e umidità delle stanze.</dd></div><div><dt>Inventario e organizzazione</dt><dd>Vasi, terricci, fertilizzanti e materiale, più etichette, filtri, campi personalizzati e allegati.</dd></div><div><dt>Etichette QR</dt><dd>Codici da scansionare per aprire una scheda pianta e fogli di etichette PDF da stampare.</dd></div><div><dt>Giardini condivisi</dt><dd>Con un account puoi sincronizzare e invitare altre persone a gestire insieme un giardino.</dd></div><div><dt>Consigli della community</dt><dd>Leggi consigli per specie senza account, pubblica con un account e vota i suggerimenti utili.</dd></div><div><dt>Widget e scorciatoie iOS</dt><dd>Le cure di oggi nella schermata Home e di blocco, con accesso rapido ad aggiunta, scansione e ricerca.</dd></div><div><dt>Backup e ripristino</dt><dd>Esporta tutto o categorie selezionate, compresi dati e foto, e reimporta i backup in Auxine.</dd></div></dl>
+  </section>
 
   <section class="free" aria-labelledby="free-title"><div class="free-inner"><p class="large-zero" aria-label="Un solo acquisto">1×<span>acquisto</span></p><div><h2 id="free-title">Un solo acquisto, senza abbonamento.</h2><p>Piante e foto senza limiti. Il diario funziona senza account e salva i dati sul dispositivo. Un account è necessario solo per sincronizzazione e giardini condivisi.</p><div class="free-points"><span>Senza abbonamento</span><span>Senza pubblicità</span><span>Nessun account obbligatorio</span></div><p>Acquisti Auxine una sola volta sull’App Store. Tutte le funzioni sono incluse, senza acquisti in-app.</p></div></div></section>
 
-  <section class="closing" aria-labelledby="closing-title"><h2 id="closing-title">Auxine su iOS.</h2><p>La beta è disponibile su TestFlight<br>per iPhone e iPad.</p><a class="pill" href="https://testflight.apple.com/join/N6GUhS18" target="_blank" rel="noopener noreferrer">Prova la beta iOS</a><p class="fine" style="margin-top:18px">Francese · Tedesco · Inglese · Italiano</p><img class="closing-art left" src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/assets/onboarding/collection_ronde.webp" alt=""><img class="closing-art right" src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/assets/onboarding/collection_sansevieria.webp" alt=""></section>
+  <section class="section faq" id="faq" aria-labelledby="faq-title"><div class="section-head"><p class="kicker">Domande</p><h2 id="faq-title">Domande frequenti.</h2></div><div class="faq-list"><details><summary>Auxine funziona senza connessione?</summary><p>Sì. Il diario, le cure, i promemoria e l’identificazione con Iris funzionano offline: il modello è incluso nell’app. La diagnosi fotografica, la ricerca facoltativa con Pl@ntNet, il meteo e la sincronizzazione richiedono una connessione.</p></details><details><summary>Serve un abbonamento?</summary><p>No. Acquisti Auxine una sola volta sull’App Store. Tutte le funzioni sono incluse, senza acquisti in-app e senza pubblicità.</p></details><details><summary>Serve un account?</summary><p>No. I dati vengono salvati sul dispositivo. Un account è necessario solo per la sincronizzazione e i giardini condivisi.</p></details><details><summary>Come si identifica una pianta con Auxine?</summary><p>Scatta una o più foto della pianta. Iris le analizza insieme sul dispositivo e propone delle specie con un livello di confidenza. Confermi la specie prima di aggiungerla alla scheda.</p></details><details><summary>Dove vengono analizzate le foto della diagnosi?</summary><p>La diagnosi fotografica richiede una connessione. Le immagini vengono analizzate da Infomaniak in Svizzera.</p></details><details><summary>Su quali dispositivi e in quali lingue?</summary><p>Auxine funziona su iPhone e iPad, in francese, tedesco, inglese e italiano. La beta è aperta su TestFlight.</p></details></div></section>
+
+  <section class="closing" aria-labelledby="closing-title"><h2 id="closing-title">Auxine su iOS.</h2><p>La beta è disponibile su TestFlight<br>per iPhone e iPad.</p><a class="pill" href="https://testflight.apple.com/join/N6GUhS18" target="_blank" rel="noopener noreferrer">Prova Auxine su TestFlight</a><p class="fine" style="margin-top:18px">Francese · Tedesco · Inglese · Italiano</p><img class="closing-art left" src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/assets/onboarding/collection_ronde.webp" alt=""><img class="closing-art right" src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/assets/onboarding/collection_sansevieria.webp" alt=""></section>
 </main>
 <footer class="wrap footer"><a class="brand" href="#" aria-label="Auxine, torna in alto"><img src="https://raw.githubusercontent.com/brunopaiva15/plant/6759f48052bcba8b9d191211c284f11334ec3fac/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" alt="">Auxine</a><div class="footer-right">Creata in Svizzera.<br>© 2026 Vergasta Digital<br><a href="privacy.html">Privacy</a> · <a href="terms.html">Condizioni</a></div></footer>
-<script>(()=>{const tabs=[...document.querySelectorAll('[role="tab"]')];function select(tab){tabs.forEach(item=>{const on=item===tab;item.setAttribute('aria-selected',String(on));item.tabIndex=on?0:-1;document.getElementById(item.getAttribute('aria-controls')).hidden=!on})}tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>select(tab));tab.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight')n=(i+1)%tabs.length;else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')n=0;else if(e.key==='End')n=tabs.length-1;else return;e.preventDefault();select(tabs[n]);tabs[n].focus()})})})();</script>
 </body></html>
