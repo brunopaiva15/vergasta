@@ -269,6 +269,32 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 Deux blocs de couleur seulement, le bandeau et le contact, et un bloc sombre
 pour finir. Entre eux, du papier et des feuilles blanches.
 
+### L'exception : la sortie d'Auxine
+
+Pour la sortie d'Auxine sur l'App Store, une carte verte est posée **avant
+l'ouverture**, sur les pages d'accueil française, anglaise, allemande et
+italienne. Le japonais n'en a pas, pour la même raison que son tableau ne liste
+pas Auxine : l'app n'existe pas dans cette langue.
+
+C'est un événement, et c'est **voulu hors charte** : la carte ne parle pas la
+langue de Vergasta mais celle d'Auxine (`auxine/styles.css`). Le vert de son
+écran d'ouverture et ses deux disques pâles, la Bricolage Grotesque, la pilule
+blanche, le pot en 3D qui dépasse de la carte, et un rebond. Le pot sort de
+terre, cligne de l'œil comme dans l'app, et une gerbe de feuilles et de
+confettis part de ses feuilles et déborde de la carte. Il recligne toutes les
+cinq secondes environ, et un clic sur lui relance la gerbe. Rien de cela ne
+vaut ailleurs dans le site, et rien ne doit en déteindre sur le reste.
+
+Ce qui tient quand même : **aucune requête hors du domaine** (la police, le pot
+et ses trois images de clin d'œil sont servis depuis `lancement/`, la police
+en instance statique 800, pas en variable), rien sans JavaScript ne manque, et
+en mouvement réduit le pot est posé, sans gerbe ni clin d'œil.
+
+Tout vit dans `lancement/`, avec sa propre estampille (`?v=1`) : la feuille et
+le script ne sont appelés que par les quatre pages d'accueil. Pour retirer la
+bannière, enlever le bloc `.lancement` et les deux appels de tête dans ces
+quatre pages, puis le dossier.
+
 ---
 
 ## 5. Composants
@@ -391,7 +417,7 @@ pleins — icônes d'application, pavés de couleur — et un carré vif à angl
 droits serait le seul objet du site à ne pas avoir les coins ronds du §1. Sur
 les marques détourées, le rayon ne se voit pas : il ne rogne que du vide.
 
-Les dix fichiers sont servis d'ici, comme les polices et les logos de presse.
+Les onze fichiers sont servis d'ici, comme les polices et les logos de presse.
 Un appel aux serveurs des projets leur donnerait l'adresse IP de chaque
 visiteur, ce que le §2 et `privacy.html` interdisent. Ce sont les fichiers
 officiels de chaque projet, repris tels quels : le favicon du site quand il y en
