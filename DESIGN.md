@@ -58,7 +58,7 @@ dans la feuille de style.
 
 | Jeton | Valeur | Emploi |
 |---|---|---|
-| `--rond` | 24 px | cartes des métiers, encadré des conditions |
+| `--rond` | 24 px | cartes des métiers |
 | `--rond-l` | 30 px | tableau, bloc de contact, pied de page |
 | `--rond-s` | 14 px | ligne de tableau survolée, encart de traduction |
 | `--ombre` | deux couches, 20 px de flou à 24 px de décalage | les cartes |
@@ -96,7 +96,7 @@ Quatre polices, **hébergées dans `fonts/`**, jamais chez un tiers.
 |---|---|---|
 | Titres | **Gabarito** 700 et 500 | `h1`, `h2`, `h3`, noms de projets, devise, bandeau, boutons |
 | Texte | **Figtree** 400 et 600 | tout le texte courant |
-| Écriture | **Caveat** 600 | deux endroits, pas plus (voir plus bas) |
+| Écriture | **Caveat** 600 | un seul endroit (voir plus bas) |
 | Signature | **Jersey 25** (bitmap) | la marque de l'en-tête et les cinq codes de langue |
 
 Gabarito est une géométrique ronde et serrée : elle porte un titre de six mots
@@ -116,9 +116,10 @@ l'écriture à la peinture. Mais un site entier écrit en bitmap se lit comme un
 console, et ce n'est pas ce qu'est cet atelier. Elle vaut comme signature, pas
 comme voix.
 
-**Caveat, l'écriture, sert à deux endroits et pas à un troisième** : la légende
-du tableau des réalisations, et le titre de l'encadré des conditions. Les deux
-sont des commentaires en marge d'un contenu, pas du contenu. Une écriture
+**Caveat, l'écriture, ne sert qu'à la légende du tableau des réalisations.**
+Elle tenait aussi le titre de l'encadré des conditions, retiré depuis ; elle n'en
+prend pas d'autre. La légende est un commentaire en marge d'un contenu, pas du
+contenu. Une écriture
 manuscrite qui sert partout n'est plus une écriture, c'est une police de plus.
 
 Pas d'italique : l'emphase passe par `<em>`, stylé en surligneur lime.
@@ -241,7 +242,7 @@ ronds, ombre portée, pas de bordure. Le reste, c'est du texte sur le papier.
   découpent la page, et l'espace qui sépare.
 - `--measure` : 36 rem. Toute colonne de texte courant s'y limite.
 - Les seuls filets qui restent sont **internes aux cartes** (`1px solid
-  --rule`) : entre deux lignes du tableau, entre deux conditions. Plus aucune
+  --rule`) : entre deux lignes du tableau. Plus aucune
   bordure fermée, plus aucun filet double.
 - Le corps de page est coupé à droite (`overflow-x: clip`). La coupe avait été
   posée pour l'entrée de la marque d'ouverture, qui débordait la fenêtre ; cette
@@ -260,8 +261,7 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
    colonnes, la marque passe **après les deux sorties** : voir §6 ;
 2. **le bandeau défilant**, lime, pleine largeur ;
 3. les quatre **cartes** des métiers, en bento ;
-4. le **déroulé** en trois colonnes, puis la carte des conditions sur toute la
-   largeur ;
+4. le **déroulé** en trois colonnes ;
 5. le **tableau** des réalisations, posé sur une grande carte ;
 6. le **bloc de contact**, seule carte en aplat lime ;
 7. le **pied de page**, carte d'encre détachée des bords de la fenêtre.
@@ -300,8 +300,7 @@ quatre pages, puis le dossier.
 ## 5. Composants
 
 **La carte.** L'objet de base du site, et il n'y en a qu'un : feuille blanche,
-coins ronds, ombre portée, **pas de bordure**. Il sert aux quatre métiers, à
-l'encadré des conditions, au tableau des réalisations, à l'encart de traduction
+coins ronds, ombre portée, **pas de bordure**. Il sert aux quatre métiers, au tableau des réalisations, à l'encart de traduction
 des pages légales, à l'encadré japonais de l'histoire et au pied de page. Ce qui change d'un emploi à l'autre, c'est le rayon (§1) et le
 rembourrage, jamais le principe. **Une bordure sur une carte annule l'ombre** :
 les deux disent la même chose, et ensemble elles font une boîte.
@@ -358,8 +357,8 @@ couleur d'étoile.
 
 **Déroulé `.run-through`.** Les trois moments du projet sont trois colonnes
 lues de gauche à droite au-delà de 900 px, chacune ouverte par une étoile
-olive, et la carte des conditions passe dessous sur toute la largeur. Ils
-étaient trois paragraphes empilés avec l'encadré en marge. Pas de numéros : ce
+olive. Ils étaient trois paragraphes empilés avec l'encadré des conditions en
+marge ; l'encadré a été retiré. Pas de numéros : ce
 sont trois moments, pas trois étapes numérotées (voir §7).
 
 **L'étoile vaut à toutes les largeurs.** Elle n'a longtemps vécu que dans la
@@ -370,12 +369,11 @@ colonne unique en a le plus besoin, puisque la lecture s'y fait à la verticale
 et que le blanc entre deux paragraphes est le seul repère. Elle est donc posée
 partout, un peu plus petite en pile (0,8 rem contre 0,95 rem).
 
-**Encadré `.aside`.** La carte des conditions, sous le déroulé, ses cinq
-entrées rangées en colonnes. Son titre est écrit à la main (§2) : c'est une
-note posée en marge, pas une clause de plus. Il sert à porter une information
-réelle et vérifiable, pas un argument : son contenu vient directement des CGV.
-Le filet est posé au-dessus de chaque entrée, la première comprise, sans quoi
-la première colonne serait la seule à commencer sans trait.
+**Encadré `.aside`.** La carte « Bon à savoir », sous le déroulé, a été
+retirée des cinq langues. Ses règles restent dans `styles.css` sans être
+appelées : les retirer demanderait de relever l'estampille dans les vingt-six
+pages (§7 bis) pour du code mort, et elles resservent telles quelles si
+l'encadré revient.
 
 **Index `.index`.** Les réalisations sont un `<table>` posé sur une carte : le
 balisage reste tabulaire, parce que les données le sont, un projet, un genre,
@@ -551,7 +549,7 @@ Le repère de temps de chaque chapitre est une pilule lime en capitales
 interlettrées, comme les libellés d'action (§2). Ce ne sont pas des numéros
 d'étape (voir §7), ce sont des dates et des mots.
 
-**Encadré `.kodawari`.** Une carte, comme « Bon à savoir », mais elle porte le
+**Encadré `.kodawari`.** Une carte, comme celles des métiers, mais elle porte le
 mot japonais et sa transcription en tête.
 Aucune des polices latines ne dessine les kana : hors de `/ja/`, le mot revient
 à la police du système, et c'est voulu. Servir ici PixelMplus12 obligerait à
