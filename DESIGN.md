@@ -417,7 +417,7 @@ pleins — icônes d'application, pavés de couleur — et un carré vif à angl
 droits serait le seul objet du site à ne pas avoir les coins ronds du §1. Sur
 les marques détourées, le rayon ne se voit pas : il ne rogne que du vide.
 
-Les onze fichiers sont servis d'ici, comme les polices et les logos de presse.
+Les dix fichiers sont servis d'ici, comme les polices et les logos de presse.
 Un appel aux serveurs des projets leur donnerait l'adresse IP de chaque
 visiteur, ce que le §2 et `privacy.html` interdisent. Ce sont les fichiers
 officiels de chaque projet, repris tels quels : le favicon du site quand il y en
@@ -451,9 +451,9 @@ gris sur du lime ne se lit pas), bouton à droite et centré sur les deux
 paragraphes au-delà de 900 px.
 
 Le décompte annoncé par la légende se compte langue par langue, car les
-tableaux ne portent pas les mêmes lignes : Bruit CH n'étant pas publiée en
-italien, la version italienne en reste à neuf projets quand les quatre autres
-passent à dix, et le tableau japonais ne liste que Yamanote 3D. Stellar Rebirth
+tableaux ne portent pas les mêmes lignes : Auxine ne figure qu'au tableau
+français, qui compte dix projets quand l'anglais, l'allemand et l'italien en
+comptent neuf, et le tableau japonais ne liste que Yamanote 3D. Stellar Rebirth
 ouvre la liste dans les quatre langues latines et ne figure pas au tableau
 japonais, pour la même raison que les autres : il ne s'adresse pas à ce
 lecteur-là.
