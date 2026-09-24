@@ -1,0 +1,279 @@
+/* --------------------------------------------------------------------------
+   La sortie d'Auxine
+
+   Un événement, et donc une exception voulue à DESIGN.md : cette carte ne suit
+   pas la charte de Vergasta, elle suit celle d'Auxine (auxine/styles.css). Le
+   vert de l'écran d'ouverture de l'app, ses deux disques pâles, la Bricolage
+   Grotesque, la pilule blanche, le pot en 3D et son clin d'œil. C'est l'app
+   qui entre dans la page de l'atelier, avec ses propres couleurs.
+
+   Tout vit dans ce dossier, police comprise, et rien ne sort du domaine : la
+   promesse du §2 tient. Pour retirer la bannière après l'événement, enlever
+   le bloc `.lancement`, la feuille et le script des quatre pages d'accueil,
+   puis ce dossier.
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(bricolage-800-latin.woff2) format("woff2");
+}
+
+.lancement {
+  /* La palette de l'app, reprise d'auxine/styles.css. */
+  --l-vert: #358354;
+  --l-vert-fonce: #2a7447;
+  --l-encre: #1c1712;
+  --l-jaune: #ffe14d;
+  --l-titre: "Bricolage Grotesque", var(--display);
+  /* Le pot dépasse de la carte par le haut : la place se réserve ici. */
+  padding-top: 4.5rem;
+}
+
+.lancement-carte {
+  position: relative;
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr) auto;
+  grid-template-areas:
+    "pot tete actions"
+    "pot corps actions";
+  column-gap: 2.5rem;
+  align-items: center;
+  padding: 2rem 3rem 2rem 2.25rem;
+  background: var(--l-vert);
+  color: #fff;
+  border-radius: 40px;
+  box-shadow: var(--ombre);
+}
+
+/* Le fond : les deux disques pâles de l'écran d'ouverture, coupés au bord de
+   la carte. Le pot, lui, en sort par le haut. */
+.lancement-fond {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.lancement-fond::before,
+.lancement-fond::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff10;
+}
+
+.lancement-fond::before {
+  width: 38rem;
+  height: 38rem;
+  right: -10rem;
+  top: -24rem;
+}
+
+.lancement-fond::after {
+  width: 22rem;
+  height: 22rem;
+  right: 2rem;
+  top: -12rem;
+  background: #ffffff0c;
+}
+
+/* La gerbe déborde de la carte : des confettis coupés net au bord d'un
+   rectangle se liraient comme une vidéo collée dans la page. */
+.lancement-confettis {
+  position: absolute;
+  top: -9rem;
+  bottom: -12rem;
+  left: -1.5rem;
+  right: -1.5rem;
+  width: calc(100% + 3rem);
+  height: calc(100% + 21rem);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.lancement-pot {
+  grid-area: pot;
+  position: relative;
+  align-self: start;
+  width: 15rem;
+  aspect-ratio: 1;
+  margin: -6.25rem 0 -3rem -1.75rem;
+  /* Le pot grandit autour de sa base, comme dans l'app. */
+  transform-origin: 50% 92%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lancement-pot img {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+.lancement-pot .pot {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 14px 18px rgba(20, 50, 30, 0.35));
+}
+
+.lancement-tete {
+  grid-area: tete;
+  align-self: end;
+}
+
+.lancement-badge {
+  display: inline-block;
+  margin: 0 0 0.6rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--l-jaune);
+  color: var(--l-encre);
+  font-family: var(--l-titre);
+  font-weight: 800;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.lancement h2 {
+  margin: 0;
+  font-family: var(--l-titre);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.lancement-corps {
+  grid-area: corps;
+  align-self: start;
+  margin: 0.75rem 0 0;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.lancement-actions {
+  grid-area: actions;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+/* La pilule d'Auxine : blanche sur le vert, en casse normale. */
+.lancement-pilule {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+  padding: 1rem 1.75rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--l-encre);
+  font-family: var(--l-titre);
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 0.2s;
+}
+
+.lancement-pilule:hover {
+  transform: translateY(-2px);
+}
+
+.lancement-lien {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  opacity: 0.92;
+}
+
+.lancement-lien:hover {
+  opacity: 1;
+}
+
+.lancement a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+/* Sous 900 px, les deux sorties passent sous le texte. */
+@media (max-width: 899px) {
+  .lancement-carte {
+    grid-template-columns: 8rem minmax(0, 1fr);
+    grid-template-areas:
+      "pot tete"
+      "corps corps"
+      "actions actions";
+    column-gap: 1.25rem;
+    padding: 1.5rem 1.6rem 1.75rem;
+    border-radius: 32px;
+  }
+
+  .lancement {
+    padding-top: 4rem;
+  }
+
+  .lancement-pot {
+    width: 10rem;
+    margin: -4.75rem 0 -1rem -1.5rem;
+    align-self: start;
+  }
+
+  .lancement-tete {
+    align-self: center;
+  }
+
+  .lancement-corps {
+    margin-top: 1rem;
+  }
+
+  .lancement-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.9rem 1.5rem;
+    margin-top: 1.4rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .lancement-carte {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    column-gap: 0.9rem;
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+
+  .lancement-pot {
+    width: 8.5rem;
+    margin: -4rem 0 -0.75rem -1.5rem;
+  }
+
+  .lancement h2 {
+    font-size: 1.6rem;
+  }
+
+  .lancement-actions {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}
+
+@media print {
+  .lancement {
+    display: none;
+  }
+}

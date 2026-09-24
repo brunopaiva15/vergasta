@@ -40,6 +40,9 @@
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../styles.css?v=18">
+  <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
+  <link rel="stylesheet" href="../lancement/lancement.css?v=1">
+  <script src="../lancement/lancement.js?v=1" defer></script>
   <script src="../brushes.js?v=18" defer></script>
 
   <!--
@@ -212,6 +215,22 @@
   </header>
 
   <main>
+    <aside class="lancement wrap" aria-labelledby="lancement-titre">
+      <div class="lancement-carte">
+        <div class="lancement-fond" aria-hidden="true"></div>
+        <canvas class="lancement-confettis" aria-hidden="true"></canvas>
+        <div class="lancement-pot" aria-hidden="true"><img class="pot" src="../lancement/pot.webp" width="1024" height="1024" alt=""></div>
+        <div class="lancement-tete">
+          <p class="lancement-badge">Novità</p>
+          <h2 id="lancement-titre">Auxine è sull’App Store</h2>
+        </div>
+        <p class="lancement-corps">Il diario delle piante che abbiamo creato per iPhone e iPad è uscito. Iris riconosce una pianta senza connessione, e Auxine ne segue le cure e la crescita.</p>
+        <div class="lancement-actions">
+          <a class="lancement-pilule" href="https://apps.apple.com/us/app/auxine-plant-journal/id6809751489" target="_blank" rel="noopener noreferrer">Scarica dall’App Store</a>
+          <a class="lancement-lien" href="../auxine/it/">Scopri Auxine</a>
+        </div>
+      </div>
+    </aside>
     <section class="opening opening--accueil wrap">
       <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
       <h1>Siti e applicazioni per le imprese del territorio.</h1>
