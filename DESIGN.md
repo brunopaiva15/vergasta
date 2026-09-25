@@ -196,6 +196,16 @@ rouvertes sur les `h1`, parce que l'unité `ch` vaut la largeur du zéro de
 Jersey 25 alors qu'un kana en occupe deux, ce qui coupait les titres japonais
 deux fois trop tôt.
 
+**Un paragraphe japonais s'écrit sur une seule ligne du HTML.** Le japonais
+ne met pas d'espace entre les mots, mais le navigateur change tout retour à la
+ligne du source en espace, y compris entre deux kanji : « 事業の内容と、
+サイト » au lieu de « 事業の内容と、サイト ». La règle CSS qui devrait les
+effacer n'est appliquée par aucun navigateur. Le défaut passait inaperçu en
+petit corps ; il saute aux yeux dans les grandes phrases du déroulé, et les
+vingt-neuf coupures de l'accueil et de l'histoire ont été recollées. Un
+retour à la ligne reste permis là où une espace le serait aussi, contre un mot
+latin (`Vergasta Digital は`).
+
 ### Pourquoi les polices ne viennent pas de Google
 
 `privacy.html` promet qu'aucun outil tiers ne suit le visiteur. Un appel à
@@ -266,8 +276,8 @@ ronds, ni ombre ni bordure. Le reste, c'est du texte sur le blanc.
   découpent la page, et l'espace qui sépare.
 - `--measure` : 36 rem. Toute colonne de texte courant s'y limite.
 - Les filets (`1px solid --rule`) ne séparent plus que des lignes de texte :
-  le haut et le bas des chapitres de l'histoire, les sections des pages
-  légales. Le dernier qui vivait dans une carte, entre deux lignes du tableau
+  les trois moments du déroulé, le haut et le bas des chapitres de l'histoire,
+  les sections des pages légales. Le dernier qui vivait dans une carte, entre deux lignes du tableau
   des réalisations, est parti avec le tableau. Plus aucune bordure fermée,
   plus aucun filet double.
 - Le corps de page est coupé à droite (`overflow-x: clip`). La coupe avait été
@@ -421,19 +431,24 @@ quatre titres différents (voir §7). Les noms de projets sont en `<b>` (600,
 encre pleine) pour donner des points d'accroche à la lecture rapide. Une
 cinquième entrée demande de reprendre le bento et d'ajouter une marque.
 
-**Déroulé `.run-through`.** Les trois moments du projet sont trois colonnes
-lues de gauche à droite au-delà de 900 px, chacune ouverte par une étoile
-olive. Ils étaient trois paragraphes empilés avec l'encadré des conditions en
-marge ; l'encadré a été retiré. Pas de numéros : ce
-sont trois moments, pas trois étapes numérotées (voir §7).
+**Déroulé `.run-through`.** Les trois moments du projet, à la manière du
+« Comment ça marche » de BlockAbo : trois grandes phrases en Figtree 300, entre
+1,2 et 1,55 rem, à l'encre pleine, empilées dans l'ordre où elles se passent et
+séparées par un filet. Ils ont été trois colonnes de texte courant ; en grand
+corps, ils se lisent comme trois temps d'une promesse plutôt que comme une
+notice. La colonne s'arrête à 46 rem, filets compris : en pleine largeur, une
+phrase de ce corps passerait les quatre-vingt-dix signes par ligne.
 
-**L'étoile vaut à toutes les largeurs.** Elle n'a longtemps vécu que dans la
-requête à 900 px, avec les colonnes : en dessous, les trois moments
-redevenaient trois paragraphes à la file, et plus rien ne disait où l'un
-finissait ni où le suivant commençait. C'est pourtant sur un téléphone que la
-colonne unique en a le plus besoin, puisque la lecture s'y fait à la verticale
-et que le blanc entre deux paragraphes est le seul repère. Elle est donc posée
-partout, un peu plus petite en pile (0,8 rem contre 0,95 rem).
+**Une grande étoile à la place du numéro.** BlockAbo ouvre chaque étape par un
+grand « 1. », « 2. », « 3. » en graisse légère ; ici c'est une étoile pixel de
+2,25 rem (1,75 rem sur un téléphone), une encre par moment, magenta, cyan puis
+olive. Pas de numéros : ce sont trois moments, pas trois étapes numérotées
+(voir §7). L'étoile vaut à toutes les largeurs : sur un téléphone, où la
+lecture se fait à la verticale, c'est elle et le filet qui disent où un moment
+finit et où le suivant commence.
+
+Le filet est posé au-dessus de chaque moment sauf le premier : il sépare, il
+ne ferme rien, comme partout ailleurs (§4).
 
 **Encadré `.aside`.** La carte « Bon à savoir », sous le déroulé, a été
 retirée des cinq langues. Ses règles restent dans `styles.css` sans être
@@ -1040,8 +1055,9 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 - libellés en petites majuscules interlettrées au-dessus des titres,
 - monospace décoratif, coordonnées GPS,
 - bandes de chiffres clés, surtout inventés,
-- numérotation `01 / 02 / 03` des services ou des étapes. Le déroulé est en
-  trois colonnes depuis la refonte, et il n'en porte toujours pas,
+- numérotation `01 / 02 / 03` des services ou des étapes. Le déroulé a pris
+  la forme du « Comment ça marche » de BlockAbo, grandes phrases et filets,
+  mais pas ses grands numéros : une étoile les remplace,
 - **grilles de cartes identiques.** La carte est devenue l'objet de base du
   site (§5), ce qui déplace cette règle sans l'abolir : ce qui est proscrit,
   c'est le jeu de cartes **interchangeables**, trois ou quatre fois le même
@@ -1090,7 +1106,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=22`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=23`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:

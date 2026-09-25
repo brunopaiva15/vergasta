@@ -1283,68 +1283,71 @@ em {
    Déroulé d'un projet
    -------------------------------------------------------------------------- */
 
-/* Les trois moments du projet étaient trois paragraphes empilés dans une
-   colonne, l'encadré des conditions posé à côté. Ils sont maintenant trois
-   colonnes lues de gauche à droite, et l'encadré passe dessous sur toute la
-   largeur : le déroulé se lit dans l'ordre où il se passe, et les conditions
-   ferment la section au lieu de courir en marge.
+/* Les trois moments du projet, à la manière du « Comment ça marche » de
+   BlockAbo : trois grandes phrases en graisse légère, empilées dans l'ordre
+   où elles se passent, séparées par un filet. Ils ont été trois colonnes de
+   texte courant ; en grand corps, ils se lisent comme une promesse tenue en
+   trois temps plutôt que comme une notice.
 
-   Pas de numéros et pas de cartes : trois colonnes de texte, séparées par du
-   blanc, chacune ouverte par un carré lime. */
-.run-through {
-  display: grid;
-  gap: 3rem;
-}
-
-.run-through p + p {
-  margin-top: 1.35rem;
-}
-
+   BlockAbo ouvre chaque étape par un grand numéro. Ici, pas de numéros (§7 de
+   DESIGN.md) : chaque moment s'ouvre sur une grande étoile pixel, une encre
+   par moment, dans l'ordre où les encres descendent la page. Trois moments,
+   pas trois étapes numérotées. */
 .run-through > div > p {
-  max-width: var(--measure);
-  color: var(--ink-soft);
-}
-
-.run-through .lead-in {
+  max-width: 46rem;
+  padding: 2rem 0;
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
   color: var(--ink);
 }
 
-/* L'étoile qui ouvre chaque moment. Elle ne vivait que dans la requête à
-   900 px, avec les trois colonnes : sous cette largeur, les trois moments
-   redevenaient trois paragraphes à la file, et rien ne disait plus où l'un
-   finissait et où le suivant commençait. Or c'est sur un téléphone que la
-   colonne unique en a le plus besoin, puisque la lecture s'y fait à la
-   verticale et que le blanc entre deux paragraphes est le seul repère. */
+.run-through > div > p:first-child {
+  padding-top: 0;
+}
+
+.run-through > div > p:last-child {
+  padding-bottom: 0;
+}
+
+/* Le filet est posé au-dessus de chaque moment sauf le premier : il sépare,
+   il ne ferme rien. */
+.run-through > div > p + p {
+  border-top: 1px solid var(--rule);
+}
+
+/* L'étoile qui ouvre chaque moment. Elle vaut à toutes les largeurs : sur un
+   téléphone, où la lecture se fait à la verticale, c'est elle et le filet qui
+   disent où un moment finit et où le suivant commence. */
 .run-through > div > p::before {
   content: "";
   display: block;
-  width: 0.8rem;
-  height: 0.8rem;
-  margin-bottom: 0.7rem;
-  background-color: var(--olive);
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: 1.1rem;
+  background-color: var(--magenta);
   -webkit-mask: var(--etoile) center / contain no-repeat;
   mask: var(--etoile) center / contain no-repeat;
 }
 
-@media (min-width: 900px) {
-  .run-through > div {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2.75rem;
-  }
+.run-through > div > p:nth-child(2)::before {
+  background-color: var(--cyan);
+}
 
-  .run-through p + p {
-    margin-top: 0;
+.run-through > div > p:nth-child(3)::before {
+  background-color: var(--olive);
+}
+
+@media (min-width: 800px) {
+  .run-through > div > p {
+    padding: 2.5rem 0;
   }
 
   .run-through > div > p::before {
-    width: 0.95rem;
-    height: 0.95rem;
-    margin-bottom: 0.9rem;
-  }
-
-  .run-through .lead-in {
-    font-size: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 1.35rem;
   }
 }
 
