@@ -40,8 +40,8 @@
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/pixelmplus12-japonais.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=21">
-  <script src="../brushes.js?v=21" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=22">
+  <script src="../brushes.js?v=22" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -184,7 +184,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=21"></script>
+  <script src="../lang.js?v=22"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -265,7 +265,7 @@
       <div class="slab-body">
         <dl class="trades">
           <div class="trade">
-            <dt>紹介サイト</dt>
+            <dt><span class="mark trade-mark" data-mark="metier-sites" aria-hidden="true"></span>紹介サイト</dt>
             <dd>
               会社の概要、提供するサービス、連絡先を、訪問者が探し回らずに見つけられる
               ように示します。あわせて、その業種で検索されたときに見つけてもらえる
@@ -275,7 +275,7 @@
           </div>
 
           <div class="trade">
-            <dt>アプリケーション</dt>
+            <dt><span class="mark trade-mark" data-mark="metier-applis" aria-hidden="true"></span>アプリケーション</dt>
             <dd>
               バインダーや Excel ファイルでは追いつかなくなったとき、その先を引き受ける
               道具をつくります。<b>Disque Bleu</b> はパーキングディスクに表示する時刻を
@@ -286,21 +286,21 @@
           </div>
 
           <div class="trade">
-            <dt>オンラインショップ</dt>
-            <dd>
-              カタログ、カート、Stripe を通じたカードまたは TWINT での決済、注文の管理、
-              そしてご自身で操作できる管理画面。<b>Custom To Lylia</b> と
-              <b>BDPokéCards</b> はこの仕組みで動いています。
-            </dd>
-          </div>
-
-          <div class="trade">
-            <dt>クリエイティブな企画</dt>
+            <dt><span class="mark trade-mark" data-mark="metier-creatifs" aria-hidden="true"></span>クリエイティブな企画</dt>
             <dd>
               形にしてみたい着想から始まる企画もあります。<b>Yamanote 3D</b> は、東京の
               山手線に乗って眺める静かな旅をブラウザーの中に再現しました。
               <b>Vergasta Photo</b> は、写真のコレクションを専用に設計したポートフォリオ
               で見せ、公開のための編集画面も備えています。
+            </dd>
+          </div>
+
+          <div class="trade">
+            <dt><span class="mark trade-mark" data-mark="metier-boutiques" aria-hidden="true"></span>オンラインショップ</dt>
+            <dd>
+              カタログ、カート、Stripe を通じたカードまたは TWINT での決済、注文の管理、
+              そしてご自身で操作できる管理画面。<b>Custom To Lylia</b> と
+              <b>BDPokéCards</b> はこの仕組みで動いています。
             </dd>
           </div>
         </dl>

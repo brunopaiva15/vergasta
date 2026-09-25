@@ -419,6 +419,16 @@
     return out;
   }
 
+  /** Une boucle couchée, le huit d'un geste qui revient sur lui-même. */
+  function boucle(cx, cy, rx, ry, steps) {
+    var pts = [];
+    for (var i = 0; i <= steps; i++) {
+      var a = (i / steps) * Math.PI * 2;
+      pts.push({ x: cx + Math.sin(a) * rx, y: cy + Math.sin(a * 2) * ry });
+    }
+    return build(pts);
+  }
+
   /** Arc de cercle. */
   function arc(cx, cy, r, a0, a1, steps) {
     var pts = [];
@@ -665,6 +675,44 @@
         path: function (w, h) {
           return arc(w * 0.5, h * 0.72, Math.min(w, h) * 0.36, Math.PI * 1.05, Math.PI * 2.05, 400);
         }
+      }
+    ],
+
+    /* Les quatre fiches des métiers. Une petite marque en tête de chaque carte,
+       à la place de l'icône que porterait une fiche de service : un geste de
+       brosse et une encre par métier, jamais deux fois le même, pour que les
+       quatre cartes ne se lisent pas comme un jeu. Ce ne sont pas des
+       pictogrammes (une vitrine, un téléphone, un sac) : un dessin de ce qui
+       est écrit juste dessous ne dirait rien de plus que le titre. */
+    "metier-sites": [
+      {
+        brush: "carres", ink: "magenta", over: { size: 0.13, spacing: 0.85 },
+        path: function (w, h) {
+          return arc(w * 0.5, h * 0.74, Math.min(w, h) * 0.42, Math.PI, Math.PI * 2, 200);
+        }
+      }
+    ],
+
+    "metier-applis": [
+      {
+        brush: "tissage", ink: "cyan", over: { size: 0.11, spacing: 1.25 },
+        path: function (w, h) {
+          return spiral(w * 0.5, h * 0.5, Math.min(w, h) * 0.42, 1.35, -Math.PI * 0.5, 300);
+        }
+      }
+    ],
+
+    "metier-creatifs": [
+      {
+        brush: "projection", ink: "orange", over: { size: 0.15, spacing: 0.42 },
+        path: function (w, h) { return boucle(w * 0.5, h * 0.5, w * 0.38, h * 0.26, 300); }
+      }
+    ],
+
+    "metier-boutiques": [
+      {
+        brush: "peigne", ink: "olive", over: { size: 0.13, spacing: 0.3 },
+        path: function (w, h) { return wave(w * 0.1, h * 0.5, w * 0.8, h * 0.3, 1.5, 200); }
       }
     ],
 

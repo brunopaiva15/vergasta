@@ -1202,89 +1202,74 @@ em {
    Ce que nous faisons
    -------------------------------------------------------------------------- */
 
-/* Quatre métiers, quatre fiches. Les filets qui les croisaient en double page
-   ont sauté, et le texte est monté sur une carte crème, plate et sans bordure :
-   le même objet que le tableau des réalisations et que le bloc de contact.
+/* Quatre métiers, quatre fiches, sur des cartes crème plates, comme le
+   « Pourquoi louer » de BlockAbo. En tête de chaque carte, une petite marque à
+   la brosse, dans l'encre de son métier.
 
    Ce sont des fiches et non des cartes de service : pas de numérotation, pas
    d'icône, pas de bouton en pied, et surtout pas quatre fois le même contenu
-   sous quatre titres différents. Le carré posé devant chaque titre prend une
-   des quatre encres saturées des brosses, dans l'ordre où elles descendent la
-   page. */
+   sous quatre titres différents. La marque n'est pas une icône : c'est un
+   geste de brosse, jamais le même d'une carte à l'autre, et elle ne dessine
+   pas ce que dit le titre. */
 .trades {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
-/* Un bento : six colonnes, et des fiches qui n'ont pas la même largeur. Deux
-   colonnes égales alignaient quatre pavés de même taille, ce que le §7
-   appelle une grille de cartes identiques. Les largeurs suivent la longueur
-   des textes : 3 et 3 sur la première ligne, 2 et 4 sur la seconde. */
+/* Un bento de trois colonnes : une carte étroite et une large, puis une large
+   et une étroite. Deux colonnes égales alignaient quatre pavés de même
+   taille, ce que le §7 appelle une grille de cartes identiques.
+
+   Les largeurs suivent la longueur des textes, et c'est ce qui a fixé l'ordre
+   des fiches : sur chaque ligne, le texte le plus long prend la carte large
+   (les applications, puis les projets créatifs), et les deux cartes d'une
+   ligne finissent à peu près ensemble. Les boutiques sont passées après les
+   projets créatifs pour cette raison, dans les cinq langues. */
 @media (min-width: 1000px) {
   .trades {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 1.5rem;
-    align-items: start;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .trade:nth-child(1),
-  .trade:nth-child(2) {
-    grid-column: span 3;
-  }
-
+  .trade:nth-child(2),
   .trade:nth-child(3) {
     grid-column: span 2;
   }
-
-  .trade:nth-child(4) {
-    grid-column: span 4;
-  }
-}
-
-.trades dt {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--display);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  font-size: 1.2rem;
-  line-height: 1.15;
 }
 
 .trade {
   background: var(--carte);
   border: 0;
   border-radius: var(--rond);
-  padding: 1.8rem 1.8rem 2rem;
+  padding: clamp(1.6rem, 3vw, 2.25rem);
 }
 
-.trades dt::before {
-  content: "";
-  flex: none;
-  width: 0.95rem;
-  height: 0.95rem;
-  background-color: var(--magenta);
-  -webkit-mask: var(--etoile) center / contain no-repeat;
-  mask: var(--etoile) center / contain no-repeat;
+/* La marque au-dessus du titre, dans le titre : une `<dl>` n'admet dans ses
+   groupes que des `dt` et des `dd`, et la marque n'y serait pas à sa place
+   ailleurs. Elle est `aria-hidden`, donc le nom du métier se lit seul. Elle
+   déborde un peu à gauche, comme les marques des titres de section, pour que
+   l'œil la pose sur la même verticale que le texte. */
+.trades dt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-size: 1.4rem;
+  line-height: 1.15;
 }
 
-.trade:nth-child(2) dt::before {
-  background: var(--cyan);
-}
-
-.trade:nth-child(3) dt::before {
-  background: var(--olive);
-}
-
-.trade:nth-child(4) dt::before {
-  background: var(--orange);
+.trade-mark {
+  display: block;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 0 1.25rem -0.3rem;
 }
 
 .trades dd {
   max-width: var(--measure);
   margin-top: 0.75rem;
-  font-size: 0.98rem;
+  font-size: 1rem;
   color: var(--ink-soft);
 }
 

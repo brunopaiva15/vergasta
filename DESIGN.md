@@ -53,8 +53,8 @@ changer.
 
 Les quatre encres saturées des brosses (`magenta`, `cyan`, `olive`, `orange`)
 sont recopiées en variables CSS depuis `brushes.js`. Elles servent aux étoiles
-posées devant les titres : l'étoile d'une carte est de la couleur de la
-peinture d'à côté, et non d'une gamme d'interface parallèle. **Les deux listes
+posées devant les titres : l'étoile d'un moment du déroulé est de la couleur
+de la peinture d'à côté, et non d'une gamme d'interface parallèle. **Les deux listes
 doivent rester égales** ; changer une encre dans le script veut dire la changer
 dans la feuille de style.
 
@@ -381,24 +381,45 @@ le même mot ne va pas à la lecture d'écran. `prefers-reduced-motion`
 l'arrête, et il reste une bande lime.
 
 **Étoile pixel.** La puce du site, en `mask-image` sur un SVG de neuf carrés :
-une croix et quatre coins. Elle sert devant les titres des métiers, devant les
+une croix et quatre coins. Elle sert devant les
 trois moments du déroulé, entre deux passages du bandeau et dans les listes des
 pages légales. Sa couleur est celle de l'encre de la brosse voisine (§1). C'est
 un masque et non une image, donc une seule ressource pour toutes les couleurs.
 
 **Cartes des métiers `.trades`.** Les quatre métiers sont un `<dl>`, chaque
-paire groupée dans un `<div class="trade">`, sur une carte. **Un bento** :
-six colonnes, et des cartes de largeurs inégales, 3 et 3 sur la première ligne,
-2 et 4 sur la seconde. Les largeurs suivent la longueur des textes. Deux
-colonnes égales alignaient quatre pavés de même taille, ce que le §7 appelle
-une grille de cartes identiques.
+paire groupée dans un `<div class="trade">`, sur une carte crème. **Un bento**
+de trois colonnes au-delà de 1000 px, comme le « Pourquoi louer » de BlockAbo :
+une carte étroite et une large, puis une large et une étroite. Deux colonnes
+égales alignaient quatre pavés de même taille, ce que le §7 appelle une grille
+de cartes identiques. En dessous, une seule colonne.
+
+**Les largeurs suivent la longueur des textes, et c'est ce qui a fixé l'ordre.**
+Sur chaque ligne, le texte le plus long prend la carte large : les
+applications sur la première, les projets créatifs sur la seconde. Les
+boutiques en ligne sont donc passées après les projets créatifs, dans les cinq
+langues ; dans l'ordre d'avant, la carte large de la seconde ligne portait le
+texte le plus court et la carte étroite d'à côté descendait deux fois plus bas.
+
+**Une petite marque à la brosse en tête de chaque carte**, 3,5 rem, là où une
+fiche de service porterait une icône : une arche de carrés magenta pour les
+sites, une spirale tissée cyan pour les applications, une boucle projetée
+orange pour les projets créatifs, un peigne olive en vague pour les boutiques
+(`metier-sites`, `metier-applis`, `metier-creatifs`, `metier-boutiques` dans
+`brushes.js`). Un geste et une encre par métier, jamais deux fois les mêmes, et
+**jamais un pictogramme** : une vitrine, un téléphone ou un sac dessinés à la
+brosse ne diraient rien de plus que le titre juste dessous, et feraient des
+quatre cartes le jeu de cartes de service que le §7 proscrit. La marque remplace
+l'étoile pixel qui précédait les titres.
+
+Elle est posée **dans le `dt`**, au-dessus du nom du métier : un groupe de `<dl>`
+n'admet que des `dt` et des `dd`, et c'est le seul endroit valide. Elle est
+`aria-hidden`, donc le titre se lit seul.
 
 Ce sont des fiches, pas des cartes de service : pas de numérotation, pas
 d'icône, pas de bouton en pied, et surtout pas quatre fois le même contenu sous
 quatre titres différents (voir §7). Les noms de projets sont en `<b>` (600,
 encre pleine) pour donner des points d'accroche à la lecture rapide. Une
-cinquième entrée demande de reprendre les largeurs du bento et d'ajouter une
-couleur d'étoile.
+cinquième entrée demande de reprendre le bento et d'ajouter une marque.
 
 **Déroulé `.run-through`.** Les trois moments du projet sont trois colonnes
 lues de gauche à droite au-delà de 900 px, chacune ouverte par une étoile
@@ -1027,8 +1048,9 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
   contenu sous un titre différent, avec icône, titre court et bouton en pied.
   Les quatre métiers y échappent par construction : chacun porte un texte qui
   lui est propre et cite des projets réels, aucun ne porte d'icône ni de
-  bouton, et le bento leur donne trois largeurs différentes, précisément pour
-  qu'on ne puisse pas les lire comme une grille,
+  bouton (la marque en tête est un geste de brosse, pas un pictogramme, et
+  chacune est différente), et le bento leur donne deux largeurs alternées,
+  précisément pour qu'on ne puisse pas les lire comme une grille,
 - flèches `↗`, point coloré en fin de titre,
 - **en-tête collant** en verre dépoli, dégradés de couleur, **ombres diffuses
   et colorées**. Les cartes n'ont plus d'ombre du tout (§1) ; une ombre teintée
@@ -1068,7 +1090,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=21`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=22`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
