@@ -394,10 +394,13 @@
      est nommée parce que les éoliennes s'y plantent. */
   var MONT_SOLEIL = [0.67, 0.10, 2.0, 2.0];
 
-  /* Le soleil se lève à droite du titre, dans le ciel au-dessus des crêtes.
-     Sur un écran étroit il rentre vers le milieu pour rester dans le cadre. */
-  function soleilX(w, h) {
-    return w / 2 + Math.min(h * 1.1, w * 0.3);
+  /* Le soleil, haut dans le ciel, loin à droite du titre : son centre, le
+     rayon de son disque. Tout est mesuré en hauteurs de canevas, comme les
+     crêtes. Sur un écran étroit il rentre vers le milieu pour rester dans le
+     cadre. */
+  function soleil(w, h) {
+    var r = h * 0.085;
+    return { x: w / 2 + Math.min(h * 1.5, w * 0.36), y: h * 0.14, r: r };
   }
 
   /** Les couches d'une rangée d'éoliennes : un mât puis trois pales chacune,
@@ -607,8 +610,8 @@
        cyan en semis pour le lointain, qui se lit comme une brume, une plume
        bleue pour la crête du milieu, une touffe olive pour la plus proche,
        doublée de deux passes de carrés qui lui donnent une épaisseur de
-       forêt. Au-dessus, la spirale de l'atelier fait le soleil, en deux passes
-       mal calées comme l'ancienne marque d'ouverture, qu'elle remplace. Les
+       forêt. Au-dessus, haut et à droite, le soleil : un disque cerné à la
+       plume et un contour magenta mal calé. Les
        éoliennes du Mont-Soleil, plantées sur la crête du milieu, sont une
        marque à part posée par-dessus (`eoliennes`), parce qu'elles tournent.
 
@@ -617,20 +620,35 @@
        apparaît. Les retards donnent l'ordre, et la dernière couche est posée
        en un peu plus de deux secondes. */
     fresque: [
+      /* le soleil : un disque cerné à la plume orange, garni d'une spirale de
+         carrés plus claire, doublé d'un contour magenta décalé d'un poil
+         (le tirage en deux couleurs mal calées des autres marques). Pas de
+         rayons : un soleil à rayons est un pictogramme, pas une peinture. */
       {
-        brush: "peigne", ink: "orange",
-        over: { size: 0.05, spacing: 0.17 },
+        brush: "plume", ink: "orange",
+        over: { size: 0.04, spacing: 0.13 },
         path: function (w, h) {
-          return spiral(soleilX(w, h), h * 0.19, h * 0.15, 2.1, -Math.PI * 0.55, 600);
+          var s = soleil(w, h);
+          return arc(s.x, s.y, s.r, -Math.PI / 2, Math.PI * 1.5, 240);
         }
       },
       {
-        brush: "projection", ink: "magenta", alpha: 0.85, delay: 160,
-        over: { size: 0.055 },
+        brush: "carres", ink: "orange", alpha: 0.5, delay: 120,
+        over: { size: 0.026, spacing: 0.8 },
         path: function (w, h) {
-          return spiral(soleilX(w, h) + h * 0.01, h * 0.18, h * 0.12, 1.8, -Math.PI * 0.15, 500);
+          var s = soleil(w, h);
+          return spiral(s.x, s.y, s.r * 0.76, 2.6, -Math.PI / 2, 400);
         }
       },
+      {
+        brush: "croix", ink: "magenta", alpha: 0.75, delay: 220,
+        over: { size: 0.03, spacing: 1.3 },
+        path: function (w, h) {
+          var s = soleil(w, h);
+          return arc(s.x + s.r * 0.14, s.y - s.r * 0.1, s.r * 1.02, -Math.PI / 2, Math.PI * 1.5, 200);
+        }
+      }
+    ].concat([
       /* le lointain : une brume cyan, et une seconde passe plus claire dessous */
       {
         brush: "derive", ink: "cyan", alpha: 0.8, delay: 120,
@@ -674,7 +692,7 @@
         over: { size: 0.03, spacing: 1.3, jitter: 0.6 },
         path: function (w, h) { return crete(w, h, 0.965, 0.035, 2.6, 4.1); }
       }
-    ],
+    ]),
 
     /* Les éoliennes du Mont-Soleil, sur leur propre calque posé sur la
        fresque, de la même taille qu'elle : elles se plantent sur la même
