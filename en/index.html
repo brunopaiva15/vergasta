@@ -39,11 +39,11 @@
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=18">
+  <link rel="stylesheet" href="../styles.css?v=28">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="../lancement/lancement.css?v=1">
   <script src="../lancement/lancement.js?v=1" defer></script>
-  <script src="../brushes.js?v=18" defer></script>
+  <script src="../brushes.js?v=28" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -186,7 +186,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=18"></script>
+  <script src="../lang.js?v=28"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -197,11 +197,8 @@
       </a>
       <div class="masthead-tail">
         <nav class="site-nav" aria-label="Main navigation">
-          <a href="#metier">What we do</a>
-          <a href="#deroule">How a project runs</a>
-          <a href="#realisations">Work</a>
-          <a href="story.html">Our story</a>
-          <a href="#contact">Contact</a>
+          <a class="entete-pilule" href="story.html">Our story</a>
+          <a class="entete-pilule entete-pilule--encre" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
         </nav>
         <nav class="lang-nav" aria-label="Site language">
           <a href="../" hreflang="fr" lang="fr" data-langue="fr" aria-label="Français">FR</a>
@@ -215,36 +212,13 @@
   </header>
 
   <main>
-    <aside class="lancement wrap" aria-labelledby="lancement-titre">
-      <div class="lancement-carte">
-        <div class="lancement-fond" aria-hidden="true"></div>
-        <canvas class="lancement-confettis" aria-hidden="true"></canvas>
-        <div class="lancement-pot" aria-hidden="true"><img class="pot" src="../lancement/pot.webp" width="1024" height="1024" alt=""></div>
-        <div class="lancement-tete">
-          <p class="lancement-badge">New</p>
-          <h2 id="lancement-titre">Auxine is on the App Store</h2>
-        </div>
-        <p class="lancement-corps">The app we built to look after your plants on iPhone and iPad is now available. You can identify a plant from a photo, even offline, and record its care and growth.</p>
-        <div class="lancement-actions">
-          <a class="lancement-pilule" href="https://apps.apple.com/us/app/auxine-plant-journal/id6809751489" target="_blank" rel="noopener noreferrer">Download on the App Store</a>
-          <a class="lancement-lien" href="../auxine/en/">Discover Auxine</a>
-        </div>
+    <section class="scene" aria-labelledby="scene-titre">
+      <div class="scene-texte wrap">
+        <img class="scene-croix" src="../logo_vergasta.png" width="435" height="520" alt="">
+        <h1 id="scene-titre">Websites and applications for the businesses around here.</h1>
+        <p class="scene-sous-titre">Web workshop in St-Imier</p>
       </div>
-    </aside>
-    <section class="opening opening--accueil wrap">
-      <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
-      <h1>Websites and applications for the businesses around here.</h1>
-      <div class="opening-body">
-        <p>
-          Vergasta Digital is a web workshop on the rue du Temple, in St-Imier.
-          We write presentation websites, internal tools and online shops for
-          tradespeople, shopkeepers and self-employed workers of the Bernese Jura.
-        </p>
-      </div>
-        <div class="opening-actions">
-          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
-          <a class="opening-jump" href="#realisations">See the work</a>
-        </div>
+      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true"></div>
     </section>
 
     <div class="ribbon" aria-hidden="true">
@@ -268,6 +242,36 @@
       </div>
     </div>
 
+    <aside class="lancement wrap" aria-labelledby="lancement-titre">
+      <div class="lancement-carte">
+        <div class="lancement-fond" aria-hidden="true"></div>
+        <canvas class="lancement-confettis" aria-hidden="true"></canvas>
+        <div class="lancement-pot" aria-hidden="true"><img class="pot" src="../lancement/pot.webp" width="1024" height="1024" alt=""></div>
+        <div class="lancement-tete">
+          <p class="lancement-badge">New</p>
+          <h2 id="lancement-titre">Auxine is on the App Store</h2>
+        </div>
+        <p class="lancement-corps">The app we built to look after your plants on iPhone and iPad is now available. You can identify a plant from a photo, even offline, and record its care and growth.</p>
+        <div class="lancement-actions">
+          <a class="lancement-pilule" href="https://apps.apple.com/us/app/auxine-plant-journal/id6809751489" target="_blank" rel="noopener noreferrer">Download on the App Store</a>
+          <a class="lancement-lien" href="../auxine/en/">Discover Auxine</a>
+        </div>
+      </div>
+    </aside>
+    <section class="accroche wrap">
+      <div class="opening-body">
+        <p>
+          Vergasta Digital is a web workshop on the rue du Temple, in St-Imier.
+          We write presentation websites, internal tools and online shops for
+          tradespeople, shopkeepers and self-employed workers of the Bernese Jura.
+        </p>
+      </div>
+      <div class="opening-actions">
+        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
+        <a class="opening-jump" href="#realisations">See the work</a>
+      </div>
+    </section>
+
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
       <div class="slab-head">
         <div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div>
@@ -276,7 +280,7 @@
       <div class="slab-body">
         <dl class="trades">
           <div class="trade">
-            <dt>Presentation websites</dt>
+            <dt><span class="mark trade-mark" data-mark="metier-sites" aria-hidden="true"></span>Presentation websites</dt>
             <dd>
               Showing a company, what it offers and how to reach it without the visitor
               having to hunt for any of it, and helping it turn up when someone searches
@@ -286,7 +290,7 @@
           </div>
 
           <div class="trade">
-            <dt>Applications</dt>
+            <dt><span class="mark trade-mark" data-mark="metier-applis" aria-hidden="true"></span>Applications</dt>
             <dd>
               When the binder or the Excel file no longer holds, we build the tool that
               takes over. <b>Disque Bleu</b> works out the time to set on a parking disc
@@ -297,21 +301,21 @@
           </div>
 
           <div class="trade">
-            <dt>Online shops</dt>
-            <dd>
-              Catalogue, basket, card or TWINT payment through Stripe, order tracking and
-              an administration interface you run yourself. <b>Custom To Lylia</b> and
-              <b>BDPokéCards</b> work on this basis.
-            </dd>
-          </div>
-
-          <div class="trade">
-            <dt>Creative projects</dt>
+            <dt><span class="mark trade-mark" data-mark="metier-creatifs" aria-hidden="true"></span>Creative projects</dt>
             <dd>
               Some projects start from an idea someone wants to make tangible.
               <b>Yamanote 3D</b> recreates a quiet ride on the Yamanote line in Tokyo,
               inside the browser. <b>Vergasta Photo</b> shows photographic collections in a
               portfolio built for the purpose, with its own publishing studio.
+            </dd>
+          </div>
+
+          <div class="trade">
+            <dt><span class="mark trade-mark" data-mark="metier-boutiques" aria-hidden="true"></span>Online shops</dt>
+            <dd>
+              Catalogue, basket, card or TWINT payment through Stripe, order tracking and
+              an administration interface you run yourself. <b>Custom To Lylia</b> and
+              <b>BDPokéCards</b> work on this basis.
             </dd>
           </div>
         </dl>
@@ -353,78 +357,43 @@
         <h2 id="realisations-title">Work</h2>
       </div>
       <div class="slab-body">
-        <table class="index">
-          <caption>The nine projects online today. All of them can be visited.</caption>
-          <thead>
-            <tr>
-              <th scope="col">Project</th>
-              <th scope="col">Type</th>
-              <th scope="col">Year</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_stellarrebirth.png" width="180" height="180" alt="">
-                <a href="https://stellar-rebirth.com" target="_blank" rel="noopener noreferrer">Stellar Rebirth</a>
-                <span class="host">stellar-rebirth.com</span>
-              </td>
-              <td class="kind">Presentation website</td>
-              <td class="when">2026</td>
-            </tr>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_axolot.png" width="96" height="96" alt="">
-                <a href="https://axolot.ch" target="_blank" rel="noopener noreferrer">Axolot</a>
-                <span class="host">axolot.ch</span>
-              </td>
-              <td class="kind">SaaS platform</td>
-              <td class="when">2026</td>
-            </tr>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_fdasilva.svg" width="32" height="32" alt="">
-                <a href="https://fdasilvasarl.ch" target="_blank" rel="noopener noreferrer">F. Da Silva sàrl</a>
-                <span class="host">fdasilvasarl.ch</span>
-              </td>
-              <td class="kind">Presentation website</td>
-              <td class="when">2026</td>
-            </tr>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_yamanote.svg" width="512" height="512" alt="">
-                <a href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">Yamanote 3D</a>
-                <span class="host">yamanote-3d.com</span>
-              </td>
-              <td class="kind">Game</td>
-              <td class="when">2026</td>
-            </tr>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_customtolylia.png" width="512" height="512" alt="">
-                <a href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">Custom To Lylia</a>
-                <span class="host">customtolylia.ch</span>
-              </td>
-              <td class="kind">Online shop</td>
-              <td class="when">2026</td>
-            </tr>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_disquebleu.png" width="180" height="180" alt="">
-                <span class="name">Disque Bleu</span>
-                <span class="stores">
-                  <a href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer" aria-label="Disque Bleu website">Website</a>
-                  <a href="https://apps.apple.com/ch/app/disque-bleu/id6756579975" target="_blank" rel="noopener noreferrer" aria-label="Disque Bleu on the App Store">App Store</a>
-                  <a href="https://play.google.com/store/apps/details?id=ch.vergasta.disquebleusuisse" target="_blank" rel="noopener noreferrer" aria-label="Disque Bleu on Google Play">Google Play</a>
-                </span>
-                <!--
-                  Les six logos tiennent la place des noms dans la phrase et
-                  mènent chacun à son article. Ils sont servis d'ici comme les
-                  polices, et leur alternative textuelle rend les noms à la
-                  lecture d'écran.
-                -->
-                <span class="press">
-                  <span class="press-lead">Featured in</span>
+        <p class="projets-legende">The nine projects online today. All of them can be visited.</p>
+        <ul class="projets">
+          <li class="projet">
+            <img class="projet-icone" src="../icone_stellarrebirth.png" width="180" height="180" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://stellar-rebirth.com" target="_blank" rel="noopener noreferrer">Stellar Rebirth</a></h3>
+            <p class="projet-genre">Presentation website, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">stellar-rebirth.com</span></p>
+          </li>
+          <li class="projet">
+            <img class="projet-icone" src="../icone_axolot.png" width="96" height="96" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://axolot.ch" target="_blank" rel="noopener noreferrer">Axolot</a></h3>
+            <p class="projet-genre">SaaS platform, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">axolot.ch</span></p>
+          </li>
+          <li class="projet">
+            <img class="projet-icone" src="../icone_fdasilva.svg" width="32" height="32" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://fdasilvasarl.ch" target="_blank" rel="noopener noreferrer">F. Da Silva sàrl</a></h3>
+            <p class="projet-genre">Presentation website, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">fdasilvasarl.ch</span></p>
+          </li>
+          <li class="projet">
+            <img class="projet-icone" src="../icone_yamanote.svg" width="512" height="512" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">Yamanote 3D</a></h3>
+            <p class="projet-genre">Game, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">yamanote-3d.com</span></p>
+          </li>
+          <li class="projet">
+            <img class="projet-icone" src="../icone_customtolylia.png" width="512" height="512" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">Custom To Lylia</a></h3>
+            <p class="projet-genre">Online shop, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">customtolylia.ch</span></p>
+          </li>
+          <li class="projet">
+            <img class="projet-icone" src="../icone_disquebleu.png" width="180" height="180" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer">Disque Bleu</a></h3>
+            <p class="projet-genre">iOS and Android application, 2026</p>
+            <p class="press"><span class="press-lead">Featured in</span>
                   <a class="press-source" href="https://www.lejdj.ch/articles/a-saint-imier-il-oublie-son-disque-bleu-et-cree-une-application-pour-eviter-les-amendes-100885" target="_blank" rel="noopener noreferrer" aria-label="The Journal du Jura article about Disque Bleu">
                     <img class="press-logo press-jdj" src="../logo_journaldujura.svg" width="1243" height="200" alt="Le Journal du Jura">
                   </a>
@@ -442,44 +411,28 @@
                   </a>
                   <a class="press-source" href="https://ajour.ch/story/692944/er-vergisst-seine-blaue-scheibe-und-entwickelt-eine-app-um-bussen-zu-vermeiden" target="_blank" rel="noopener noreferrer" aria-label="The Ajour article about Disque Bleu">
                     <img class="press-logo press-ajour" src="../logo_ajour.svg" width="85" height="14" alt="Ajour">
-                  </a>
-                </span>
-              </td>
-              <td class="kind">iOS and Android application</td>
-              <td class="when">2026</td>
-            </tr>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_mesecheances.png" width="128" height="128" alt="">
-                <span class="name">My Due Dates</span>
-                <span class="stores">
-                  <a href="https://apps.apple.com/us/app/mes-%C3%A9ch%C3%A9ances/id6769306607" target="_blank" rel="noopener noreferrer" aria-label="My Due Dates on the App Store">App Store</a>
-                  <a href="https://play.google.com/store/apps/details?id=ch.vergasta.mesecheances" target="_blank" rel="noopener noreferrer" aria-label="My Due Dates on Google Play">Google Play</a>
-                </span>
-              </td>
-              <td class="kind">iOS and Android application</td>
-              <td class="when">2026</td>
-            </tr>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_vergastaphoto.ico" width="48" height="48" alt="">
-                <a href="https://vergastaphoto.ch" target="_blank" rel="noopener noreferrer">Vergasta Photo</a>
-                <span class="host">vergastaphoto.ch</span>
-              </td>
-              <td class="kind">Photo portfolio</td>
-              <td class="when">2026</td>
-            </tr>
-            <tr>
-              <td>
-                <img class="projet-icone" src="../icone_bdpokecards.ico" width="32" height="32" alt="">
-                <a href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">BDPokéCards</a>
-                <span class="host">bd-pokecards.ch</span>
-              </td>
-              <td class="kind">Online shop</td>
-              <td class="when">2025</td>
-            </tr>
-          </tbody>
-        </table>
+                  </a></p>
+            <p class="projet-sorties"><a class="projet-pilule" href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer" aria-label="Disque Bleu website">Website</a><a class="projet-pilule" href="https://apps.apple.com/ch/app/disque-bleu/id6756579975" target="_blank" rel="noopener noreferrer" aria-label="Disque Bleu on the App Store">App Store</a><a class="projet-pilule" href="https://play.google.com/store/apps/details?id=ch.vergasta.disquebleusuisse" target="_blank" rel="noopener noreferrer" aria-label="Disque Bleu on Google Play">Google Play</a></p>
+          </li>
+          <li class="projet">
+            <img class="projet-icone" src="../icone_mesecheances.png" width="128" height="128" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://apps.apple.com/us/app/mes-%C3%A9ch%C3%A9ances/id6769306607" target="_blank" rel="noopener noreferrer">My Due Dates</a></h3>
+            <p class="projet-genre">iOS and Android application, 2026</p>
+            <p class="projet-sorties"><a class="projet-pilule" href="https://apps.apple.com/us/app/mes-%C3%A9ch%C3%A9ances/id6769306607" target="_blank" rel="noopener noreferrer" aria-label="My Due Dates on the App Store">App Store</a><a class="projet-pilule" href="https://play.google.com/store/apps/details?id=ch.vergasta.mesecheances" target="_blank" rel="noopener noreferrer" aria-label="My Due Dates on Google Play">Google Play</a></p>
+          </li>
+          <li class="projet">
+            <img class="projet-icone" src="../icone_vergastaphoto.ico" width="48" height="48" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://vergastaphoto.ch" target="_blank" rel="noopener noreferrer">Vergasta Photo</a></h3>
+            <p class="projet-genre">Photo portfolio, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">vergastaphoto.ch</span></p>
+          </li>
+          <li class="projet">
+            <img class="projet-icone" src="../icone_bdpokecards.ico" width="32" height="32" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">BDPokéCards</a></h3>
+            <p class="projet-genre">Online shop, 2025</p>
+            <p class="projet-sorties"><span class="projet-pilule">bd-pokecards.ch</span></p>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -489,16 +442,27 @@
         <h2 id="contact-title">Write</h2>
       </div>
       <div class="slab-body contact-body">
-        <p>
-          A project to price, an ageing site to take over, or simply a question about
-          what a rebuild would cost: the form lands straight in our inbox and we
-          usually answer within two working days.
-        </p>
-        <p>
-          If you would rather talk it through, say so in the message and we will
-          arrange a meeting.
-        </p>
-        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
+        <div class="contact-ecrire">
+          <p>
+            A project to price, an ageing site to take over, or simply a question about
+            what a rebuild would cost: the form lands straight in our inbox and we
+            usually answer within two working days.
+          </p>
+          <p>
+            If you would rather talk it through, say so in the message and we will
+            arrange a meeting.
+          </p>
+          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
+        </div>
+        <div class="contact-engagements">
+          <h3>What we commit to</h3>
+          <ul>
+            <li>A detailed quote by email, with prices, services and deadlines.</li>
+            <li>A test address, to see where the work stands whenever you want.</li>
+            <li>Free fixes for bugs present from the start, during the warranty.</li>
+            <li>Ownership of the source code, once the invoice is paid.</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
@@ -506,15 +470,29 @@
   <footer class="site-footer">
     <div class="wrap">
       <div class="mark band" data-mark="bande" aria-hidden="true"></div>
-      <div class="colophon">
+      <div class="pied-haut">
         <p class="motto">From the region, for the region.</p>
-        <p>© 2026 Vergasta Digital, St-Imier</p>
+        <div class="pied-adresse">
+          <p>Rue du Temple 5<br>2610 St-Imier</p>
+          <a class="pied-pilule" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
+        </div>
       </div>
-      <nav class="footer-nav" aria-label="Legal pages">
-        <a href="terms.html">Terms and conditions</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="imprint.html">Legal notice</a>
-      </nav>
+      <div class="pied-liens">
+        <nav aria-label="Vergasta Digital">
+          <p class="pied-titre">Vergasta Digital</p>
+          <a href="#metier">What we do</a>
+          <a href="#deroule">How a project runs</a>
+          <a href="#realisations">Work</a>
+          <a href="story.html">Our story</a>
+        </nav>
+        <nav class="footer-nav" aria-label="Legal pages">
+          <p class="pied-titre">Legal pages</p>
+          <a href="terms.html">Terms and conditions</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="imprint.html">Legal notice</a>
+        </nav>
+      </div>
+      <p class="pied-bas">© 2026 Vergasta Digital, St-Imier</p>
     </div>
   </footer>
 </body>

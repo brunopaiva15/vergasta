@@ -39,15 +39,15 @@
   <link rel="preload" href="fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=18">
-  <script src="brushes.js?v=18" defer></script>
+  <link rel="stylesheet" href="styles.css?v=28">
+  <script src="brushes.js?v=28" defer></script>
 
   <!--
     Redirection de langue. Placé en fin de tête, après les liens alternes dont
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="lang.js?v=18"></script>
+  <script src="lang.js?v=28"></script>
 </head>
 <body>
   <header class="site-header">
@@ -58,11 +58,8 @@
       </a>
       <div class="masthead-tail">
         <nav class="site-nav" aria-label="Navigation principale">
-          <a href="./#metier">Ce que nous faisons</a>
-          <a href="./#deroule">Déroulé d’un projet</a>
-          <a href="./#realisations">Réalisations</a>
-          <a href="story.html">Notre histoire</a>
-          <a href="./#contact">Contact</a>
+          <a class="entete-pilule" href="story.html">Notre histoire</a>
+          <a class="entete-pilule entete-pilule--encre" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Remplir le formulaire</a>
         </nav>
         <nav class="lang-nav" aria-label="Langue du site">
           <span class="is-current" aria-current="true" lang="fr">FR</span>
@@ -148,15 +145,29 @@
   <footer class="site-footer">
     <div class="wrap">
       <div class="mark band" data-mark="bande" aria-hidden="true"></div>
-      <div class="colophon">
+      <div class="pied-haut">
         <p class="motto">Par la région, pour la région.</p>
-        <p>© 2026 Vergasta Digital, St-Imier</p>
+        <div class="pied-adresse">
+          <p>Rue du Temple 5<br>2610 St-Imier</p>
+          <a class="pied-pilule" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Remplir le formulaire</a>
+        </div>
       </div>
-      <nav class="footer-nav" aria-label="Pages légales">
-        <a href="terms.html">Conditions générales</a>
-        <a href="privacy.html">Confidentialité</a>
-        <a href="imprint.html">Mentions légales</a>
-      </nav>
+      <div class="pied-liens">
+        <nav aria-label="Vergasta Digital">
+          <p class="pied-titre">Vergasta Digital</p>
+          <a href="./#metier">Ce que nous faisons</a>
+          <a href="./#deroule">Déroulé d’un projet</a>
+          <a href="./#realisations">Réalisations</a>
+          <a href="story.html">Notre histoire</a>
+        </nav>
+        <nav class="footer-nav" aria-label="Pages légales">
+          <p class="pied-titre">Pages légales</p>
+          <a href="terms.html">Conditions générales</a>
+          <a href="privacy.html">Confidentialité</a>
+          <a href="imprint.html">Mentions légales</a>
+        </nav>
+      </div>
+      <p class="pied-bas">© 2026 Vergasta Digital, St-Imier</p>
     </div>
   </footer>
 </body>

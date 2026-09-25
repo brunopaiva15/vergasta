@@ -1,9 +1,9 @@
 /* ==========================================================================
    Vergasta Digital
    --------------------------------------------------------------------------
-   Direction : papier crème, cartes blanches à coins ronds, ombres portées
-   douces, et les peintures à la brosse posées par-dessus. Les deux couleurs
-   viennent de la croix du logo : lime acide et bleu électrique.
+   Direction : une page blanche, des cartes crème à coins ronds, plates et sans
+   ombre, beaucoup d'air, et les peintures à la brosse posées par-dessus. Les
+   deux couleurs viennent de la croix du logo : lime acide et bleu électrique.
 
    Trois polices de texte et une de signature. Gabarito porte les titres
    (géométrique, ronde, serrée), Figtree le texte courant, Caveat les mots
@@ -79,6 +79,27 @@
   font-weight: 500;
   font-display: swap;
   src: url(fonts/gabarito-500-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* figtree-300 latin-ext. La graisse légère des grandes accroches, en instance
+   statique comme les autres : une police variable ne passe pas dans un PDF. */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/figtree-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* figtree-300 latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/figtree-300-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -167,30 +188,45 @@
 }
 
 :root {
-  /* Le papier n'est pas le blanc de l'écran, mais il n'en est plus très loin :
-     une teinte très pâle, tirée vers le blanc, sur laquelle les feuilles
-     blanches (encadrés, timbres de presse, bloc de contact) se détachent
-     encore au lieu de s'y fondre.
+  /* Le fond est le blanc de l'écran, et ce sont les cartes qui prennent le
+     papier. Les rôles se sont inversés : les cartes étaient des feuilles
+     blanches posées sur un papier crème, avec une ombre portée pour les
+     détacher ; elles sont maintenant des aplats crème, plats et sans ombre,
+     posés sur une page blanche. Le rapport entre les deux teintes est le même
+     (1,13), c'est seulement l'objet qui a changé de côté.
 
-     C'est ce dernier point qui fixe la limite. Entre le papier et la feuille il
-     reste un rapport de 1,13 contre 1,21 auparavant : l'écart s'est resserré,
-     et c'est l'ombre portée des cartes qui prend le relais de la teinte. Un cran
-     plus clair et les cartes ne seraient plus posées sur la page, elles en
-     feraient partie. Les encres, elles, ne bougent pas : ce sont toujours les
-     deux barres du logo. */
-  --paper: #f1f2e9;
+     Sans ombre, la teinte suffit à poser la carte : une carte plus claire que
+     la page avait besoin d'une ombre pour exister, une carte plus sombre que la
+     page se voit d'elle-même. C'est tout le calme de la mise en page.
+
+     `--paper` reste le nom du fond et `--sheet` celui du blanc pur (libellé des
+     boutons, creux du survol) : les deux valent le blanc, mais ils ne disent
+     pas la même chose, et le jour où le fond reprendra une teinte il n'y aura
+     qu'une ligne à changer. */
+  --paper: #ffffff;
   --sheet: #ffffff;
+  --carte: #f1f2e9;
   --ink: #16160f;
   --ink-soft: #5d5d54;
-  --rule: #d5d7c9;
+  /* Le filet est une encre à 12 % et non une teinte arrêtée : il tient la
+     même présence sur le blanc de la page et sur le crème des cartes. */
+  --rule: rgba(22, 22, 15, 0.12);
   --rule-hard: #16160f;
-  /* Les colonnes du fond, et les coins et ombres des cartes. */
-  --guide: rgba(22, 22, 15, 0.055);
+  /* Les coins des cartes. Plus d'ombre : voir plus haut. */
   --rond: 24px;
   --rond-s: 14px;
   --rond-l: 30px;
-  --ombre: 0 1px 2px rgba(22, 22, 15, 0.05), 0 20px 38px -24px rgba(22, 22, 15, 0.5);
-  --ombre-basse: 0 1px 2px rgba(22, 22, 15, 0.05), 0 10px 20px -14px rgba(22, 22, 15, 0.45);
+  /* Le ressort. Ce qui se prend grossit d'un cran au survol et dépasse un peu
+     sa taille d'arrivée avant de s'y poser : la pilule se soulève vers la main.
+     Il ne vaut que pour ce qui se clique (pilules, boutons, tuiles), jamais
+     pour une marque à la brosse, qui se peint à sa place et ne rebondit pas
+     (§6 de DESIGN.md). Le mouvement réduit l'annule, plus bas. */
+  --ressort: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Un filet en tête d'un bloc `.wrap`, sur la seule largeur du contenu. Une
+     bordure y courrait sur les gouttières et dépasserait la colonne de chaque
+     côté : le fond, lui, se règle à la largeur voulue. */
+  --filet-colonne: linear-gradient(var(--rule), var(--rule)) 50% 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat;
+  --ressort-duree: 0.5s;
   /* L'étoile pixel des puces : le même carré que les tampons des brosses. */
   --etoile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cg fill='%23000'%3E%3Crect x='4' y='1' width='1' height='7'/%3E%3Crect x='1' y='4' width='7' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='6' y='2' width='1' height='1'/%3E%3Crect x='2' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
   /* les deux barres de la croix du logo */
@@ -277,13 +313,9 @@ body {
   line-height: 1.75;
   color: var(--ink);
   background-color: var(--paper);
-  /* Les colonnes du gabarit, laissées apparentes : six filets d'un pixel qui
-     traversent la page de haut en bas, au pas de la colonne de texte. La
-     grille de points d'avant se lisait comme du papier millimétré sous chaque
-     paragraphe ; celle-ci se lit comme le tracé d'un maquettiste, et elle ne
-     passe pas sous le texte, elle passe derrière les cartes. */
-  background-image: repeating-linear-gradient(to right, var(--guide) 0 1px, transparent 1px calc(74rem / 6));
-  background-position: 50% 0;
+  /* Un fond uni, sans motif. Les six filets du gabarit qui le traversaient
+     sont partis avec l'ombre des cartes : sur une page blanche, ils se
+     lisaient comme du papier millimétré et disputaient l'œil aux cartes. */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-wrap: pretty;
@@ -305,14 +337,6 @@ body {
   overflow-x: clip;
 }
 
-/* Sous 800 px, la colonne fait toute la largeur : les filets du gabarit n'ont
-   plus rien à dire et se mettraient en travers du texte. */
-@media (max-width: 799px) {
-  body {
-    background-image: none;
-  }
-}
-
 ::selection {
   background: var(--lime);
   color: var(--ink);
@@ -322,9 +346,9 @@ body {
    colonne d'interface à droite de la mise en page. On la ramène à un filet.
 
    Pas de coin arrondi, pas de dégradé : un rectangle plein, comme les autres
-   filets du site. Le rail reste transparent pour laisser passer la grille du
-   fond ; seul le curseur se voit, en filet clair, et il passe à l'encre
-   atténuée au survol pour rester saisissable à la souris.
+   filets du site. Le rail reste transparent pour laisser passer le fond ;
+   seul le curseur se voit, en filet clair, et il passe à l'encre atténuée au
+   survol pour rester saisissable à la souris.
 
    `scrollbar-width` couvre Firefox, `::-webkit-scrollbar` couvre Chrome,
    Edge et Safari. Les deux disent la même chose ; aucun ne masque la barre,
@@ -397,9 +421,13 @@ em {
   border-radius: 4px;
 }
 
+/* La colonne est plus étroite qu'elle ne l'a été : 62 rem de contenu, contre
+   66. Une page plus étroite laisse plus de blanc de part et d'autre, et c'est
+   ce blanc qui donne le calme. La gouttière est ajoutée à la mesure plutôt que
+   prise dessus : le contenu garde ses 62 rem quelle que soit la gouttière. */
 .wrap {
   width: 100%;
-  max-width: 74rem;
+  max-width: calc(62rem + 2 * var(--gutter));
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
@@ -474,12 +502,22 @@ em {
 
 .opening h1,
 .opening-body,
-.opening-actions {
+.opening-actions,
+.scene-texte > * {
   animation: arrivee 0.9s cubic-bezier(0.2, 0.86, 0.28, 1) backwards;
 }
 
-.opening h1 {
+.opening h1,
+.scene-croix {
   animation-delay: 0.1s;
+}
+
+.scene h1 {
+  animation-delay: 0.2s;
+}
+
+.scene-sous-titre {
+  animation-delay: 0.34s;
 }
 
 .opening-body {
@@ -495,7 +533,8 @@ em {
   .ribbon-track,
   .opening h1,
   .opening-body,
-  .opening-actions {
+  .opening-actions,
+  .scene-texte > * {
     animation: none;
   }
 }
@@ -505,7 +544,8 @@ em {
 @media (prefers-reduced-motion: reduce) {
   .opening h1,
   .opening-body,
-  .opening-actions {
+  .opening-actions,
+  .scene-texte > * {
     animation: none;
   }
 }
@@ -561,18 +601,28 @@ em {
   border-bottom: 0;
 }
 
+/* L'en-tête de BlockAbo : la marque à gauche, deux pilules à droite, et rien
+   d'autre. Il porte en plus les cinq langues, au bout de la ligne.
+
+   Il ne colle pas en haut de l'écran au défilement, contrairement à celui de
+   BlockAbo : le §7 de DESIGN.md proscrit l'en-tête collant, et la page est
+   plus calme sans une barre qui la suit. Les deux pilules sont les deux
+   actions de l'atelier, lire son histoire et lui écrire ; le reste de la
+   navigation est descendu dans le pied de page, où il se retrouve en colonnes
+   sur chaque page, et l'accueil se parcourt au défilement. */
 .masthead {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  padding-top: 1.6rem;
+  gap: 0.75rem 1.25rem;
+  padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
+
 /* La marque garde la bitmap : c'est la signature, et elle est faite des mêmes
    carrés que les marques à la brosse. */
 .brand {
+  margin-right: auto;
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -589,43 +639,69 @@ em {
   image-rendering: pixelated;
 }
 
-/* Navigation et langues forment un seul bloc à droite de la marque : sans ce
-   groupe, l'espacement de .masthead les écarterait aux deux bouts de la ligne. */
 .masthead-tail {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem 1rem;
+  gap: 0.5rem 1.25rem;
 }
 
-/* Cinq entrées, plus la marque et cinq langues, sur une ligne de 66 rem : en
-   français, qui est la version la plus longue, ça passe au pixel près. Toucher
-   à ce corps ou à ces gouttières fait tomber la navigation sur une seconde
-   ligne. */
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.35rem;
-  font-size: 0.86rem;
+  gap: 0.5rem;
 }
 
-.site-nav a {
-  padding: 0.4rem 0.75rem;
+/* Les deux pilules. Capitales interlettrées, comme tout libellé d'action
+   (§2) : la première en crème et lime au survol, comme la pilule secondaire
+   de l'accueil ; la seconde à l'encre, comme le bouton du formulaire. Toutes
+   deux grossissent sur le ressort. */
+.entete-pilule {
+  display: inline-block;
+  padding: 0.75rem 1.15rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-  transition: background 0.14s, border-color 0.14s;
+  background: var(--carte);
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background 0.14s, transform var(--ressort-duree) var(--ressort);
 }
 
-.site-nav a:hover {
+a.entete-pilule:hover,
+a.entete-pilule:focus-visible {
   background: var(--lime);
-  border-color: transparent;
+  transform: scale(1.05);
 }
 
-.site-nav .is-current {
-  padding: 0.4rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--rule);
+.entete-pilule--encre,
+a.entete-pilule--encre:hover,
+a.entete-pilule--encre:focus-visible {
+  background: var(--ink);
+  color: var(--sheet);
+}
+
+/* Sur la page d'histoire, sa pilule est la page courante : elle perd son
+   aplat et garde un filet, comme la langue courante perd son lien. */
+.entete-pilule.is-current {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--rule);
   color: var(--ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entete-pilule {
+    transition: background 0.14s;
+  }
+
+  a.entete-pilule:hover,
+  a.entete-pilule:focus-visible {
+    transform: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -644,11 +720,11 @@ em {
   gap: 0.2rem;
 }
 
-/* Le filet ne sépare les langues de la navigation que lorsque les deux se
-   suivent sur la même ligne. En grille, les langues sont posées au bout de la
+/* Le filet ne sépare les langues des pilules que lorsque les deux se suivent
+   sur la même ligne. Sur un téléphone, les langues sont posées au bout de la
    ligne de la marque : un filet à leur gauche y couperait la marque de son
    propre en-tête, et ne séparerait plus rien. */
-@media (min-width: 1280px) {
+@media (min-width: 950px) {
   .lang-nav {
     padding-left: 1rem;
     border-left: 1px solid var(--rule);
@@ -674,38 +750,22 @@ em {
   border-color: transparent;
 }
 
-/* --------------------------------------------------------------------------
-   L'en-tête tant que la ligne unique ne tient pas
+/* Sous 950 px, deux lignes tenues plutôt qu'un enroulement subi : la marque
+   et les cinq langues sur la première, les deux pilules dessous. La ligne
+   unique ne tient qu'à partir de 950 px en allemand, la langue la plus
+   longue ; c'est mesuré.
+   `display: contents` sur le groupe de queue fait des pilules et des langues
+   deux cases de la grille de l'en-tête, sans toucher au HTML.
 
-   La marque, les cinq entrées et les cinq langues tiennent sur une seule ligne
-   à partir de 1280 px, et c'est le réglage au pixel près décrit au §5. En
-   dessous elles n'y tiennent pas, et l'enroulement du `flex` les cassait
-   n'importe où : sur un téléphone, la marque, puis la navigation coupée en
-   deux, puis les langues, quatre lignes et deux cents pixels avant le premier
-   mot de la page ; sur une tablette, la marque seule au-dessus d'une queue qui
-   reprenait toute la largeur.
-
-   Ici la coupe est choisie plutôt que subie, en deux lignes tenues :
-
-   1. la marque à gauche, les cinq langues à droite. Le sélecteur est court et
-      il ne descend jamais : il tient sur la ligne de la marque comme il tient
-      au bout de la navigation sur grand écran ;
-   2. la navigation dessous, sur toute la largeur.
-
-   `display: contents` sur le groupe de queue : la navigation et les langues
-   deviennent des cases de la grille de l'en-tête sans que le HTML des
-   vingt-six pages change.
-
-   Rien ne se replie derrière un bouton. À cinq entrées, une liste ouverte se
-   lit d'un coup d'œil, et c'est déjà la raison qui vaut pour les langues (§5).
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 1279px) {
+   Les langues rentrent de leur rembourrage (marge négative), pour que le
+   dernier code tombe sur la gouttière comme la marque tombe sur l'autre. */
+@media (max-width: 949px) {
   .masthead {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 0.65rem 0.75rem;
+    gap: 0.85rem 0.75rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.1rem;
   }
 
   .masthead-tail {
@@ -715,41 +775,6 @@ em {
   .brand {
     grid-column: 1;
     grid-row: 1;
-  }
-
-  /* Les pilules sont invisibles au repos, mais leur rembourrage compte : sans
-     ces marges négatives, le premier libellé de la navigation rentrerait de
-     douze pixels sur la gouttière et le dernier code de langue s'en écarterait
-     d'autant. La marque et le titre de la page tombent sur la gouttière ; ces
-     deux lignes doivent y tomber aussi. C'est le même décalage optique que
-     celui des marques à la brosse. */
-  .lang-nav {
-    grid-column: 2;
-    grid-row: 1;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    margin-right: -0.5rem;
-  }
-
-  .site-nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin-left: -0.75rem;
-    margin-right: -0.75rem;
-  }
-}
-
-/* Sur un téléphone, les deux lignes se resserrent encore : la marque cède du
-   corps, c'est le seul des trois blocs dont la largeur se règle sans toucher à
-   un texte traduit cinq fois, et la navigation passe à un corps qui laisse
-   deux entrées françaises tenir côte à côte. */
-@media (max-width: 799px) {
-  .masthead {
-    padding-top: 1.25rem;
-    padding-bottom: 1.1rem;
-  }
-
-  .brand {
     font-size: clamp(1.15rem, 5.2vw, 1.45rem);
   }
 
@@ -758,6 +783,10 @@ em {
   }
 
   .lang-nav {
+    grid-column: 2;
+    grid-row: 1;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
     gap: 0.05rem;
     margin-right: -0.4rem;
   }
@@ -769,15 +798,25 @@ em {
   }
 
   .site-nav {
-    gap: 0.1rem 0;
-    font-size: 0.82rem;
-    margin-left: -0.6rem;
-    margin-right: -0.6rem;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 0.4rem;
   }
 
-  .site-nav a,
-  .site-nav .is-current {
-    padding: 0.4rem 0.6rem;
+  /* Deux pilules côte à côte jusqu'à 320 px, dans la langue la plus longue :
+     un cran de moins sur le corps, l'interlettrage et le rembourrage. */
+  .entete-pilule {
+    padding: 0.7rem 0.85rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (max-width: 359px) {
+  .entete-pilule {
+    padding: 0.65rem 0.7rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.04em;
   }
 }
 
@@ -791,12 +830,134 @@ em {
 }
 
 /* --------------------------------------------------------------------------
-   L'ouverture de l'accueil
+   La scène de l'accueil
+
+   L'accueil s'ouvre sur un écran entier, pas sur un paragraphe : la petite
+   croix du logo, le titre, une ligne pour dire qui parle, et dessous, sur
+   toute la largeur, la fresque du Jura peinte à la brosse. Elle est posée
+   sur le bandeau lime, qui lui sert de sol : le paysage tient sur une ligne,
+   comme une photographie posée sur un bord de table.
+
+   La scène réserve la hauteur de la fenêtre, moins l'en-tête au-dessus et le
+   bandeau au-dessous : le bandeau ferme le premier écran, et ce qui suit
+   commence juste sous la ligne de flottaison. `svh` et non `vh`, pour que la
+   barre d'adresse d'un téléphone ne pousse pas le bandeau hors de l'écran.
+
+   Le texte descend au milieu de ce qui reste (`margin-top: auto` sur le texte
+   et sur la fresque), et la fresque garde sa hauteur : sur un écran bas,
+   c'est le blanc au-dessus du titre qui cède, jamais le paysage.
    -------------------------------------------------------------------------- */
 
-.opening--accueil {
-  position: relative;
-  padding-bottom: clamp(3.5rem, 8vw, 6.5rem);
+.scene {
+  --entete: 5.25rem;
+  --ruban: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--entete) - var(--ruban));
+  min-height: calc(100svh - var(--entete) - var(--ruban));
+  max-width: 100rem;
+  margin: 0 auto;
+}
+
+/* La hauteur de l'en-tête, mesurée : 84 px sur une ligne à partir de 950 px,
+   111 px sur deux lignes en dessous, 119 px sous 360 px où les pilules
+   rapetissent. Elle est écrite ici en dur, faute de pouvoir la lire en CSS :
+   si l'en-tête change, ces trois valeurs se remesurent. */
+@media (max-width: 949px) {
+  .scene {
+    --entete: 6.95rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .scene {
+    --entete: 7.45rem;
+  }
+}
+
+.scene-texte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-top: clamp(2rem, 6vh, 4rem);
+  text-align: center;
+}
+
+.scene-croix {
+  width: auto;
+  height: 2.6rem;
+  margin-bottom: 1.4rem;
+  image-rendering: pixelated;
+}
+
+/* Le titre en graisse moyenne : centré et en grand corps, le gras de
+   Gabarito pèse trop sur une page qui respire. La graisse 700 reste aux
+   titres de section, qui sont plus petits et doivent se voir en passant. */
+.scene h1 {
+  font-weight: 500;
+  /* Le corps suit la largeur, mais la hauteur le plafonne : sur un portable
+     bas, un titre de trois lignes à pleine taille pousserait la fresque et le
+     bandeau sous la ligne de flottaison. */
+  font-size: clamp(2.3rem, min(5.6vw, 7.2vh), 4.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  max-width: 17ch;
+  text-wrap: balance;
+}
+
+.scene-sous-titre {
+  margin-top: 0.9rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+.scene-fresque {
+  flex: none;
+  width: 100%;
+  height: clamp(10rem, 33vh, 24rem);
+  margin-top: clamp(1.25rem, 4.5vh, 3.5rem);
+}
+
+/* L'accroche, sous la bannière d'Auxine et avant les métiers : ce que fait
+   l'atelier, dit en une phrase, et les deux sorties.
+
+   La phrase est posée en très grand et en graisse légère, sur toute la
+   colonne, comme le « Construis autant de LEGO… » de BlockAbo : c'est la
+   première chose qu'on lit en quittant la scène, et elle doit tenir la page
+   seule, sans carte ni marque autour. L'encre est pleine : en graisse 300, le
+   gris du texte courant s'effacerait.
+
+   La mesure est large (62 rem, une quarantaine de signes par ligne au plus
+   grand corps) : c'est une phrase d'affichage, pas un paragraphe de lecture,
+   et elle se lit d'un trait comme un titre. */
+.accroche {
+  padding-top: var(--air);
+}
+
+.accroche .opening-body {
+  margin-top: 0;
+  max-width: none;
+  font-weight: 300;
+  font-size: clamp(1.55rem, 3.7vw, 2.9rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* L'accroche est sous la ligne de flottaison : la montée d'arrivée s'y
+   jouerait avant qu'on la voie. Elle est déjà là. */
+.accroche .opening-body,
+.accroche .opening-actions {
+  animation: none;
+}
+
+.accroche .opening-actions {
+  margin-top: clamp(2rem, 4vw, 3rem);
 }
 
 /* --------------------------------------------------------------------------
@@ -869,14 +1030,12 @@ em {
   }
 }
 
-/* L'accueil s'ouvre sur un écran, pas sur un paragraphe. Le bloc réserve une
-   hauteur, la marque passe à droite sur toute cette hauteur, et le reste de la
-   page commence sous la ligne de flottaison : c'est l'entrée qui se déroule
-   qu'on regarde d'abord, le tableau des réalisations attendra.
+/* L'ouverture de la page d'histoire : le titre et l'accroche à gauche, la
+   marque à droite. L'accueil ne passe plus par là, il a sa scène.
 
-   Les trois éléments de texte sont épinglés en colonne 1. Sans cela, le
-   placement automatique poserait les sorties dans la case libre de la colonne
-   2, sous la marque. */
+   Les éléments de texte sont épinglés en colonne 1. Sans cela, le placement
+   automatique poserait le dernier dans la case libre de la colonne 2, sous la
+   marque. */
 @media (min-width: 1000px) {
   .opening {
     display: grid;
@@ -899,26 +1058,6 @@ em {
     height: clamp(11rem, 17vw, 15rem);
     margin: 0;
   }
-
-  .opening--accueil h1 {
-    font-size: clamp(2.9rem, 5.4vw, 4.7rem);
-  }
-
-  .opening--accueil {
-    grid-template-columns: minmax(0, 1fr) clamp(16rem, 30vw, 27rem);
-    align-content: center;
-    column-gap: 4.5rem;
-    min-height: min(78vh, 42rem);
-  }
-
-  .opening--accueil .mark-opening {
-    grid-row: 1 / span 3;
-    height: clamp(16rem, 30vw, 27rem);
-    /* La marque sort de la gouttière : sur la scène, le bord de la colonne ne
-       veut plus rien dire, et une spirale qui frôle le bord de la fenêtre se
-       lit comme une image posée là plutôt que comme une vignette rangée. */
-    margin-right: calc(var(--gutter) / -2);
-  }
 }
 
 .opening h1 {
@@ -929,16 +1068,21 @@ em {
   text-wrap: balance;
 }
 
+/* L'accroche sous le titre de l'ouverture, en graisse légère et à l'encre
+   pleine, comme celle de l'accueil, un cran plus bas : c'est un chapeau, pas
+   une phrase d'affichage. */
 .opening-body {
   margin-top: 1.75rem;
-  max-width: 33rem;
-  color: var(--ink-soft);
+  max-width: 36rem;
+  font-weight: 300;
+  font-size: clamp(1.15rem, 1.9vw, 1.4rem);
+  line-height: 1.5;
+  color: var(--ink);
 }
 
 @media (min-width: 800px) {
   .opening-body {
     margin-top: 2rem;
-    font-size: 1.05rem;
   }
 }
 
@@ -972,13 +1116,14 @@ em {
   line-height: 1;
   padding: 0.95rem 1.2rem;
   border-radius: 999px;
-  border: 1px solid var(--rule);
-  transition: background 0.14s, border-color 0.14s;
+  background: var(--carte);
+  transition: background 0.14s, transform var(--ressort-duree) var(--ressort);
 }
 
-.opening-jump:hover {
+.opening-jump:hover,
+.opening-jump:focus-visible {
   background: var(--lime);
-  border-color: transparent;
+  transform: scale(1.05);
 }
 
 .mark-opening {
@@ -998,17 +1143,13 @@ em {
    spirale, si c'est la signature de l'atelier, n'a pas à être lue avant la
    phrase qui dit ce que l'atelier fait.
 
-   Elle passe donc après les deux sorties, où le blanc qu'elle laisse à sa
-   gauche est le blanc qui sépare de toute façon l'ouverture du bandeau. La
-   page s'ouvre sur son titre, et la marque referme la scène avant le lime.
-
-   La page d'histoire avait le même défaut, sa marque posée sur la gouttière
-   au-dessus du titre : deux cent vingt pixels avant de lire « Notre
-   histoire ». Elle suit la même règle, mais reste alignée à gauche, sur la
-   gouttière du titre qu'elle accompagne.
+   Elle passe donc après l'accroche, alignée à gauche sur la gouttière du
+   titre qu'elle accompagne : la page s'ouvre sur son titre, et la marque
+   referme la scène. L'accueil a suivi la même règle jusqu'à ce que sa
+   spirale devienne le soleil de la fresque.
 
    `order` plutôt qu'un déplacement dans le HTML : la marque reste le premier
-   enfant de l'ouverture dans les dix pages concernées, donc elle reste le
+   enfant de l'ouverture dans les cinq pages concernées, donc elle reste le
    premier élément que la grille de 1000 px place en colonne 2, et rien ne
    bouge dans le balisage. Elle est `aria-hidden`, donc son rang dans l'ordre
    de lecture ne regarde personne. */
@@ -1022,18 +1163,6 @@ em {
     order: 1;
     margin-top: 3rem;
     margin-bottom: 0;
-  }
-
-  /* Sur l'accueil elle se range à droite : le titre, l'accroche et les deux
-     sorties sont tous alignés à gauche, et une spirale posée sous eux, à
-     gauche elle aussi, ne ferait qu'allonger la même colonne. À droite, elle
-     ferme le bloc en diagonale. Sur les pages intérieures elle reste sur la
-     gouttière, alignée sur le titre qu'elle accompagne. */
-  .opening--accueil .mark-opening {
-    width: 9.5rem;
-    height: 9.5rem;
-    margin-left: auto;
-    margin-right: -0.4rem;
   }
 }
 
@@ -1098,91 +1227,74 @@ em {
    Ce que nous faisons
    -------------------------------------------------------------------------- */
 
-/* Quatre métiers, quatre fiches. Les filets qui les croisaient en double page
-   ont sauté, et le texte est monté sur une feuille blanche à bordure franche
-   et ombre portée : le même objet que l'encadré des conditions et que les
-   timbres de la presse, à une troisième échelle.
+/* Quatre métiers, quatre fiches, sur des cartes crème plates, comme le
+   « Pourquoi louer » de BlockAbo. En tête de chaque carte, une petite marque à
+   la brosse, dans l'encre de son métier.
 
    Ce sont des fiches et non des cartes de service : pas de numérotation, pas
    d'icône, pas de bouton en pied, et surtout pas quatre fois le même contenu
-   sous quatre titres différents. Le carré posé devant chaque titre prend une
-   des quatre encres saturées des brosses, dans l'ordre où elles descendent la
-   page. */
+   sous quatre titres différents. La marque n'est pas une icône : c'est un
+   geste de brosse, jamais le même d'une carte à l'autre, et elle ne dessine
+   pas ce que dit le titre. */
 .trades {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
-/* Un bento : six colonnes, et des fiches qui n'ont pas la même largeur. Deux
-   colonnes égales alignaient quatre pavés de même taille, ce que le §7
-   appelle une grille de cartes identiques. Les largeurs suivent la longueur
-   des textes : 3 et 3 sur la première ligne, 2 et 4 sur la seconde. */
+/* Un bento de trois colonnes : une carte étroite et une large, puis une large
+   et une étroite. Deux colonnes égales alignaient quatre pavés de même
+   taille, ce que le §7 appelle une grille de cartes identiques.
+
+   Les largeurs suivent la longueur des textes, et c'est ce qui a fixé l'ordre
+   des fiches : sur chaque ligne, le texte le plus long prend la carte large
+   (les applications, puis les projets créatifs), et les deux cartes d'une
+   ligne finissent à peu près ensemble. Les boutiques sont passées après les
+   projets créatifs pour cette raison, dans les cinq langues. */
 @media (min-width: 1000px) {
   .trades {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 1.5rem;
-    align-items: start;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .trade:nth-child(1),
-  .trade:nth-child(2) {
-    grid-column: span 3;
-  }
-
+  .trade:nth-child(2),
   .trade:nth-child(3) {
     grid-column: span 2;
   }
-
-  .trade:nth-child(4) {
-    grid-column: span 4;
-  }
-}
-
-.trades dt {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--display);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  font-size: 1.2rem;
-  line-height: 1.15;
 }
 
 .trade {
-  background: var(--sheet);
+  background: var(--carte);
   border: 0;
   border-radius: var(--rond);
-  box-shadow: var(--ombre);
-  padding: 1.8rem 1.8rem 2rem;
+  padding: clamp(1.6rem, 3vw, 2.25rem);
 }
 
-.trades dt::before {
-  content: "";
-  flex: none;
-  width: 0.95rem;
-  height: 0.95rem;
-  background-color: var(--magenta);
-  -webkit-mask: var(--etoile) center / contain no-repeat;
-  mask: var(--etoile) center / contain no-repeat;
+/* La marque au-dessus du titre, dans le titre : une `<dl>` n'admet dans ses
+   groupes que des `dt` et des `dd`, et la marque n'y serait pas à sa place
+   ailleurs. Elle est `aria-hidden`, donc le nom du métier se lit seul. Elle
+   déborde un peu à gauche, comme les marques des titres de section, pour que
+   l'œil la pose sur la même verticale que le texte. */
+.trades dt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-size: 1.4rem;
+  line-height: 1.15;
 }
 
-.trade:nth-child(2) dt::before {
-  background: var(--cyan);
-}
-
-.trade:nth-child(3) dt::before {
-  background: var(--olive);
-}
-
-.trade:nth-child(4) dt::before {
-  background: var(--orange);
+.trade-mark {
+  display: block;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 0 1.25rem -0.3rem;
 }
 
 .trades dd {
   max-width: var(--measure);
   margin-top: 0.75rem;
-  font-size: 0.98rem;
+  font-size: 1rem;
   color: var(--ink-soft);
 }
 
@@ -1196,76 +1308,74 @@ em {
    Déroulé d'un projet
    -------------------------------------------------------------------------- */
 
-/* Les trois moments du projet étaient trois paragraphes empilés dans une
-   colonne, l'encadré des conditions posé à côté. Ils sont maintenant trois
-   colonnes lues de gauche à droite, et l'encadré passe dessous sur toute la
-   largeur : le déroulé se lit dans l'ordre où il se passe, et les conditions
-   ferment la section au lieu de courir en marge.
+/* Les trois moments du projet, à la manière du « Comment ça marche » de
+   BlockAbo : trois grandes phrases en graisse légère, empilées dans l'ordre
+   où elles se passent, séparées par un filet. Ils ont été trois colonnes de
+   texte courant ; en grand corps, ils se lisent comme une promesse tenue en
+   trois temps plutôt que comme une notice.
 
-   Pas de numéros et pas de cartes : trois colonnes de texte, séparées par du
-   blanc, chacune ouverte par un carré lime. */
-.run-through {
-  display: grid;
-  gap: 3rem;
-}
-
-.run-through p + p {
-  margin-top: 1.35rem;
-}
-
+   BlockAbo ouvre chaque étape par un grand numéro. Ici, pas de numéros (§7 de
+   DESIGN.md) : chaque moment s'ouvre sur une grande étoile pixel, une encre
+   par moment, dans l'ordre où les encres descendent la page. Trois moments,
+   pas trois étapes numérotées. */
 .run-through > div > p {
-  max-width: var(--measure);
-  color: var(--ink-soft);
-}
-
-.run-through .lead-in {
+  max-width: 46rem;
+  padding: 2rem 0;
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
   color: var(--ink);
 }
 
-/* L'étoile qui ouvre chaque moment. Elle ne vivait que dans la requête à
-   900 px, avec les trois colonnes : sous cette largeur, les trois moments
-   redevenaient trois paragraphes à la file, et rien ne disait plus où l'un
-   finissait et où le suivant commençait. Or c'est sur un téléphone que la
-   colonne unique en a le plus besoin, puisque la lecture s'y fait à la
-   verticale et que le blanc entre deux paragraphes est le seul repère. */
+.run-through > div > p:first-child {
+  padding-top: 0;
+}
+
+.run-through > div > p:last-child {
+  padding-bottom: 0;
+}
+
+/* Le filet est posé au-dessus de chaque moment sauf le premier : il sépare,
+   il ne ferme rien. */
+.run-through > div > p + p {
+  border-top: 1px solid var(--rule);
+}
+
+/* L'étoile qui ouvre chaque moment. Elle vaut à toutes les largeurs : sur un
+   téléphone, où la lecture se fait à la verticale, c'est elle et le filet qui
+   disent où un moment finit et où le suivant commence. */
 .run-through > div > p::before {
   content: "";
   display: block;
-  width: 0.8rem;
-  height: 0.8rem;
-  margin-bottom: 0.7rem;
-  background-color: var(--olive);
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: 1.1rem;
+  background-color: var(--magenta);
   -webkit-mask: var(--etoile) center / contain no-repeat;
   mask: var(--etoile) center / contain no-repeat;
 }
 
-@media (min-width: 900px) {
-  .run-through > div {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2.75rem;
-  }
+.run-through > div > p:nth-child(2)::before {
+  background-color: var(--cyan);
+}
 
-  .run-through p + p {
-    margin-top: 0;
+.run-through > div > p:nth-child(3)::before {
+  background-color: var(--olive);
+}
+
+@media (min-width: 800px) {
+  .run-through > div > p {
+    padding: 2.5rem 0;
   }
 
   .run-through > div > p::before {
-    width: 0.95rem;
-    height: 0.95rem;
-    margin-bottom: 0.9rem;
-  }
-
-  .run-through .lead-in {
-    font-size: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 1.35rem;
   }
 }
 
-/* Encadré à bordure franche et bandeau lime, comme une fenêtre d'époque. Il
-   est posé sur une feuille blanche, qui se détache maintenant du papier, et il
-   porte l'ombre nette des timbres de presse : c'est ce qui le pose sur la page
-   au lieu de l'y encastrer. L'ombre est en encre et non en lime, qui reste à
-   l'action, c'est-à-dire au bouton et à lui seul. */
 /* Les conditions sont sur une carte, comme les métiers, et son titre est
    écrit à la main : c'est une note posée en marge du déroulé, pas une clause
    de plus. */
@@ -1273,10 +1383,9 @@ em {
   align-self: start;
   border: 0;
   border-radius: var(--rond);
-  background: var(--sheet);
+  background: var(--carte);
   color: var(--ink-soft);
   padding: 1.8rem;
-  box-shadow: var(--ombre);
 }
 
 .aside h3 {
@@ -1315,197 +1424,175 @@ em {
 }
 
 /* --------------------------------------------------------------------------
-   Index des réalisations
+   Réalisations
+
+   Une grille de tuiles, comme la collection de BlockAbo : trois colonnes, et
+   chaque projet sur sa carte crème. Les réalisations ont longtemps été un
+   `<table>` ; ce sont des fiches, pas des lignes à comparer, et une liste les
+   dit mieux. Chaque tuile porte l'icône du projet, son nom, son genre et son
+   année, et en pied l'adresse ou les magasins où le trouver.
+
+   Ce n'est pas la grille de cartes interchangeables que le §7 de DESIGN.md
+   proscrit : aucune tuile ne répète le contenu d'une autre, chacune est un
+   projet réel qui se visite, et les deux tuiles larges de la version
+   française cassent la régularité.
    -------------------------------------------------------------------------- */
 
-/* Le tableau entier est posé sur une carte, comme les métiers et les
-   conditions : c'est le troisième objet de la page, et le plus grand. */
-#realisations .slab-body {
-  background: var(--sheet);
-  border-radius: var(--rond-l);
-  box-shadow: var(--ombre);
-  padding: clamp(1.4rem, 3vw, 2.25rem);
-}
-
-/* Les réalisations sont des données tabulaires — un projet, un genre, une
-   année — et le balisage reste un `<table>`. La présentation, elle, ne l'est
-   plus : les entrées se rangent en deux colonnes, chacune en bloc, ce qui est
-   déjà la forme que le tableau prenait sous 640 px. Une seule mise en page pour
-   toutes les largeurs vaut mieux que deux qui divergent. Les en-têtes tombent
-   avec les colonnes qu'ils nommaient : le nom, le genre et l'année se lisent
-   d'eux-mêmes dans un bloc, et un en-tête posé sur une colonne qui porte deux
-   projets côte à côte ne nommerait plus rien. */
-.index {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-/* La légende est écrite à la main : elle commente le tableau, elle n'en fait
-   pas partie. */
-.index caption {
-  text-align: left;
+/* La légende est écrite à la main : elle commente la liste, elle n'en fait pas
+   partie. */
+.projets-legende {
   font-family: var(--main);
   font-weight: 600;
   font-size: 1.55rem;
   line-height: 1.25;
-  color: var(--ink);
   max-width: var(--measure);
   margin-bottom: 1.25rem;
 }
 
-.index thead {
-  display: none;
-}
-
-/* Deux colonnes à partir de 900 px, une seule en dessous. La gouttière est
-   franche : sans elle, deux entrées voisines se liraient comme une seule à
-   deux niveaux, puisque le survol d'une ligne va d'un bord à l'autre. */
-.index tbody {
+/* `dense` : sur deux colonnes, une tuile large qui ne tient pas au bout d'une
+   ligne laisserait un trou ; la tuile suivante vient le boucher. L'ordre de
+   lecture, lui, reste celui du HTML. */
+.projets {
   display: grid;
   grid-template-columns: 1fr;
-  column-gap: 1.5rem;
+  grid-auto-flow: dense;
+  gap: 1rem;
 }
 
-@media (min-width: 900px) {
-  .index tbody {
-    grid-template-columns: 1fr 1fr;
+@media (min-width: 640px) {
+  .projets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projet--large,
+  .projet:only-child {
+    grid-column: span 2;
   }
 }
 
-/* Le filet est posé au-dessus de chaque entrée et non en dessous. Un filet
-   sépare deux lignes (§4) : posé au-dessus, il ne peut pas se retrouver sous la
-   dernière, où il fermerait le tableau d'un trait à quelques millimètres du
-   bord de la carte. La règle vaut pour les deux colonnes à la fois, alors
-   qu'une exception `:last-child` aurait manqué le bas de la première.
+@media (min-width: 1000px) {
+  .projets {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 
-   L'entrée se cale en haut de sa case plutôt que de s'y étirer : deux entrées
-   voisines n'ont pas la même hauteur, et sans ce calage le creux du survol
-   descendrait, sur la plus courte des deux, jusqu'au bas de la plus longue. */
-.index tr {
-  display: block;
-  align-self: start;
-  padding: 1.1rem 1.25rem;
-  border-top: 1px solid var(--rule);
-}
-
-/* La première entrée de chaque colonne ouvre sa pile : rien à séparer
-   au-dessus d'elle. En une colonne, seule la première est concernée. */
-.index tbody tr:first-child {
-  border-top: 0;
-}
-
-@media (min-width: 900px) {
-  .index tbody tr:nth-child(2) {
-    border-top: 0;
+  /* Un projet seul (la version japonaise n'en montre qu'un) prend la ligne
+     entière plutôt que de rester dans le coin d'une grille vide. */
+  .projet:only-child {
+    grid-column: 1 / -1;
   }
 }
 
-.index td {
-  display: block;
-  padding: 0;
-  border: 0;
+/* La tuile. L'icône en tête, le nom et le genre au milieu, les sorties en
+   pied : `margin-top: auto` sur le nom pousse le texte vers le bas, et deux
+   tuiles voisines alignent leurs noms quelle que soit la hauteur de l'autre,
+   comme les fiches de BlockAbo. */
+.projet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 15rem;
+  padding: 1.5rem;
+  background: var(--carte);
+  border-radius: var(--rond);
+  transition: transform var(--ressort-duree) var(--ressort);
 }
 
-/* L'entrée survolée prend le papier de la page, sur la carte blanche : elle
-   ressort en creux, sans aplat de couleur et sans que les timbres de presse
-   perdent leurs réserves blanches. Les coins suivent ceux de la carte, et le
-   filet s'efface pour ne pas barrer le haut du creux. */
-.index tr:hover {
-  background: var(--paper);
-  border-top-color: transparent;
-  border-radius: var(--rond-s);
+/* Toute la tuile se prend. Le lien du nom s'étend sur la carte entière par un
+   pseudo-élément ; les pilules des magasins et les marques de presse sont
+   posées au-dessus de lui et restent des liens à part. */
+.projet-lien::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
 }
 
-/* L'icône est posée en tête de la cellule, sur la ligne du nom, et le reste de
-   l'entrée tient dans la seconde colonne de cette grille : l'adresse, les
-   magasins et la mention de presse s'alignent donc sur le nom et non sous
-   l'icône. La cellule n'est plus une case de tableau depuis que les entrées
-   sont des blocs, donc la grille s'y pose sans détour.
-
-   La première colonne est mesurée et non `auto` : elle tient sa place même si
-   un projet arrive sans icône, là où `auto` refermerait la case et ferait
-   rentrer ce nom-là de vingt-quatre pixels sur tous les autres. */
-.index td:first-child {
-  display: grid;
-  grid-template-columns: 1.5rem minmax(0, 1fr);
-  column-gap: 0.7rem;
+.projet:hover,
+.projet:focus-within {
+  transform: scale(1.03);
 }
 
-.index td:first-child > :not(.projet-icone) {
-  grid-column: 2;
+.projet-lien:focus-visible {
+  outline: none;
 }
 
-/* Chaque projet porte sa propre marque, reprise de son favicon ou de l'icône
-   de son application, servie d'ici comme les timbres de presse. Les coins sont
-   arrondis parce que la moitié de ces marques sont des carrés pleins — icônes
-   d'application ou pavés de couleur — et qu'un carré vif à angles droits est le
-   seul objet du site qui n'ait pas les coins ronds du §1. Sur les marques
-   détourées, le rayon ne se voit pas : il ne rogne que du vide. */
-.index .projet-icone {
-  grid-column: 1;
-  grid-row: 1;
-  align-self: center;
-  width: 1.5rem;
-  height: 1.5rem;
+.projet:has(.projet-lien:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Les icônes sont les fichiers officiels des projets, servis d'ici (§5 de
+   DESIGN.md). Plusieurs n'existent qu'en 32 ou 48 px : au-delà de 3 rem
+   elles s'amolliraient. Les coins suivent ceux des icônes d'application. */
+.projet-icone {
+  width: 3rem;
+  height: 3rem;
   object-fit: contain;
-  border-radius: 6px;
+  border-radius: 12px;
 }
 
-.index a,
-.index .name {
+.projet-nom {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.projet-genre {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.projet-sorties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.1rem;
+}
+
+/* La pilule de pied : blanche sur le crème, et elle passe à l'encre quand on
+   survole la tuile, comme le « Choisir » de BlockAbo. Le libellé est en
+   capitales interlettrées : c'est une pilule de renvoi (§2). */
+.projet-pilule {
+  display: inline-block;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  background: var(--sheet);
+  color: var(--ink);
   font-family: var(--display);
   font-weight: 700;
-  letter-spacing: -0.025em;
-  font-size: 1.2rem;
-  line-height: 1.15;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: background 0.14s, color 0.14s;
 }
 
-.index .name {
-  display: block;
+.projet:hover span.projet-pilule,
+.projet:focus-within span.projet-pilule,
+a.projet-pilule:hover,
+a.projet-pilule:focus-visible {
+  background: var(--ink);
+  color: var(--sheet);
 }
 
-.index tr:hover a {
-  text-decoration: underline;
+/* Les pilules qui sont des liens passent au-dessus du lien de la tuile. */
+a.projet-pilule {
+  position: relative;
+  z-index: 1;
 }
 
-.index .host {
-  display: block;
-  font-family: var(--texte);
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-}
+@media (prefers-reduced-motion: reduce) {
+  .projet {
+    transition: none;
+  }
 
-.index tr:hover .host {
-  color: var(--ink-soft);
-}
-
-/* La ligne des magasins porte les mêmes mesures que ses liens. Sans cela elle
-   garderait la police du tableau, 17 px sur 1,65, et réserverait une ligne de
-   28 px à des liens qui n'en font que 15 : le demi-interligne du montant
-   creusait sous le nom un vide de 12,6 px, là où les lignes à adresse en
-   posent 7,8. */
-.index .stores {
-  display: block;
-  margin-top: 0.35rem;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-.index .stores a {
-  font-family: var(--texte);
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: var(--ink-soft);
-  text-decoration: underline;
-}
-
-.index .stores a + a {
-  margin-left: 0.9rem;
-}
-
-.index tr:hover .stores a {
-  color: var(--ink);
+  .projet:hover,
+  .projet:focus-within {
+    transform: none;
+  }
 }
 
 /* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des six
@@ -1521,36 +1608,37 @@ em {
    que le nom du projet. En gris, ils redeviennent ce qu'ils sont, une preuve
    posée en petit sous le nom.
 
-   La ligne se replie quand la colonne est trop courte, et c'est voulu : à deux
-   colonnes, six marques côte à côte ne tiennent pas sur une seule ligne sans
-   descendre à une hauteur où plus aucune ne se lit. */
-.index .press {
+   La ligne se replie quand la tuile est trop étroite, et c'est voulu : six
+   marques côte à côte ne tiennent pas sur une seule ligne sans descendre à
+   une hauteur où plus aucune ne se lit.
+
+   Les marques sont des liens posés au-dessus du lien de la tuile, comme les
+   pilules des magasins : un clic sur un logo mène à l'article, pas au projet. */
+.projet .press {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem 0.85rem;
-  margin-top: 0.6rem;
+  margin-top: 0.9rem;
 }
 
 /* Chaque marque mène à son article. Le lien ne porte ni couleur ni
    soulignement : c'est la marque entière qui se prend. */
-.index .press-source {
+.projet .press-source {
+  position: relative;
+  z-index: 1;
   display: block;
   text-decoration: none;
 }
 
-.index .press-lead {
+.projet .press-lead {
   font-family: var(--texte);
   font-size: 0.85rem;
   line-height: 1.4;
   color: var(--ink-soft);
 }
 
-.index tr:hover .press-lead {
-  color: var(--ink-soft);
-}
-
-.index .press-logo {
+.projet .press-logo {
   display: block;
   width: auto;
   filter: grayscale(1);
@@ -1558,8 +1646,8 @@ em {
   transition: filter 0.16s, opacity 0.16s;
 }
 
-.index .press-source:hover .press-logo,
-.index .press-source:focus-visible .press-logo {
+.projet .press-source:hover .press-logo,
+.projet .press-source:focus-visible .press-logo {
   filter: none;
   opacity: 1;
 }
@@ -1569,47 +1657,28 @@ em {
    signatures d'un seul niveau, et Watson un bloc noir plein. À hauteur égale,
    les signatures d'un seul niveau écraseraient le pavé : ces trois hauteurs
    sont ce qui leur donne le même poids à l'œil. */
-.index .press-jdj {
+.projet .press-jdj {
   height: 1.15rem;
 }
 
-.index .press-arcinfo {
+.projet .press-arcinfo {
   height: 0.82rem;
 }
 
-.index .press-watson {
+.projet .press-watson {
   height: 0.98rem;
 }
 
-.index .press-nouvelliste {
+.projet .press-nouvelliste {
   height: 0.82rem;
 }
 
-.index .press-lacote {
+.projet .press-lacote {
   height: 0.82rem;
 }
 
-.index .press-ajour {
+.projet .press-ajour {
   height: 0.82rem;
-}
-
-/* Le genre et l'année tiennent sur une seule ligne, en fin d'entrée : ce sont
-   deux cellules devenues deux mots, et la virgule est ce qui les relie depuis
-   que la colonne qui les séparait n'existe plus. */
-.index .kind,
-.index .when {
-  display: inline;
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-}
-
-.index .kind::after {
-  content: ",";
-}
-
-.index tr:hover .kind,
-.index tr:hover .when {
-  color: var(--ink-soft);
 }
 
 /* --------------------------------------------------------------------------
@@ -1618,13 +1687,20 @@ em {
 
 /* La dernière carte de la page, un cran plus grande que les autres, et la
    seule en aplat lime : le lime tient là ce qu'il ne tient nulle part ailleurs
-   sur du papier, un aplat franc sous du texte à l'encre. */
+   sur du papier, un aplat franc sous du texte à l'encre.
+
+   Elle est coupée en deux, comme l'encart des prix de BlockAbo : à gauche,
+   l'invitation à écrire et le bouton ; à droite, les engagements, quatre
+   points vérifiables repris des conditions générales et du déroulé, chacun
+   sous une étoile. Un filet d'encre les sépare, vertical à deux colonnes,
+   horizontal en pile. Tout est à l'encre pleine : du gris sur du lime ne se
+   lit pas. */
 .contact-body {
+  display: grid;
   background: var(--lime);
   border: 0;
   border-radius: var(--rond-l);
-  box-shadow: var(--ombre);
-  padding: clamp(1.75rem, 4vw, 2.75rem);
+  padding: clamp(1.75rem, 4vw, 3rem);
 }
 
 .contact-body p {
@@ -1636,33 +1712,66 @@ em {
   margin-top: 1.15rem;
 }
 
-/* Le texte à gauche, le bouton à droite et centré sur les deux paragraphes :
-   sous le texte, il tombait dans le coin d'un bloc lime déjà très présent et
-   se lisait comme une note de bas de bloc. */
-@media (min-width: 900px) {
-  .contact-body {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 3rem;
-    align-items: center;
-  }
-
-  .contact-body .button {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
-    margin-top: 0;
-  }
-}
-
 .contact-body .button {
   color: var(--lime);
 }
 
+.contact-engagements {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(22, 22, 15, 0.2);
+}
+
+@media (min-width: 900px) {
+  .contact-body {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+
+  .contact-ecrire {
+    padding-right: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .contact-engagements {
+    margin-top: 0;
+    padding-top: 0;
+    padding-left: clamp(2rem, 4vw, 3.5rem);
+    border-top: 0;
+    border-left: 1px solid rgba(22, 22, 15, 0.2);
+  }
+}
+
+.contact-engagements h3 {
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.contact-engagements li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.45rem 0;
+  line-height: 1.5;
+}
+
+/* L'étoile de la liste, à l'encre : une encre de brosse vibrerait sur le
+   lime. Elle est posée sur la première ligne du point, pas au milieu. */
+.contact-engagements li::before {
+  content: "";
+  width: 0.85rem;
+  height: 0.85rem;
+  transform: translateY(0.1rem);
+  background-color: var(--ink);
+  -webkit-mask: var(--etoile) center / contain no-repeat;
+  mask: var(--etoile) center / contain no-repeat;
+}
+
 /* Pilule d'encre. Le libellé est en capitales interlettrées et petit : c'est
    ce qui distingue une action d'un titre, sans avoir à la souligner ni à lui
-   coller une flèche. Au survol elle se soulève de deux pixels, elle ne
-   s'allume pas. */
+   coller une flèche. Elle est plate, comme les cartes. Au survol elle grossit
+   d'un cran sur le ressort, elle ne s'allume pas et ne change pas de
+   couleur. */
 .button {
   display: inline-block;
   margin-top: 1.75rem;
@@ -1677,13 +1786,32 @@ em {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1;
-  box-shadow: var(--ombre-basse);
-  transition: transform 0.16s, box-shadow 0.16s;
+  transition: transform var(--ressort-duree) var(--ressort);
 }
 
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 26px -14px rgba(22, 22, 15, 0.65);
+.button:hover,
+.button:focus-visible {
+  transform: scale(1.05);
+}
+
+/* Le ressort est un mouvement, et ce réglage n'en veut pas : ce qui se prend
+   garde sa taille. Le changement de fond des pilules secondaires, lui, reste :
+   c'est une couleur, pas un déplacement. */
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .opening-jump,
+  .story-back {
+    transition: background 0.14s;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .opening-jump:hover,
+  .opening-jump:focus-visible,
+  .story-back:hover,
+  .story-back:focus-visible {
+    transform: none;
+  }
 }
 
 .whereabouts {
@@ -1720,49 +1848,137 @@ em {
   }
 }
 
-.colophon {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem 2.5rem;
+/* La mise en page du pied de BlockAbo, dans la carte d'encre : en haut, deux
+   colonnes, la devise en grand d'un côté et de l'autre l'adresse et la pilule
+   du formulaire ; dessous, les liens rangés en colonnes sous un petit titre ;
+   tout en bas, la ligne du droit d'auteur, sous un filet.
+
+   Aucun texte n'a été écrit pour lui : la devise, l'adresse de l'atelier, le
+   libellé du bouton, les entrées de la navigation et le nom des pages légales
+   existaient déjà dans chaque langue. Les titres de colonne sont le nom de
+   l'atelier et l'étiquette que la navigation légale portait déjà pour la
+   lecture d'écran. */
+.pied-haut {
+  display: grid;
+  gap: 1.75rem 3rem;
 }
 
-.colophon p {
-  font-size: 0.95rem;
+@media (min-width: 800px) {
+  .pied-haut {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
 }
 
-/* La devise ferme la page en grand : c'est la seule ligne du pied, et le noir
-   est l'endroit où le lime tient à pleine intensité. */
-.colophon .motto {
+/* La devise ferme la page en grand, et le noir est l'endroit où le lime tient
+   à pleine intensité. */
+.pied-haut .motto {
   font-family: var(--display);
   font-weight: 700;
   letter-spacing: -0.03em;
-  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  font-size: clamp(1.9rem, 4vw, 3rem);
   line-height: 1.05;
   color: var(--lime);
 }
 
-.footer-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.5rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--filet-encre);
-  font-size: 0.9rem;
+.pied-adresse p {
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.35;
+  color: #ffffff;
 }
 
-.footer-nav a {
-  padding: 0.3rem 0.7rem;
+/* La pilule du formulaire, en lime sur l'encre : le seul fond où le lime peut
+   porter un libellé à l'encre sans rien perdre. Même ressort que les autres. */
+.pied-pilule {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.85rem 1.4rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-}
-
-.footer-nav a:hover {
   background: var(--lime);
   color: var(--ink);
-  border-color: var(--lime);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: transform var(--ressort-duree) var(--ressort);
+}
+
+.pied-pilule:hover,
+.pied-pilule:focus-visible {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pied-pilule {
+    transition: none;
+  }
+
+  .pied-pilule:hover,
+  .pied-pilule:focus-visible {
+    transform: none;
+  }
+}
+
+/* Les liens en colonnes, chacune sous son titre. Deux colonnes dès le
+   téléphone : elles sont courtes, et une seule colonne les étirerait sur
+   tout un écran. */
+.pied-liens {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+  margin-top: 3.5rem;
+  font-size: 0.92rem;
+}
+
+@media (min-width: 800px) {
+  .pied-liens {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 4.5rem;
+  }
+}
+
+.pied-liens nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+}
+
+.pied-titre {
+  margin-bottom: 0.4rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Les liens rentrent de leur rembourrage pour que le texte tombe sous le
+   titre, et prennent l'aplat lime au survol, comme ils l'ont toujours fait. */
+.pied-liens a,
+.pied-liens .is-current {
+  margin: 0 -0.6rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  line-height: 1.4;
+  transition: background 0.14s, color 0.14s;
+}
+
+.pied-liens a:hover,
+.pied-liens a:focus-visible {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.pied-liens .is-current {
+  color: #ffffff;
+}
+
+.pied-bas {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--filet-encre);
+  font-size: 0.85rem;
 }
 
 .band {
@@ -1799,7 +2015,7 @@ em {
   position: relative;
   padding-top: 3.25rem;
   padding-bottom: 3.5rem;
-  border-top: 1px solid var(--rule);
+  background: var(--filet-colonne);
 }
 
 /* Le couloir triple au-delà de 800 px : c'est la place laissée à la dérive.
@@ -1836,8 +2052,8 @@ em {
   margin-top: 3rem;
 }
 
-/* Le nœud du chapitre : un carré de la grille, avec l'ombre portée nette du
-   bouton. Il est posé sur l'axe du couloir, d'où le demi-fil dans le calcul,
+/* Le nœud du chapitre : un carré de la grille, avec une ombre nette en lime,
+   décalée comme un tirage mal calé. Il est posé sur l'axe du couloir, d'où le demi-fil dans le calcul,
    et les 5 px sont sa propre demi-largeur. Le fil, lui, dérive de part et
    d'autre de cet axe et le recoupe en descendant : les nœuds sont les épingles
    qui le tiennent, pas des points de passage obligés. */
@@ -1912,8 +2128,7 @@ em {
   margin-top: 1.75rem;
   border: 0;
   border-radius: var(--rond);
-  background: var(--sheet);
-  box-shadow: var(--ombre);
+  background: var(--carte);
   padding: 1.5rem;
 }
 
@@ -1948,7 +2163,7 @@ em {
 .story-after {
   padding-top: 3rem;
   padding-bottom: var(--air);
-  border-top: 1px solid var(--rule);
+  background: var(--filet-colonne);
 }
 
 @media (min-width: 800px) {
@@ -1969,8 +2184,8 @@ em {
 
 /* Les deux sorties de la page, sur une seule ligne. Le bouton porte l'action
    principale, le lien la secondaire : même police d'affichage pour qu'ils se
-   lisent comme une paire, mais le second reste plat, sans bloc noir ni ombre
-   portée. Un petit lien souligné en bleu sous un filet, comme auparavant,
+   lisent comme une paire, mais le second est une pilule crème, sans bloc
+   noir. Un petit lien souligné en bleu sous un filet, comme auparavant,
    traînait là comme un reste de page. */
 .story-sorties {
   display: flex;
@@ -1984,7 +2199,8 @@ em {
   margin-top: 0;
 }
 
-/* Le geste de la navigation : aplat lime et bordure noire au survol. */
+/* La pilule secondaire, la même que sur l'accueil : crème au repos, lime et
+   ressort au survol. */
 .story-back {
   font-family: var(--display);
   font-weight: 700;
@@ -1994,13 +2210,14 @@ em {
   line-height: 1;
   padding: 0.95rem 1.2rem;
   border-radius: 999px;
-  border: 1px solid var(--rule);
-  transition: background 0.14s, border-color 0.14s;
+  background: var(--carte);
+  transition: background 0.14s, transform var(--ressort-duree) var(--ressort);
 }
 
-.story-back:hover {
+.story-back:hover,
+.story-back:focus-visible {
   background: var(--lime);
-  border-color: transparent;
+  transform: scale(1.05);
 }
 
 /* --------------------------------------------------------------------------
@@ -2056,8 +2273,7 @@ em {
   padding: 1rem 1.2rem;
   border: 0;
   border-radius: var(--rond-s);
-  background: var(--sheet);
-  box-shadow: var(--ombre-basse);
+  background: var(--carte);
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--ink-soft);
@@ -2195,13 +2411,18 @@ html[lang="ja"] .chapter-close {
   max-width: 30ch;
 }
 
-html[lang="ja"] .colophon .motto {
-  font-size: 1.35rem;
+/* Les kanji occupent toute la hauteur du corps : à l'interligne de
+   l'accroche latine, deux lignes se touchent presque. Un cran d'air, et un
+   corps un peu plus bas, puisqu'un signe japonais est deux fois plus large
+   qu'une lettre. */
+html[lang="ja"] .accroche .opening-body {
+  font-size: clamp(1.4rem, 3.2vw, 2.5rem);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 
-/* La virgule qui relie le genre à l'année n'est plus réservée à la pile : les
-   entrées sont en blocs à toutes les largeurs, donc la virgule japonaise
-   non plus. */
-html[lang="ja"] .index .kind::after {
-  content: "、";
+html[lang="ja"] .pied-haut .motto {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.3;
 }
+
