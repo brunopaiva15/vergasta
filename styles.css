@@ -1411,196 +1411,175 @@ em {
 }
 
 /* --------------------------------------------------------------------------
-   Index des réalisations
+   Réalisations
+
+   Une grille de tuiles, comme la collection de BlockAbo : trois colonnes, et
+   chaque projet sur sa carte crème. Les réalisations ont longtemps été un
+   `<table>` ; ce sont des fiches, pas des lignes à comparer, et une liste les
+   dit mieux. Chaque tuile porte l'icône du projet, son nom, son genre et son
+   année, et en pied l'adresse ou les magasins où le trouver.
+
+   Ce n'est pas la grille de cartes interchangeables que le §7 de DESIGN.md
+   proscrit : aucune tuile ne répète le contenu d'une autre, chacune est un
+   projet réel qui se visite, et les deux tuiles larges de la version
+   française cassent la régularité.
    -------------------------------------------------------------------------- */
 
-/* Le tableau entier est posé sur une carte, comme les métiers et les
-   conditions : c'est le troisième objet de la page, et le plus grand. */
-#realisations .slab-body {
-  background: var(--carte);
-  border-radius: var(--rond-l);
-  padding: clamp(1.4rem, 3vw, 2.25rem);
-}
-
-/* Les réalisations sont des données tabulaires — un projet, un genre, une
-   année — et le balisage reste un `<table>`. La présentation, elle, ne l'est
-   plus : les entrées se rangent en deux colonnes, chacune en bloc, ce qui est
-   déjà la forme que le tableau prenait sous 640 px. Une seule mise en page pour
-   toutes les largeurs vaut mieux que deux qui divergent. Les en-têtes tombent
-   avec les colonnes qu'ils nommaient : le nom, le genre et l'année se lisent
-   d'eux-mêmes dans un bloc, et un en-tête posé sur une colonne qui porte deux
-   projets côte à côte ne nommerait plus rien. */
-.index {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-/* La légende est écrite à la main : elle commente le tableau, elle n'en fait
-   pas partie. */
-.index caption {
-  text-align: left;
+/* La légende est écrite à la main : elle commente la liste, elle n'en fait pas
+   partie. */
+.projets-legende {
   font-family: var(--main);
   font-weight: 600;
   font-size: 1.55rem;
   line-height: 1.25;
-  color: var(--ink);
   max-width: var(--measure);
   margin-bottom: 1.25rem;
 }
 
-.index thead {
-  display: none;
-}
-
-/* Deux colonnes à partir de 900 px, une seule en dessous. La gouttière est
-   franche : sans elle, deux entrées voisines se liraient comme une seule à
-   deux niveaux, puisque le survol d'une ligne va d'un bord à l'autre. */
-.index tbody {
+/* `dense` : sur deux colonnes, une tuile large qui ne tient pas au bout d'une
+   ligne laisserait un trou ; la tuile suivante vient le boucher. L'ordre de
+   lecture, lui, reste celui du HTML. */
+.projets {
   display: grid;
   grid-template-columns: 1fr;
-  column-gap: 1.5rem;
+  grid-auto-flow: dense;
+  gap: 1rem;
 }
 
-@media (min-width: 900px) {
-  .index tbody {
-    grid-template-columns: 1fr 1fr;
+@media (min-width: 640px) {
+  .projets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projet--large,
+  .projet:only-child {
+    grid-column: span 2;
   }
 }
 
-/* Le filet est posé au-dessus de chaque entrée et non en dessous. Un filet
-   sépare deux lignes (§4) : posé au-dessus, il ne peut pas se retrouver sous la
-   dernière, où il fermerait le tableau d'un trait à quelques millimètres du
-   bord de la carte. La règle vaut pour les deux colonnes à la fois, alors
-   qu'une exception `:last-child` aurait manqué le bas de la première.
+@media (min-width: 1000px) {
+  .projets {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 
-   L'entrée se cale en haut de sa case plutôt que de s'y étirer : deux entrées
-   voisines n'ont pas la même hauteur, et sans ce calage le creux du survol
-   descendrait, sur la plus courte des deux, jusqu'au bas de la plus longue. */
-.index tr {
-  display: block;
-  align-self: start;
-  padding: 1.1rem 1.25rem;
-  border-top: 1px solid var(--rule);
-}
-
-/* La première entrée de chaque colonne ouvre sa pile : rien à séparer
-   au-dessus d'elle. En une colonne, seule la première est concernée. */
-.index tbody tr:first-child {
-  border-top: 0;
-}
-
-@media (min-width: 900px) {
-  .index tbody tr:nth-child(2) {
-    border-top: 0;
+  /* Un projet seul (la version japonaise n'en montre qu'un) prend la ligne
+     entière plutôt que de rester dans le coin d'une grille vide. */
+  .projet:only-child {
+    grid-column: 1 / -1;
   }
 }
 
-.index td {
-  display: block;
-  padding: 0;
-  border: 0;
+/* La tuile. L'icône en tête, le nom et le genre au milieu, les sorties en
+   pied : `margin-top: auto` sur le nom pousse le texte vers le bas, et deux
+   tuiles voisines alignent leurs noms quelle que soit la hauteur de l'autre,
+   comme les fiches de BlockAbo. */
+.projet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 15rem;
+  padding: 1.5rem;
+  background: var(--carte);
+  border-radius: var(--rond);
+  transition: transform var(--ressort-duree) var(--ressort);
 }
 
-/* L'entrée survolée prend le blanc de la page, sur la carte crème : elle
-   s'éclaircit d'un cran, sans aplat de couleur, et les timbres de presse
-   retrouvent leurs réserves blanches. Les coins suivent ceux de la carte, et
-   le filet s'efface pour ne pas barrer le haut de l'entrée. */
-.index tr:hover {
-  background: var(--paper);
-  border-top-color: transparent;
-  border-radius: var(--rond-s);
+/* Toute la tuile se prend. Le lien du nom s'étend sur la carte entière par un
+   pseudo-élément ; les pilules des magasins et les marques de presse sont
+   posées au-dessus de lui et restent des liens à part. */
+.projet-lien::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
 }
 
-/* L'icône est posée en tête de la cellule, sur la ligne du nom, et le reste de
-   l'entrée tient dans la seconde colonne de cette grille : l'adresse, les
-   magasins et la mention de presse s'alignent donc sur le nom et non sous
-   l'icône. La cellule n'est plus une case de tableau depuis que les entrées
-   sont des blocs, donc la grille s'y pose sans détour.
-
-   La première colonne est mesurée et non `auto` : elle tient sa place même si
-   un projet arrive sans icône, là où `auto` refermerait la case et ferait
-   rentrer ce nom-là de vingt-quatre pixels sur tous les autres. */
-.index td:first-child {
-  display: grid;
-  grid-template-columns: 1.5rem minmax(0, 1fr);
-  column-gap: 0.7rem;
+.projet:hover,
+.projet:focus-within {
+  transform: scale(1.03);
 }
 
-.index td:first-child > :not(.projet-icone) {
-  grid-column: 2;
+.projet-lien:focus-visible {
+  outline: none;
 }
 
-/* Chaque projet porte sa propre marque, reprise de son favicon ou de l'icône
-   de son application, servie d'ici comme les timbres de presse. Les coins sont
-   arrondis parce que la moitié de ces marques sont des carrés pleins — icônes
-   d'application ou pavés de couleur — et qu'un carré vif à angles droits est le
-   seul objet du site qui n'ait pas les coins ronds du §1. Sur les marques
-   détourées, le rayon ne se voit pas : il ne rogne que du vide. */
-.index .projet-icone {
-  grid-column: 1;
-  grid-row: 1;
-  align-self: center;
-  width: 1.5rem;
-  height: 1.5rem;
+.projet:has(.projet-lien:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Les icônes sont les fichiers officiels des projets, servis d'ici (§5 de
+   DESIGN.md). Plusieurs n'existent qu'en 32 ou 48 px : au-delà de 3 rem
+   elles s'amolliraient. Les coins suivent ceux des icônes d'application. */
+.projet-icone {
+  width: 3rem;
+  height: 3rem;
   object-fit: contain;
-  border-radius: 6px;
+  border-radius: 12px;
 }
 
-.index a,
-.index .name {
+.projet-nom {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.projet-genre {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.projet-sorties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.1rem;
+}
+
+/* La pilule de pied : blanche sur le crème, et elle passe à l'encre quand on
+   survole la tuile, comme le « Choisir » de BlockAbo. Le libellé est en
+   capitales interlettrées : c'est une pilule de renvoi (§2). */
+.projet-pilule {
+  display: inline-block;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  background: var(--sheet);
+  color: var(--ink);
   font-family: var(--display);
   font-weight: 700;
-  letter-spacing: -0.025em;
-  font-size: 1.2rem;
-  line-height: 1.15;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: background 0.14s, color 0.14s;
 }
 
-.index .name {
-  display: block;
+.projet:hover span.projet-pilule,
+.projet:focus-within span.projet-pilule,
+a.projet-pilule:hover,
+a.projet-pilule:focus-visible {
+  background: var(--ink);
+  color: var(--sheet);
 }
 
-.index tr:hover a {
-  text-decoration: underline;
+/* Les pilules qui sont des liens passent au-dessus du lien de la tuile. */
+a.projet-pilule {
+  position: relative;
+  z-index: 1;
 }
 
-.index .host {
-  display: block;
-  font-family: var(--texte);
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-}
+@media (prefers-reduced-motion: reduce) {
+  .projet {
+    transition: none;
+  }
 
-.index tr:hover .host {
-  color: var(--ink-soft);
-}
-
-/* La ligne des magasins porte les mêmes mesures que ses liens. Sans cela elle
-   garderait la police du tableau, 17 px sur 1,65, et réserverait une ligne de
-   28 px à des liens qui n'en font que 15 : le demi-interligne du montant
-   creusait sous le nom un vide de 12,6 px, là où les lignes à adresse en
-   posent 7,8. */
-.index .stores {
-  display: block;
-  margin-top: 0.35rem;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-.index .stores a {
-  font-family: var(--texte);
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: var(--ink-soft);
-  text-decoration: underline;
-}
-
-.index .stores a + a {
-  margin-left: 0.9rem;
-}
-
-.index tr:hover .stores a {
-  color: var(--ink);
+  .projet:hover,
+  .projet:focus-within {
+    transform: none;
+  }
 }
 
 /* Mention de presse. La ligne se lit d'un trait, « Apparu sur » suivi des six
@@ -1616,36 +1595,37 @@ em {
    que le nom du projet. En gris, ils redeviennent ce qu'ils sont, une preuve
    posée en petit sous le nom.
 
-   La ligne se replie quand la colonne est trop courte, et c'est voulu : à deux
-   colonnes, six marques côte à côte ne tiennent pas sur une seule ligne sans
-   descendre à une hauteur où plus aucune ne se lit. */
-.index .press {
+   La ligne se replie quand la tuile est trop étroite, et c'est voulu : six
+   marques côte à côte ne tiennent pas sur une seule ligne sans descendre à
+   une hauteur où plus aucune ne se lit.
+
+   Les marques sont des liens posés au-dessus du lien de la tuile, comme les
+   pilules des magasins : un clic sur un logo mène à l'article, pas au projet. */
+.projet .press {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem 0.85rem;
-  margin-top: 0.6rem;
+  margin-top: 0.9rem;
 }
 
 /* Chaque marque mène à son article. Le lien ne porte ni couleur ni
    soulignement : c'est la marque entière qui se prend. */
-.index .press-source {
+.projet .press-source {
+  position: relative;
+  z-index: 1;
   display: block;
   text-decoration: none;
 }
 
-.index .press-lead {
+.projet .press-lead {
   font-family: var(--texte);
   font-size: 0.85rem;
   line-height: 1.4;
   color: var(--ink-soft);
 }
 
-.index tr:hover .press-lead {
-  color: var(--ink-soft);
-}
-
-.index .press-logo {
+.projet .press-logo {
   display: block;
   width: auto;
   filter: grayscale(1);
@@ -1653,8 +1633,8 @@ em {
   transition: filter 0.16s, opacity 0.16s;
 }
 
-.index .press-source:hover .press-logo,
-.index .press-source:focus-visible .press-logo {
+.projet .press-source:hover .press-logo,
+.projet .press-source:focus-visible .press-logo {
   filter: none;
   opacity: 1;
 }
@@ -1664,47 +1644,28 @@ em {
    signatures d'un seul niveau, et Watson un bloc noir plein. À hauteur égale,
    les signatures d'un seul niveau écraseraient le pavé : ces trois hauteurs
    sont ce qui leur donne le même poids à l'œil. */
-.index .press-jdj {
+.projet .press-jdj {
   height: 1.15rem;
 }
 
-.index .press-arcinfo {
+.projet .press-arcinfo {
   height: 0.82rem;
 }
 
-.index .press-watson {
+.projet .press-watson {
   height: 0.98rem;
 }
 
-.index .press-nouvelliste {
+.projet .press-nouvelliste {
   height: 0.82rem;
 }
 
-.index .press-lacote {
+.projet .press-lacote {
   height: 0.82rem;
 }
 
-.index .press-ajour {
+.projet .press-ajour {
   height: 0.82rem;
-}
-
-/* Le genre et l'année tiennent sur une seule ligne, en fin d'entrée : ce sont
-   deux cellules devenues deux mots, et la virgule est ce qui les relie depuis
-   que la colonne qui les séparait n'existe plus. */
-.index .kind,
-.index .when {
-  display: inline;
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-}
-
-.index .kind::after {
-  content: ",";
-}
-
-.index tr:hover .kind,
-.index tr:hover .when {
-  color: var(--ink-soft);
 }
 
 /* --------------------------------------------------------------------------
@@ -2313,9 +2274,3 @@ html[lang="ja"] .colophon .motto {
   font-size: 1.35rem;
 }
 
-/* La virgule qui relie le genre à l'année n'est plus réservée à la pile : les
-   entrées sont en blocs à toutes les largeurs, donc la virgule japonaise
-   non plus. */
-html[lang="ja"] .index .kind::after {
-  content: "、";
-}

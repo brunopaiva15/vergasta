@@ -22,7 +22,7 @@ c'est un atelier, pas une agence.
 |---|---|---|
 | Fond (`--paper`) | `#ffffff` | fond général |
 | Carte (`--carte`) | `#f1f2e9` | cartes, pilules secondaires |
-| Blanc (`--sheet`) | `#ffffff` | libellé des boutons, ligne de tableau survolée |
+| Blanc (`--sheet`) | `#ffffff` | libellé des boutons, pilules des tuiles |
 | Encre | `#16160f` | texte, pied de page, boutons |
 | Encre atténuée | `#5d5d54` | texte secondaire (6,6:1 sur le fond, 5,9:1 sur une carte) |
 | Filet | `rgba(22,22,15,.12)` | séparations internes des cartes, pages légales |
@@ -62,9 +62,9 @@ dans la feuille de style.
 
 | Jeton | Valeur | Emploi |
 |---|---|---|
-| `--rond` | 24 px | cartes des métiers |
-| `--rond-l` | 30 px | tableau, bloc de contact, pied de page |
-| `--rond-s` | 14 px | ligne de tableau survolée, encart de traduction |
+| `--rond` | 24 px | cartes des métiers, tuiles des réalisations |
+| `--rond-l` | 30 px | bloc de contact, pied de page |
+| `--rond-s` | 14 px | encart de traduction |
 | `--ressort` | `cubic-bezier(.34, 1.56, .64, 1)` | survol de ce qui se clique |
 | `--ressort-duree` | 0,5 s | la même chose |
 
@@ -130,7 +130,7 @@ l'écriture à la peinture. Mais un site entier écrit en bitmap se lit comme un
 console, et ce n'est pas ce qu'est cet atelier. Elle vaut comme signature, pas
 comme voix.
 
-**Caveat, l'écriture, ne sert qu'à la légende du tableau des réalisations.**
+**Caveat, l'écriture, ne sert qu'à la légende des réalisations.**
 Elle tenait aussi le titre de l'encadré des conditions, retiré depuis ; elle n'en
 prend pas d'autre. La légende est un commentaire en marge d'un contenu, pas du
 contenu. Une écriture
@@ -140,7 +140,7 @@ Pas d'italique : l'emphase passe par `<em>`, stylé en surligneur lime.
 
 **Aucune capitale forcée dans les titres.** Les capitales interlettrées sont
 réservées aux **libellés d'action** : boutons, pilules de renvoi, repères de
-temps de l'histoire, en-têtes du tableau. C'est ce qui distingue une action
+temps de l'histoire, pilules des tuiles de réalisation. C'est ce qui distingue une action
 d'un titre sans avoir à la souligner ni à lui coller une flèche. Le §7 proscrit
 les libellés en petites capitales **au-dessus des titres** ; c'est autre chose,
 et ça n'a pas bougé.
@@ -265,9 +265,11 @@ ronds, ni ombre ni bordure. Le reste, c'est du texte sur le blanc.
   site**, et plus aucun filet entre les sections : ce sont les cartes qui
   découpent la page, et l'espace qui sépare.
 - `--measure` : 36 rem. Toute colonne de texte courant s'y limite.
-- Les seuls filets qui restent sont **internes aux cartes** (`1px solid
-  --rule`) : entre deux lignes du tableau. Plus aucune
-  bordure fermée, plus aucun filet double.
+- Les filets (`1px solid --rule`) ne séparent plus que des lignes de texte :
+  le haut et le bas des chapitres de l'histoire, les sections des pages
+  légales. Le dernier qui vivait dans une carte, entre deux lignes du tableau
+  des réalisations, est parti avec le tableau. Plus aucune bordure fermée,
+  plus aucun filet double.
 - Le corps de page est coupé à droite (`overflow-x: clip`). La coupe avait été
   posée pour l'entrée de la marque d'ouverture, qui débordait la fenêtre ; cette
   entrée n'existe plus (§6) et la coupe reste, comme garde-fou : rien ne doit
@@ -293,7 +295,7 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
    les deux sorties, le formulaire et le renvoi vers les réalisations ;
 5. les quatre **cartes** des métiers, en bento ;
 6. le **déroulé** en trois colonnes ;
-7. le **tableau** des réalisations, posé sur une grande carte ;
+7. les **réalisations**, une grille de tuiles crème ;
 8. le **bloc de contact**, seule carte en aplat lime ;
 9. le **pied de page**, carte d'encre détachée des bords de la fenêtre.
 
@@ -313,7 +315,7 @@ pour finir. Entre eux, du blanc et des cartes crème.
 
 Pour la sortie d'Auxine sur l'App Store, une carte verte est posée **juste
 sous le bandeau**, premier bloc après la scène, sur les pages d'accueil française, anglaise, allemande et
-italienne. Le japonais n'en a pas, pour la même raison que son tableau ne liste
+italienne. Le japonais n'en a pas, pour la même raison que ses réalisations ne listent
 pas Auxine : l'app n'existe pas dans cette langue.
 
 C'est un événement, et c'est **voulu hors charte** : la carte ne parle pas la
@@ -341,7 +343,7 @@ quatre pages, puis le dossier.
 
 **La carte.** L'objet de base du site, et il n'y en a qu'un : aplat crème
 (`--carte`), coins ronds, **ni ombre ni bordure**. Il sert aux quatre métiers,
-au tableau des réalisations, à l'encart de traduction des pages légales, à
+aux tuiles des réalisations, à l'encart de traduction des pages légales, à
 l'encadré japonais de l'histoire, et, en aplat d'une autre couleur, au bloc de
 contact (lime) et au pied de page (encre). Ce qui change d'un emploi à
 l'autre, c'est le rayon (§1), la couleur et le rembourrage, jamais le principe.
@@ -418,45 +420,54 @@ appelées : les retirer demanderait de relever l'estampille dans les vingt-six
 pages (§7 bis) pour du code mort, et elles resservent telles quelles si
 l'encadré revient.
 
-**Index `.index`.** Les réalisations sont un `<table>` posé sur une carte : le
-balisage reste tabulaire, parce que les données le sont, un projet, un genre,
-une année. La présentation, elle, ne l'est plus. **Les entrées se rangent en
-deux colonnes au-delà de 900 px**, chacune en bloc, et le genre et l'année
-tombent en fin d'entrée, reliés par une virgule. C'est exactement la forme que
-le tableau prenait déjà sous 640 px : elle vaut maintenant à toutes les
-largeurs, et une seule mise en page vaut mieux que deux qui divergent. La
-légende est écrite à la main.
+**Réalisations `.projets`.** Une grille de tuiles, comme la collection de
+BlockAbo : trois colonnes au-delà de 1000 px, deux au-delà de 640 px, une en
+dessous, et chaque projet sur sa carte crème. Les réalisations ont été un
+`<table>`, défendu parce que les données étaient tabulaires ; mais on ne les
+compare pas ligne à ligne, on les parcourt, et une liste de fiches le dit mieux.
+Le balisage est une `<ul>`, chaque projet un `<li>` dont le nom est un `h3`
+sous le titre de section. La légende reste écrite à la main, au-dessus.
 
-Les en-têtes tombent avec les colonnes qu'ils nommaient. Un en-tête « Projet »
-posé sur une colonne qui porte deux projets côte à côte ne nomme plus rien, et
-dans un bloc le nom, le genre et l'année se lisent d'eux-mêmes. Les mesures des
-colonnes du type et de l'année (13 rem, 5 rem) tombent avec eux.
+**La tuile.** L'icône en tête, puis le nom, le genre et l'année (reliés par une
+virgule, la virgule japonaise en japonais), et en pied les sorties : l'adresse
+du site en pilule, ou les pilules des magasins. `margin-top: auto` sur le nom
+pousse le texte vers le bas, de sorte que deux tuiles voisines alignent leurs
+noms quelle que soit la hauteur de l'autre.
 
-**La ligne survolée prend le blanc de la page** : sur la carte crème, elle
-s'éclaircit d'un cran, coins arrondis, sans aplat de couleur. Elle a été surlignée en
-lime plein, puis inversée en noir ; les deux sautaient à la figure sur une
-entrée haute de quatre lignes. L'entrée se cale en haut de sa case et ne s'y
-étire pas : deux entrées voisines n'ont pas la même hauteur, et sans ce calage
-le creux de la plus courte descendrait jusqu'au bas de la plus longue.
+**Toute la tuile se prend.** Le lien du nom s'étend sur la carte entière par un
+pseudo-élément (`::after`, `inset: 0`), et la tuile grossit sur le ressort au
+survol (`scale(1.03)`, un cran de moins que les pilules : c'est une surface, pas
+un bouton). Pour un projet à plusieurs liens, le lien de la tuile est le
+premier, le site quand il y en a un. Les pilules des magasins et les marques de
+presse sont posées au-dessus (`z-index: 1`) et restent des liens à part : un
+clic sur « App Store » mène à l'App Store, pas au site. Le focus clavier dessine
+le contour sur la tuile entière (`:has(:focus-visible)`), pas sur le seul nom.
 
-**Le filet est posé au-dessus de chaque entrée, jamais en dessous.** Un filet
-sépare deux lignes (§4) ; sous la dernière il ne sépare plus rien, et il ferme
-le tableau d'un trait à quelques millimètres du bord de la carte, où deux traits
-parallèles se lisent comme une bordure ratée. Posé au-dessus, il ne peut pas s'y
-trouver, et la règle vaut pour les deux colonnes à la fois là où une exception
-sur la dernière entrée aurait manqué le bas de la première colonne. Ce sont donc
-les deux entrées de tête qui n'en portent pas, et non la seule première.
+**La pilule de pied est blanche sur le crème et passe à l'encre au survol de la
+tuile**, comme le « Choisir » de BlockAbo. Quand elle n'est pas un lien (la
+simple adresse d'un projet à un seul lien), c'est le survol de la tuile qui la
+noircit ; quand elle en est un, c'est le survol de la pilule elle-même. Le
+libellé est en capitales interlettrées, y compris l'adresse : c'est une pilule
+de renvoi (§2).
 
-**Icône de projet `.projet-icone`.** Chaque entrée porte à gauche la marque de
-son projet, sur la ligne du nom, dans un carré de 1,5 rem. L'adresse, les
-magasins et la mention de presse s'alignent sur le nom et non sous l'icône :
-la cellule est une grille de deux colonnes, l'icône dans la première, tout le
-reste dans la seconde.
+**Les tuiles larges** (`.projet--large`) prennent deux colonnes. Elles ne
+servent qu'à faire tomber les lignes pleines : dix projets en français, donc
+Auxine, le plus récent, et Disque Bleu, qui porte la presse, en large, pour
+douze cases en quatre lignes de trois. L'anglais, l'allemand et l'italien en
+listent neuf, trois lignes pleines sans tuile large. Le japonais n'en liste
+qu'un, qui prend la ligne entière plutôt que de rester dans le coin d'une
+grille vide. Sur deux colonnes, `grid-auto-flow: dense` bouche le trou qu'une
+tuile large laisserait au bout d'une ligne ; l'ordre de lecture reste celui du
+HTML. **Changer le nombre de projets d'une langue veut dire recompter** : la
+règle, c'est que le nombre de cases soit un multiple de trois.
 
-**Les coins sont arrondis à 6 px.** La moitié de ces marques sont des carrés
-pleins — icônes d'application, pavés de couleur — et un carré vif à angles
-droits serait le seul objet du site à ne pas avoir les coins ronds du §1. Sur
-les marques détourées, le rayon ne se voit pas : il ne rogne que du vide.
+**Icône de projet `.projet-icone`.** 3 rem, coins arrondis à 12 px, comme une
+icône d'application. La moitié de ces marques sont des carrés pleins, et un
+carré vif à angles droits serait le seul objet du site à ne pas avoir les coins
+ronds du §1 ; sur les marques détourées, le rayon ne rogne que du vide. Elle ne
+grandit pas au-delà de 3 rem : plusieurs n'existent qu'en 32 ou 48 px et
+s'amolliraient. Les photographies ou captures des projets, qui rempliraient la
+tuile comme les photos de sets chez BlockAbo, sont une étape à venir.
 
 Les dix fichiers sont servis d'ici, comme les polices et les logos de presse.
 Un appel aux serveurs des projets leur donnerait l'adresse IP de chaque
@@ -492,24 +503,15 @@ gris sur du lime ne se lit pas), bouton à droite et centré sur les deux
 paragraphes au-delà de 900 px.
 
 Le décompte annoncé par la légende se compte langue par langue, car les
-tableaux ne portent pas les mêmes lignes : Auxine ne figure qu'au tableau
-français, qui compte dix projets quand l'anglais, l'allemand et l'italien en
-comptent neuf, et le tableau japonais ne liste que Yamanote 3D. Stellar Rebirth
-ouvre la liste dans les quatre langues latines et ne figure pas au tableau
-japonais, pour la même raison que les autres : il ne s'adresse pas à ce
+listes ne portent pas les mêmes projets : Auxine ne figure qu'à la liste
+française, qui compte dix projets quand l'anglais, l'allemand et l'italien en
+comptent neuf, et la liste japonaise ne porte que Yamanote 3D. Stellar Rebirth
+ouvre la liste dans les quatre langues latines et ne figure pas à la liste
+japonaise, pour la même raison que les autres : il ne s'adresse pas à ce
 lecteur-là.
 
-**Ligne des magasins `.stores`.** Deuxième ligne de la cellule, sous le nom,
-là où les projets à adresse posent leur `.host`. Elle reprend les mesures de
-ses liens, 0,85 rem sur 1,4, au lieu d'hériter celles du tableau. Sans cela le
-bloc garderait un montant de 17 px sur 1,65 et réserverait une ligne de 28 px à
-des liens qui n'en font que 15 : le demi-interligne creusait sous le nom un
-vide de 12,6 px, contre 7,8 px sur les lignes à adresse, dont le bloc porte
-déjà sa propre taille. Deux deuxièmes lignes du même tableau ne peuvent pas
-tomber à des hauteurs différentes.
-
-**Mention de presse `.press`.** Troisième ligne de l'entrée d'un projet, sous
-les liens de magasin. Elle se lit d'un trait, « Apparu sur » suivi des six
+**Mention de presse `.press`.** Dans la tuile de Disque Bleu, entre le genre et
+les pilules des magasins. Elle se lit d'un trait, « Apparu sur » suivi des six
 marques, qui tiennent la place des noms : c'est le logo du journal qui fait la
 preuve, et le recomposer dans nos polices reviendrait à le citer de mémoire.
 Aucune virgule entre les marques : une virgule posée entre deux logos se lit
@@ -524,9 +526,8 @@ nom du projet qu'ils servaient à prouver. En gris, ils redeviennent ce qu'ils
 sont, une preuve posée en petit sous le nom.
 
 Elles ont porté un cadre blanc à filet fin, comme des timbres, tant que la ligne
-survolée passait au lime et faisait perdre aux marques leurs réserves blanches.
-Le survol a pris le papier crème, puis le blanc depuis que les cartes sont
-crème, et aucune des six ne s'appuie sur du blanc : celui de Watson est enfermé dans son propre bloc noir. Six cadres dans
+survolée du tableau passait au lime et faisait perdre aux marques leurs
+réserves blanches. Aucune des six ne s'appuie sur du blanc : celui de Watson est enfermé dans son propre bloc noir. Six cadres dans
 une colonne deux fois plus étroite qu'avant faisaient six objets de plus à
 lire ; ils tombent avec la raison qui les tenait.
 
@@ -539,14 +540,14 @@ voisines bien que la virgule rouge de sa marque monte au-dessus des lettres et
 descende sous la ligne de pied : c'est le mot, pas le dessin qui l'accompagne,
 qui doit peser autant que « La Côte » à côté.
 
-**La ligne se replie quand la colonne est trop courte, et c'est voulu.** À deux
-colonnes, six marques côte à côte ne tiennent pas sur une seule ligne sans
+**La ligne se replie quand la tuile est trop étroite, et c'est voulu.** Six
+marques côte à côte ne tiennent pas sur une seule ligne d'une tuile simple sans
 descendre à une hauteur où plus aucune ne se lit. Elle a été tenue de force sur
 une ligne, les six marques empilées en biseau comme des coupures posées les unes
 sur les autres : de chaque marque il ne restait qu'une tranche, et six tranches
 de mots coupés font du bruit, pas une pile. Ce que le calage en haut de case a
 réglé du côté de l'entrée voisine, le repli le règle ici : la ligne prend deux
-rangs quand il le faut sans allonger personne d'autre.
+rangs quand il le faut.
 
 Chaque marque est un lien vers l'article, sans couleur ni soulignement : c'est
 la marque entière qui se prend.
@@ -557,7 +558,7 @@ Les six fichiers, `logo_journaldujura.svg`, `logo_arcinfo.svg`,
 des journaux leur donnerait l'adresse IP de chaque visiteur, ce que le §2 et
 `privacy.html` interdisent. Ce sont les fichiers officiels, repris tels quels :
 un logo ne se redessine pas, et si Watson est en PNG c'est qu'il ne publie pas
-de SVG. Le tableau japonais ne liste que Yamanote 3D, donc Disque Bleu n'y
+de SVG. La liste japonaise ne porte que Yamanote 3D, donc Disque Bleu n'y
 figure pas et la mention n'existe que dans les quatre autres langues.
 
 **Pied de page.** La dernière carte, en encre, détachée des bords de la
@@ -1067,7 +1068,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=20`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=21`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1103,7 +1104,9 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
   1280 × 720 et 390 × 844, la fresque se peint de gauche à droite sans
   éolienne coupée par le bord, et **la page ne se laisse pas tirer de côté**
   (§4, §6),
-- états de survol : navigation, ligne de tableau qui passe au blanc, cartes,
+- états de survol : navigation, tuile de réalisation qui grossit et dont la
+  pilule passe à l'encre, pilules de magasin et marques de presse qui mènent à
+  leur propre lien et non au projet, cartes,
   bouton sur ses deux fonds (blanc et bloc lime), pilules qui grossissent sur
   le ressort et restent immobiles en mouvement réduit, marques de presse, qui
   passent du gris à leur encre,
