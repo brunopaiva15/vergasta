@@ -40,8 +40,8 @@
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/pixelmplus12-japonais.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=24">
-  <script src="../brushes.js?v=24" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=25">
+  <script src="../brushes.js?v=25" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -184,7 +184,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=24"></script>
+  <script src="../lang.js?v=25"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -342,13 +342,24 @@
         <h2 id="contact-title">ご連絡</h2>
       </div>
       <div class="slab-body contact-body">
-        <p>
-          見積もりが必要な案件、古くなったサイトの引き継ぎ、あるいは作り直すといくらかかるのかというご質問だけでもかまいません。フォームの内容はそのまま私たちのメールボックスに届き、通常は2営業日以内にお返事します。
-        </p>
-        <p>
-          直接お話ししたい場合は、メッセージにその旨をお書きください。日程を調整いたします。
-        </p>
-        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
+        <div class="contact-ecrire">
+          <p>
+            見積もりが必要な案件、古くなったサイトの引き継ぎ、あるいは作り直すといくらかかるのかというご質問だけでもかまいません。フォームの内容はそのまま私たちのメールボックスに届き、通常は2営業日以内にお返事します。
+          </p>
+          <p>
+            直接お話ししたい場合は、メッセージにその旨をお書きください。日程を調整いたします。
+          </p>
+          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
+        </div>
+        <div class="contact-engagements">
+          <h3>私たちのお約束</h3>
+          <ul>
+            <li>価格、業務内容、日程を記した詳しい見積もりをメールでお送りします。</li>
+            <li>開発中は、テスト用のアドレスでいつでも進み具合をご覧いただけます。</li>
+            <li>当初から存在した不具合は、保証期間中は無償で修正します。</li>
+            <li>請求書のお支払い後、ソースコードはお客さまのものになります。</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>

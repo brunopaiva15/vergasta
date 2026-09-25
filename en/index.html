@@ -39,11 +39,11 @@
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=24">
+  <link rel="stylesheet" href="../styles.css?v=25">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="../lancement/lancement.css?v=1">
   <script src="../lancement/lancement.js?v=1" defer></script>
-  <script src="../brushes.js?v=24" defer></script>
+  <script src="../brushes.js?v=25" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -186,7 +186,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=24"></script>
+  <script src="../lang.js?v=25"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -445,16 +445,27 @@
         <h2 id="contact-title">Write</h2>
       </div>
       <div class="slab-body contact-body">
-        <p>
-          A project to price, an ageing site to take over, or simply a question about
-          what a rebuild would cost: the form lands straight in our inbox and we
-          usually answer within two working days.
-        </p>
-        <p>
-          If you would rather talk it through, say so in the message and we will
-          arrange a meeting.
-        </p>
-        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
+        <div class="contact-ecrire">
+          <p>
+            A project to price, an ageing site to take over, or simply a question about
+            what a rebuild would cost: the form lands straight in our inbox and we
+            usually answer within two working days.
+          </p>
+          <p>
+            If you would rather talk it through, say so in the message and we will
+            arrange a meeting.
+          </p>
+          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
+        </div>
+        <div class="contact-engagements">
+          <h3>What we commit to</h3>
+          <ul>
+            <li>A detailed quote by email, with prices, services and deadlines.</li>
+            <li>A test address, to see where the work stands whenever you want.</li>
+            <li>Free fixes for bugs present from the start, during the warranty.</li>
+            <li>Ownership of the source code, once the invoice is paid.</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>

@@ -39,11 +39,11 @@
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=24">
+  <link rel="stylesheet" href="../styles.css?v=25">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="../lancement/lancement.css?v=1">
   <script src="../lancement/lancement.js?v=1" defer></script>
-  <script src="../brushes.js?v=24" defer></script>
+  <script src="../brushes.js?v=25" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -186,7 +186,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=24"></script>
+  <script src="../lang.js?v=25"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -449,17 +449,28 @@
         <h2 id="contact-title">Schreiben</h2>
       </div>
       <div class="slab-body contact-body">
-        <p>
-          Ein Projekt, das kalkuliert werden soll, eine in die Jahre gekommene Website,
-          die übernommen werden muss, oder einfach eine Frage dazu, was eine
-          Neugestaltung kosten würde: das Formular landet direkt in unserem Postfach,
-          und wir antworten in der Regel innerhalb von zwei Arbeitstagen.
-        </p>
-        <p>
-          Wenn Sie lieber persönlich darüber sprechen, schreiben Sie es in die
-          Nachricht, und wir vereinbaren einen Termin.
-        </p>
-        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Formular ausfüllen</a>
+        <div class="contact-ecrire">
+          <p>
+            Ein Projekt, das kalkuliert werden soll, eine in die Jahre gekommene Website,
+            die übernommen werden muss, oder einfach eine Frage dazu, was eine
+            Neugestaltung kosten würde: das Formular landet direkt in unserem Postfach,
+            und wir antworten in der Regel innerhalb von zwei Arbeitstagen.
+          </p>
+          <p>
+            Wenn Sie lieber persönlich darüber sprechen, schreiben Sie es in die
+            Nachricht, und wir vereinbaren einen Termin.
+          </p>
+          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Formular ausfüllen</a>
+        </div>
+        <div class="contact-engagements">
+          <h3>Unsere Zusagen</h3>
+          <ul>
+            <li>Eine ausführliche Offerte per E-Mail, mit Preisen, Leistungen und Fristen.</li>
+            <li>Eine Testadresse, über die Sie jederzeit sehen, wie weit die Arbeit ist.</li>
+            <li>Die kostenlose Behebung ursprünglicher Fehler während der Garantiezeit.</li>
+            <li>Das Eigentum am Quellcode, sobald die Rechnung bezahlt ist.</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>

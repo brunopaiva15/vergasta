@@ -311,7 +311,8 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 5. les quatre **cartes** des métiers, en bento ;
 6. le **déroulé** en trois colonnes ;
 7. les **réalisations**, une grille de tuiles crème ;
-8. le **bloc de contact**, seule carte en aplat lime ;
+8. le **bloc de contact**, seule carte en aplat lime, coupée en deux :
+   l'invitation à écrire, et les engagements ;
 9. le **pied de page**, carte d'encre détachée des bords de la fenêtre.
 
 **La hauteur de la scène** vaut `100svh` moins l'en-tête et le bandeau, et non
@@ -539,9 +540,22 @@ choix méritent d'être notés, parce qu'ils ne se relisent pas dans les fichier
   grande, et une marque agrandie vaut mieux qu'une marque redessinée.
 
 **Bloc de contact `.contact-body`.** La dernière carte de la page, un cran plus
-grande que les autres, et la seule en aplat lime : texte à l'encre pleine (du
-gris sur du lime ne se lit pas), bouton à droite et centré sur les deux
-paragraphes au-delà de 900 px.
+grande que les autres, et la seule en aplat lime : tout y est à l'encre pleine
+(du gris sur du lime ne se lit pas). Elle est **coupée en deux**, comme
+l'encart des prix de BlockAbo : à gauche (`.contact-ecrire`), l'invitation à
+écrire et le bouton ; à droite (`.contact-engagements`), quatre engagements
+sous le titre « Nos engagements », chacun sous une étoile à l'encre. Un filet
+d'encre à 20 % les sépare, vertical à deux colonnes, horizontal en pile.
+
+**Les engagements sont repris de ce que le site dit déjà, jamais inventés pour
+la carte**, à peine resserrés pour tenir sur deux lignes : le devis détaillé (CGV, « Devis et commande »), l'adresse de test (le
+déroulé), la correction gratuite des bugs d'origine pendant la garantie (CGV,
+« Garantie et maintenance ») et la propriété du code source après paiement
+(CGV, « Propriété intellectuelle »). Chaque langue reprend la formulation de
+ses propres CGV. Si les conditions changent, la carte change avec elles. Le
+délai de réponse n'y figure pas : il est déjà dans le paragraphe d'à côté, et
+le répéter à dix centimètres se lisait comme du remplissage. Rien de ce qui
+n'est pas compris (l'hébergement, le nom de domaine) n'y est laissé entendre.
 
 Le décompte annoncé par la légende se compte langue par langue, car les
 listes ne portent pas les mêmes projets : Auxine ne figure qu'à la liste
@@ -1111,7 +1125,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=24`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=25`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:

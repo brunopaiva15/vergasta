@@ -39,11 +39,11 @@
   <link rel="preload" href="fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=24">
+  <link rel="stylesheet" href="styles.css?v=25">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="lancement/lancement.css?v=1">
   <script src="lancement/lancement.js?v=1" defer></script>
-  <script src="brushes.js?v=24" defer></script>
+  <script src="brushes.js?v=25" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -174,7 +174,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="lang.js?v=24"></script>
+  <script src="lang.js?v=25"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -348,7 +348,22 @@
 
     <section id="contact" class="slab wrap" aria-labelledby="contact-title">
       <div class="slab-head"><div class="mark slab-mark" data-mark="contact" aria-hidden="true"></div><h2 id="contact-title">Écrire</h2></div>
-      <div class="slab-body contact-body"><p>Un projet à chiffrer, un site vieillissant à reprendre, ou simplement une question sur ce qu’une refonte coûterait : le formulaire arrive directement dans notre boîte et nous répondons en général dans les deux jours ouvrables.</p><p>Si vous préférez en parler de vive voix, dites-le dans le message et nous conviendrons d’un rendez-vous.</p><a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Remplir le formulaire</a></div>
+      <div class="slab-body contact-body">
+        <div class="contact-ecrire">
+          <p>Un projet à chiffrer, un site vieillissant à reprendre, ou simplement une question sur ce qu’une refonte coûterait : le formulaire arrive directement dans notre boîte et nous répondons en général dans les deux jours ouvrables.</p>
+          <p>Si vous préférez en parler de vive voix, dites-le dans le message et nous conviendrons d’un rendez-vous.</p>
+          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Remplir le formulaire</a>
+        </div>
+        <div class="contact-engagements">
+          <h3>Nos engagements</h3>
+          <ul>
+            <li>Un devis détaillé par email, avec le prix, les prestations et les délais.</li>
+            <li>Une adresse de test, pour voir où en est le travail quand vous le voulez.</li>
+            <li>La correction gratuite des bugs d’origine pendant la garantie.</li>
+            <li>La propriété du code source, dès que la facture est réglée.</li>
+          </ul>
+        </div>
+      </div>
     </section>
   </main>
 

@@ -1689,12 +1689,20 @@ a.projet-pilule {
 
 /* La dernière carte de la page, un cran plus grande que les autres, et la
    seule en aplat lime : le lime tient là ce qu'il ne tient nulle part ailleurs
-   sur du papier, un aplat franc sous du texte à l'encre. */
+   sur du papier, un aplat franc sous du texte à l'encre.
+
+   Elle est coupée en deux, comme l'encart des prix de BlockAbo : à gauche,
+   l'invitation à écrire et le bouton ; à droite, les engagements, quatre
+   points vérifiables repris des conditions générales et du déroulé, chacun
+   sous une étoile. Un filet d'encre les sépare, vertical à deux colonnes,
+   horizontal en pile. Tout est à l'encre pleine : du gris sur du lime ne se
+   lit pas. */
 .contact-body {
+  display: grid;
   background: var(--lime);
   border: 0;
   border-radius: var(--rond-l);
-  padding: clamp(1.75rem, 4vw, 2.75rem);
+  padding: clamp(1.75rem, 4vw, 3rem);
 }
 
 .contact-body p {
@@ -1706,27 +1714,59 @@ a.projet-pilule {
   margin-top: 1.15rem;
 }
 
-/* Le texte à gauche, le bouton à droite et centré sur les deux paragraphes :
-   sous le texte, il tombait dans le coin d'un bloc lime déjà très présent et
-   se lisait comme une note de bas de bloc. */
+.contact-body .button {
+  color: var(--lime);
+}
+
+.contact-engagements {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(22, 22, 15, 0.2);
+}
+
 @media (min-width: 900px) {
   .contact-body {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 3rem;
-    align-items: center;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   }
 
-  .contact-body .button {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
+  .contact-ecrire {
+    padding-right: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .contact-engagements {
     margin-top: 0;
+    padding-top: 0;
+    padding-left: clamp(2rem, 4vw, 3.5rem);
+    border-top: 0;
+    border-left: 1px solid rgba(22, 22, 15, 0.2);
   }
 }
 
-.contact-body .button {
-  color: var(--lime);
+.contact-engagements h3 {
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.contact-engagements li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.45rem 0;
+  line-height: 1.5;
+}
+
+/* L'étoile de la liste, à l'encre : une encre de brosse vibrerait sur le
+   lime. Elle est posée sur la première ligne du point, pas au milieu. */
+.contact-engagements li::before {
+  content: "";
+  width: 0.85rem;
+  height: 0.85rem;
+  transform: translateY(0.1rem);
+  background-color: var(--ink);
+  -webkit-mask: var(--etoile) center / contain no-repeat;
+  mask: var(--etoile) center / contain no-repeat;
 }
 
 /* Pilule d'encre. Le libellé est en capitales interlettrées et petit : c'est
