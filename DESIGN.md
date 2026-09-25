@@ -274,9 +274,13 @@ ronds, ni ombre ni bordure. Le reste, c'est du texte sur le blanc.
 - `--measure` : 36 rem. Toute colonne de texte courant s'y limite.
 - Les filets (`1px solid --rule`) ne séparent plus que des lignes de texte :
   les trois moments du déroulé, le haut et le bas des chapitres de l'histoire,
-  les sections des pages légales. Le dernier qui vivait dans une carte, entre deux lignes du tableau
-  des réalisations, est parti avec le tableau. Plus aucune bordure fermée,
-  plus aucun filet double.
+  les sections des pages légales. Le dernier qui vivait dans une carte, entre
+  deux lignes du tableau des réalisations, est parti avec le tableau. Plus
+  aucune bordure fermée, plus aucun filet double.
+- **Un filet en tête d'un bloc `.wrap` se dessine sur la largeur du contenu**,
+  pas en bordure (`background: var(--filet-colonne)`). Une bordure y court sur
+  les gouttières et dépasse la colonne de 4 rem de chaque côté : c'était le cas
+  des deux filets qui encadrent les chapitres de l'histoire.
 - Le corps de page est coupé à droite (`overflow-x: clip`). La coupe avait été
   posée pour l'entrée de la marque d'ouverture, qui débordait la fenêtre ; cette
   entrée n'existe plus (§6) et la coupe reste, comme garde-fou : rien ne doit
@@ -670,6 +674,11 @@ Aucune des polices latines ne dessine les kana : hors de `/ja/`, le mot revient
 à la police du système, et c'est voulu. Servir ici PixelMplus12 obligerait à
 charger 122 Ko dans les cinq langues pour un seul mot.
 
+**L'accroche de l'histoire** (`.opening-body`), sous le titre, est en Figtree
+300 à l'encre pleine, entre 1,15 et 1,4 rem : la même voix légère que
+l'accroche de l'accueil, un cran plus bas, parce que c'est un chapeau et non
+une phrase d'affichage.
+
 **Les deux sorties `.story-sorties`.** Le bouton et le lien vers les
 réalisations tiennent sur une seule ligne et se lisent comme une paire, dans le
 même corps. Le second est une pilule à filet, qui prend l'aplat lime au
@@ -783,7 +792,7 @@ son opacité.
 
 ### Encres
 
-Le lime disparaît sur du clair, donc les marques posées sur le papier
+Le lime disparaît sur du clair, donc les marques posées sur la page
 utilisent une gamme saturée : `bleu`, `magenta`, `cyan`, `olive`, `orange`,
 `encre`. `lime` et `bleu` sont réservés à la bande du pied de page, qui est
 sur noir.
@@ -1052,8 +1061,8 @@ Quatre points à ne pas défaire :
   d'eux pour que le suivant tombe exactement où il serait tombé en repartant de
   zéro. Un redimensionnement, lui, repeint tout d'un coup ;
 - **la barre est `fixed`, ce n'est pas un en-tête collant.** Elle ne recouvre
-  rien, elle ne dure pas, et le §4 tient : le seul `position: sticky` du site
-  reste le titre de section ;
+  rien, elle ne dure pas, et le §4 tient : il n'y a aucun `position: sticky`
+  dans le site ;
 - **elle apparaît sans transition et disparaît en fondu.** L'attente doit se
   signaler tout de suite, sa fin ne doit pas claquer. La durée du fondu est
   écrite deux fois, dans `styles.css` et dans `brushes.js` (`SORTIE`) : les deux
@@ -1142,7 +1151,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=27`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=28`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
