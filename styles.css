@@ -1439,10 +1439,28 @@ a.entete-pilule--encre:focus-visible {
   flex-direction: column;
   min-height: 15rem;
   padding: 1.5rem;
-  background: var(--carte);
+  background: var(--fond, var(--carte));
   border-radius: var(--rond);
   transition: transform var(--ressort-duree) var(--ressort);
 }
+
+/* Chaque tuile prend le fond de son projet : une teinte pâle de sa couleur,
+   relevée sur son icône ou sur le `theme-color` de son site. Pâle, pour que
+   le nom reste à l'encre et le genre au gris, lisibles comme sur le crème, et
+   que les pilules blanches se détachent encore. Les deux marques en noir et
+   blanc, F. Da Silva et Vergasta Photo, prennent un gris froid et un papier
+   chaud. Custom To Lylia a un dégradé, parce que sa marque en est un. Un
+   projet sans teinte garde le crème. */
+.projet[data-projet="auxine"] { --fond: #dbeee1; }
+.projet[data-projet="stellarrebirth"] { --fond: #e0e5fa; }
+.projet[data-projet="axolot"] { --fond: #ece5fd; }
+.projet[data-projet="fdasilva"] { --fond: #e6e6e6; }
+.projet[data-projet="yamanote"] { --fond: #e7f4d2; }
+.projet[data-projet="customtolylia"] { --fond: linear-gradient(135deg, #f5e6fe, #e2edfe); }
+.projet[data-projet="disquebleu"] { --fond: #dbeafb; }
+.projet[data-projet="mesecheances"] { --fond: #fde7d6; }
+.projet[data-projet="vergastaphoto"] { --fond: #f3efe6; }
+.projet[data-projet="bdpokecards"] { --fond: #fbe2e0; }
 
 /* Toute la tuile se prend. Le lien du nom s'étend sur la carte entière par un
    pseudo-élément ; les pilules des magasins et les marques de presse sont
