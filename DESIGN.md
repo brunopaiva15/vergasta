@@ -26,7 +26,7 @@ c'est un atelier, pas une agence.
 | Encre | `#16160f` | texte, pied de page, boutons |
 | Encre atténuée | `#5d5d54` | texte secondaire (6,6:1 sur le fond, 5,9:1 sur une carte) |
 | Filet | `rgba(22,22,15,.12)` | séparations internes des cartes, pages légales |
-| Lime | `#d4ff00` | bandeau, bloc de contact, survols, pilules de temps |
+| Lime | `#d4ff00` | bloc de contact, survols, pilules de temps |
 | Bleu | `#4f46e6` | liens, puces des pages légales |
 | Magenta, cyan, olive, orange | encres des brosses | étoiles des puces |
 | Sur encre | `#b8b8b3` | texte du pied de page |
@@ -89,8 +89,7 @@ Du lime en texte sur blanc donne **1,1:1 de contraste**. Il est illisible.
 Il ne sert donc jamais de couleur de texte sur du clair. Il ne fonctionne que
 comme aplat sous du noir, ou comme trait sur du noir :
 
-- le bandeau défilant et le bloc de contact, tous deux en aplat plein sous du
-  texte à l'encre,
+- le bloc de contact, en aplat plein sous du texte à l'encre,
 - le survol des liens de navigation, l'aplat de la langue courante, les pilules
   de temps de la page d'histoire,
 - la devise, la bande et la pilule du pied de page, qui est en encre.
@@ -107,7 +106,7 @@ Quatre polices, **hébergées dans `fonts/`**, jamais chez un tiers.
 
 | | Police | Emploi |
 |---|---|---|
-| Titres | **Gabarito** 700 et 500 | `h1`, `h2`, `h3`, noms de projets, devise, bandeau, boutons |
+| Titres | **Gabarito** 700 et 500 | `h1`, `h2`, `h3`, noms de projets, devise, boutons |
 | Texte | **Figtree** 400 et 600 | tout le texte courant |
 | Accroches | **Figtree** 300 | les grandes phrases d'accroche en corps d'affichage |
 | Écriture | **Caveat** 600 | un seul endroit (voir plus bas) |
@@ -293,43 +292,41 @@ ronds, ni ombre ni bordure. Le reste, c'est du texte sur le blanc.
 Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 
 1. **la scène** (`.scene`), qui prend toute la hauteur de la fenêtre, moins
-   l'en-tête et le bandeau : l'accueil s'ouvre sur un écran, pas sur un
+   l'en-tête : l'accueil s'ouvre sur un écran, pas sur un
    paragraphe. Au milieu, centrés, la petite croix du logo, le titre en
    Gabarito 500 et une ligne en gras gris qui dit qui parle, reprise du titre
    de la page (« Atelier web à St-Imier ») plutôt qu'une formule de plus à
    traduire cinq fois. En bas, sur toute la largeur, **la fresque** peinte à
    la brosse (§6) ;
-2. **le bandeau défilant**, lime, pleine largeur, qui sert de sol à la
-   fresque et ferme le premier écran ;
-3. la **bannière d'Auxine** (voir plus bas) ;
-4. **l'accroche** (`.accroche`) : la phrase qui dit ce que fait l'atelier,
+2. la **bannière d'Auxine** (voir plus bas) ;
+3. **l'accroche** (`.accroche`) : la phrase qui dit ce que fait l'atelier,
    posée en très grand (jusqu'à 2,9 rem) et en Figtree 300 sur toute la
    colonne, à l'encre pleine, comme le « Construis autant de LEGO… » de
    BlockAbo ; puis les deux sorties, le formulaire et le renvoi vers les
    réalisations. C'est une phrase d'affichage, pas un paragraphe de lecture :
    la mesure large (une quarantaine de signes par ligne) y est voulue. Elle
    n'a pas de montée d'arrivée, étant sous la ligne de flottaison ;
-5. les **réalisations**, une grille de tuiles crème ;
-6. les quatre **cartes** des métiers, en bento ;
-7. le **déroulé**, trois grandes phrases séparées par des filets ;
-8. le **bloc de contact**, seule carte en aplat lime, coupée en deux :
+4. les **réalisations**, une grille de tuiles crème ;
+5. les quatre **cartes** des métiers, en bento ;
+6. le **déroulé**, trois grandes phrases séparées par des filets ;
+7. le **bloc de contact**, seule carte en aplat lime, coupée en deux :
    l'invitation à écrire, et les engagements ;
-9. le **pied de page**, carte d'encre détachée des bords de la fenêtre :
+8. le **pied de page**, carte d'encre détachée des bords de la fenêtre :
    la devise, l'adresse et le formulaire, puis les liens en colonnes.
 
-**La hauteur de la scène** vaut `100svh` moins l'en-tête et le bandeau, et non
-`100vh` : la barre d'adresse d'un téléphone ne pousse pas le bandeau hors de
+**La hauteur de la scène** vaut `100svh` moins l'en-tête, et non
+`100vh` : la barre d'adresse d'un téléphone ne pousse pas la fresque hors de
 l'écran. La hauteur de l'en-tête y est écrite en dur (`--entete` : 84 px sur
 une ligne à partir de 950 px, 111 px sur deux lignes, 119 px sous 360 px),
 faute de pouvoir la lire en CSS : elle a été mesurée, et **elle se remesure si
-l'en-tête change**. Avec elle, le bandeau ferme exactement le premier écran à
+l'en-tête change**. Avec elle, la fresque ferme exactement le premier écran à
 1440 × 900, 1280 × 720, 1024 × 768 et 390 × 844. Sur un écran bas, c'est le
 titre qui rapetisse (son corps est plafonné par la hauteur de la fenêtre,
 `min(5.6vw, 7.2vh)`) et le blanc au-dessus de lui qui cède, jamais le
 paysage.
 
 **La scène n'a pas de largeur maximale** : la fresque va d'un bord à l'autre
-de l'écran, quelle que soit sa largeur, comme le bandeau qui lui sert de sol.
+de l'écran, quelle que soit sa largeur.
 Elle était arrêtée à 1 600 px, et un écran de 1920 ou 2560 px la montrait
 posée au milieu d'une marge blanche. Sa hauteur vaut un tiers de celle de
 l'écran, entre 10 et 36 rem : sur un grand écran, le paysage grandit avec lui.
@@ -337,7 +334,7 @@ Le texte, lui, reste dans la colonne, et **se centre dans l'espace laissé
 au-dessus de la fresque** (deux marges automatiques) : sur un grand écran, le
 titre ne descend plus se coller au paysage sous un grand vide.
 
-Deux blocs de couleur seulement, le bandeau et le contact, et un bloc sombre
+Un seul bloc de couleur, le contact, et un bloc sombre
 pour finir. Entre eux, du blanc et des cartes crème.
 
 **Les réalisations passent avant les métiers**, comme la grille des sets
@@ -351,7 +348,7 @@ ses liens dans le même ordre.
 ### L'exception : la sortie d'Auxine
 
 Pour la sortie d'Auxine sur l'App Store, une carte verte est posée **juste
-sous le bandeau**, premier bloc après la scène, sur les pages d'accueil française, anglaise, allemande et
+sous la fresque**, premier bloc après la scène, sur les pages d'accueil française, anglaise, allemande et
 italienne. Le japonais n'en a pas, pour la même raison que ses réalisations ne listent
 pas Auxine : l'app n'existe pas dans cette langue.
 
@@ -402,24 +399,9 @@ visiteur qui sait déjà ce qu'il veut n'a plus à traverser l'accueil. Leurs
 libellés sont ceux que la page porte déjà ailleurs, pas des formules de plus à
 traduire cinq fois.
 
-**Bandeau défilant `.ribbon`.** Une bande lime en travers, sous la scène, où
-la devise passe en boucle, séparée par l'étoile pixel. Une copie de la devise
-passe en quinze secondes. **Seize copies identiques, et la piste avance d'une
-seule copie par tour** : quand elle revient à zéro, la copie suivante est
-exactement là où était la précédente, donc la boucle ne se voit pas. Il y en
-avait six, et la piste avançait de moitié ; ça ne tient que si trois copies
-couvrent la fenêtre, soit 800 px, et sur un écran d'ordinateur le lime
-restait nu sur la droite pendant la seconde moitié de chaque tour avant de
-sauter en arrière. Quinze copies devant le point de reprise couvrent 3 900 px
-dans la langue la plus courte. Le nombre 16 est écrit dans `styles.css` et
-dans les cinq pages d'accueil : les deux vont ensemble. Il est
-`aria-hidden` : la devise est déjà portée par le pied de page, et seize fois
-le même mot ne va pas à la lecture d'écran. `prefers-reduced-motion`
-l'arrête, et il reste une bande lime.
-
 **Étoile pixel.** La puce du site, en `mask-image` sur un SVG de neuf carrés :
 une croix et quatre coins. Elle sert devant les
-trois moments du déroulé, entre deux passages du bandeau et dans les listes des
+trois moments du déroulé et dans les listes des
 pages légales. Sa couleur est celle de l'encre de la brosse voisine (§1). C'est
 un masque et non une image, donc une seule ressource pour toutes les couleurs.
 
@@ -1038,10 +1020,9 @@ Chaque couche part de la gauche. La dernière est posée en un peu plus de deux
 secondes. À 1920 px et en densité 2, le dessin tient soixante images par
 seconde, sans image lente : c'est mesuré.
 
-**Sans JavaScript**, la fresque est un blanc sous le titre, fermé par le
-bandeau. C'est le seul endroit du site où l'absence de script laisse une
+**Sans JavaScript**, la fresque est un blanc sous le titre. C'est le seul endroit du site où l'absence de script laisse une
 surface vide de cette taille ; la composition tient (un titre centré sur un
-écran blanc, posé sur une bande lime), et c'est pourquoi on l'a gardée plutôt
+écran blanc), et c'est pourquoi on l'a gardée plutôt
 que d'ajouter un mécanisme de détection. Si la fresque grandit encore, la
 question se reposera.
 
@@ -1240,7 +1221,7 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
 - sous 1000 px, sur la page d'histoire, la marque de l'ouverture est
   **après** le texte et le titre tombe juste sous l'en-tête, dans les cinq
   langues (voir §6),
-- la scène de l'accueil : le bandeau ferme le premier écran à 1440 × 900,
+- la scène de l'accueil : la fresque ferme le premier écran à 1440 × 900,
   1280 × 720 et 390 × 844, la fresque se peint de gauche à droite sans
   éolienne coupée par le bord, et **la page ne se laisse pas tirer de côté**
   (§4, §6),
@@ -1261,7 +1242,7 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
 - aucune requête vers un domaine tiers,
 - console sans erreur,
 - mouvement réduit : la marque est peinte d'un coup au lieu d'être tracée, le
-  texte de l'ouverture ne monte pas, le bandeau ne défile plus, les éoliennes
+  texte de l'ouverture ne monte pas, les éoliennes
   ne tournent pas, et rien d'autre ne bouge,
 - les éoliennes tournent sur l'accueil, s'arrêtent quand la scène sort de
   l'écran et reprennent à leur angle quand elle revient,
