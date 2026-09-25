@@ -715,7 +715,7 @@ aucun stockage : la propriété du §2 tient.
 **En-tête.** Celui de BlockAbo : la marque à gauche, deux pilules à droite,
 et en plus les cinq langues au bout de la ligne. Les deux pilules sont les deux
 actions de l'atelier : « Notre histoire », en crème et lime au survol, et
-« Remplir le formulaire », à l'encre ; libellés en capitales interlettrées
+« Contactez-nous », à l'encre ; libellés en capitales interlettrées
 comme toute action (§2), et le ressort au survol. Sur la page d'histoire, sa
 pilule est la page courante : un `<span class="is-current">`, sans aplat, avec
 un filet, comme la langue courante n'est pas un lien.
