@@ -984,10 +984,18 @@ largeurs : un téléphone en montre le centre, un grand écran la chaîne entiè
 et ni l'un ni l'autre ne tasse ou n'étire les collines. C'est la même raison
 que pour le fil (`size` sur le petit côté), appliquée au chemin.
 
-**Le soleil est la spirale de l'atelier**, en deux passes mal calées, orange
-et magenta. Elle faisait la marque d'ouverture de l'accueil ; elle est restée,
-à une autre place. Sur un écran étroit, elle rentre vers le milieu pour rester
-dans le cadre.
+**Le soleil** est haut dans le ciel, loin à droite du titre : un disque cerné
+à la plume orange, garni d'une spirale de carrés plus claire, doublé d'un
+contour magenta décalé d'un poil (le tirage en deux couleurs mal calées des
+autres marques), et douze rayons en carrés, un long et un court en
+alternance, posés l'un après l'autre dans le sens des aiguilles d'une montre.
+Chaque rayon est sa propre couche, comme les pièces des éoliennes. Il a d'abord
+été la spirale de l'ancienne marque d'ouverture, en deux passes orange et
+magenta ; elle se lisait comme une pelote plutôt que comme un soleil, et a été
+redessinée. `soleil()` donne son centre et son rayon, en hauteurs de canevas :
+il est posé assez bas pour que ses plus longs rayons ne touchent jamais le
+haut du canevas, et sur un écran étroit il rentre vers le milieu pour rester
+dans le cadre, rayons compris.
 
 **Les éoliennes** sont plantées sur la crête du milieu (`creteY` donne la
 hauteur de la crête sans construire le chemin, et `crete` passe par la même
@@ -1202,7 +1210,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=30`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=31`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
