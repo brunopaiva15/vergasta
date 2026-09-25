@@ -1202,7 +1202,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=31`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=32`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
