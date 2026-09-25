@@ -397,37 +397,10 @@
   /* Le soleil, haut dans le ciel, loin à droite du titre : son centre, le
      rayon de son disque. Tout est mesuré en hauteurs de canevas, comme les
      crêtes. Sur un écran étroit il rentre vers le milieu pour rester dans le
-     cadre, rayons compris ; il est posé assez bas pour que ses plus longs
-     rayons ne touchent pas le haut du canevas. */
+     cadre. */
   function soleil(w, h) {
-    var r = h * 0.072;
-    return { x: w / 2 + Math.min(h * 1.5, w * 0.36), y: h * 0.18, r: r };
-  }
-
-  /** Les rayons du soleil, un par couche : une brosse ne trace qu'un chemin
-   *  continu. Douze rayons, un long et un court en alternance, qui partent
-   *  un peu au large du disque ; posés l'un après l'autre, dans le sens des
-   *  aiguilles d'une montre. */
-  function rayons(n, retard) {
-    var out = [];
-    for (var i = 0; i < n; i++) {
-      (function (i) {
-        var long = i % 2 === 0;
-        out.push({
-          brush: "carres", ink: "orange", delay: retard + i * 45,
-          over: { size: long ? 0.026 : 0.022, spacing: 0.6 },
-          path: function (w, h) {
-            var s = soleil(w, h);
-            var a = -Math.PI / 2 + (i / n) * Math.PI * 2;
-            var de = s.r * 1.45;
-            var a_ = s.r * (long ? 2.25 : 1.9);
-            return segment(s.x + Math.cos(a) * de, s.y + Math.sin(a) * de,
-              s.x + Math.cos(a) * a_, s.y + Math.sin(a) * a_, 12);
-          }
-        });
-      })(i);
-    }
-    return out;
+    var r = h * 0.085;
+    return { x: w / 2 + Math.min(h * 1.5, w * 0.36), y: h * 0.14, r: r };
   }
 
   /** Les couches d'une rangée d'éoliennes : un mât puis trois pales chacune,
@@ -638,7 +611,7 @@
        bleue pour la crête du milieu, une touffe olive pour la plus proche,
        doublée de deux passes de carrés qui lui donnent une épaisseur de
        forêt. Au-dessus, haut et à droite, le soleil : un disque cerné à la
-       plume, ses rayons en carrés, et un contour magenta mal calé. Les
+       plume et un contour magenta mal calé. Les
        éoliennes du Mont-Soleil, plantées sur la crête du milieu, sont une
        marque à part posée par-dessus (`eoliennes`), parce qu'elles tournent.
 
@@ -649,8 +622,8 @@
     fresque: [
       /* le soleil : un disque cerné à la plume orange, garni d'une spirale de
          carrés plus claire, doublé d'un contour magenta décalé d'un poil
-         (le tirage en deux couleurs mal calées des autres marques), et ses
-         rayons */
+         (le tirage en deux couleurs mal calées des autres marques). Pas de
+         rayons : un soleil à rayons est un pictogramme, pas une peinture. */
       {
         brush: "plume", ink: "orange",
         over: { size: 0.04, spacing: 0.13 },
@@ -675,7 +648,7 @@
           return arc(s.x + s.r * 0.14, s.y - s.r * 0.1, s.r * 1.02, -Math.PI / 2, Math.PI * 1.5, 200);
         }
       }
-    ].concat(rayons(12, 360), [
+    ].concat([
       /* le lointain : une brume cyan, et une seconde passe plus claire dessous */
       {
         brush: "derive", ink: "cyan", alpha: 0.8, delay: 120,
