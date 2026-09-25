@@ -498,12 +498,22 @@ em {
 
 .opening h1,
 .opening-body,
-.opening-actions {
+.opening-actions,
+.scene-texte > * {
   animation: arrivee 0.9s cubic-bezier(0.2, 0.86, 0.28, 1) backwards;
 }
 
-.opening h1 {
+.opening h1,
+.scene-croix {
   animation-delay: 0.1s;
+}
+
+.scene h1 {
+  animation-delay: 0.2s;
+}
+
+.scene-sous-titre {
+  animation-delay: 0.34s;
 }
 
 .opening-body {
@@ -519,7 +529,8 @@ em {
   .ribbon-track,
   .opening h1,
   .opening-body,
-  .opening-actions {
+  .opening-actions,
+  .scene-texte > * {
     animation: none;
   }
 }
@@ -529,7 +540,8 @@ em {
 @media (prefers-reduced-motion: reduce) {
   .opening h1,
   .opening-body,
-  .opening-actions {
+  .opening-actions,
+  .scene-texte > * {
     animation: none;
   }
 }
@@ -826,12 +838,106 @@ em {
 }
 
 /* --------------------------------------------------------------------------
-   L'ouverture de l'accueil
+   La scène de l'accueil
+
+   L'accueil s'ouvre sur un écran entier, pas sur un paragraphe : la petite
+   croix du logo, le titre, une ligne pour dire qui parle, et dessous, sur
+   toute la largeur, la fresque du Jura peinte à la brosse. Elle est posée
+   sur le bandeau lime, qui lui sert de sol : le paysage tient sur une ligne,
+   comme une photographie posée sur un bord de table.
+
+   La scène réserve la hauteur de la fenêtre, moins l'en-tête au-dessus et le
+   bandeau au-dessous : le bandeau ferme le premier écran, et ce qui suit
+   commence juste sous la ligne de flottaison. `svh` et non `vh`, pour que la
+   barre d'adresse d'un téléphone ne pousse pas le bandeau hors de l'écran.
+
+   Le texte descend au milieu de ce qui reste (`margin-top: auto` sur le texte
+   et sur la fresque), et la fresque garde sa hauteur : sur un écran bas,
+   c'est le blanc au-dessus du titre qui cède, jamais le paysage.
    -------------------------------------------------------------------------- */
 
-.opening--accueil {
-  position: relative;
-  padding-bottom: clamp(3.5rem, 8vw, 6.5rem);
+.scene {
+  --entete: 5.5rem;
+  --ruban: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--entete) - var(--ruban));
+  min-height: calc(100svh - var(--entete) - var(--ruban));
+  max-width: 100rem;
+  margin: 0 auto;
+}
+
+/* L'en-tête tient sur deux lignes sous 1280 px (§5 de DESIGN.md), et sur
+   trois sur un téléphone, où la navigation se replie. Ces hauteurs sont
+   mesurées ; elles tomberont avec la refonte de l'en-tête. */
+@media (max-width: 1279px) {
+  .scene {
+    --entete: 8.1rem;
+  }
+}
+
+@media (max-width: 599px) {
+  .scene {
+    --entete: 9.5rem;
+  }
+}
+
+.scene-texte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-top: clamp(2rem, 6vh, 4rem);
+  text-align: center;
+}
+
+.scene-croix {
+  width: auto;
+  height: 2.6rem;
+  margin-bottom: 1.4rem;
+  image-rendering: pixelated;
+}
+
+/* Le titre en graisse moyenne : centré et en grand corps, le gras de
+   Gabarito pèse trop sur une page qui respire. La graisse 700 reste aux
+   titres de section, qui sont plus petits et doivent se voir en passant. */
+.scene h1 {
+  font-weight: 500;
+  /* Le corps suit la largeur, mais la hauteur le plafonne : sur un portable
+     bas, un titre de trois lignes à pleine taille pousserait la fresque et le
+     bandeau sous la ligne de flottaison. */
+  font-size: clamp(2.3rem, min(5.6vw, 7.2vh), 4.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  max-width: 17ch;
+  text-wrap: balance;
+}
+
+.scene-sous-titre {
+  margin-top: 0.9rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+.scene-fresque {
+  flex: none;
+  width: 100%;
+  height: clamp(10rem, 33vh, 24rem);
+  margin-top: clamp(1.25rem, 4.5vh, 3.5rem);
+}
+
+/* L'accroche, sous la bannière d'Auxine et avant les métiers : ce que fait
+   l'atelier, dit en une phrase, et les deux sorties. */
+.accroche {
+  padding-top: var(--air);
+}
+
+.accroche .opening-body {
+  margin-top: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -904,14 +1010,12 @@ em {
   }
 }
 
-/* L'accueil s'ouvre sur un écran, pas sur un paragraphe. Le bloc réserve une
-   hauteur, la marque passe à droite sur toute cette hauteur, et le reste de la
-   page commence sous la ligne de flottaison : c'est l'entrée qui se déroule
-   qu'on regarde d'abord, le tableau des réalisations attendra.
+/* L'ouverture de la page d'histoire : le titre et l'accroche à gauche, la
+   marque à droite. L'accueil ne passe plus par là, il a sa scène.
 
-   Les trois éléments de texte sont épinglés en colonne 1. Sans cela, le
-   placement automatique poserait les sorties dans la case libre de la colonne
-   2, sous la marque. */
+   Les éléments de texte sont épinglés en colonne 1. Sans cela, le placement
+   automatique poserait le dernier dans la case libre de la colonne 2, sous la
+   marque. */
 @media (min-width: 1000px) {
   .opening {
     display: grid;
@@ -933,26 +1037,6 @@ em {
     width: 100%;
     height: clamp(11rem, 17vw, 15rem);
     margin: 0;
-  }
-
-  .opening--accueil h1 {
-    font-size: clamp(2.9rem, 5.4vw, 4.7rem);
-  }
-
-  .opening--accueil {
-    grid-template-columns: minmax(0, 1fr) clamp(16rem, 30vw, 27rem);
-    align-content: center;
-    column-gap: 4.5rem;
-    min-height: min(78vh, 42rem);
-  }
-
-  .opening--accueil .mark-opening {
-    grid-row: 1 / span 3;
-    height: clamp(16rem, 30vw, 27rem);
-    /* La marque sort de la gouttière : sur la scène, le bord de la colonne ne
-       veut plus rien dire, et une spirale qui frôle le bord de la fenêtre se
-       lit comme une image posée là plutôt que comme une vignette rangée. */
-    margin-right: calc(var(--gutter) / -2);
   }
 }
 
@@ -1034,17 +1118,13 @@ em {
    spirale, si c'est la signature de l'atelier, n'a pas à être lue avant la
    phrase qui dit ce que l'atelier fait.
 
-   Elle passe donc après les deux sorties, où le blanc qu'elle laisse à sa
-   gauche est le blanc qui sépare de toute façon l'ouverture du bandeau. La
-   page s'ouvre sur son titre, et la marque referme la scène avant le lime.
-
-   La page d'histoire avait le même défaut, sa marque posée sur la gouttière
-   au-dessus du titre : deux cent vingt pixels avant de lire « Notre
-   histoire ». Elle suit la même règle, mais reste alignée à gauche, sur la
-   gouttière du titre qu'elle accompagne.
+   Elle passe donc après l'accroche, alignée à gauche sur la gouttière du
+   titre qu'elle accompagne : la page s'ouvre sur son titre, et la marque
+   referme la scène. L'accueil a suivi la même règle jusqu'à ce que sa
+   spirale devienne le soleil de la fresque.
 
    `order` plutôt qu'un déplacement dans le HTML : la marque reste le premier
-   enfant de l'ouverture dans les dix pages concernées, donc elle reste le
+   enfant de l'ouverture dans les cinq pages concernées, donc elle reste le
    premier élément que la grille de 1000 px place en colonne 2, et rien ne
    bouge dans le balisage. Elle est `aria-hidden`, donc son rang dans l'ordre
    de lecture ne regarde personne. */
@@ -1058,18 +1138,6 @@ em {
     order: 1;
     margin-top: 3rem;
     margin-bottom: 0;
-  }
-
-  /* Sur l'accueil elle se range à droite : le titre, l'accroche et les deux
-     sorties sont tous alignés à gauche, et une spirale posée sous eux, à
-     gauche elle aussi, ne ferait qu'allonger la même colonne. À droite, elle
-     ferme le bloc en diagonale. Sur les pages intérieures elle reste sur la
-     gouttière, alignée sur le titre qu'elle accompagne. */
-  .opening--accueil .mark-opening {
-    width: 9.5rem;
-    height: 9.5rem;
-    margin-left: auto;
-    margin-right: -0.4rem;
   }
 }
 

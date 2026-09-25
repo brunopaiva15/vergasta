@@ -318,6 +318,107 @@
     return f;
   }
 
+  /** Une crête du Jura, pour la fresque de l'accueil.
+   *
+   *  Le Jura plissé ne fait pas de pics : ce sont de longues croupes
+   *  parallèles, arrondies, qui se chevauchent en s'éloignant. Trois
+   *  harmoniques lentes suffisent, la plus haute à peine marquée, pour que la
+   *  ligne ondule sans jamais pointer.
+   *
+   *  L'abscisse est mesurée en hauteurs de canevas depuis le milieu, et non en
+   *  fraction de la largeur : le paysage garde ses proportions à toutes les
+   *  largeurs, et un écran étroit en montre le centre au lieu de tasser toute
+   *  la chaîne dans trois cents pixels. Le tracé déborde d'un poil des deux
+   *  bords pour que la brosse n'y démarre pas à vide.
+   *
+   *  `base` et `amp` sont en fraction de la hauteur, `freq` en ondulations par
+   *  hauteur, `phase` décale la chaîne pour que deux crêtes ne se superposent
+   *  pas trait pour trait. */
+  function crete(w, h, base, amp, freq, phase) {
+    var pts = [];
+    var steps = Math.max(120, Math.round(w / 4));
+    var x0 = -w * 0.02;
+    var x1 = w * 1.02;
+    for (var i = 0; i <= steps; i++) {
+      var x = x0 + (x1 - x0) * (i / steps);
+      pts.push({ x: x, y: creteY(w, h, x, base, amp, freq, phase) });
+    }
+    return build(pts);
+  }
+
+  /** La hauteur d'une crête à l'abscisse `x`. `crete` la suit point par
+   *  point, et les éoliennes s'y plantent sans construire le chemin. */
+  function creteY(w, h, x, base, amp, freq, phase) {
+    var u = (x - w / 2) / h;
+    var d = 0.55 * Math.sin(u * freq + phase)
+      + 0.30 * Math.sin(u * freq * 2.13 + phase * 1.7 + 0.8)
+      + 0.15 * Math.sin(u * freq * 4.71 + phase * 0.6 + 2.1);
+    return h * base - h * amp * d;
+  }
+
+  /** Un segment droit, pour les mâts et les pales. */
+  function segment(xa, ya, xb, yb, steps) {
+    var pts = [];
+    for (var i = 0; i <= steps; i++) {
+      var t = i / steps;
+      pts.push({ x: xa + (xb - xa) * t, y: ya + (yb - ya) * t });
+    }
+    return build(pts);
+  }
+
+  /** Une pièce d'éolienne plantée sur la crête du Mont-Soleil : le mât
+   *  (`piece` 0) ou l'une des trois pales (1 à 3). `k` place l'éolienne en
+   *  hauteurs de canevas depuis le milieu, comme `crete`, et `angle` tourne
+   *  son rotor. Une brosse ne trace qu'un chemin continu : chaque pièce est
+   *  donc sa propre couche, sans quoi le pinceau relierait les éoliennes
+   *  entre elles. */
+  function eolienne(k, angle, piece) {
+    return function (w, h) {
+      // Sur un écran étroit, les éoliennes se resserrent vers le milieu pour
+      // qu'au moins une reste dans le cadre.
+      var x = w / 2 + k * Math.min(h, w * 0.5);
+      var l = h * 0.12;
+      // Une éolienne coupée par le bord se lit comme un accident : elle est
+      // dans le cadre en entier, ou pas du tout.
+      if (x - l * 1.1 < 0 || x + l * 1.1 > w) return [];
+      var pied = creteY(w, h, x, MONT_SOLEIL[0], MONT_SOLEIL[1], MONT_SOLEIL[2], MONT_SOLEIL[3]);
+      var moyeu = pied - h * 0.26;
+      if (piece === 0) return segment(x, pied, x, moyeu, 24);
+      var a = angle + (piece - 1) * Math.PI * 2 / 3;
+      return segment(x, moyeu, x + Math.cos(a) * l, moyeu + Math.sin(a) * l, 16);
+    };
+  }
+
+  /* La crête du milieu de la fresque : base, amplitude, fréquence, phase. Elle
+     est nommée parce que les éoliennes s'y plantent. */
+  var MONT_SOLEIL = [0.67, 0.10, 2.0, 2.0];
+
+  /* Le soleil se lève à droite du titre, dans le ciel au-dessus des crêtes.
+     Sur un écran étroit il rentre vers le milieu pour rester dans le cadre. */
+  function soleilX(w, h) {
+    return w / 2 + Math.min(h * 1.1, w * 0.3);
+  }
+
+  /** Les couches d'une rangée d'éoliennes : un mât puis trois pales chacune,
+   *  la suivante un peu après la précédente. Chaque rotor est tourné d'un
+   *  angle différent : trois éoliennes arrêtées dans la même position se
+   *  liraient comme un motif répété. */
+  function eoliennes(positions, retard) {
+    var out = [];
+    for (var i = 0; i < positions.length; i++) {
+      var angle = -Math.PI / 2 + i * 0.7;
+      for (var piece = 0; piece < 4; piece++) {
+        out.push({
+          brush: "carres", ink: "encre", alpha: 0.8,
+          delay: retard + i * 140 + (piece ? 90 : 0),
+          over: { size: 0.016, spacing: 0.75 },
+          path: eolienne(positions[i], angle, piece)
+        });
+      }
+    }
+    return out;
+  }
+
   /** Arc de cercle. */
   function arc(cx, cy, r, a0, a1, steps) {
     var pts = [];
@@ -479,22 +580,82 @@
    * ------------------------------------------------------------------ */
 
   var MARKS = {
-    /* Ouverture : deux spirales décalées, bleu et magenta, comme une épreuve
-       imprimée en deux couleurs mal calées. */
-    ouverture: [
+    /* La fresque de l'accueil : le Jura vu de St-Imier, peint à la brosse sur
+       toute la largeur de l'ouverture, posé sur le bandeau lime qui lui sert
+       de sol.
+
+       Trois crêtes qui s'étagent, de la plus lointaine à la plus proche, et
+       dont la brosse se resserre à mesure qu'elles approchent : une dérive
+       cyan en semis pour le lointain, qui se lit comme une brume, une plume
+       bleue pour la crête du milieu, une touffe olive pour la plus proche,
+       doublée de deux passes de carrés qui lui donnent une épaisseur de
+       forêt. Au-dessus, la spirale de l'atelier fait le soleil, en deux passes
+       mal calées comme l'ancienne marque d'ouverture, qu'elle remplace ; sur
+       la crête du milieu, les éoliennes du Mont-Soleil, à l'encre.
+
+       Tout est posé de gauche à droite, couche après couche, du fond vers le
+       devant : c'est une main qui peint un paysage, pas une image qui
+       apparaît. Les retards donnent l'ordre, et la dernière couche est posée
+       en un peu plus de deux secondes. */
+    fresque: [
       {
-        brush: "peigne", ink: "bleu",
+        brush: "peigne", ink: "orange",
+        over: { size: 0.05, spacing: 0.17 },
         path: function (w, h) {
-          return spiral(w * 0.5, h * 0.5, Math.min(w, h) * 0.40, 2.15, -Math.PI * 0.55, 900);
+          return spiral(soleilX(w, h), h * 0.19, h * 0.15, 2.1, -Math.PI * 0.55, 600);
         }
       },
       {
-        brush: "projection", ink: "magenta", alpha: 0.85, delay: 220,
+        brush: "projection", ink: "magenta", alpha: 0.85, delay: 160,
+        over: { size: 0.055 },
         path: function (w, h) {
-          return spiral(w * 0.52, h * 0.48, Math.min(w, h) * 0.34, 1.85, -Math.PI * 0.15, 700);
+          return spiral(soleilX(w, h) + h * 0.01, h * 0.18, h * 0.12, 1.8, -Math.PI * 0.15, 500);
         }
+      },
+      /* le lointain : une brume cyan, et une seconde passe plus claire dessous */
+      {
+        brush: "derive", ink: "cyan", alpha: 0.8, delay: 120,
+        over: { size: 0.034, spacing: 0.40, scatter: 0.55 },
+        path: function (w, h) { return crete(w, h, 0.47, 0.15, 1.5, 0.4); }
+      },
+      {
+        brush: "derive", ink: "cyan", alpha: 0.35, delay: 220,
+        over: { size: 0.03, spacing: 0.9, scatter: 1.2 },
+        path: function (w, h) { return crete(w, h, 0.53, 0.13, 1.5, 0.4); }
+      },
+      /* le Mont-Soleil : un peigne bleu, et des carrés qui le remplissent */
+      {
+        brush: "peigne", ink: "bleu", delay: 320,
+        over: { size: 0.05, spacing: 0.16 },
+        path: function (w, h) {
+          return crete(w, h, MONT_SOLEIL[0], MONT_SOLEIL[1], MONT_SOLEIL[2], MONT_SOLEIL[3]);
+        }
+      },
+      {
+        brush: "carres", ink: "bleu", alpha: 0.45, delay: 440,
+        over: { size: 0.03, spacing: 1.1, jitter: 0.5 },
+        path: function (w, h) {
+          return crete(w, h, MONT_SOLEIL[0] + 0.06, MONT_SOLEIL[1] * 0.9, MONT_SOLEIL[2], MONT_SOLEIL[3]);
+        }
+      },
+      /* le premier plan : une touffe olive, épaissie de deux passes de carrés
+         qui s'éclaircissent vers le sol */
+      {
+        brush: "touffe", ink: "olive", delay: 520,
+        over: { size: 0.055, spacing: 0.26 },
+        path: function (w, h) { return crete(w, h, 0.86, 0.065, 2.6, 4.1); }
+      },
+      {
+        brush: "carres", ink: "olive", alpha: 0.55, delay: 660,
+        over: { size: 0.036, spacing: 0.9, jitter: 0.4 },
+        path: function (w, h) { return crete(w, h, 0.915, 0.05, 2.6, 4.1); }
+      },
+      {
+        brush: "carres", ink: "olive", alpha: 0.3, delay: 800,
+        over: { size: 0.03, spacing: 1.3, jitter: 0.6 },
+        path: function (w, h) { return crete(w, h, 0.965, 0.035, 2.6, 4.1); }
       }
-    ],
+    ].concat(eoliennes([-0.6, -1.0, -1.45], 940)),
 
     /* Métier : tissage cyan sur un arc. L'empreinte diagonale pivote avec la
        courbe et les tampons s'entrelacent. */

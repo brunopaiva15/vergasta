@@ -279,24 +279,40 @@ ronds, ni ombre ni bordure. Le reste, c'est du texte sur le blanc.
 
 Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 
-1. **l'ouverture**, sur le papier, qui réserve `min(78vh, 42rem)` : l'accueil
-   s'ouvre sur un écran, pas sur un paragraphe. Le titre et les deux sorties à
-   gauche, la marque à la brosse à droite. Sous 1000 px, où il n'y a plus deux
-   colonnes, la marque passe **après les deux sorties** : voir §6 ;
-2. **le bandeau défilant**, lime, pleine largeur ;
-3. les quatre **cartes** des métiers, en bento ;
-4. le **déroulé** en trois colonnes ;
-5. le **tableau** des réalisations, posé sur une grande carte ;
-6. le **bloc de contact**, seule carte en aplat lime ;
-7. le **pied de page**, carte d'encre détachée des bords de la fenêtre.
+1. **la scène** (`.scene`), qui prend toute la hauteur de la fenêtre, moins
+   l'en-tête et le bandeau : l'accueil s'ouvre sur un écran, pas sur un
+   paragraphe. Au milieu, centrés, la petite croix du logo, le titre en
+   Gabarito 500 et une ligne en gras gris qui dit qui parle, reprise du titre
+   de la page (« Atelier web à St-Imier ») plutôt qu'une formule de plus à
+   traduire cinq fois. En bas, sur toute la largeur, **la fresque** peinte à
+   la brosse (§6) ;
+2. **le bandeau défilant**, lime, pleine largeur, qui sert de sol à la
+   fresque et ferme le premier écran ;
+3. la **bannière d'Auxine** (voir plus bas) ;
+4. **l'accroche** (`.accroche`) : la phrase qui dit ce que fait l'atelier, et
+   les deux sorties, le formulaire et le renvoi vers les réalisations ;
+5. les quatre **cartes** des métiers, en bento ;
+6. le **déroulé** en trois colonnes ;
+7. le **tableau** des réalisations, posé sur une grande carte ;
+8. le **bloc de contact**, seule carte en aplat lime ;
+9. le **pied de page**, carte d'encre détachée des bords de la fenêtre.
+
+**La hauteur de la scène** vaut `100svh` moins l'en-tête et le bandeau, et non
+`100vh` : la barre d'adresse d'un téléphone ne pousse pas le bandeau hors de
+l'écran. La hauteur de l'en-tête y est écrite en dur (`--entete`, trois
+valeurs selon qu'il tient sur une, deux ou trois lignes) : elle a été mesurée,
+et elle tombera avec la refonte de l'en-tête. Sur un écran bas, c'est le
+titre qui rapetisse (son corps est plafonné par la hauteur de la fenêtre,
+`min(5.6vw, 7.2vh)`) et le blanc au-dessus de lui qui cède, jamais le
+paysage.
 
 Deux blocs de couleur seulement, le bandeau et le contact, et un bloc sombre
 pour finir. Entre eux, du blanc et des cartes crème.
 
 ### L'exception : la sortie d'Auxine
 
-Pour la sortie d'Auxine sur l'App Store, une carte verte est posée **avant
-l'ouverture**, sur les pages d'accueil française, anglaise, allemande et
+Pour la sortie d'Auxine sur l'App Store, une carte verte est posée **juste
+sous le bandeau**, premier bloc après la scène, sur les pages d'accueil française, anglaise, allemande et
 italienne. Le japonais n'en a pas, pour la même raison que son tableau ne liste
 pas Auxine : l'app n'existe pas dans cette langue.
 
@@ -347,7 +363,7 @@ visiteur qui sait déjà ce qu'il veut n'a plus à traverser l'accueil. Leurs
 libellés sont ceux que la page porte déjà ailleurs, pas des formules de plus à
 traduire cinq fois.
 
-**Bandeau défilant `.ribbon`.** Une bande lime en travers, sous l'ouverture, où
+**Bandeau défilant `.ribbon`.** Une bande lime en travers, sous la scène, où
 la devise passe en boucle, séparée par l'étoile pixel. Une copie de la devise
 passe en quinze secondes. **Seize copies identiques, et la piste avance d'une
 seule copie par tour** : quand elle revient à zéro, la copie suivante est
@@ -619,8 +635,7 @@ de cette grille, ce qui évite de toucher au HTML des vingt-six pages.
 Avant cela, l'enroulement du `flex` cassait où il pouvait : sur un téléphone,
 la marque, puis la navigation coupée en deux, puis les langues, quatre lignes
 et deux cents pixels de haut avant le premier mot de la page, soit le quart
-d'un écran. Il en reste cent cinquante, et l'ouverture de l'accueil tient
-maintenant sur le premier écran, ses deux sorties comprises.
+d'un écran. Il en reste cent cinquante.
 
 **Rien ne se replie derrière un bouton**, ni ici ni ailleurs. À cinq entrées,
 une liste ouverte se lit d'un coup d'œil et fonctionne sans JavaScript : c'est
@@ -804,7 +819,8 @@ tire la carte de visite, ni en mouvement réduit : ces trois cas recevaient une
 
 **Ce qui reste de mouvement sur l'ouverture** est la montée du titre, de
 l'accroche et des sorties (`arrivee`) : un demi-centimètre vers le haut et un
-reste de flou, décalés de 0,1 à 0,42 seconde. C'est la page qui arrive, pas la
+reste de flou, décalés de 0,1 à 0,42 seconde. Sur l'accueil, ce sont la
+croix, le titre et la ligne de la scène qui montent. C'est la page qui arrive, pas la
 marque. Celle-là est bien neutralisée à l'impression et en mouvement réduit.
 
 **La coupe latérale du corps de page reste** (`overflow-x: clip`, §4). Elle
@@ -812,6 +828,9 @@ avait été posée pour l'entrée hors cadre de la marque ; elle ne coûte rien 
 tient toujours la page à sa largeur, en cinq langues et sur six pages.
 
 ### Sous 1000 px, la marque ferme l'ouverture
+
+Cette règle ne vaut plus que pour la page d'histoire : l'accueil a remplacé sa
+spirale par la fresque, posée sous le titre à toutes les largeurs.
 
 Au-delà de 1000 px, l'ouverture a deux colonnes et la marque tient dans la
 seconde : elle ne coûte pas une ligne au texte. En dessous il n'y a plus qu'une
@@ -838,6 +857,56 @@ déplacement dans le HTML : la marque reste le premier enfant dans les dix pages
 concernées, donc elle reste ce que la grille de 1000 px place en colonne 2, et
 le balisage ne bouge pas. Elle est `aria-hidden`, donc son rang dans l'ordre de
 lecture ne regarde personne.
+
+### La fresque de l'accueil
+
+`fresque` est la seule marque qui prenne toute la largeur de la fenêtre. C'est
+le Jura vu de St-Imier : trois crêtes qui s'étagent, un soleil, et les
+éoliennes du Mont-Soleil. Elle tient la place que BlockAbo donne à une
+photographie en bas de son premier écran, mais peinte, avec les brosses et les
+encres de tout le site.
+
+**Les crêtes.** `crete` superpose trois harmoniques lentes, la plus haute à
+peine marquée : le Jura plissé fait de longues croupes arrondies, pas des pics.
+La brosse se resserre à mesure que la crête approche : une dérive cyan en
+semis pour le lointain, qui se lit comme une brume ; un peigne bleu pour la
+crête du milieu, le Mont-Soleil ; une touffe olive pour le premier plan. Sous
+chacune, une ou deux passes plus claires et plus lâches lui donnent un
+volume, une épaisseur de forêt, là où un trait seul ne ferait qu'une ligne.
+
+**L'abscisse est mesurée en hauteurs de canevas depuis le milieu**, pas en
+fraction de la largeur. Le paysage garde donc ses proportions à toutes les
+largeurs : un téléphone en montre le centre, un grand écran la chaîne entière,
+et ni l'un ni l'autre ne tasse ou n'étire les collines. C'est la même raison
+que pour le fil (`size` sur le petit côté), appliquée au chemin.
+
+**Le soleil est la spirale de l'atelier**, en deux passes mal calées, orange
+et magenta. Elle faisait la marque d'ouverture de l'accueil ; elle est restée,
+à une autre place. Sur un écran étroit, elle rentre vers le milieu pour rester
+dans le cadre.
+
+**Les éoliennes** sont plantées sur la crête du milieu (`creteY` donne la
+hauteur de la crête sans construire le chemin, et `crete` passe par la même
+fonction, donc elles tombent toujours dessus). Chaque pièce, mât ou pale, est
+sa propre couche : une brosse ne trace qu'un chemin continu, et sans cela le
+pinceau relierait les éoliennes entre elles. Elles sont en carrés à l'encre,
+pas en trait : un trait noir fin se lisait comme un pictogramme posé sur une
+peinture. **Une éolienne est dans le cadre en entier ou n'y est pas** : coupée
+par le bord de l'écran, elle se lisait comme un accident. Sur un téléphone il
+en reste une.
+
+**L'ordre de pose est celui d'une main qui peint un paysage** : le soleil et le
+lointain d'abord, puis le milieu, le premier plan, et les éoliennes en dernier.
+Chaque couche part de la gauche. La dernière est posée en un peu plus de deux
+secondes. À 1920 px et en densité 2, le dessin tient soixante images par
+seconde, sans image lente : c'est mesuré.
+
+**Sans JavaScript**, la fresque est un blanc sous le titre, fermé par le
+bandeau. C'est le seul endroit du site où l'absence de script laisse une
+surface vide de cette taille ; la composition tient (un titre centré sur un
+écran blanc, posé sur une bande lime), et c'est pourquoi on l'a gardée plutôt
+que d'ajouter un mécanisme de détection. Si la fresque grandit encore, la
+question se reposera.
 
 ### Ajouter une marque
 
@@ -998,7 +1067,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=19`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=20`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1027,12 +1096,13 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
 ## 8. Vérifications avant de pousser
 
 - rendu en 1440 px et 390 px, accueil et une page légale,
-- sous 1000 px, la marque de l'ouverture est **après** le texte et le titre
-  tombe juste sous l'en-tête, sur l'accueil comme sur la page d'histoire, dans
-  les cinq langues (voir §6),
-- l'entrée de la marque d'ouverture : elle vient du haut à droite, revient à sa
-  place en s'enroulant, finit nette, et **la page ne se laisse pas tirer de
-  côté pendant ce temps** (§4, §6),
+- sous 1000 px, sur la page d'histoire, la marque de l'ouverture est
+  **après** le texte et le titre tombe juste sous l'en-tête, dans les cinq
+  langues (voir §6),
+- la scène de l'accueil : le bandeau ferme le premier écran à 1440 × 900,
+  1280 × 720 et 390 × 844, la fresque se peint de gauche à droite sans
+  éolienne coupée par le bord, et **la page ne se laisse pas tirer de côté**
+  (§4, §6),
 - états de survol : navigation, ligne de tableau qui passe au blanc, cartes,
   bouton sur ses deux fonds (blanc et bloc lime), pilules qui grossissent sur
   le ressort et restent immobiles en mouvement réduit, marques de presse, qui

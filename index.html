@@ -39,11 +39,11 @@
   <link rel="preload" href="fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="styles.css?v=20">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="lancement/lancement.css?v=1">
   <script src="lancement/lancement.js?v=1" defer></script>
-  <script src="brushes.js?v=19" defer></script>
+  <script src="brushes.js?v=20" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -174,7 +174,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="lang.js?v=19"></script>
+  <script src="lang.js?v=20"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -203,6 +203,24 @@
   </header>
 
   <main>
+    <section class="scene" aria-labelledby="scene-titre">
+      <div class="scene-texte wrap">
+        <img class="scene-croix" src="logo_vergasta.png" width="435" height="520" alt="">
+        <h1 id="scene-titre">Des sites et des applications pour les entreprises d’ici.</h1>
+        <p class="scene-sous-titre">Atelier web à St-Imier</p>
+      </div>
+      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true"></div>
+    </section>
+
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon-track">
+        <span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span>
+        <span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span>
+        <span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span>
+        <span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span>
+      </div>
+    </div>
+
     <aside class="lancement wrap" aria-labelledby="lancement-titre">
       <div class="lancement-carte">
         <div class="lancement-fond" aria-hidden="true"></div>
@@ -219,9 +237,7 @@
         </div>
       </div>
     </aside>
-    <section class="opening opening--accueil wrap">
-      <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
-      <h1>Des sites et des applications pour les entreprises d’ici.</h1>
+    <section class="accroche wrap">
       <div class="opening-body">
         <p>
           Vergasta Digital est un atelier web installé à la rue du Temple, à St-Imier.
@@ -234,15 +250,6 @@
         <a class="opening-jump" href="#realisations">Voir les réalisations</a>
       </div>
     </section>
-
-    <div class="ribbon" aria-hidden="true">
-      <div class="ribbon-track">
-        <span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span>
-        <span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span>
-        <span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span>
-        <span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span><span>Par la région, pour la région.</span>
-      </div>
-    </div>
 
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
       <div class="slab-head"><div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div><h2 id="metier-title">Ce que nous faisons</h2></div>

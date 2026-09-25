@@ -39,11 +39,11 @@
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=19">
+  <link rel="stylesheet" href="../styles.css?v=20">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="../lancement/lancement.css?v=1">
   <script src="../lancement/lancement.js?v=1" defer></script>
-  <script src="../brushes.js?v=19" defer></script>
+  <script src="../brushes.js?v=20" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -186,7 +186,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=19"></script>
+  <script src="../lang.js?v=20"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -215,36 +215,13 @@
   </header>
 
   <main>
-    <aside class="lancement wrap" aria-labelledby="lancement-titre">
-      <div class="lancement-carte">
-        <div class="lancement-fond" aria-hidden="true"></div>
-        <canvas class="lancement-confettis" aria-hidden="true"></canvas>
-        <div class="lancement-pot" aria-hidden="true"><img class="pot" src="../lancement/pot.webp" width="1024" height="1024" alt=""></div>
-        <div class="lancement-tete">
-          <p class="lancement-badge">Neu</p>
-          <h2 id="lancement-titre">Auxine ist im App Store</h2>
-        </div>
-        <p class="lancement-corps">Die App, die wir für die Pflege Ihrer Pflanzen auf iPhone und iPad entwickelt haben, ist jetzt erhältlich. Sie bestimmen eine Pflanze per Foto, auch ohne Internetverbindung, und halten ihre Pflege und ihr Wachstum fest.</p>
-        <div class="lancement-actions">
-          <a class="lancement-pilule" href="https://apps.apple.com/us/app/auxine-plant-journal/id6809751489" target="_blank" rel="noopener noreferrer">Im App Store laden</a>
-          <a class="lancement-lien" href="../auxine/de/">Auxine entdecken</a>
-        </div>
+    <section class="scene" aria-labelledby="scene-titre">
+      <div class="scene-texte wrap">
+        <img class="scene-croix" src="../logo_vergasta.png" width="435" height="520" alt="">
+        <h1 id="scene-titre">Websites und Anwendungen für die Betriebe von hier.</h1>
+        <p class="scene-sous-titre">Webwerkstatt in St-Imier</p>
       </div>
-    </aside>
-    <section class="opening opening--accueil wrap">
-      <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
-      <h1>Websites und Anwendungen für die Betriebe von hier.</h1>
-      <div class="opening-body">
-        <p>
-          Vergasta Digital ist eine Webwerkstatt an der Rue du Temple in St-Imier.
-          Wir schreiben Präsentationswebsites, interne Werkzeuge und Onlineshops für
-          Handwerksbetriebe, Ladengeschäfte und Selbstständige im Berner Jura.
-        </p>
-      </div>
-        <div class="opening-actions">
-          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Formular ausfüllen</a>
-          <a class="opening-jump" href="#realisations">Arbeiten ansehen</a>
-        </div>
+      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true"></div>
     </section>
 
     <div class="ribbon" aria-hidden="true">
@@ -267,6 +244,36 @@
         <span>Aus der Region, für die Region.</span>
       </div>
     </div>
+
+    <aside class="lancement wrap" aria-labelledby="lancement-titre">
+      <div class="lancement-carte">
+        <div class="lancement-fond" aria-hidden="true"></div>
+        <canvas class="lancement-confettis" aria-hidden="true"></canvas>
+        <div class="lancement-pot" aria-hidden="true"><img class="pot" src="../lancement/pot.webp" width="1024" height="1024" alt=""></div>
+        <div class="lancement-tete">
+          <p class="lancement-badge">Neu</p>
+          <h2 id="lancement-titre">Auxine ist im App Store</h2>
+        </div>
+        <p class="lancement-corps">Die App, die wir für die Pflege Ihrer Pflanzen auf iPhone und iPad entwickelt haben, ist jetzt erhältlich. Sie bestimmen eine Pflanze per Foto, auch ohne Internetverbindung, und halten ihre Pflege und ihr Wachstum fest.</p>
+        <div class="lancement-actions">
+          <a class="lancement-pilule" href="https://apps.apple.com/us/app/auxine-plant-journal/id6809751489" target="_blank" rel="noopener noreferrer">Im App Store laden</a>
+          <a class="lancement-lien" href="../auxine/de/">Auxine entdecken</a>
+        </div>
+      </div>
+    </aside>
+    <section class="accroche wrap">
+      <div class="opening-body">
+        <p>
+          Vergasta Digital ist eine Webwerkstatt an der Rue du Temple in St-Imier.
+          Wir schreiben Präsentationswebsites, interne Werkzeuge und Onlineshops für
+          Handwerksbetriebe, Ladengeschäfte und Selbstständige im Berner Jura.
+        </p>
+      </div>
+      <div class="opening-actions">
+        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Formular ausfüllen</a>
+        <a class="opening-jump" href="#realisations">Arbeiten ansehen</a>
+      </div>
+    </section>
 
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
       <div class="slab-head">

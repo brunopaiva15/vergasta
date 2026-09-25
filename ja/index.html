@@ -40,8 +40,8 @@
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/pixelmplus12-japonais.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=19">
-  <script src="../brushes.js?v=19" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=20">
+  <script src="../brushes.js?v=20" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -184,7 +184,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=19"></script>
+  <script src="../lang.js?v=20"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -213,20 +213,13 @@
   </header>
 
   <main>
-    <section class="opening opening--accueil wrap">
-      <div class="mark mark-opening" data-mark="ouverture" aria-hidden="true"></div>
-      <h1>地元の企業のためのウェブサイトとアプリケーション。</h1>
-      <div class="opening-body">
-        <p>
-          Vergasta Digital は、サンティミエのタンプル通りにあるウェブ制作のアトリエです。
-          ベルン・ジュラ地方の職人、商店主、個人事業主のために、紹介サイト、社内向けの
-          ツール、オンラインショップを書いています。
-        </p>
+    <section class="scene" aria-labelledby="scene-titre">
+      <div class="scene-texte wrap">
+        <img class="scene-croix" src="../logo_vergasta.png" width="435" height="520" alt="">
+        <h1 id="scene-titre">地元の企業のためのウェブサイトとアプリケーション。</h1>
+        <p class="scene-sous-titre">サンティミエのウェブ制作アトリエ</p>
       </div>
-        <div class="opening-actions">
-          <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
-          <a class="opening-jump" href="#realisations">実績を見る</a>
-        </div>
+      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true"></div>
     </section>
 
     <div class="ribbon" aria-hidden="true">
@@ -249,6 +242,20 @@
         <span>地元から、地元のために。</span>
       </div>
     </div>
+
+    <section class="accroche wrap">
+      <div class="opening-body">
+        <p>
+          Vergasta Digital は、サンティミエのタンプル通りにあるウェブ制作のアトリエです。
+          ベルン・ジュラ地方の職人、商店主、個人事業主のために、紹介サイト、社内向けの
+          ツール、オンラインショップを書いています。
+        </p>
+      </div>
+      <div class="opening-actions">
+        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
+        <a class="opening-jump" href="#realisations">実績を見る</a>
+      </div>
+    </section>
 
     <section id="metier" class="slab wrap" aria-labelledby="metier-title">
       <div class="slab-head">
