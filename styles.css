@@ -530,7 +530,6 @@ em {
 
 /* Sur le papier, rien ne monte ni ne défile : la page est déjà arrivée. */
 @media print {
-  .ribbon-track,
   .opening h1,
   .opening-body,
   .opening-actions,
@@ -834,17 +833,15 @@ a.entete-pilule--encre:focus-visible {
 
    L'accueil s'ouvre sur un écran entier, pas sur un paragraphe : la petite
    croix du logo, le titre, une ligne pour dire qui parle, et dessous, sur
-   toute la largeur, la fresque du Jura peinte à la brosse. Elle est posée
-   sur le bandeau lime, qui lui sert de sol : le paysage tient sur une ligne,
-   comme une photographie posée sur un bord de table.
+   toute la largeur, la fresque du Jura peinte à la brosse.
 
-   La scène réserve la hauteur de la fenêtre, moins l'en-tête au-dessus et le
-   bandeau au-dessous : le bandeau ferme le premier écran, et ce qui suit
-   commence juste sous la ligne de flottaison. `svh` et non `vh`, pour que la
-   barre d'adresse d'un téléphone ne pousse pas le bandeau hors de l'écran.
+   La scène réserve la hauteur de la fenêtre, moins l'en-tête au-dessus : la
+   fresque ferme le premier écran, et ce qui suit commence juste sous la ligne
+   de flottaison. `svh` et non `vh`, pour que la barre d'adresse d'un
+   téléphone ne pousse pas la fresque hors de l'écran.
 
    La scène n'a pas de largeur maximale : la fresque va d'un bord à l'autre de
-   l'écran, quelle que soit sa largeur, comme le bandeau qui lui sert de sol.
+   l'écran, quelle que soit sa largeur.
    Elle était arrêtée à 1 600 px, et un grand écran la montrait posée au milieu
    d'une marge blanche. Le texte, lui, reste dans la colonne (`.wrap`).
 
@@ -855,11 +852,10 @@ a.entete-pilule--encre:focus-visible {
 
 .scene {
   --entete: 5.25rem;
-  --ruban: 2.75rem;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - var(--entete) - var(--ruban));
-  min-height: calc(100svh - var(--entete) - var(--ruban));
+  min-height: calc(100vh - var(--entete));
+  min-height: calc(100svh - var(--entete));
 }
 
 /* La hauteur de l'en-tête, mesurée : 84 px sur une ligne à partir de 950 px,
@@ -905,8 +901,8 @@ a.entete-pilule--encre:focus-visible {
 .scene h1 {
   font-weight: 500;
   /* Le corps suit la largeur, mais la hauteur le plafonne : sur un portable
-     bas, un titre de trois lignes à pleine taille pousserait la fresque et le
-     bandeau sous la ligne de flottaison. */
+     bas, un titre de trois lignes à pleine taille pousserait la fresque sous
+     la ligne de flottaison. */
   font-size: clamp(2.3rem, min(5.6vw, 7.2vh), 4.4rem);
   line-height: 1.08;
   letter-spacing: -0.035em;
@@ -979,76 +975,6 @@ a.entete-pilule--encre:focus-visible {
 
 .accroche .opening-actions {
   margin-top: clamp(2rem, 4vw, 3rem);
-}
-
-/* --------------------------------------------------------------------------
-   Le bandeau défilant
-
-   Une bande lime posée en travers, sous la scène, où la devise passe en
-   boucle. C'est le seul mouvement continu du site, et il est lent : une
-   copie de la devise passe en quinze secondes. Il ferme le noir et ouvre le
-   papier.
-
-   La devise est déjà portée par le pied de page : le bandeau est donc
-   `aria-hidden`, et seize fois le même mot ne va pas à la lecture d'écran.
-   -------------------------------------------------------------------------- */
-
-.ribbon {
-  overflow: hidden;
-  background: var(--lime);
-}
-
-.ribbon-track {
-  display: flex;
-  width: max-content;
-  /* Seize copies identiques, et la piste avance d'une seule copie par tour :
-     au moment où elle revient à zéro, la copie suivante est exactement là où
-     était la précédente, donc la boucle ne se voit pas.
-
-     Elle avançait de la moitié de la piste, avec six copies. Ça ne tient que
-     si trois copies couvrent la fenêtre, soit 800 px : sur un écran
-     d'ordinateur, le bout de la piste entrait dans le champ au bout de huit
-     secondes, le lime restait nu sur la droite jusqu'à la fin du tour, et
-     tout sautait en arrière. Avec quinze copies devant le point de reprise,
-     la piste couvre 3 900 px dans la langue la plus courte, le japonais.
-     Le nombre 16 est écrit deux fois : ici et dans les cinq pages d'accueil.
-     Ajouter des copies dans l'une sans toucher à l'autre casse la boucle. */
-  animation: ruban 14.7s linear infinite;
-}
-
-.ribbon span {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.015em;
-  line-height: 1;
-  padding: 0.85rem 0;
-}
-
-/* L'étoile pixel entre deux passages, la même que les puces. */
-.ribbon span::after {
-  content: "";
-  width: 0.75rem;
-  height: 0.75rem;
-  margin: 0 1.6rem;
-  background-color: var(--ink);
-  -webkit-mask: var(--etoile) center / contain no-repeat;
-  mask: var(--etoile) center / contain no-repeat;
-}
-
-@keyframes ruban {
-  to {
-    transform: translateX(calc(-100% / 16));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ribbon-track {
-    animation: none;
-  }
 }
 
 /* L'ouverture de la page d'histoire : le titre et l'accroche à gauche, la

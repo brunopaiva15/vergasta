@@ -602,8 +602,7 @@
 
   var MARKS = {
     /* La fresque de l'accueil : le Jura vu de St-Imier, peint à la brosse sur
-       toute la largeur de l'ouverture, posé sur le bandeau lime qui lui sert
-       de sol.
+       toute la largeur de l'ouverture.
 
        Trois crêtes qui s'étagent, de la plus lointaine à la plus proche, et
        dont la brosse se resserre à mesure qu'elles approchent : une dérive
