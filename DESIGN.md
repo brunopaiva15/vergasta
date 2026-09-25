@@ -258,11 +258,8 @@ ronds, ni ombre ni bordure. Le reste, c'est du texte sur le blanc.
   dessus (`max-width: calc(62rem + 2 * var(--gutter))`). La colonne valait
   66 rem : plus étroite, elle laisse plus de blanc de part et d'autre, et c'est
   ce blanc qui fait le calme de la page.
-- **L'en-tête garde 66 rem pour l'instant** (`.masthead.wrap`). Ses cinq
-  entrées et ses cinq langues n'y tiennent sur une ligne qu'au pixel près, et
-  la nouvelle colonne les renvoie sur deux lignes en français, en allemand et
-  en italien. Il déborde donc la colonne de deux rem de chaque côté, jusqu'à ce
-  qu'il soit réduit à deux pilules ; la règle tombera avec lui.
+- L'en-tête suit la même colonne : la marque tombe sur la gouttière du
+  contenu, et le dernier code de langue sur l'autre.
 - `--air` : la respiration verticale d'une section, en haut et en bas.
   3,75 rem, 6,5 rem au-delà de 800 px. **Une seule mesure pour tout le site** :
   si la page doit s'ouvrir davantage, c'est là que ça se règle, et nulle part
@@ -318,9 +315,11 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 
 **La hauteur de la scène** vaut `100svh` moins l'en-tête et le bandeau, et non
 `100vh` : la barre d'adresse d'un téléphone ne pousse pas le bandeau hors de
-l'écran. La hauteur de l'en-tête y est écrite en dur (`--entete`, trois
-valeurs selon qu'il tient sur une, deux ou trois lignes) : elle a été mesurée,
-et elle tombera avec la refonte de l'en-tête. Sur un écran bas, c'est le
+l'écran. La hauteur de l'en-tête y est écrite en dur (`--entete` : 84 px sur
+une ligne à partir de 950 px, 111 px sur deux lignes, 119 px sous 360 px),
+faute de pouvoir la lire en CSS : elle a été mesurée, et **elle se remesure si
+l'en-tête change**. Avec elle, le bandeau ferme exactement le premier écran à
+1440 × 900, 1280 × 720, 1024 × 768 et 390 × 844. Sur un écran bas, c'est le
 titre qui rapetisse (son corps est plafonné par la hauteur de la fenêtre,
 `min(5.6vw, 7.2vh)`) et le blanc au-dessus de lui qui cède, jamais le
 paysage.
@@ -690,44 +689,45 @@ passée à `new Date()`, qui l'interpréterait en UTC et décalerait d'un jour �
 l'ouest de Greenwich, exactement le jour de l'anniversaire. Aucune requête,
 aucun stockage : la propriété du §2 tient.
 
-**Navigation.** Liens en casse normale, pilule lime au survol. Cinq entrées
-depuis l'ajout de « Notre histoire ». La page courante y est un
-`<span class="is-current">` et non un lien, comme dans le sélecteur de langue.
-Le corps et les gouttières sont réglés au pixel près : la marque, les cinq
-entrées et les cinq langues tiennent sur une ligne de 66 rem en français, qui
-est la version la plus longue. Y toucher fait tomber la navigation sur une
-seconde ligne.
+**En-tête.** Celui de BlockAbo : la marque à gauche, deux pilules à droite,
+et en plus les cinq langues au bout de la ligne. Les deux pilules sont les deux
+actions de l'atelier : « Notre histoire », en crème et lime au survol, et
+« Remplir le formulaire », à l'encre ; libellés en capitales interlettrées
+comme toute action (§2), et le ressort au survol. Sur la page d'histoire, sa
+pilule est la page courante : un `<span class="is-current">`, sans aplat, avec
+un filet, comme la langue courante n'est pas un lien.
 
-**L'en-tête sous 1280 px.** Cette ligne unique ne tient qu'à partir de 1280 px.
-En dessous, la coupe est choisie plutôt que subie : `.masthead` devient une
-grille de deux lignes, la marque à gauche et les cinq langues à droite sur la
-première, la navigation sur toute la largeur sur la seconde. Le groupe de queue
-passe en `display: contents` pour que ses deux navigations deviennent des cases
-de cette grille, ce qui évite de toucher au HTML des vingt-six pages.
+**Il ne colle pas en haut de l'écran**, contrairement à celui de BlockAbo : le
+§7 proscrit l'en-tête collant, et la page est plus calme sans une barre qui la
+suit. Il n'y a toujours aucun `position: sticky` dans le site.
 
-Avant cela, l'enroulement du `flex` cassait où il pouvait : sur un téléphone,
-la marque, puis la navigation coupée en deux, puis les langues, quatre lignes
-et deux cents pixels de haut avant le premier mot de la page, soit le quart
-d'un écran. Il en reste cent cinquante.
+**Les cinq entrées de l'ancienne navigation sont descendues dans le pied de
+page** (§5, pied de page), où elles se retrouvent en colonnes sur chaque page.
+« Contact » a disparu : les deux pilules du formulaire, en haut et en bas, le
+remplacent. Les deux libellés existaient déjà dans chaque langue.
 
-**Rien ne se replie derrière un bouton**, ni ici ni ailleurs. À cinq entrées,
-une liste ouverte se lit d'un coup d'œil et fonctionne sans JavaScript : c'est
-déjà la raison qui vaut pour le sélecteur de langue, et elle vaut deux fois
-pour une navigation de cinq mots.
+**Une ligne à partir de 950 px, deux en dessous.** La ligne unique ne tient
+qu'à partir de 950 px en allemand, la langue la plus longue ; c'est mesuré. En
+dessous, `.masthead` devient une grille : la marque et les cinq langues sur la
+première ligne, les deux pilules dessous. Le groupe de queue passe en
+`display: contents` pour que les pilules et les langues deviennent des cases de
+cette grille sans toucher au HTML. Sur un téléphone, les pilules perdent un cran
+de corps et de rembourrage pour tenir côte à côte, et un de plus sous 360 px ;
+à 320 px, l'allemand et l'italien les renvoient quand même sur deux lignes, ce
+qui est accepté plutôt que de réduire encore un libellé d'action.
 
-**Les libellés tombent sur la gouttière.** Les pilules de la navigation sont
-invisibles au repos, mais leur rembourrage compte : sans marge négative sur les
-deux navigations, le premier libellé rentrait de douze pixels sur la gouttière
-et le dernier code de langue s'en écartait d'autant, alors que la marque et le
-titre de la page, eux, tombent dessus. C'est le même décalage optique que
-celui des marques à la brosse (`-0,35 rem` sur `.slab-mark`). La seule pilule
-visible au repos, celle de la page courante, déborde donc la gouttière du
-rembourrage : c'est un alinéa négatif, et il vaut mieux que cinq libellés
-décalés.
+**Rien ne se replie derrière un bouton**, ni ici ni ailleurs. Les langues
+restent une liste ouverte, qui se lit d'un coup d'œil et fonctionne sans
+JavaScript.
+
+**Les langues tombent sur la gouttière.** Les codes de langue sont des
+pilules invisibles au repos, mais leur rembourrage compte : sans marge négative,
+le dernier code s'écarterait de la gouttière de huit pixels, alors que la
+marque, elle, tombe dessus.
 
 **Sélecteur de langue `.lang-nav`.** Cinq codes à deux lettres dans la bitmap,
-posés à droite de la navigation, séparés par un filet simple à partir de
-1280 px. Le filet ne sépare les langues de la navigation que lorsque les deux
+posés à droite des pilules, séparés par un filet simple à partir de 950 px.
+Le filet ne sépare les langues des pilules que lorsque les deux
 se suivent sur la même ligne ; en grille, les langues sont posées au bout de la
 ligne de la marque, et un filet à leur gauche couperait la marque de son propre
 en-tête.
@@ -1142,7 +1142,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=26`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=27`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1197,10 +1197,10 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
 - mouvement réduit : la marque est peinte d'un coup au lieu d'être tracée, le
   texte de l'ouverture ne monte pas, le bandeau ne défile plus, et rien d'autre
   ne bouge,
-- la navigation tient sur une ligne en français à 1280 px et au-delà, et en
-  dessous l'en-tête tient sur deux lignes dans les cinq langues, de 320 px à
-  1279 px, sans que les langues descendent et sans qu'un libellé quitte la
-  gouttière (voir §5),
+- l'en-tête tient sur une ligne à 950 px et au-delà dans les cinq langues,
+  et en dessous sur deux lignes, les langues sur celle de la marque et les
+  deux pilules côte à côte, de 360 px à 949 px (voir §5) ; si sa hauteur a
+  changé, `--entete` a été remesuré (§4),
 - si un script ou une feuille servie a changé, l'estampille `?v=` a été
   incrémentée dans les vingt-six pages (voir §7 bis), sans quoi la
   modification restera invisible en ligne pendant quatre heures,

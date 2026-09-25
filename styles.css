@@ -597,29 +597,28 @@ em {
   border-bottom: 0;
 }
 
+/* L'en-tête de BlockAbo : la marque à gauche, deux pilules à droite, et rien
+   d'autre. Il porte en plus les cinq langues, au bout de la ligne.
+
+   Il ne colle pas en haut de l'écran au défilement, contrairement à celui de
+   BlockAbo : le §7 de DESIGN.md proscrit l'en-tête collant, et la page est
+   plus calme sans une barre qui la suit. Les deux pilules sont les deux
+   actions de l'atelier, lire son histoire et lui écrire ; le reste de la
+   navigation est descendu dans le pied de page, où il se retrouve en colonnes
+   sur chaque page, et l'accueil se parcourt au défilement. */
 .masthead {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  padding-top: 1.6rem;
+  gap: 0.75rem 1.25rem;
+  padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-/* L'en-tête garde l'ancienne mesure de 66 rem, le temps de sa refonte : la
-   marque, les cinq entrées et les cinq langues n'y tiennent sur une ligne
-   qu'au pixel près, et les 62 rem de la nouvelle colonne les renvoient sur
-   deux lignes en français, en allemand et en italien. Il déborde donc la
-   colonne de deux rem de chaque côté jusqu'à ce qu'il soit réduit à deux
-   pilules ; la règle tombera alors avec lui. */
-.masthead.wrap {
-  max-width: calc(66rem + 2 * var(--gutter));
 }
 
 /* La marque garde la bitmap : c'est la signature, et elle est faite des mêmes
    carrés que les marques à la brosse. */
 .brand {
+  margin-right: auto;
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -636,43 +635,69 @@ em {
   image-rendering: pixelated;
 }
 
-/* Navigation et langues forment un seul bloc à droite de la marque : sans ce
-   groupe, l'espacement de .masthead les écarterait aux deux bouts de la ligne. */
 .masthead-tail {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem 1rem;
+  gap: 0.5rem 1.25rem;
 }
 
-/* Cinq entrées, plus la marque et cinq langues, sur une ligne de 66 rem : en
-   français, qui est la version la plus longue, ça passe au pixel près. Toucher
-   à ce corps ou à ces gouttières fait tomber la navigation sur une seconde
-   ligne. */
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.35rem;
-  font-size: 0.86rem;
+  gap: 0.5rem;
 }
 
-.site-nav a {
-  padding: 0.4rem 0.75rem;
+/* Les deux pilules. Capitales interlettrées, comme tout libellé d'action
+   (§2) : la première en crème et lime au survol, comme la pilule secondaire
+   de l'accueil ; la seconde à l'encre, comme le bouton du formulaire. Toutes
+   deux grossissent sur le ressort. */
+.entete-pilule {
+  display: inline-block;
+  padding: 0.75rem 1.15rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-  transition: background 0.14s, border-color 0.14s;
+  background: var(--carte);
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background 0.14s, transform var(--ressort-duree) var(--ressort);
 }
 
-.site-nav a:hover {
+a.entete-pilule:hover,
+a.entete-pilule:focus-visible {
   background: var(--lime);
-  border-color: transparent;
+  transform: scale(1.05);
 }
 
-.site-nav .is-current {
-  padding: 0.4rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--rule);
+.entete-pilule--encre,
+a.entete-pilule--encre:hover,
+a.entete-pilule--encre:focus-visible {
+  background: var(--ink);
+  color: var(--sheet);
+}
+
+/* Sur la page d'histoire, sa pilule est la page courante : elle perd son
+   aplat et garde un filet, comme la langue courante perd son lien. */
+.entete-pilule.is-current {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--rule);
   color: var(--ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entete-pilule {
+    transition: background 0.14s;
+  }
+
+  a.entete-pilule:hover,
+  a.entete-pilule:focus-visible {
+    transform: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -691,11 +716,11 @@ em {
   gap: 0.2rem;
 }
 
-/* Le filet ne sépare les langues de la navigation que lorsque les deux se
-   suivent sur la même ligne. En grille, les langues sont posées au bout de la
+/* Le filet ne sépare les langues des pilules que lorsque les deux se suivent
+   sur la même ligne. Sur un téléphone, les langues sont posées au bout de la
    ligne de la marque : un filet à leur gauche y couperait la marque de son
    propre en-tête, et ne séparerait plus rien. */
-@media (min-width: 1280px) {
+@media (min-width: 950px) {
   .lang-nav {
     padding-left: 1rem;
     border-left: 1px solid var(--rule);
@@ -721,38 +746,22 @@ em {
   border-color: transparent;
 }
 
-/* --------------------------------------------------------------------------
-   L'en-tête tant que la ligne unique ne tient pas
+/* Sous 950 px, deux lignes tenues plutôt qu'un enroulement subi : la marque
+   et les cinq langues sur la première, les deux pilules dessous. La ligne
+   unique ne tient qu'à partir de 950 px en allemand, la langue la plus
+   longue ; c'est mesuré.
+   `display: contents` sur le groupe de queue fait des pilules et des langues
+   deux cases de la grille de l'en-tête, sans toucher au HTML.
 
-   La marque, les cinq entrées et les cinq langues tiennent sur une seule ligne
-   à partir de 1280 px, et c'est le réglage au pixel près décrit au §5. En
-   dessous elles n'y tiennent pas, et l'enroulement du `flex` les cassait
-   n'importe où : sur un téléphone, la marque, puis la navigation coupée en
-   deux, puis les langues, quatre lignes et deux cents pixels avant le premier
-   mot de la page ; sur une tablette, la marque seule au-dessus d'une queue qui
-   reprenait toute la largeur.
-
-   Ici la coupe est choisie plutôt que subie, en deux lignes tenues :
-
-   1. la marque à gauche, les cinq langues à droite. Le sélecteur est court et
-      il ne descend jamais : il tient sur la ligne de la marque comme il tient
-      au bout de la navigation sur grand écran ;
-   2. la navigation dessous, sur toute la largeur.
-
-   `display: contents` sur le groupe de queue : la navigation et les langues
-   deviennent des cases de la grille de l'en-tête sans que le HTML des
-   vingt-six pages change.
-
-   Rien ne se replie derrière un bouton. À cinq entrées, une liste ouverte se
-   lit d'un coup d'œil, et c'est déjà la raison qui vaut pour les langues (§5).
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 1279px) {
+   Les langues rentrent de leur rembourrage (marge négative), pour que le
+   dernier code tombe sur la gouttière comme la marque tombe sur l'autre. */
+@media (max-width: 949px) {
   .masthead {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 0.65rem 0.75rem;
+    gap: 0.85rem 0.75rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.1rem;
   }
 
   .masthead-tail {
@@ -762,41 +771,6 @@ em {
   .brand {
     grid-column: 1;
     grid-row: 1;
-  }
-
-  /* Les pilules sont invisibles au repos, mais leur rembourrage compte : sans
-     ces marges négatives, le premier libellé de la navigation rentrerait de
-     douze pixels sur la gouttière et le dernier code de langue s'en écarterait
-     d'autant. La marque et le titre de la page tombent sur la gouttière ; ces
-     deux lignes doivent y tomber aussi. C'est le même décalage optique que
-     celui des marques à la brosse. */
-  .lang-nav {
-    grid-column: 2;
-    grid-row: 1;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    margin-right: -0.5rem;
-  }
-
-  .site-nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin-left: -0.75rem;
-    margin-right: -0.75rem;
-  }
-}
-
-/* Sur un téléphone, les deux lignes se resserrent encore : la marque cède du
-   corps, c'est le seul des trois blocs dont la largeur se règle sans toucher à
-   un texte traduit cinq fois, et la navigation passe à un corps qui laisse
-   deux entrées françaises tenir côte à côte. */
-@media (max-width: 799px) {
-  .masthead {
-    padding-top: 1.25rem;
-    padding-bottom: 1.1rem;
-  }
-
-  .brand {
     font-size: clamp(1.15rem, 5.2vw, 1.45rem);
   }
 
@@ -805,6 +779,10 @@ em {
   }
 
   .lang-nav {
+    grid-column: 2;
+    grid-row: 1;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
     gap: 0.05rem;
     margin-right: -0.4rem;
   }
@@ -816,15 +794,25 @@ em {
   }
 
   .site-nav {
-    gap: 0.1rem 0;
-    font-size: 0.82rem;
-    margin-left: -0.6rem;
-    margin-right: -0.6rem;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 0.4rem;
   }
 
-  .site-nav a,
-  .site-nav .is-current {
-    padding: 0.4rem 0.6rem;
+  /* Deux pilules côte à côte jusqu'à 320 px, dans la langue la plus longue :
+     un cran de moins sur le corps, l'interlettrage et le rembourrage. */
+  .entete-pilule {
+    padding: 0.7rem 0.85rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (max-width: 359px) {
+  .entete-pilule {
+    padding: 0.65rem 0.7rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.04em;
   }
 }
 
@@ -857,7 +845,7 @@ em {
    -------------------------------------------------------------------------- */
 
 .scene {
-  --entete: 5.5rem;
+  --entete: 5.25rem;
   --ruban: 2.75rem;
   display: flex;
   flex-direction: column;
@@ -867,18 +855,19 @@ em {
   margin: 0 auto;
 }
 
-/* L'en-tête tient sur deux lignes sous 1280 px (§5 de DESIGN.md), et sur
-   trois sur un téléphone, où la navigation se replie. Ces hauteurs sont
-   mesurées ; elles tomberont avec la refonte de l'en-tête. */
-@media (max-width: 1279px) {
+/* La hauteur de l'en-tête, mesurée : 84 px sur une ligne à partir de 950 px,
+   111 px sur deux lignes en dessous, 119 px sous 360 px où les pilules
+   rapetissent. Elle est écrite ici en dur, faute de pouvoir la lire en CSS :
+   si l'en-tête change, ces trois valeurs se remesurent. */
+@media (max-width: 949px) {
   .scene {
-    --entete: 8.1rem;
+    --entete: 6.95rem;
   }
 }
 
-@media (max-width: 599px) {
+@media (max-width: 359px) {
   .scene {
-    --entete: 9.5rem;
+    --entete: 7.45rem;
   }
 }
 

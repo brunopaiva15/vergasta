@@ -39,11 +39,11 @@
   <link rel="preload" href="fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=27">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="lancement/lancement.css?v=1">
   <script src="lancement/lancement.js?v=1" defer></script>
-  <script src="brushes.js?v=26" defer></script>
+  <script src="brushes.js?v=27" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -174,7 +174,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="lang.js?v=26"></script>
+  <script src="lang.js?v=27"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -185,11 +185,8 @@
       </a>
       <div class="masthead-tail">
         <nav class="site-nav" aria-label="Navigation principale">
-          <a href="#metier">Ce que nous faisons</a>
-          <a href="#deroule">Déroulé d’un projet</a>
-          <a href="#realisations">Réalisations</a>
-          <a href="story.html">Notre histoire</a>
-          <a href="#contact">Contact</a>
+          <a class="entete-pilule" href="story.html">Notre histoire</a>
+          <a class="entete-pilule entete-pilule--encre" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Remplir le formulaire</a>
         </nav>
         <nav class="lang-nav" aria-label="Langue du site">
           <span class="is-current" aria-current="true" lang="fr">FR</span>
