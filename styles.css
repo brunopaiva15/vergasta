@@ -931,13 +931,40 @@ em {
 }
 
 /* L'accroche, sous la bannière d'Auxine et avant les métiers : ce que fait
-   l'atelier, dit en une phrase, et les deux sorties. */
+   l'atelier, dit en une phrase, et les deux sorties.
+
+   La phrase est posée en très grand et en graisse légère, sur toute la
+   colonne, comme le « Construis autant de LEGO… » de BlockAbo : c'est la
+   première chose qu'on lit en quittant la scène, et elle doit tenir la page
+   seule, sans carte ni marque autour. L'encre est pleine : en graisse 300, le
+   gris du texte courant s'effacerait.
+
+   La mesure est large (62 rem, une quarantaine de signes par ligne au plus
+   grand corps) : c'est une phrase d'affichage, pas un paragraphe de lecture,
+   et elle se lit d'un trait comme un titre. */
 .accroche {
   padding-top: var(--air);
 }
 
 .accroche .opening-body {
   margin-top: 0;
+  max-width: none;
+  font-weight: 300;
+  font-size: clamp(1.55rem, 3.7vw, 2.9rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* L'accroche est sous la ligne de flottaison : la montée d'arrivée s'y
+   jouerait avant qu'on la voie. Elle est déjà là. */
+.accroche .opening-body,
+.accroche .opening-actions {
+  animation: none;
+}
+
+.accroche .opening-actions {
+  margin-top: clamp(2rem, 4vw, 3rem);
 }
 
 /* --------------------------------------------------------------------------
@@ -2256,6 +2283,16 @@ html[lang="ja"] .legal h1 {
 html[lang="ja"] .chapter-close {
   font-size: clamp(1.5rem, 3.6vw, 2rem);
   max-width: 30ch;
+}
+
+/* Les kanji occupent toute la hauteur du corps : à l'interligne de
+   l'accroche latine, deux lignes se touchent presque. Un cran d'air, et un
+   corps un peu plus bas, puisqu'un signe japonais est deux fois plus large
+   qu'une lettre. */
+html[lang="ja"] .accroche .opening-body {
+  font-size: clamp(1.4rem, 3.2vw, 2.5rem);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 
 html[lang="ja"] .colophon .motto {

@@ -301,8 +301,13 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 2. **le bandeau défilant**, lime, pleine largeur, qui sert de sol à la
    fresque et ferme le premier écran ;
 3. la **bannière d'Auxine** (voir plus bas) ;
-4. **l'accroche** (`.accroche`) : la phrase qui dit ce que fait l'atelier, et
-   les deux sorties, le formulaire et le renvoi vers les réalisations ;
+4. **l'accroche** (`.accroche`) : la phrase qui dit ce que fait l'atelier,
+   posée en très grand (jusqu'à 2,9 rem) et en Figtree 300 sur toute la
+   colonne, à l'encre pleine, comme le « Construis autant de LEGO… » de
+   BlockAbo ; puis les deux sorties, le formulaire et le renvoi vers les
+   réalisations. C'est une phrase d'affichage, pas un paragraphe de lecture :
+   la mesure large (une quarantaine de signes par ligne) y est voulue. Elle
+   n'a pas de montée d'arrivée, étant sous la ligne de flottaison ;
 5. les quatre **cartes** des métiers, en bento ;
 6. le **déroulé** en trois colonnes ;
 7. les **réalisations**, une grille de tuiles crème ;
@@ -1106,7 +1111,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=23`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=24`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
