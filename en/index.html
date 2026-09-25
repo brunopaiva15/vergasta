@@ -39,11 +39,11 @@
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=28">
+  <link rel="stylesheet" href="../styles.css?v=29">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="../lancement/lancement.css?v=1">
   <script src="../lancement/lancement.js?v=1" defer></script>
-  <script src="../brushes.js?v=28" defer></script>
+  <script src="../brushes.js?v=29" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -186,7 +186,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=28"></script>
+  <script src="../lang.js?v=29"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -218,7 +218,9 @@
         <h1 id="scene-titre">Websites and applications for the businesses around here.</h1>
         <p class="scene-sous-titre">Web workshop in St-Imier</p>
       </div>
-      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true"></div>
+      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true">
+        <div class="mark scene-eoliennes" data-mark="eoliennes"></div>
+      </div>
     </section>
 
     <div class="ribbon" aria-hidden="true">
@@ -269,85 +271,6 @@
       <div class="opening-actions">
         <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Fill in the form</a>
         <a class="opening-jump" href="#realisations">See the work</a>
-      </div>
-    </section>
-
-    <section id="metier" class="slab wrap" aria-labelledby="metier-title">
-      <div class="slab-head">
-        <div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div>
-        <h2 id="metier-title">What we do</h2>
-      </div>
-      <div class="slab-body">
-        <dl class="trades">
-          <div class="trade">
-            <dt><span class="mark trade-mark" data-mark="metier-sites" aria-hidden="true"></span>Presentation websites</dt>
-            <dd>
-              Showing a company, what it offers and how to reach it without the visitor
-              having to hunt for any of it, and helping it turn up when someone searches
-              for its trade. That is what we built for <b>F. Da Silva sàrl</b>, a tiling
-              company in Péry-La Heutte.
-            </dd>
-          </div>
-
-          <div class="trade">
-            <dt><span class="mark trade-mark" data-mark="metier-applis" aria-hidden="true"></span>Applications</dt>
-            <dd>
-              When the binder or the Excel file no longer holds, we build the tool that
-              takes over. <b>Disque Bleu</b> works out the time to set on a parking disc
-              and gives warning before it runs out. <b>Axolot</b> simplifies invoicing and
-              bookkeeping for small Swiss companies. Both started from the same
-              observation: a repetitive task was costing time.
-            </dd>
-          </div>
-
-          <div class="trade">
-            <dt><span class="mark trade-mark" data-mark="metier-creatifs" aria-hidden="true"></span>Creative projects</dt>
-            <dd>
-              Some projects start from an idea someone wants to make tangible.
-              <b>Yamanote 3D</b> recreates a quiet ride on the Yamanote line in Tokyo,
-              inside the browser. <b>Vergasta Photo</b> shows photographic collections in a
-              portfolio built for the purpose, with its own publishing studio.
-            </dd>
-          </div>
-
-          <div class="trade">
-            <dt><span class="mark trade-mark" data-mark="metier-boutiques" aria-hidden="true"></span>Online shops</dt>
-            <dd>
-              Catalogue, basket, card or TWINT payment through Stripe, order tracking and
-              an administration interface you run yourself. <b>Custom To Lylia</b> and
-              <b>BDPokéCards</b> work on this basis.
-            </dd>
-          </div>
-        </dl>
-      </div>
-    </section>
-
-    <section id="deroule" class="slab wrap" aria-labelledby="deroule-title">
-      <div class="slab-head">
-        <div class="mark slab-mark" data-mark="deroule" aria-hidden="true"></div>
-        <h2 id="deroule-title">How a project runs</h2>
-      </div>
-      <div class="slab-body">
-        <div class="run-through">
-          <div>
-            <p class="lead-in">
-              It starts with a conversation, by phone or over a coffee in St-Imier, to
-              understand the business and what the site really has to do. You then
-              receive a detailed quote by email, with the price and the schedule.
-            </p>
-            <p>
-              A mock-up is approved before the first line of code. During development, a
-              test address lets you look at where the work stands whenever you want,
-              without waiting for a presentation.
-            </p>
-            <p>
-              At launch, we take care of the domain, the redirects and the indexing
-              settings. The source code is yours as soon as the invoice is paid, and you
-              stay free to hand it to someone else afterwards.
-            </p>
-          </div>
-
-        </div>
       </div>
     </section>
 
@@ -436,6 +359,85 @@
       </div>
     </section>
 
+    <section id="metier" class="slab wrap" aria-labelledby="metier-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div>
+        <h2 id="metier-title">What we do</h2>
+      </div>
+      <div class="slab-body">
+        <dl class="trades">
+          <div class="trade">
+            <dt><span class="mark trade-mark" data-mark="metier-sites" aria-hidden="true"></span>Presentation websites</dt>
+            <dd>
+              Showing a company, what it offers and how to reach it without the visitor
+              having to hunt for any of it, and helping it turn up when someone searches
+              for its trade. That is what we built for <b>F. Da Silva sàrl</b>, a tiling
+              company in Péry-La Heutte.
+            </dd>
+          </div>
+
+          <div class="trade">
+            <dt><span class="mark trade-mark" data-mark="metier-applis" aria-hidden="true"></span>Applications</dt>
+            <dd>
+              When the binder or the Excel file no longer holds, we build the tool that
+              takes over. <b>Disque Bleu</b> works out the time to set on a parking disc
+              and gives warning before it runs out. <b>Axolot</b> simplifies invoicing and
+              bookkeeping for small Swiss companies. Both started from the same
+              observation: a repetitive task was costing time.
+            </dd>
+          </div>
+
+          <div class="trade">
+            <dt><span class="mark trade-mark" data-mark="metier-creatifs" aria-hidden="true"></span>Creative projects</dt>
+            <dd>
+              Some projects start from an idea someone wants to make tangible.
+              <b>Yamanote 3D</b> recreates a quiet ride on the Yamanote line in Tokyo,
+              inside the browser. <b>Vergasta Photo</b> shows photographic collections in a
+              portfolio built for the purpose, with its own publishing studio.
+            </dd>
+          </div>
+
+          <div class="trade">
+            <dt><span class="mark trade-mark" data-mark="metier-boutiques" aria-hidden="true"></span>Online shops</dt>
+            <dd>
+              Catalogue, basket, card or TWINT payment through Stripe, order tracking and
+              an administration interface you run yourself. <b>Custom To Lylia</b> and
+              <b>BDPokéCards</b> work on this basis.
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="deroule" class="slab wrap" aria-labelledby="deroule-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="deroule" aria-hidden="true"></div>
+        <h2 id="deroule-title">How a project runs</h2>
+      </div>
+      <div class="slab-body">
+        <div class="run-through">
+          <div>
+            <p class="lead-in">
+              It starts with a conversation, by phone or over a coffee in St-Imier, to
+              understand the business and what the site really has to do. You then
+              receive a detailed quote by email, with the price and the schedule.
+            </p>
+            <p>
+              A mock-up is approved before the first line of code. During development, a
+              test address lets you look at where the work stands whenever you want,
+              without waiting for a presentation.
+            </p>
+            <p>
+              At launch, we take care of the domain, the redirects and the indexing
+              settings. The source code is yours as soon as the invoice is paid, and you
+              stay free to hand it to someone else afterwards.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="slab wrap" aria-labelledby="contact-title">
       <div class="slab-head">
         <div class="mark slab-mark" data-mark="contact" aria-hidden="true"></div>
@@ -480,9 +482,9 @@
       <div class="pied-liens">
         <nav aria-label="Vergasta Digital">
           <p class="pied-titre">Vergasta Digital</p>
+          <a href="#realisations">Work</a>
           <a href="#metier">What we do</a>
           <a href="#deroule">How a project runs</a>
-          <a href="#realisations">Work</a>
           <a href="story.html">Our story</a>
         </nav>
         <nav class="footer-nav" aria-label="Legal pages">

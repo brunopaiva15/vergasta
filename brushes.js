@@ -369,11 +369,12 @@
   /** Une pièce d'éolienne plantée sur la crête du Mont-Soleil : le mât
    *  (`piece` 0) ou l'une des trois pales (1 à 3). `k` place l'éolienne en
    *  hauteurs de canevas depuis le milieu, comme `crete`, et `angle` tourne
-   *  son rotor. Une brosse ne trace qu'un chemin continu : chaque pièce est
+   *  son rotor, `tour` l'angle dont il a tourné depuis. Une brosse ne trace
+   *  qu'un chemin continu : chaque pièce est
    *  donc sa propre couche, sans quoi le pinceau relierait les éoliennes
    *  entre elles. */
   function eolienne(k, angle, piece) {
-    return function (w, h) {
+    return function (w, h, tour) {
       // Sur un écran étroit, les éoliennes se resserrent vers le milieu pour
       // qu'au moins une reste dans le cadre.
       var x = w / 2 + k * Math.min(h, w * 0.5);
@@ -384,7 +385,7 @@
       var pied = creteY(w, h, x, MONT_SOLEIL[0], MONT_SOLEIL[1], MONT_SOLEIL[2], MONT_SOLEIL[3]);
       var moyeu = pied - h * 0.26;
       if (piece === 0) return segment(x, pied, x, moyeu, 24);
-      var a = angle + (piece - 1) * Math.PI * 2 / 3;
+      var a = angle + (tour || 0) + (piece - 1) * Math.PI * 2 / 3;
       return segment(x, moyeu, x + Math.cos(a) * l, moyeu + Math.sin(a) * l, 16);
     };
   }
@@ -400,18 +401,25 @@
   }
 
   /** Les couches d'une rangée d'éoliennes : un mât puis trois pales chacune,
-   *  la suivante un peu après la précédente. Chaque rotor est tourné d'un
-   *  angle différent : trois éoliennes arrêtées dans la même position se
-   *  liraient comme un motif répété. */
+   *  la suivante un peu après la précédente. Chaque rotor part d'un angle
+   *  différent et tourne à sa propre allure, autour d'un tour en six
+   *  secondes : trois rotors calés sur le même angle et la même vitesse se
+   *  liraient comme un motif répété, pas comme un parc d'éoliennes.
+   *
+   *  `tourne` est la vitesse de la couche, en radians par seconde, dans le sens
+   *  des aiguilles d'une montre, comme une éolienne vue de face. Seules les
+   *  pales en portent une : le mât reste planté. */
   function eoliennes(positions, retard) {
     var out = [];
     for (var i = 0; i < positions.length; i++) {
       var angle = -Math.PI / 2 + i * 0.7;
+      var allure = (Math.PI * 2 / 6) * [1, 0.91, 1.08][i % 3];
       for (var piece = 0; piece < 4; piece++) {
         out.push({
           brush: "carres", ink: "encre", alpha: 0.8,
           delay: retard + i * 140 + (piece ? 90 : 0),
           over: { size: 0.016, spacing: 0.75 },
+          tourne: piece ? allure : 0,
           path: eolienne(positions[i], angle, piece)
         });
       }
@@ -600,8 +608,9 @@
        bleue pour la crête du milieu, une touffe olive pour la plus proche,
        doublée de deux passes de carrés qui lui donnent une épaisseur de
        forêt. Au-dessus, la spirale de l'atelier fait le soleil, en deux passes
-       mal calées comme l'ancienne marque d'ouverture, qu'elle remplace ; sur
-       la crête du milieu, les éoliennes du Mont-Soleil, à l'encre.
+       mal calées comme l'ancienne marque d'ouverture, qu'elle remplace. Les
+       éoliennes du Mont-Soleil, plantées sur la crête du milieu, sont une
+       marque à part posée par-dessus (`eoliennes`), parce qu'elles tournent.
 
        Tout est posé de gauche à droite, couche après couche, du fond vers le
        devant : c'est une main qui peint un paysage, pas une image qui
@@ -665,7 +674,13 @@
         over: { size: 0.03, spacing: 1.3, jitter: 0.6 },
         path: function (w, h) { return crete(w, h, 0.965, 0.035, 2.6, 4.1); }
       }
-    ].concat(eoliennes([-0.6, -1.0, -1.45], 940)),
+    ],
+
+    /* Les éoliennes du Mont-Soleil, sur leur propre calque posé sur la
+       fresque, de la même taille qu'elle : elles se plantent sur la même
+       crête. Elles sont à part parce qu'elles tournent, et qu'à chaque image
+       seul ce calque se repeint, jamais les collines. */
+    eoliennes: eoliennes([-0.6, -1.0, -1.45], 940),
 
     /* Métier : tissage cyan sur un arc. L'empreinte diagonale pivote avec la
        courbe et les tampons s'entrelacent. */
@@ -914,6 +929,18 @@
     var dpr = 1;
     var pose = 0; // fraction du fil déjà déroulée
 
+    /* Les rotors. Une marque dont une couche porte `tourne` ne s'arrête pas
+       une fois peinte : ses couches tournantes se repeignent à chaque image,
+       à l'angle du moment. C'est la seule exception à la règle des marques
+       qui deviennent des images fixes, et elle ne vaut que tant que la marque
+       est à l'écran et l'onglet visible ; en mouvement réduit, elle reste
+       immobile. `age` compte le temps de rotation écoulé, pauses exclues. */
+    var tournante = false;
+    for (var t = 0; t < layers.length; t++) if (layers[t].tourne) tournante = true;
+    var tourne = false;
+    var age = 0;
+    var derniere = 0;
+
     function layout() {
       var w = host.clientWidth;
       var h = host.clientHeight;
@@ -944,9 +971,11 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    function draw(elapsed) {
+    function draw(elapsed, rotation) {
       effacer();
-      var short = Math.min(host.clientWidth, host.clientHeight);
+      var w = host.clientWidth;
+      var h = host.clientHeight;
+      var short = Math.min(w, h);
       for (var i = 0; i < layers.length; i++) {
         if (!brosses[i]) continue;
         var began = layers[i].delay || 0;
@@ -954,7 +983,12 @@
           ? 1
           : easeOut(Math.min(1, Math.max(0, (elapsed - began) / DRAW_MS)));
         if (p <= 0) continue;
-        stroke(ctx, chemins[i], brosses[i], short, {
+        // Une couche tournante se recalcule à l'angle du moment ; les autres
+        // gardent le chemin calculé une fois pour toutes.
+        var chemin = rotation && layers[i].tourne
+          ? layers[i].path(w, h, layers[i].tourne * rotation)
+          : chemins[i];
+        stroke(ctx, chemin, brosses[i], short, {
           progress: p,
           dpr: dpr,
           ink: INKS[layers[i].ink] || INKS.encre,
@@ -1029,12 +1063,39 @@
       draw(elapsed);
       if (elapsed > lastDelay() + DRAW_MS) {
         // Une fois posée, la marque est une image fixe : la boucle s'arrête
-        // plutôt que de brûler des images sur un dessin terminé.
+        // plutôt que de brûler des images sur un dessin terminé. Sauf les
+        // rotors, qui se mettent à tourner.
         done = true;
         running = false;
+        demarrer();
         return;
       }
       raf = requestAnimationFrame(tick);
+    }
+
+    /** Le temps de rotation, avec un démarrage progressif : le rotor prend
+     *  sa vitesse en une seconde et demie, comme une éolienne qui se lance,
+     *  au lieu de partir d'un coup au dernier tampon posé. */
+    function rotation() {
+      var R = 1.5;
+      return age < R ? (age * age) / (2 * R) : age - R / 2;
+    }
+
+    function tourner(now) {
+      if (!tourne) return;
+      // Un pas plafonné : après une pause, le rotor reprend où il était au
+      // lieu de sauter du temps passé hors de l'écran.
+      age += Math.min(now - derniere, 50) / 1000;
+      derniere = now;
+      draw(Infinity, rotation());
+      raf = requestAnimationFrame(tourner);
+    }
+
+    function demarrer() {
+      if (!tournante || reduced || tourne) return;
+      tourne = true;
+      derniere = performance.now();
+      raf = requestAnimationFrame(tourner);
     }
 
     function sync() {
@@ -1052,10 +1113,15 @@
       }
       if (!should) {
         running = false;
+        tourne = false;
         cancelAnimationFrame(raf);
         return;
       }
-      if (done || running) return;
+      if (done) {
+        demarrer();
+        return;
+      }
+      if (running) return;
       if (reduced) {
         draw(Infinity);
         done = true;
@@ -1086,8 +1152,8 @@
         return;
       }
       // Une marque terminée se repeint complète : un redimensionnement n'est
-      // pas une seconde entrée en scène.
-      if (done) draw(Infinity);
+      // pas une seconde entrée en scène. Un rotor garde son angle.
+      if (done) draw(Infinity, rotation());
     }).observe(host);
 
     new IntersectionObserver(
