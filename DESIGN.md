@@ -306,7 +306,7 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
    réalisations. C'est une phrase d'affichage, pas un paragraphe de lecture :
    la mesure large (une quarantaine de signes par ligne) y est voulue. Elle
    n'a pas de montée d'arrivée, étant sous la ligne de flottaison ;
-4. les **réalisations**, une grille de tuiles crème ;
+4. les **réalisations**, une grille de tuiles, chacune au fond de son projet ;
 5. les quatre **cartes** des métiers, en bento ;
 6. le **déroulé**, trois grandes phrases séparées par des filets ;
 7. le **bloc de contact**, seule carte en aplat lime, coupée en deux :
@@ -379,7 +379,8 @@ quatre pages, puis le dossier.
 (`--carte`), coins ronds, **ni ombre ni bordure**. Il sert aux quatre métiers,
 aux tuiles des réalisations, à l'encart de traduction des pages légales, à
 l'encadré japonais de l'histoire, et, en aplat d'une autre couleur, au bloc de
-contact (lime) et au pied de page (encre). Ce qui change d'un emploi à
+contact (lime), au pied de page (encre) et aux tuiles des réalisations (la
+teinte pâle de chaque projet). Ce qui change d'un emploi à
 l'autre, c'est le rayon (§1), la couleur et le rembourrage, jamais le principe.
 **Pas de bordure sur une carte** : c'est la teinte qui la pose, et une bordure
 autour d'un aplat en fait une boîte.
@@ -467,7 +468,7 @@ l'encadré revient.
 
 **Réalisations `.projets`.** Une grille de tuiles, comme la collection de
 BlockAbo : trois colonnes au-delà de 1000 px, deux au-delà de 640 px, une en
-dessous, et chaque projet sur sa carte crème. Les réalisations ont été un
+dessous, et chaque projet sur sa carte. Les réalisations ont été un
 `<table>`, défendu parce que les données étaient tabulaires ; mais on ne les
 compare pas ligne à ligne, on les parcourt, et une liste de fiches le dit mieux.
 Le balisage est une `<ul>`, chaque projet un `<li>` dont le nom est un `h3`
@@ -488,7 +489,19 @@ presse sont posées au-dessus (`z-index: 1`) et restent des liens à part : un
 clic sur « App Store » mène à l'App Store, pas au site. Le focus clavier dessine
 le contour sur la tuile entière (`:has(:focus-visible)`), pas sur le seul nom.
 
-**La pilule de pied est blanche sur le crème et passe à l'encre au survol de la
+**Chaque tuile prend le fond de son projet.** Une teinte pâle de sa couleur,
+relevée sur son icône ou sur le `theme-color` de son site : vert pour Auxine,
+bleu roi pour Stellar Rebirth, violet pour Axolot, vert tendre pour Yamanote,
+bleu ciel pour Disque Bleu, orange pour Mes Échéances, rouge pour BDPokéCards.
+Les deux marques en noir et blanc prennent un gris froid (F. Da Silva) et un
+papier chaud (Vergasta Photo), et Custom To Lylia un dégradé violet-bleu, parce
+que sa marque en est un. **Pâle, et jamais la couleur pleine** : le nom reste à
+l'encre et le genre au gris, lisibles comme sur le crème, et les pilules
+blanches se détachent encore. La teinte passe par une variable (`--fond`),
+posée sur `data-projet`, le nom du fichier d'icône ; une tuile sans teinte
+garde le crème. Un nouveau projet reçoit la sienne, relevée de la même façon.
+
+**La pilule de pied est blanche sur le fond de la tuile et passe à l'encre au survol de la
 tuile**, comme le « Choisir » de BlockAbo. Quand elle n'est pas un lien (la
 simple adresse d'un projet à un seul lien), c'est le survol de la tuile qui la
 noircit ; quand elle en est un, c'est le survol de la pilule elle-même. Le
@@ -532,7 +545,7 @@ choix méritent d'être notés, parce qu'ils ne se relisent pas dans les fichier
   l'affiche : sur notre papier clair, la marque disparaîtrait chez qui a son
   système en sombre. Le `.ico` porte le même dessin en 16, 32 et 48 px, sans
   cette règle, et détouré comme ses voisins ; l'`apple-touch-icon`, plus défini,
-  est une tuile blanche qui se verrait sur le crème de la carte.
+  est une tuile blanche qui se verrait sur le fond de la carte.
 
   Ce site a d'abord été pris à un favicon qui n'était pas le sien : celui livré
   par défaut avec Astro, sa tuile noire à la lettre blanche. **Un site qui
