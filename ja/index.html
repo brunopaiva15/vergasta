@@ -40,8 +40,8 @@
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/pixelmplus12-japonais.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=28">
-  <script src="../brushes.js?v=28" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=29">
+  <script src="../brushes.js?v=29" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -184,7 +184,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=28"></script>
+  <script src="../lang.js?v=29"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -216,7 +216,9 @@
         <h1 id="scene-titre">地元の企業のためのウェブサイトとアプリケーション。</h1>
         <p class="scene-sous-titre">サンティミエのウェブ制作アトリエ</p>
       </div>
-      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true"></div>
+      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true">
+        <div class="mark scene-eoliennes" data-mark="eoliennes"></div>
+      </div>
     </section>
 
     <div class="ribbon" aria-hidden="true">
@@ -249,6 +251,24 @@
       <div class="opening-actions">
         <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
         <a class="opening-jump" href="#realisations">実績を見る</a>
+      </div>
+    </section>
+
+    <section id="realisations" class="slab wrap" aria-labelledby="realisations-title">
+      <div class="slab-head">
+        <div class="mark slab-mark" data-mark="realisations" aria-hidden="true"></div>
+        <h2 id="realisations-title">実績</h2>
+      </div>
+      <div class="slab-body">
+        <p class="projets-legende">現在公開しているプロジェクト。ご覧いただけます。</p>
+        <ul class="projets">
+          <li class="projet">
+            <img class="projet-icone" src="../icone_yamanote.svg" width="512" height="512" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">Yamanote 3D</a></h3>
+            <p class="projet-genre">ゲーム、2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">yamanote-3d.com</span></p>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -315,24 +335,6 @@
       </div>
     </section>
 
-    <section id="realisations" class="slab wrap" aria-labelledby="realisations-title">
-      <div class="slab-head">
-        <div class="mark slab-mark" data-mark="realisations" aria-hidden="true"></div>
-        <h2 id="realisations-title">実績</h2>
-      </div>
-      <div class="slab-body">
-        <p class="projets-legende">現在公開しているプロジェクト。ご覧いただけます。</p>
-        <ul class="projets">
-          <li class="projet">
-            <img class="projet-icone" src="../icone_yamanote.svg" width="512" height="512" alt="">
-            <h3 class="projet-nom"><a class="projet-lien" href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">Yamanote 3D</a></h3>
-            <p class="projet-genre">ゲーム、2026</p>
-            <p class="projet-sorties"><span class="projet-pilule">yamanote-3d.com</span></p>
-          </li>
-        </ul>
-      </div>
-    </section>
-
     <section id="contact" class="slab wrap" aria-labelledby="contact-title">
       <div class="slab-head">
         <div class="mark slab-mark" data-mark="contact" aria-hidden="true"></div>
@@ -374,9 +376,9 @@
       <div class="pied-liens">
         <nav aria-label="Vergasta Digital">
           <p class="pied-titre">Vergasta Digital</p>
+          <a href="#realisations">実績</a>
           <a href="#metier">手がけるもの</a>
           <a href="#deroule">プロジェクトの流れ</a>
-          <a href="#realisations">実績</a>
           <a href="story.html">私たちの歩み</a>
         </nav>
         <nav class="footer-nav" aria-label="法的情報">

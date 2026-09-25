@@ -917,10 +917,19 @@ a.entete-pilule--encre:focus-visible {
 }
 
 .scene-fresque {
+  position: relative;
   flex: none;
   width: 100%;
   height: clamp(10rem, 33vh, 24rem);
   margin-top: clamp(1.25rem, 4.5vh, 3.5rem);
+}
+
+/* Les éoliennes sur leur propre calque, exactement sur la fresque : elles
+   tournent, et à chaque image seul ce calque se repeint. Il est dans l'hôte de
+   la fresque, déjà `aria-hidden`. */
+.scene-eoliennes {
+  position: absolute;
+  inset: 0;
 }
 
 /* L'accroche, sous la bannière d'Auxine et avant les métiers : ce que fait

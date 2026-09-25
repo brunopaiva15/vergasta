@@ -39,11 +39,11 @@
   <link rel="preload" href="fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=28">
+  <link rel="stylesheet" href="styles.css?v=29">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="lancement/lancement.css?v=1">
   <script src="lancement/lancement.js?v=1" defer></script>
-  <script src="brushes.js?v=28" defer></script>
+  <script src="brushes.js?v=29" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -174,7 +174,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="lang.js?v=28"></script>
+  <script src="lang.js?v=29"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -206,7 +206,9 @@
         <h1 id="scene-titre">Des sites et des applications pour les entreprises d’ici.</h1>
         <p class="scene-sous-titre">Atelier web à St-Imier</p>
       </div>
-      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true"></div>
+      <div class="mark scene-fresque" data-mark="fresque" aria-hidden="true">
+        <div class="mark scene-eoliennes" data-mark="eoliennes"></div>
+      </div>
     </section>
 
     <div class="ribbon" aria-hidden="true">
@@ -245,31 +247,6 @@
       <div class="opening-actions">
         <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Remplir le formulaire</a>
         <a class="opening-jump" href="#realisations">Voir les réalisations</a>
-      </div>
-    </section>
-
-    <section id="metier" class="slab wrap" aria-labelledby="metier-title">
-      <div class="slab-head"><div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div><h2 id="metier-title">Ce que nous faisons</h2></div>
-      <div class="slab-body">
-        <dl class="trades">
-          <div class="trade"><dt><span class="mark trade-mark" data-mark="metier-sites" aria-hidden="true"></span>Des sites de présentation</dt><dd>Présenter une entreprise, ses prestations et ses coordonnées sans que le visiteur ait à chercher, et l’aider à être trouvée lorsqu’on recherche son métier. C’est ce que nous avons réalisé pour <b>F. Da Silva sàrl</b>, entreprise de carrelage à Péry-La Heutte.</dd></div>
-          <div class="trade"><dt><span class="mark trade-mark" data-mark="metier-applis" aria-hidden="true"></span>Des applications</dt><dd>Quand le classeur ou le fichier Excel ne suffit plus, nous créons l’outil qui prend le relais. <b>Disque Bleu</b> calcule l’heure à afficher sur le disque de stationnement et prévient avant l’échéance. <b>Axolot</b> simplifie la facturation et la comptabilité des petites entreprises suisses. Les deux sont partis du même constat : une tâche répétitive faisait perdre du temps.</dd></div>
-          <div class="trade"><dt><span class="mark trade-mark" data-mark="metier-creatifs" aria-hidden="true"></span>Des projets créatifs</dt><dd>Certains projets commencent par une idée que l’on veut rendre tangible. <b>Yamanote 3D</b> recrée dans le navigateur un voyage contemplatif à bord de la ligne Yamanote, à Tokyo. <b>Vergasta Photo</b> présente des collections photographiques dans un portfolio conçu sur mesure, avec son propre studio de publication.</dd></div>
-          <div class="trade"><dt><span class="mark trade-mark" data-mark="metier-boutiques" aria-hidden="true"></span>Des boutiques en ligne</dt><dd>Catalogue, panier, paiement par carte ou par TWINT via Stripe, suivi des commandes et interface d’administration que vous gérez vous-même. <b>Custom To Lylia</b> et <b>BDPokéCards</b> fonctionnent sur cette base.</dd></div>
-        </dl>
-      </div>
-    </section>
-
-    <section id="deroule" class="slab wrap" aria-labelledby="deroule-title">
-      <div class="slab-head"><div class="mark slab-mark" data-mark="deroule" aria-hidden="true"></div><h2 id="deroule-title">Déroulé d’un projet</h2></div>
-      <div class="slab-body">
-        <div class="run-through">
-          <div>
-            <p class="lead-in">On commence par un échange, au téléphone ou autour d’un café à St-Imier, pour comprendre l’activité et ce que le site doit réellement faire. Vous recevez ensuite un devis détaillé par email, avec le prix et le calendrier.</p>
-            <p>Une maquette est validée avant la première ligne de code. Pendant le développement, une adresse de test vous permet de regarder où en est le travail quand vous le voulez, sans attendre une présentation.</p>
-            <p>À la mise en ligne, nous nous occupons du domaine, des redirections et des réglages d’indexation. Le code source vous appartient dès que la facture est réglée, et vous restez libre de le confier à quelqu’un d’autre ensuite.</p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -343,6 +320,31 @@
       </div>
     </section>
 
+    <section id="metier" class="slab wrap" aria-labelledby="metier-title">
+      <div class="slab-head"><div class="mark slab-mark" data-mark="metier" aria-hidden="true"></div><h2 id="metier-title">Ce que nous faisons</h2></div>
+      <div class="slab-body">
+        <dl class="trades">
+          <div class="trade"><dt><span class="mark trade-mark" data-mark="metier-sites" aria-hidden="true"></span>Des sites de présentation</dt><dd>Présenter une entreprise, ses prestations et ses coordonnées sans que le visiteur ait à chercher, et l’aider à être trouvée lorsqu’on recherche son métier. C’est ce que nous avons réalisé pour <b>F. Da Silva sàrl</b>, entreprise de carrelage à Péry-La Heutte.</dd></div>
+          <div class="trade"><dt><span class="mark trade-mark" data-mark="metier-applis" aria-hidden="true"></span>Des applications</dt><dd>Quand le classeur ou le fichier Excel ne suffit plus, nous créons l’outil qui prend le relais. <b>Disque Bleu</b> calcule l’heure à afficher sur le disque de stationnement et prévient avant l’échéance. <b>Axolot</b> simplifie la facturation et la comptabilité des petites entreprises suisses. Les deux sont partis du même constat : une tâche répétitive faisait perdre du temps.</dd></div>
+          <div class="trade"><dt><span class="mark trade-mark" data-mark="metier-creatifs" aria-hidden="true"></span>Des projets créatifs</dt><dd>Certains projets commencent par une idée que l’on veut rendre tangible. <b>Yamanote 3D</b> recrée dans le navigateur un voyage contemplatif à bord de la ligne Yamanote, à Tokyo. <b>Vergasta Photo</b> présente des collections photographiques dans un portfolio conçu sur mesure, avec son propre studio de publication.</dd></div>
+          <div class="trade"><dt><span class="mark trade-mark" data-mark="metier-boutiques" aria-hidden="true"></span>Des boutiques en ligne</dt><dd>Catalogue, panier, paiement par carte ou par TWINT via Stripe, suivi des commandes et interface d’administration que vous gérez vous-même. <b>Custom To Lylia</b> et <b>BDPokéCards</b> fonctionnent sur cette base.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="deroule" class="slab wrap" aria-labelledby="deroule-title">
+      <div class="slab-head"><div class="mark slab-mark" data-mark="deroule" aria-hidden="true"></div><h2 id="deroule-title">Déroulé d’un projet</h2></div>
+      <div class="slab-body">
+        <div class="run-through">
+          <div>
+            <p class="lead-in">On commence par un échange, au téléphone ou autour d’un café à St-Imier, pour comprendre l’activité et ce que le site doit réellement faire. Vous recevez ensuite un devis détaillé par email, avec le prix et le calendrier.</p>
+            <p>Une maquette est validée avant la première ligne de code. Pendant le développement, une adresse de test vous permet de regarder où en est le travail quand vous le voulez, sans attendre une présentation.</p>
+            <p>À la mise en ligne, nous nous occupons du domaine, des redirections et des réglages d’indexation. Le code source vous appartient dès que la facture est réglée, et vous restez libre de le confier à quelqu’un d’autre ensuite.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="slab wrap" aria-labelledby="contact-title">
       <div class="slab-head"><div class="mark slab-mark" data-mark="contact" aria-hidden="true"></div><h2 id="contact-title">Écrire</h2></div>
       <div class="slab-body contact-body">
@@ -377,9 +379,9 @@
       <div class="pied-liens">
         <nav aria-label="Vergasta Digital">
           <p class="pied-titre">Vergasta Digital</p>
+          <a href="#realisations">Réalisations</a>
           <a href="#metier">Ce que nous faisons</a>
           <a href="#deroule">Déroulé d’un projet</a>
-          <a href="#realisations">Réalisations</a>
           <a href="story.html">Notre histoire</a>
         </nav>
         <nav class="footer-nav" aria-label="Pages légales">

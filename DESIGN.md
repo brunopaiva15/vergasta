@@ -309,9 +309,9 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
    réalisations. C'est une phrase d'affichage, pas un paragraphe de lecture :
    la mesure large (une quarantaine de signes par ligne) y est voulue. Elle
    n'a pas de montée d'arrivée, étant sous la ligne de flottaison ;
-5. les quatre **cartes** des métiers, en bento ;
-6. le **déroulé** en trois colonnes ;
-7. les **réalisations**, une grille de tuiles crème ;
+5. les **réalisations**, une grille de tuiles crème ;
+6. les quatre **cartes** des métiers, en bento ;
+7. le **déroulé**, trois grandes phrases séparées par des filets ;
 8. le **bloc de contact**, seule carte en aplat lime, coupée en deux :
    l'invitation à écrire, et les engagements ;
 9. le **pied de page**, carte d'encre détachée des bords de la fenêtre :
@@ -330,6 +330,14 @@ paysage.
 
 Deux blocs de couleur seulement, le bandeau et le contact, et un bloc sombre
 pour finir. Entre eux, du blanc et des cartes crème.
+
+**Les réalisations passent avant les métiers**, comme la grille des sets
+passe chez BlockAbo avant les prix et le « Comment ça marche » : on montre
+d'abord, on explique ensuite. Elles répondent tout de suite au titre (des
+sites et des applications pour les entreprises d'ici : voilà lesquels), et
+les textes des métiers, qui citent Disque Bleu, Axolot ou Custom To Lylia, se
+lisent ensuite comme des renvois à des tuiles déjà vues. Le pied de page range
+ses liens dans le même ordre.
 
 ### L'exception : la sortie d'Auxine
 
@@ -880,7 +888,10 @@ bouge : ni l'un ni l'autre ne se lit, et le rebond finit par raconter une
 matière (un objet, une masse, un ressort) qui n'est pas celle d'une peinture.
 
 Reste le dessin seul, à sa place, dès la première image. **Ce qui bouge est ce
-que la brosse trace, et rien d'autre.**
+que la brosse trace, et rien d'autre**, avec une seule exception, voulue : les
+pales des éoliennes de la fresque, qui tournent (voir plus bas). Elles tournent
+sur place ; elles ne voyagent pas, ne rebondissent pas, ne changent pas de
+couleur, et la règle vaut pour tout le reste.
 
 Ce qu'il ne faut pas ramener :
 
@@ -971,11 +982,38 @@ dans le cadre.
 hauteur de la crête sans construire le chemin, et `crete` passe par la même
 fonction, donc elles tombent toujours dessus). Chaque pièce, mât ou pale, est
 sa propre couche : une brosse ne trace qu'un chemin continu, et sans cela le
-pinceau relierait les éoliennes entre elles. Elles sont en carrés à l'encre,
+pinceau relierait les éoliennes entre elles. Elles sont une marque à part
+(`eoliennes`), posée sur son propre calque exactement sur la fresque, pour la
+raison qui suit. Elles sont en carrés à l'encre,
 pas en trait : un trait noir fin se lisait comme un pictogramme posé sur une
 peinture. **Une éolienne est dans le cadre en entier ou n'y est pas** : coupée
 par le bord de l'écran, elle se lisait comme un accident. Sur un téléphone il
 en reste une.
+
+**Les éoliennes tournent, tout le temps.** C'est la seule marque du site qui ne
+devienne pas une image fixe une fois peinte. Les couches qui portent `tourne`
+(une vitesse en radians par seconde) sont recalculées à chaque image à l'angle
+du moment ; les autres gardent leur chemin. Seules les pales tournent, le mât
+reste planté. Un tour en six secondes environ, dans le sens des aiguilles
+d'une montre comme une éolienne vue de face, et chaque rotor à sa propre
+allure (±9 %) et depuis son propre angle : trois rotors synchrones se liraient
+comme un motif, pas comme un parc.
+
+Ce qu'il ne faut pas défaire :
+
+- **le calque est séparé de la fresque.** À chaque image, seul ce calque est
+  effacé et repeint, douze courts segments ; les collines, des milliers de
+  tampons, restent peintes une fois. Repeindre la fresque entière à chaque
+  image coûterait pour rien ;
+- **le rotor démarre en douceur** : il prend sa vitesse en une seconde et
+  demie après la pose du dernier tampon, comme une éolienne qui se lance,
+  au lieu de partir d'un coup ;
+- **il s'arrête hors de l'écran et quand l'onglet est masqué**, et reprend à
+  l'angle où il était : le pas de temps est plafonné à 50 ms, donc une pause
+  ne se rattrape pas d'un bond. Mesuré à 1920 px en densité 2 : soixante images
+  par seconde, sans image lente ;
+- **en mouvement réduit, elles ne tournent pas** : elles sont peintes d'un
+  coup et restent immobiles, comme le reste.
 
 **L'ordre de pose est celui d'une main qui peint un paysage** : le soleil et le
 lointain d'abord, puis le milieu, le premier plan, et les éoliennes en dernier.
@@ -1002,7 +1040,9 @@ Il n'y a rien d'autre à écrire : la marque n'a pas d'entrée en scène, elle s
 peint à sa place.
 
 Les marques se dessinent à l'entrée dans le champ de vision puis **la boucle
-s'arrête** : une image fixe ne mérite pas d'images par seconde.
+s'arrête** : une image fixe ne mérite pas d'images par seconde. L'exception est
+une couche qui porte `tourne` (les pales des éoliennes) : sa marque continue de
+tourner tant qu'elle est à l'écran.
 `prefers-reduced-motion` peint directement l'état final. Les hôtes sont des
 boîtes vides décoratives : **sans JavaScript la page est identique, sans trou.**
 
@@ -1151,7 +1191,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=28`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=29`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1204,8 +1244,10 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
 - aucune requête vers un domaine tiers,
 - console sans erreur,
 - mouvement réduit : la marque est peinte d'un coup au lieu d'être tracée, le
-  texte de l'ouverture ne monte pas, le bandeau ne défile plus, et rien d'autre
-  ne bouge,
+  texte de l'ouverture ne monte pas, le bandeau ne défile plus, les éoliennes
+  ne tournent pas, et rien d'autre ne bouge,
+- les éoliennes tournent sur l'accueil, s'arrêtent quand la scène sort de
+  l'écran et reprennent à leur angle quand elle revient,
 - l'en-tête tient sur une ligne à 950 px et au-delà dans les cinq langues,
   et en dessous sur deux lignes, les langues sur celle de la marque et les
   deux pilules côte à côte, de 360 px à 949 px (voir §5) ; si sa hauteur a
