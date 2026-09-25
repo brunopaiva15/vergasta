@@ -93,7 +93,7 @@ comme aplat sous du noir, ou comme trait sur du noir :
   texte à l'encre,
 - le survol des liens de navigation, l'aplat de la langue courante, les pilules
   de temps de la page d'histoire,
-- la devise et les marques du pied de page, qui est en encre.
+- la devise, la bande et la pilule du pied de page, qui est en encre.
 
 Le pied de page est le seul bloc sombre du site, et donc le seul endroit où le
 lime tient à pleine intensité en couleur de texte. Si un jour on l'éclaircit,
@@ -313,7 +313,8 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 7. les **réalisations**, une grille de tuiles crème ;
 8. le **bloc de contact**, seule carte en aplat lime, coupée en deux :
    l'invitation à écrire, et les engagements ;
-9. le **pied de page**, carte d'encre détachée des bords de la fenêtre.
+9. le **pied de page**, carte d'encre détachée des bords de la fenêtre :
+   la devise, l'adresse et le formulaire, puis les liens en colonnes.
 
 **La hauteur de la scène** vaut `100svh` moins l'en-tête et le bandeau, et non
 `100vh` : la barre d'adresse d'un téléphone ne pousse pas le bandeau hors de
@@ -619,8 +620,24 @@ figure pas et la mention n'existe que dans les quatre autres langues.
 **Pied de page.** La dernière carte, en encre, détachée des bords de la
 fenêtre par une marge, avec le même rayon que le bloc de contact. C'est le seul
 bloc sombre du site, et donc le seul endroit où le lime tient en couleur de
-texte (§1) : la devise y est en lime et en grand corps. La bande peinte à la
-brosse le traverse en tête.
+texte (§1). La bande peinte à la brosse le traverse en tête.
+
+Il a la mise en page du pied de BlockAbo, gardée dans sa carte d'encre : en
+haut, deux colonnes, la devise en lime et en grand corps d'un côté, de l'autre
+l'adresse de l'atelier en Figtree 300 et la pilule du formulaire, lime à
+libellé d'encre ; dessous, les liens en colonnes sous un petit titre blanc,
+deux sur un téléphone, quatre cases au-delà de 800 px dont deux occupées ; en
+bas, le droit d'auteur sous un filet. Les liens prennent l'aplat lime au
+survol, et la page courante est écrite en blanc, sans lien.
+
+**Aucun texte n'a été écrit pour lui**, et c'est ce qui lui évite une
+traduction de plus en cinq langues : la devise, l'adresse (celle des mentions
+légales), le libellé du bouton, les entrées de la navigation (sans « Contact »,
+que la pilule remplace juste au-dessus) et le nom des pages légales existaient
+déjà. Les deux titres de colonne sont le nom de l'atelier et l'étiquette que la
+navigation légale portait déjà pour la lecture d'écran (« Pages légales »,
+« Legal pages », « 法的情報 »…). Une colonne de plus demandera un titre, et
+donc cinq traductions.
 
 **Le fil de `story.html`.** La page « Notre histoire » range ses chapitres le
 long d'un trait à la brosse tiré sur toute la hauteur du bloc, qui dérive à
@@ -1125,7 +1142,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=25`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=26`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:

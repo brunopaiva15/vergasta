@@ -39,11 +39,11 @@
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=25">
+  <link rel="stylesheet" href="../styles.css?v=26">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="../lancement/lancement.css?v=1">
   <script src="../lancement/lancement.js?v=1" defer></script>
-  <script src="../brushes.js?v=25" defer></script>
+  <script src="../brushes.js?v=26" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -186,7 +186,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=25"></script>
+  <script src="../lang.js?v=26"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -478,15 +478,29 @@
   <footer class="site-footer">
     <div class="wrap">
       <div class="mark band" data-mark="bande" aria-hidden="true"></div>
-      <div class="colophon">
+      <div class="pied-haut">
         <p class="motto">Aus der Region, für die Region.</p>
-        <p>© 2026 Vergasta Digital, St-Imier</p>
+        <div class="pied-adresse">
+          <p>Rue du Temple 5<br>2610 St-Imier</p>
+          <a class="pied-pilule" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Formular ausfüllen</a>
+        </div>
       </div>
-      <nav class="footer-nav" aria-label="Rechtliche Seiten">
-        <a href="terms.html">AGB</a>
-        <a href="privacy.html">Datenschutz</a>
-        <a href="imprint.html">Impressum</a>
-      </nav>
+      <div class="pied-liens">
+        <nav aria-label="Vergasta Digital">
+          <p class="pied-titre">Vergasta Digital</p>
+          <a href="#metier">Was wir machen</a>
+          <a href="#deroule">Ablauf eines Projekts</a>
+          <a href="#realisations">Arbeiten</a>
+          <a href="story.html">Unsere Geschichte</a>
+        </nav>
+        <nav class="footer-nav" aria-label="Rechtliche Seiten">
+          <p class="pied-titre">Rechtliche Seiten</p>
+          <a href="terms.html">AGB</a>
+          <a href="privacy.html">Datenschutz</a>
+          <a href="imprint.html">Impressum</a>
+        </nav>
+      </div>
+      <p class="pied-bas">© 2026 Vergasta Digital, St-Imier</p>
     </div>
   </footer>
 </body>

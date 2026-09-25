@@ -1850,49 +1850,137 @@ a.projet-pilule {
   }
 }
 
-.colophon {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem 2.5rem;
+/* La mise en page du pied de BlockAbo, dans la carte d'encre : en haut, deux
+   colonnes, la devise en grand d'un côté et de l'autre l'adresse et la pilule
+   du formulaire ; dessous, les liens rangés en colonnes sous un petit titre ;
+   tout en bas, la ligne du droit d'auteur, sous un filet.
+
+   Aucun texte n'a été écrit pour lui : la devise, l'adresse de l'atelier, le
+   libellé du bouton, les entrées de la navigation et le nom des pages légales
+   existaient déjà dans chaque langue. Les titres de colonne sont le nom de
+   l'atelier et l'étiquette que la navigation légale portait déjà pour la
+   lecture d'écran. */
+.pied-haut {
+  display: grid;
+  gap: 1.75rem 3rem;
 }
 
-.colophon p {
-  font-size: 0.95rem;
+@media (min-width: 800px) {
+  .pied-haut {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
 }
 
-/* La devise ferme la page en grand : c'est la seule ligne du pied, et le noir
-   est l'endroit où le lime tient à pleine intensité. */
-.colophon .motto {
+/* La devise ferme la page en grand, et le noir est l'endroit où le lime tient
+   à pleine intensité. */
+.pied-haut .motto {
   font-family: var(--display);
   font-weight: 700;
   letter-spacing: -0.03em;
-  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  font-size: clamp(1.9rem, 4vw, 3rem);
   line-height: 1.05;
   color: var(--lime);
 }
 
-.footer-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.5rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--filet-encre);
-  font-size: 0.9rem;
+.pied-adresse p {
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.35;
+  color: #ffffff;
 }
 
-.footer-nav a {
-  padding: 0.3rem 0.7rem;
+/* La pilule du formulaire, en lime sur l'encre : le seul fond où le lime peut
+   porter un libellé à l'encre sans rien perdre. Même ressort que les autres. */
+.pied-pilule {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.85rem 1.4rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-}
-
-.footer-nav a:hover {
   background: var(--lime);
   color: var(--ink);
-  border-color: var(--lime);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: transform var(--ressort-duree) var(--ressort);
+}
+
+.pied-pilule:hover,
+.pied-pilule:focus-visible {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pied-pilule {
+    transition: none;
+  }
+
+  .pied-pilule:hover,
+  .pied-pilule:focus-visible {
+    transform: none;
+  }
+}
+
+/* Les liens en colonnes, chacune sous son titre. Deux colonnes dès le
+   téléphone : elles sont courtes, et une seule colonne les étirerait sur
+   tout un écran. */
+.pied-liens {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+  margin-top: 3.5rem;
+  font-size: 0.92rem;
+}
+
+@media (min-width: 800px) {
+  .pied-liens {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 4.5rem;
+  }
+}
+
+.pied-liens nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+}
+
+.pied-titre {
+  margin-bottom: 0.4rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Les liens rentrent de leur rembourrage pour que le texte tombe sous le
+   titre, et prennent l'aplat lime au survol, comme ils l'ont toujours fait. */
+.pied-liens a,
+.pied-liens .is-current {
+  margin: 0 -0.6rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  line-height: 1.4;
+  transition: background 0.14s, color 0.14s;
+}
+
+.pied-liens a:hover,
+.pied-liens a:focus-visible {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.pied-liens .is-current {
+  color: #ffffff;
+}
+
+.pied-bas {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--filet-encre);
+  font-size: 0.85rem;
 }
 
 .band {
@@ -2335,7 +2423,8 @@ html[lang="ja"] .accroche .opening-body {
   letter-spacing: 0.01em;
 }
 
-html[lang="ja"] .colophon .motto {
-  font-size: 1.35rem;
+html[lang="ja"] .pied-haut .motto {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.3;
 }
 

@@ -40,15 +40,15 @@
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/pixelmplus12-japonais.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=25">
-  <script src="../brushes.js?v=25" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=26">
+  <script src="../brushes.js?v=26" defer></script>
 
   <!--
     Redirection de langue. Placé en fin de tête, après les liens alternes dont
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=25"></script>
+  <script src="../lang.js?v=26"></script>
 </head>
 <body>
   <header class="site-header">
@@ -150,15 +150,29 @@
   <footer class="site-footer">
     <div class="wrap">
       <div class="mark band" data-mark="bande" aria-hidden="true"></div>
-      <div class="colophon">
+      <div class="pied-haut">
         <p class="motto">地元から、地元のために。</p>
-        <p>© 2026 Vergasta Digital, St-Imier</p>
+        <div class="pied-adresse">
+          <p>Rue du Temple 5<br>2610 St-Imier</p>
+          <a class="pied-pilule" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">フォームに記入する</a>
+        </div>
       </div>
-      <nav class="footer-nav" aria-label="法的情報">
-        <a href="terms.html">一般取引条件</a>
-        <a href="privacy.html">プライバシー</a>
-        <a href="imprint.html">法的表記</a>
-      </nav>
+      <div class="pied-liens">
+        <nav aria-label="Vergasta Digital">
+          <p class="pied-titre">Vergasta Digital</p>
+          <a href="./#metier">手がけるもの</a>
+          <a href="./#deroule">プロジェクトの流れ</a>
+          <a href="./#realisations">実績</a>
+          <a href="story.html">私たちの歩み</a>
+        </nav>
+        <nav class="footer-nav" aria-label="法的情報">
+          <p class="pied-titre">法的情報</p>
+          <a href="terms.html">一般取引条件</a>
+          <a href="privacy.html">プライバシー</a>
+          <a href="imprint.html">法的表記</a>
+        </nav>
+      </div>
+      <p class="pied-bas">© 2026 Vergasta Digital, St-Imier</p>
     </div>
   </footer>
 </body>
