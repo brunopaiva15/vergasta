@@ -13,39 +13,43 @@ gestionnaire de paquets. On édite les fichiers, on pousse, GitHub Pages sert.
 ## 1. D'où vient l'identité
 
 Tout part de `logo_vergasta.png` : une croix suisse composée de deux barres,
-l'une en lime acide, l'autre en bleu électrique. Autour d'elles, un papier
-crème, des cartes blanches à coins ronds posées dessus, et les peintures à la
-brosse par-dessus tout. Le registre n'est pas celui d'une brochure imprimée :
+l'une en lime acide, l'autre en bleu électrique. Autour d'elles, une page
+blanche, des cartes crème à coins ronds, plates, posées dessus, beaucoup d'air,
+et les peintures à la brosse par-dessus tout. Le registre n'est pas celui d'une brochure imprimée :
 c'est un atelier, pas une agence.
 
 | Rôle | Valeur | Emploi |
 |---|---|---|
-| Papier | `#f1f2e9` | fond général |
-| Feuille | `#ffffff` | cartes |
+| Fond (`--paper`) | `#ffffff` | fond général |
+| Carte (`--carte`) | `#f1f2e9` | cartes, pilules secondaires |
+| Blanc (`--sheet`) | `#ffffff` | libellé des boutons, ligne de tableau survolée |
 | Encre | `#16160f` | texte, pied de page, boutons |
-| Encre atténuée | `#5d5d54` | texte secondaire (5,9:1 sur le papier) |
-| Filet | `#d5d7c9` | séparations internes des cartes |
-| Colonnes | `rgba(22,22,15,.055)` | les six filets verticaux du fond |
+| Encre atténuée | `#5d5d54` | texte secondaire (6,6:1 sur le fond, 5,9:1 sur une carte) |
+| Filet | `rgba(22,22,15,.12)` | séparations internes des cartes, pages légales |
 | Lime | `#d4ff00` | bandeau, bloc de contact, survols, pilules de temps |
 | Bleu | `#4f46e6` | liens, puces des pages légales |
 | Magenta, cyan, olive, orange | encres des brosses | étoiles des puces |
 | Sur encre | `#b8b8b3` | texte du pied de page |
 | Filet sur encre | `#33332c` | séparation du pied de page |
 
-Le papier n'est pas le blanc de l'écran. C'est ce qui permet aux **cartes**
-blanches de se détacher au lieu de se fondre dans le fond : elles sont posées
-sur la page, elles n'en font pas partie. C'est tout le principe de la mise en
-page (§4), et ça ne marche que si le fond est teinté.
+**Le fond est blanc, et ce sont les cartes qui prennent le papier.** Pendant
+longtemps, c'était l'inverse : un papier crème, des feuilles blanches posées
+dessus, et une ombre portée pour les en détacher, parce qu'une carte plus
+claire que le fond ne se voit pas d'elle-même. Les rôles se sont inversés. La
+page est blanche, les cartes sont des aplats crème, plats et sans ombre, et
+une carte plus sombre que la page se voit sans aide. L'ombre n'a plus rien à
+faire, et c'est elle qui partait : la mise en page y gagne tout son calme.
 
-Il est tiré vers le blanc autant qu'il peut l'être sans casser ce principe. Il
-valait `#e9ebe0`, un crème franc ; il vaut `#f1f2e9`, la même teinte à un cran
-du blanc. Entre le papier et la feuille il reste un rapport de **1,13**, contre
-1,21 auparavant : l'écart s'est resserré et c'est **l'ombre portée** qui prend
-le relais de la teinte pour poser les cartes. C'est la limite basse. Un cran
-plus clair encore et il n'y a plus de papier, seulement des rectangles blancs
-sur du blanc, avec une ombre pour tout indice.
+L'écart entre les deux teintes n'a pas bougé : **1,13**, le rapport qui
+séparait l'ancien papier de l'ancienne feuille. C'est la même paire de
+couleurs, seulement l'objet a changé de côté. `#f1f2e9` était le papier de la
+page, c'est maintenant celui des cartes ; il valait `#e9ebe0` auparavant, et
+ne doit pas remonter : un crème plus franc ferait des cartes des pavés.
 
-Le texte, lui, y gagne : l'encre atténuée passe de 5,5:1 à 5,9:1 sur le fond.
+`--paper` et `--sheet` valent tous deux le blanc, mais ils ne disent pas la
+même chose : le premier est le fond, le second le blanc d'un libellé ou d'une
+ligne survolée. Le jour où le fond reprend une teinte, il n'y a qu'une ligne à
+changer.
 
 Les quatre encres saturées des brosses (`magenta`, `cyan`, `olive`, `orange`)
 sont recopiées en variables CSS depuis `brushes.js`. Elles servent aux étoiles
@@ -54,21 +58,30 @@ peinture d'à côté, et non d'une gamme d'interface parallèle. **Les deux list
 doivent rester égales** ; changer une encre dans le script veut dire la changer
 dans la feuille de style.
 
-### Les coins, les ombres
+### Les coins, le ressort
 
 | Jeton | Valeur | Emploi |
 |---|---|---|
 | `--rond` | 24 px | cartes des métiers |
 | `--rond-l` | 30 px | tableau, bloc de contact, pied de page |
 | `--rond-s` | 14 px | ligne de tableau survolée, encart de traduction |
-| `--ombre` | deux couches, 20 px de flou à 24 px de décalage | les cartes |
-| `--ombre-basse` | la même, moitié moins haute | boutons, encart de traduction |
+| `--ressort` | `cubic-bezier(.34, 1.56, .64, 1)` | survol de ce qui se clique |
+| `--ressort-duree` | 0,5 s | la même chose |
 
-L'ombre est **portée par la carte, pas dessinée autour d'elle** : une seule
-teinte, celle de l'encre à 5 % puis à 50 % sur une seconde couche remontée de
-24 px. C'est ce qui la fait lire comme une feuille posée sur une table plutôt
-que comme un rectangle avec un contour flou. Deux couches et pas trois, et
-jamais de halo coloré.
+**Plus aucune ombre portée.** Une carte est un aplat, une pilule aussi. Les
+jetons `--ombre` et `--ombre-basse` ont été retirés avec elles, et une ombre qui
+reviendrait sur une carte demanderait d'abord de revenir sur le fond : elle ne
+sert qu'à détacher une feuille plus claire que la page. Seules restent les
+ombres nettes et décalées des nœuds de l'histoire, qui ne posent rien : ce sont
+des tirages mal calés, comme la barre de chargement.
+
+**Le ressort.** Ce qui se prend (bouton, pilule, bientôt tuile) grossit d'un
+cran au survol, `scale(1.05)`, et dépasse un peu sa taille d'arrivée avant de
+s'y poser : la courbe sort de l'intervalle 0-1, c'est voulu. La pilule vient à
+la main. Il ne vaut **que pour ce qui se clique**, jamais pour une marque à la
+brosse, qui se peint à sa place et ne rebondit pas (§6) : c'est là que le §6
+proscrit le rebond, et il y reste proscrit. Le mouvement réduit l'annule, et la
+chose garde sa taille.
 
 ### La règle du lime
 
@@ -96,6 +109,7 @@ Quatre polices, **hébergées dans `fonts/`**, jamais chez un tiers.
 |---|---|---|
 | Titres | **Gabarito** 700 et 500 | `h1`, `h2`, `h3`, noms de projets, devise, bandeau, boutons |
 | Texte | **Figtree** 400 et 600 | tout le texte courant |
+| Accroches | **Figtree** 300 | les grandes phrases d'accroche en corps d'affichage |
 | Écriture | **Caveat** 600 | un seul endroit (voir plus bas) |
 | Signature | **Jersey 25** (bitmap) | la marque de l'en-tête et les cinq codes de langue |
 
@@ -187,9 +201,14 @@ deux fois trop tôt.
 `privacy.html` promet qu'aucun outil tiers ne suit le visiteur. Un appel à
 `fonts.googleapis.com` transmet l'adresse IP de chaque visiteur à Google à
 chaque page vue, ce qui contredit cette promesse et pose un problème sous LPD
-et RGPD. **Le site ne fait aujourd'hui aucune requête externe.** Neuf fichiers
-`.woff2`, 238 Ko au total, dont 122 Ko qui ne sont chargés que sur `/ja/`. Cette
+et RGPD. **Le site ne fait aujourd'hui aucune requête externe.** Quinze fichiers
+`.woff2` dans `fonts/`, 332 Ko au total, dont 122 Ko qui ne sont chargés que
+sur `/ja/`, et aucun n'est chargé s'il n'est pas employé dans la page. Cette
 propriété est à préserver.
+
+Figtree 300 est la dernière venue : deux fichiers de 16 Ko à eux deux, pour les
+grandes accroches en graisse légère. Elle ne sert pas au texte courant, qui
+reste en 400 : à 17 px, une graisse 300 s'efface sur un écran ordinaire.
 
 Pour ajouter une police, récupérer le CSS de Google avec un agent de navigateur
 moderne, ne garder que les sous-ensembles `latin` et `latin-ext`, télécharger
@@ -206,15 +225,12 @@ variable.
 
 ## 3. Le fond
 
-**Les colonnes du gabarit, laissées apparentes.** Six filets d'un pixel qui
-traversent la page de haut en bas, au pas de la colonne de texte
-(`74rem / 6`), en `repeating-linear-gradient` sur le `body`, centrés sur la
-page. Ils passent **derrière les cartes** et donc jamais sous un paragraphe :
-c'est ce qui les distingue de la grille de points d'avant, qui se lisait comme
-du papier millimétré sous chaque ligne de texte.
-
-Sous 800 px, la colonne fait toute la largeur, les filets n'ont plus rien à
-dire et le fond redevient uni.
+**Un blanc uni, sans motif.** Six filets d'un pixel ont longtemps traversé la
+page de haut en bas, au pas de la colonne de texte : les colonnes du gabarit,
+laissées apparentes. Ils sont partis avec l'ombre des cartes. Sur une page
+blanche, ils se lisaient comme du papier millimétré et disputaient l'œil aux
+cartes, et le calme de la mise en page tient justement à ce que rien ne
+bouge sous le contenu.
 
 Le pas de 8 px de l'ancienne grille survit dans `--pas` : la barre de
 chargement se cale dessus, et les tampons des brosses aussi.
@@ -223,12 +239,20 @@ chargement se cale dessus, et les tampons des brosses aussi.
 
 ## 4. Mise en page
 
-Le site est une pile de **cartes posées sur un papier teinté**. Chaque bloc de
-contenu qui se tient tout seul devient une carte : feuille blanche, coins
-ronds, ombre portée, pas de bordure. Le reste, c'est du texte sur le papier.
+Le site est une pile de **cartes crème posées sur une page blanche**. Chaque
+bloc de contenu qui se tient tout seul devient une carte : aplat crème, coins
+ronds, ni ombre ni bordure. Le reste, c'est du texte sur le blanc.
 
-- `.wrap` : 74 rem au maximum, gouttière de 1,5 rem qui passe à 4 rem au-delà
-  de 800 px.
+- `.wrap` : **62 rem de contenu**, gouttière de 1,5 rem qui passe à 4 rem
+  au-delà de 800 px. La gouttière s'ajoute à la mesure au lieu d'être prise
+  dessus (`max-width: calc(62rem + 2 * var(--gutter))`). La colonne valait
+  66 rem : plus étroite, elle laisse plus de blanc de part et d'autre, et c'est
+  ce blanc qui fait le calme de la page.
+- **L'en-tête garde 66 rem pour l'instant** (`.masthead.wrap`). Ses cinq
+  entrées et ses cinq langues n'y tiennent sur une ligne qu'au pixel près, et
+  la nouvelle colonne les renvoie sur deux lignes en français, en allemand et
+  en italien. Il déborde donc la colonne de deux rem de chaque côté, jusqu'à ce
+  qu'il soit réduit à deux pilules ; la règle tombera avec lui.
 - `--air` : la respiration verticale d'une section, en haut et en bas.
   3,75 rem, 6,5 rem au-delà de 800 px. **Une seule mesure pour tout le site** :
   si la page doit s'ouvrir davantage, c'est là que ça se règle, et nulle part
@@ -267,7 +291,7 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
 7. le **pied de page**, carte d'encre détachée des bords de la fenêtre.
 
 Deux blocs de couleur seulement, le bandeau et le contact, et un bloc sombre
-pour finir. Entre eux, du papier et des feuilles blanches.
+pour finir. Entre eux, du blanc et des cartes crème.
 
 ### L'exception : la sortie d'Auxine
 
@@ -299,14 +323,17 @@ quatre pages, puis le dossier.
 
 ## 5. Composants
 
-**La carte.** L'objet de base du site, et il n'y en a qu'un : feuille blanche,
-coins ronds, ombre portée, **pas de bordure**. Il sert aux quatre métiers, au tableau des réalisations, à l'encart de traduction
-des pages légales, à l'encadré japonais de l'histoire et au pied de page. Ce qui change d'un emploi à l'autre, c'est le rayon (§1) et le
-rembourrage, jamais le principe. **Une bordure sur une carte annule l'ombre** :
-les deux disent la même chose, et ensemble elles font une boîte.
+**La carte.** L'objet de base du site, et il n'y en a qu'un : aplat crème
+(`--carte`), coins ronds, **ni ombre ni bordure**. Il sert aux quatre métiers,
+au tableau des réalisations, à l'encart de traduction des pages légales, à
+l'encadré japonais de l'histoire, et, en aplat d'une autre couleur, au bloc de
+contact (lime) et au pied de page (encre). Ce qui change d'un emploi à
+l'autre, c'est le rayon (§1), la couleur et le rembourrage, jamais le principe.
+**Pas de bordure sur une carte** : c'est la teinte qui la pose, et une bordure
+autour d'un aplat en fait une boîte.
 
-**Bouton.** Pilule d'encre, libellé en capitales interlettrées à 0,82 rem. Au
-survol elle se soulève de deux pixels et son ombre s'allonge : elle ne
+**Bouton.** Pilule d'encre, plate, libellé en capitales interlettrées à
+0,82 rem. Au survol elle grossit d'un cran sur le ressort (§1) : elle ne
 s'allume pas, elle ne change pas de couleur. Pas de flèche, pas de dégradé.
 Les capitales sont ce qui distingue une action d'un titre sans la souligner
 (§2). Dans le bloc de contact, qui est lime, le bouton reste une pilule
@@ -314,8 +341,8 @@ d'encre et son libellé passe au lime.
 
 **Les deux sorties `.opening-actions`.** Le formulaire et le renvoi vers les
 réalisations, sur une ligne, sous l'accroche. Même paire et même hiérarchie
-qu'en bas de la page d'histoire : une pilule pleine, puis une pilule à filet
-qui prend l'aplat lime au survol. Elles étaient toutes deux en bas de page ; le
+qu'en bas de la page d'histoire : une pilule d'encre, puis une pilule crème
+qui prend l'aplat lime au survol, et les deux grossissent sur le ressort. Elles étaient toutes deux en bas de page ; le
 visiteur qui sait déjà ce qu'il veut n'a plus à traverser l'accueil. Leurs
 libellés sont ceux que la page porte déjà ailleurs, pas des formules de plus à
 traduire cinq fois.
@@ -389,8 +416,8 @@ posé sur une colonne qui porte deux projets côte à côte ne nomme plus rien, 
 dans un bloc le nom, le genre et l'année se lisent d'eux-mêmes. Les mesures des
 colonnes du type et de l'année (13 rem, 5 rem) tombent avec eux.
 
-**La ligne survolée prend le papier de la page** : sur la carte blanche, elle
-ressort en creux, coins arrondis, sans aplat de couleur. Elle a été surlignée en
+**La ligne survolée prend le blanc de la page** : sur la carte crème, elle
+s'éclaircit d'un cran, coins arrondis, sans aplat de couleur. Elle a été surlignée en
 lime plein, puis inversée en noir ; les deux sautaient à la figure sur une
 entrée haute de quatre lignes. L'entrée se cale en haut de sa case et ne s'y
 étire pas : deux entrées voisines n'ont pas la même hauteur, et sans ce calage
@@ -433,7 +460,7 @@ choix méritent d'être notés, parce qu'ils ne se relisent pas dans les fichier
   l'affiche : sur notre papier clair, la marque disparaîtrait chez qui a son
   système en sombre. Le `.ico` porte le même dessin en 16, 32 et 48 px, sans
   cette règle, et détouré comme ses voisins ; l'`apple-touch-icon`, plus défini,
-  est une tuile blanche qui se verrait sur le papier crème du survol.
+  est une tuile blanche qui se verrait sur le crème de la carte.
 
   Ce site a d'abord été pris à un favicon qui n'était pas le sien : celui livré
   par défaut avec Astro, sa tuile noire à la lettre blanche. **Un site qui
@@ -482,8 +509,8 @@ sont, une preuve posée en petit sous le nom.
 
 Elles ont porté un cadre blanc à filet fin, comme des timbres, tant que la ligne
 survolée passait au lime et faisait perdre aux marques leurs réserves blanches.
-Le survol prend le papier crème depuis, et aucune des six ne s'appuie sur du
-blanc : celui de Watson est enfermé dans son propre bloc noir. Six cadres dans
+Le survol a pris le papier crème, puis le blanc depuis que les cartes sont
+crème, et aucune des six ne s'appuie sur du blanc : celui de Watson est enfermé dans son propre bloc noir. Six cadres dans
 une colonne deux fois plus étroite qu'avant faisaient six objets de plus à
 lire ; ils tombent avec la raison qui les tenait.
 
@@ -838,7 +865,7 @@ devant la page qu'il quitte, sans que rien ne bouge. La barre occupe cette
 attente, et c'est la même brosse que partout ailleurs qui la peint. Sept pixels
 de haut, tout en haut de la fenêtre, deux passes mal calées comme la spirale
 d'ouverture : un rail posé haut, une ombre jetée dessous et en retard d'un poil,
-comme l'ombre portée du bouton ramenée à l'échelle.
+comme une ombre portée ramenée à l'échelle.
 
 Elle sert deux moments, et les deux ne se règlent pas pareil.
 
@@ -934,9 +961,9 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
   qu'on ne puisse pas les lire comme une grille,
 - flèches `↗`, point coloré en fin de titre,
 - **en-tête collant** en verre dépoli, dégradés de couleur, **ombres diffuses
-  et colorées**. L'ombre des cartes est une ombre portée grise, à une seule
-  teinte, celle de l'encre : elle dit qu'une feuille est posée sur une table.
-  Une ombre teintée de la couleur de l'objet, ou une lueur, est autre chose,
+  et colorées**. Les cartes n'ont plus d'ombre du tout (§1) ; une ombre teintée
+  de la couleur de l'objet, ou une lueur, reste proscrite à plus forte
+  raison,
 - **mode sombre par défaut, néon sur noir.** Le site est sur papier clair, du
   premier au dernier bloc de texte. Le pied de page est le seul bloc sombre, et
   pour une raison qui n'est pas une mode : le lime du logo n'existe à pleine
@@ -971,7 +998,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=18`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=19`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1006,8 +1033,9 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
 - l'entrée de la marque d'ouverture : elle vient du haut à droite, revient à sa
   place en s'enroulant, finit nette, et **la page ne se laisse pas tirer de
   côté pendant ce temps** (§4, §6),
-- états de survol : navigation, ligne de tableau qui passe au papier, cartes,
-  bouton sur ses deux fonds (papier et bloc lime), marques de presse, qui
+- états de survol : navigation, ligne de tableau qui passe au blanc, cartes,
+  bouton sur ses deux fonds (blanc et bloc lime), pilules qui grossissent sur
+  le ressort et restent immobiles en mouvement réduit, marques de presse, qui
   passent du gris à leur encre,
 - barre de chargement : cliquer un lien interne la lance, un lien externe non,
   et elle s'efface après l'arrivée sans rien laisser derrière,

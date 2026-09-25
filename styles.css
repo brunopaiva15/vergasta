@@ -1,9 +1,9 @@
 /* ==========================================================================
    Vergasta Digital
    --------------------------------------------------------------------------
-   Direction : papier crème, cartes blanches à coins ronds, ombres portées
-   douces, et les peintures à la brosse posées par-dessus. Les deux couleurs
-   viennent de la croix du logo : lime acide et bleu électrique.
+   Direction : une page blanche, des cartes crème à coins ronds, plates et sans
+   ombre, beaucoup d'air, et les peintures à la brosse posées par-dessus. Les
+   deux couleurs viennent de la croix du logo : lime acide et bleu électrique.
 
    Trois polices de texte et une de signature. Gabarito porte les titres
    (géométrique, ronde, serrée), Figtree le texte courant, Caveat les mots
@@ -79,6 +79,27 @@
   font-weight: 500;
   font-display: swap;
   src: url(fonts/gabarito-500-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* figtree-300 latin-ext. La graisse légère des grandes accroches, en instance
+   statique comme les autres : une police variable ne passe pas dans un PDF. */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/figtree-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* figtree-300 latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/figtree-300-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -167,30 +188,41 @@
 }
 
 :root {
-  /* Le papier n'est pas le blanc de l'écran, mais il n'en est plus très loin :
-     une teinte très pâle, tirée vers le blanc, sur laquelle les feuilles
-     blanches (encadrés, timbres de presse, bloc de contact) se détachent
-     encore au lieu de s'y fondre.
+  /* Le fond est le blanc de l'écran, et ce sont les cartes qui prennent le
+     papier. Les rôles se sont inversés : les cartes étaient des feuilles
+     blanches posées sur un papier crème, avec une ombre portée pour les
+     détacher ; elles sont maintenant des aplats crème, plats et sans ombre,
+     posés sur une page blanche. Le rapport entre les deux teintes est le même
+     (1,13), c'est seulement l'objet qui a changé de côté.
 
-     C'est ce dernier point qui fixe la limite. Entre le papier et la feuille il
-     reste un rapport de 1,13 contre 1,21 auparavant : l'écart s'est resserré,
-     et c'est l'ombre portée des cartes qui prend le relais de la teinte. Un cran
-     plus clair et les cartes ne seraient plus posées sur la page, elles en
-     feraient partie. Les encres, elles, ne bougent pas : ce sont toujours les
-     deux barres du logo. */
-  --paper: #f1f2e9;
+     Sans ombre, la teinte suffit à poser la carte : une carte plus claire que
+     la page avait besoin d'une ombre pour exister, une carte plus sombre que la
+     page se voit d'elle-même. C'est tout le calme de la mise en page.
+
+     `--paper` reste le nom du fond et `--sheet` celui du blanc pur (libellé des
+     boutons, creux du survol) : les deux valent le blanc, mais ils ne disent
+     pas la même chose, et le jour où le fond reprendra une teinte il n'y aura
+     qu'une ligne à changer. */
+  --paper: #ffffff;
   --sheet: #ffffff;
+  --carte: #f1f2e9;
   --ink: #16160f;
   --ink-soft: #5d5d54;
-  --rule: #d5d7c9;
+  /* Le filet est une encre à 12 % et non une teinte arrêtée : il tient la
+     même présence sur le blanc de la page et sur le crème des cartes. */
+  --rule: rgba(22, 22, 15, 0.12);
   --rule-hard: #16160f;
-  /* Les colonnes du fond, et les coins et ombres des cartes. */
-  --guide: rgba(22, 22, 15, 0.055);
+  /* Les coins des cartes. Plus d'ombre : voir plus haut. */
   --rond: 24px;
   --rond-s: 14px;
   --rond-l: 30px;
-  --ombre: 0 1px 2px rgba(22, 22, 15, 0.05), 0 20px 38px -24px rgba(22, 22, 15, 0.5);
-  --ombre-basse: 0 1px 2px rgba(22, 22, 15, 0.05), 0 10px 20px -14px rgba(22, 22, 15, 0.45);
+  /* Le ressort. Ce qui se prend grossit d'un cran au survol et dépasse un peu
+     sa taille d'arrivée avant de s'y poser : la pilule se soulève vers la main.
+     Il ne vaut que pour ce qui se clique (pilules, boutons, tuiles), jamais
+     pour une marque à la brosse, qui se peint à sa place et ne rebondit pas
+     (§6 de DESIGN.md). Le mouvement réduit l'annule, plus bas. */
+  --ressort: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ressort-duree: 0.5s;
   /* L'étoile pixel des puces : le même carré que les tampons des brosses. */
   --etoile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cg fill='%23000'%3E%3Crect x='4' y='1' width='1' height='7'/%3E%3Crect x='1' y='4' width='7' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='6' y='2' width='1' height='1'/%3E%3Crect x='2' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
   /* les deux barres de la croix du logo */
@@ -277,13 +309,9 @@ body {
   line-height: 1.75;
   color: var(--ink);
   background-color: var(--paper);
-  /* Les colonnes du gabarit, laissées apparentes : six filets d'un pixel qui
-     traversent la page de haut en bas, au pas de la colonne de texte. La
-     grille de points d'avant se lisait comme du papier millimétré sous chaque
-     paragraphe ; celle-ci se lit comme le tracé d'un maquettiste, et elle ne
-     passe pas sous le texte, elle passe derrière les cartes. */
-  background-image: repeating-linear-gradient(to right, var(--guide) 0 1px, transparent 1px calc(74rem / 6));
-  background-position: 50% 0;
+  /* Un fond uni, sans motif. Les six filets du gabarit qui le traversaient
+     sont partis avec l'ombre des cartes : sur une page blanche, ils se
+     lisaient comme du papier millimétré et disputaient l'œil aux cartes. */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-wrap: pretty;
@@ -305,14 +333,6 @@ body {
   overflow-x: clip;
 }
 
-/* Sous 800 px, la colonne fait toute la largeur : les filets du gabarit n'ont
-   plus rien à dire et se mettraient en travers du texte. */
-@media (max-width: 799px) {
-  body {
-    background-image: none;
-  }
-}
-
 ::selection {
   background: var(--lime);
   color: var(--ink);
@@ -322,9 +342,9 @@ body {
    colonne d'interface à droite de la mise en page. On la ramène à un filet.
 
    Pas de coin arrondi, pas de dégradé : un rectangle plein, comme les autres
-   filets du site. Le rail reste transparent pour laisser passer la grille du
-   fond ; seul le curseur se voit, en filet clair, et il passe à l'encre
-   atténuée au survol pour rester saisissable à la souris.
+   filets du site. Le rail reste transparent pour laisser passer le fond ;
+   seul le curseur se voit, en filet clair, et il passe à l'encre atténuée au
+   survol pour rester saisissable à la souris.
 
    `scrollbar-width` couvre Firefox, `::-webkit-scrollbar` couvre Chrome,
    Edge et Safari. Les deux disent la même chose ; aucun ne masque la barre,
@@ -397,9 +417,13 @@ em {
   border-radius: 4px;
 }
 
+/* La colonne est plus étroite qu'elle ne l'a été : 62 rem de contenu, contre
+   66. Une page plus étroite laisse plus de blanc de part et d'autre, et c'est
+   ce blanc qui donne le calme. La gouttière est ajoutée à la mesure plutôt que
+   prise dessus : le contenu garde ses 62 rem quelle que soit la gouttière. */
 .wrap {
   width: 100%;
-  max-width: 74rem;
+  max-width: calc(62rem + 2 * var(--gutter));
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
@@ -570,6 +594,17 @@ em {
   padding-top: 1.6rem;
   padding-bottom: 1.5rem;
 }
+
+/* L'en-tête garde l'ancienne mesure de 66 rem, le temps de sa refonte : la
+   marque, les cinq entrées et les cinq langues n'y tiennent sur une ligne
+   qu'au pixel près, et les 62 rem de la nouvelle colonne les renvoient sur
+   deux lignes en français, en allemand et en italien. Il déborde donc la
+   colonne de deux rem de chaque côté jusqu'à ce qu'il soit réduit à deux
+   pilules ; la règle tombera alors avec lui. */
+.masthead.wrap {
+  max-width: calc(66rem + 2 * var(--gutter));
+}
+
 /* La marque garde la bitmap : c'est la signature, et elle est faite des mêmes
    carrés que les marques à la brosse. */
 .brand {
@@ -972,13 +1007,14 @@ em {
   line-height: 1;
   padding: 0.95rem 1.2rem;
   border-radius: 999px;
-  border: 1px solid var(--rule);
-  transition: background 0.14s, border-color 0.14s;
+  background: var(--carte);
+  transition: background 0.14s, transform var(--ressort-duree) var(--ressort);
 }
 
-.opening-jump:hover {
+.opening-jump:hover,
+.opening-jump:focus-visible {
   background: var(--lime);
-  border-color: transparent;
+  transform: scale(1.05);
 }
 
 .mark-opening {
@@ -1099,9 +1135,8 @@ em {
    -------------------------------------------------------------------------- */
 
 /* Quatre métiers, quatre fiches. Les filets qui les croisaient en double page
-   ont sauté, et le texte est monté sur une feuille blanche à bordure franche
-   et ombre portée : le même objet que l'encadré des conditions et que les
-   timbres de la presse, à une troisième échelle.
+   ont sauté, et le texte est monté sur une carte crème, plate et sans bordure :
+   le même objet que le tableau des réalisations et que le bloc de contact.
 
    Ce sont des fiches et non des cartes de service : pas de numérotation, pas
    d'icône, pas de bouton en pied, et surtout pas quatre fois le même contenu
@@ -1150,10 +1185,9 @@ em {
 }
 
 .trade {
-  background: var(--sheet);
+  background: var(--carte);
   border: 0;
   border-radius: var(--rond);
-  box-shadow: var(--ombre);
   padding: 1.8rem 1.8rem 2rem;
 }
 
@@ -1261,11 +1295,6 @@ em {
   }
 }
 
-/* Encadré à bordure franche et bandeau lime, comme une fenêtre d'époque. Il
-   est posé sur une feuille blanche, qui se détache maintenant du papier, et il
-   porte l'ombre nette des timbres de presse : c'est ce qui le pose sur la page
-   au lieu de l'y encastrer. L'ombre est en encre et non en lime, qui reste à
-   l'action, c'est-à-dire au bouton et à lui seul. */
 /* Les conditions sont sur une carte, comme les métiers, et son titre est
    écrit à la main : c'est une note posée en marge du déroulé, pas une clause
    de plus. */
@@ -1273,10 +1302,9 @@ em {
   align-self: start;
   border: 0;
   border-radius: var(--rond);
-  background: var(--sheet);
+  background: var(--carte);
   color: var(--ink-soft);
   padding: 1.8rem;
-  box-shadow: var(--ombre);
 }
 
 .aside h3 {
@@ -1321,9 +1349,8 @@ em {
 /* Le tableau entier est posé sur une carte, comme les métiers et les
    conditions : c'est le troisième objet de la page, et le plus grand. */
 #realisations .slab-body {
-  background: var(--sheet);
+  background: var(--carte);
   border-radius: var(--rond-l);
-  box-shadow: var(--ombre);
   padding: clamp(1.4rem, 3vw, 2.25rem);
 }
 
@@ -1407,10 +1434,10 @@ em {
   border: 0;
 }
 
-/* L'entrée survolée prend le papier de la page, sur la carte blanche : elle
-   ressort en creux, sans aplat de couleur et sans que les timbres de presse
-   perdent leurs réserves blanches. Les coins suivent ceux de la carte, et le
-   filet s'efface pour ne pas barrer le haut du creux. */
+/* L'entrée survolée prend le blanc de la page, sur la carte crème : elle
+   s'éclaircit d'un cran, sans aplat de couleur, et les timbres de presse
+   retrouvent leurs réserves blanches. Les coins suivent ceux de la carte, et
+   le filet s'efface pour ne pas barrer le haut de l'entrée. */
 .index tr:hover {
   background: var(--paper);
   border-top-color: transparent;
@@ -1623,7 +1650,6 @@ em {
   background: var(--lime);
   border: 0;
   border-radius: var(--rond-l);
-  box-shadow: var(--ombre);
   padding: clamp(1.75rem, 4vw, 2.75rem);
 }
 
@@ -1661,8 +1687,9 @@ em {
 
 /* Pilule d'encre. Le libellé est en capitales interlettrées et petit : c'est
    ce qui distingue une action d'un titre, sans avoir à la souligner ni à lui
-   coller une flèche. Au survol elle se soulève de deux pixels, elle ne
-   s'allume pas. */
+   coller une flèche. Elle est plate, comme les cartes. Au survol elle grossit
+   d'un cran sur le ressort, elle ne s'allume pas et ne change pas de
+   couleur. */
 .button {
   display: inline-block;
   margin-top: 1.75rem;
@@ -1677,13 +1704,32 @@ em {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1;
-  box-shadow: var(--ombre-basse);
-  transition: transform 0.16s, box-shadow 0.16s;
+  transition: transform var(--ressort-duree) var(--ressort);
 }
 
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 26px -14px rgba(22, 22, 15, 0.65);
+.button:hover,
+.button:focus-visible {
+  transform: scale(1.05);
+}
+
+/* Le ressort est un mouvement, et ce réglage n'en veut pas : ce qui se prend
+   garde sa taille. Le changement de fond des pilules secondaires, lui, reste :
+   c'est une couleur, pas un déplacement. */
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .opening-jump,
+  .story-back {
+    transition: background 0.14s;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .opening-jump:hover,
+  .opening-jump:focus-visible,
+  .story-back:hover,
+  .story-back:focus-visible {
+    transform: none;
+  }
 }
 
 .whereabouts {
@@ -1836,8 +1882,8 @@ em {
   margin-top: 3rem;
 }
 
-/* Le nœud du chapitre : un carré de la grille, avec l'ombre portée nette du
-   bouton. Il est posé sur l'axe du couloir, d'où le demi-fil dans le calcul,
+/* Le nœud du chapitre : un carré de la grille, avec une ombre nette en lime,
+   décalée comme un tirage mal calé. Il est posé sur l'axe du couloir, d'où le demi-fil dans le calcul,
    et les 5 px sont sa propre demi-largeur. Le fil, lui, dérive de part et
    d'autre de cet axe et le recoupe en descendant : les nœuds sont les épingles
    qui le tiennent, pas des points de passage obligés. */
@@ -1912,8 +1958,7 @@ em {
   margin-top: 1.75rem;
   border: 0;
   border-radius: var(--rond);
-  background: var(--sheet);
-  box-shadow: var(--ombre);
+  background: var(--carte);
   padding: 1.5rem;
 }
 
@@ -1969,8 +2014,8 @@ em {
 
 /* Les deux sorties de la page, sur une seule ligne. Le bouton porte l'action
    principale, le lien la secondaire : même police d'affichage pour qu'ils se
-   lisent comme une paire, mais le second reste plat, sans bloc noir ni ombre
-   portée. Un petit lien souligné en bleu sous un filet, comme auparavant,
+   lisent comme une paire, mais le second est une pilule crème, sans bloc
+   noir. Un petit lien souligné en bleu sous un filet, comme auparavant,
    traînait là comme un reste de page. */
 .story-sorties {
   display: flex;
@@ -1984,7 +2029,8 @@ em {
   margin-top: 0;
 }
 
-/* Le geste de la navigation : aplat lime et bordure noire au survol. */
+/* La pilule secondaire, la même que sur l'accueil : crème au repos, lime et
+   ressort au survol. */
 .story-back {
   font-family: var(--display);
   font-weight: 700;
@@ -1994,13 +2040,14 @@ em {
   line-height: 1;
   padding: 0.95rem 1.2rem;
   border-radius: 999px;
-  border: 1px solid var(--rule);
-  transition: background 0.14s, border-color 0.14s;
+  background: var(--carte);
+  transition: background 0.14s, transform var(--ressort-duree) var(--ressort);
 }
 
-.story-back:hover {
+.story-back:hover,
+.story-back:focus-visible {
   background: var(--lime);
-  border-color: transparent;
+  transform: scale(1.05);
 }
 
 /* --------------------------------------------------------------------------
@@ -2056,8 +2103,7 @@ em {
   padding: 1rem 1.2rem;
   border: 0;
   border-radius: var(--rond-s);
-  background: var(--sheet);
-  box-shadow: var(--ombre-basse);
+  background: var(--carte);
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--ink-soft);
