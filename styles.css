@@ -843,6 +843,11 @@ a.entete-pilule--encre:focus-visible {
    commence juste sous la ligne de flottaison. `svh` et non `vh`, pour que la
    barre d'adresse d'un téléphone ne pousse pas le bandeau hors de l'écran.
 
+   La scène n'a pas de largeur maximale : la fresque va d'un bord à l'autre de
+   l'écran, quelle que soit sa largeur, comme le bandeau qui lui sert de sol.
+   Elle était arrêtée à 1 600 px, et un grand écran la montrait posée au milieu
+   d'une marge blanche. Le texte, lui, reste dans la colonne (`.wrap`).
+
    Le texte descend au milieu de ce qui reste (`margin-top: auto` sur le texte
    et sur la fresque), et la fresque garde sa hauteur : sur un écran bas,
    c'est le blanc au-dessus du titre qui cède, jamais le paysage.
@@ -855,8 +860,6 @@ a.entete-pilule--encre:focus-visible {
   flex-direction: column;
   min-height: calc(100vh - var(--entete) - var(--ruban));
   min-height: calc(100svh - var(--entete) - var(--ruban));
-  max-width: 100rem;
-  margin: 0 auto;
 }
 
 /* La hauteur de l'en-tête, mesurée : 84 px sur une ligne à partir de 950 px,
@@ -875,11 +878,16 @@ a.entete-pilule--encre:focus-visible {
   }
 }
 
+/* Le texte se centre dans l'espace laissé au-dessus de la fresque : les deux
+   marges automatiques se partagent le blanc. Sur un écran bas il n'y en a
+   presque pas ; sur un grand écran, le titre ne descend plus se coller au
+   paysage en laissant tout le vide au-dessus de lui. */
 .scene-texte {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: auto;
+  margin-bottom: auto;
   padding-top: clamp(2rem, 6vh, 4rem);
   text-align: center;
 }
@@ -920,7 +928,11 @@ a.entete-pilule--encre:focus-visible {
   position: relative;
   flex: none;
   width: 100%;
-  height: clamp(10rem, 33vh, 24rem);
+  /* Un tiers de la hauteur de l'écran, sans plafond bas : sur un grand
+     écran, le paysage grandit avec lui au lieu de rester une bande posée en
+     bas d'une page vide. Les collines se mesurent en hauteurs de canevas,
+     donc elles grandissent dans les mêmes proportions. */
+  height: clamp(10rem, 33vh, 36rem);
   margin-top: clamp(1.25rem, 4.5vh, 3.5rem);
 }
 
@@ -1699,7 +1711,7 @@ a.projet-pilule {
    sur du papier, un aplat franc sous du texte à l'encre.
 
    Elle est coupée en deux, comme l'encart des prix de BlockAbo : à gauche,
-   l'invitation à écrire et le bouton ; à droite, les engagements, quatre
+   l'invitation à écrire et le bouton ; à droite, les engagements, trois
    points vérifiables repris des conditions générales et du déroulé, chacun
    sous une étoile. Un filet d'encre les sépare, vertical à deux colonnes,
    horizontal en pile. Tout est à l'encre pleine : du gris sur du lime ne se

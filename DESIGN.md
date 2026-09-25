@@ -328,6 +328,15 @@ titre qui rapetisse (son corps est plafonné par la hauteur de la fenêtre,
 `min(5.6vw, 7.2vh)`) et le blanc au-dessus de lui qui cède, jamais le
 paysage.
 
+**La scène n'a pas de largeur maximale** : la fresque va d'un bord à l'autre
+de l'écran, quelle que soit sa largeur, comme le bandeau qui lui sert de sol.
+Elle était arrêtée à 1 600 px, et un écran de 1920 ou 2560 px la montrait
+posée au milieu d'une marge blanche. Sa hauteur vaut un tiers de celle de
+l'écran, entre 10 et 36 rem : sur un grand écran, le paysage grandit avec lui.
+Le texte, lui, reste dans la colonne, et **se centre dans l'espace laissé
+au-dessus de la fresque** (deux marges automatiques) : sur un grand écran, le
+titre ne descend plus se coller au paysage sous un grand vide.
+
 Deux blocs de couleur seulement, le bandeau et le contact, et un bloc sombre
 pour finir. Entre eux, du blanc et des cartes crème.
 
@@ -555,15 +564,17 @@ choix méritent d'être notés, parce qu'ils ne se relisent pas dans les fichier
 grande que les autres, et la seule en aplat lime : tout y est à l'encre pleine
 (du gris sur du lime ne se lit pas). Elle est **coupée en deux**, comme
 l'encart des prix de BlockAbo : à gauche (`.contact-ecrire`), l'invitation à
-écrire et le bouton ; à droite (`.contact-engagements`), quatre engagements
+écrire et le bouton ; à droite (`.contact-engagements`), trois engagements
 sous le titre « Nos engagements », chacun sous une étoile à l'encre. Un filet
 d'encre à 20 % les sépare, vertical à deux colonnes, horizontal en pile.
 
 **Les engagements sont repris de ce que le site dit déjà, jamais inventés pour
-la carte**, à peine resserrés pour tenir sur deux lignes : le devis détaillé (CGV, « Devis et commande »), l'adresse de test (le
-déroulé), la correction gratuite des bugs d'origine pendant la garantie (CGV,
-« Garantie et maintenance ») et la propriété du code source après paiement
-(CGV, « Propriété intellectuelle »). Chaque langue reprend la formulation de
+la carte**, à peine resserrés pour tenir sur deux lignes : le devis détaillé
+(CGV, « Devis et commande »), l'adresse de test (le déroulé) et la correction
+gratuite des bugs d'origine pendant la garantie (CGV, « Garantie et
+maintenance »). **Le site ne promet pas la propriété du code source** : ni ici,
+ni dans le déroulé, d'où la phrase qui la promettait a été retirée. Chaque
+langue reprend la formulation de
 ses propres CGV. Si les conditions changent, la carte change avec elles. Le
 délai de réponse n'y figure pas : il est déjà dans le paragraphe d'à côté, et
 le répéter à dix centimètres se lisait comme du remplissage. Rien de ce qui
@@ -1191,7 +1202,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=29`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=30`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
