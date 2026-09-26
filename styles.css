@@ -1462,6 +1462,20 @@ a.entete-pilule--encre:focus-visible {
 .projet[data-projet="vergastaphoto"] { --fond: #f3efe6; }
 .projet[data-projet="bdpokecards"] { --fond: #fbe2e0; }
 
+/* Le renvoi vers la page des expériences, sous la grille : la pilule crème de
+   l'ouverture, qui prend l'aplat lime au survol. Un libellé qui existait déjà
+   sous une autre forme (« Voir les réalisations »), pas une formule de plus. */
+.projets-suite {
+  display: flex;
+  margin-top: 1.5rem;
+}
+
+/* Le paragraphe hérite du gris des textes de bloc ; le libellé d'une action
+   reste à l'encre. */
+.projets-suite .opening-jump {
+  color: var(--ink);
+}
+
 /* Toute la tuile se prend. Le lien du nom s'étend sur la carte entière par un
    pseudo-élément ; les pilules des magasins et les marques de presse sont
    posées au-dessus de lui et restent des liens à part. */

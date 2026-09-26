@@ -847,6 +847,22 @@
       }
     ],
 
+    /* Expériences : des anneaux magenta sur une boucle, doublés en retard
+       d'une dérive cyan mal calée. Ni l'une ni l'autre ne sert en tête d'une
+       autre page, pour que cette ouverture ne se confonde pas avec celle de
+       l'histoire. */
+    experiences: [
+      {
+        brush: "anneaux", ink: "magenta", over: { size: 0.1, spacing: 1.05 },
+        path: function (w, h) { return boucle(w * 0.5, h * 0.5, w * 0.36, h * 0.3, 360); }
+      },
+      {
+        brush: "derive", ink: "cyan", alpha: 0.75, delay: 240,
+        over: { size: 0.07, spacing: 0.5, scatter: 0.4 },
+        path: function (w, h) { return boucle(w * 0.53, h * 0.47, w * 0.3, h * 0.24, 300); }
+      }
+    ],
+
     /* Croix encre, pour les pages légales. */
     legal: [
       {

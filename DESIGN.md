@@ -3,9 +3,10 @@
 Ce document sert à reprendre le site sans en défaire la cohérence. Il dit ce
 qu'on fait, et surtout ce qu'on ne fait pas et pourquoi.
 
-Le site est statique : cinq pages publiques en cinq langues, une page
+Le site est statique : six pages publiques en cinq langues, une page
 d'atelier non référencée, deux feuilles de style, trois scripts, des polices,
-plus `robots.txt` et `sitemap.xml`. Pas de build, pas de dépendance, pas de
+plus `robots.txt` et `sitemap.xml`. La page des expériences apporte en plus
+son dossier, `experiences/` (§12). Pas de build, pas de dépendance, pas de
 gestionnaire de paquets. On édite les fichiers, on pousse, GitHub Pages sert.
 
 ---
@@ -283,7 +284,7 @@ ronds, ni ombre ni bordure. Le reste, c'est du texte sur le blanc.
 - Le corps de page est coupé à droite (`overflow-x: clip`). La coupe avait été
   posée pour l'entrée de la marque d'ouverture, qui débordait la fenêtre ; cette
   entrée n'existe plus (§6) et la coupe reste, comme garde-fou : rien ne doit
-  pouvoir tirer la page de côté, en cinq langues et sur six pages. **Elle est
+  pouvoir tirer la page de côté, en cinq langues et sur sept pages. **Elle est
   posée sur le corps de page et pas sur la racine**, où elle ne change rien ;
   c'est vérifié.
 
@@ -462,7 +463,7 @@ ne ferme rien, comme partout ailleurs (§4).
 
 **Encadré `.aside`.** La carte « Bon à savoir », sous le déroulé, a été
 retirée des cinq langues. Ses règles restent dans `styles.css` sans être
-appelées : les retirer demanderait de relever l'estampille dans les vingt-six
+appelées : les retirer demanderait de relever l'estampille dans les trente et une
 pages (§7 bis) pour du code mort, et elles resservent telles quelles si
 l'encadré revient.
 
@@ -583,6 +584,11 @@ ouvre la liste dans les quatre langues latines et ne figure pas à la liste
 japonaise, pour la même raison que les autres : il ne s'adresse pas à ce
 lecteur-là.
 
+**Le renvoi vers les expériences `.projets-suite`.** Sous la grille, une
+seule pilule crème, la même que « Voir les réalisations » de l'ouverture :
+elle mène à la page qui fait bouger ces projets (§12). Elle est posée après
+les tuiles et non dans la légende, qui reste un commentaire écrit à la main.
+
 **Mention de presse `.press`.** Dans la tuile de Disque Bleu, entre le genre et
 les pilules des magasins. Elle se lit d'un trait, « Apparu sur » suivi des six
 marques, qui tiennent la place des noms : c'est le logo du journal qui fait la
@@ -655,6 +661,11 @@ déjà. Les deux titres de colonne sont le nom de l'atelier et l'étiquette que 
 navigation légale portait déjà pour la lecture d'écran (« Pages légales »,
 « Legal pages », « 法的情報 »…). Une colonne de plus demandera un titre, et
 donc cinq traductions.
+
+La colonne de l'atelier porte une entrée de plus depuis la page des
+expériences (§12), juste après « Réalisations » : ce sont les deux pages qui
+montrent les projets, et elles se suivent. Son libellé est le titre de la page,
+dans chaque langue ; c'est le seul mot du pied de page écrit pour lui.
 
 **Le fil de `story.html`.** La page « Notre histoire » range ses chapitres le
 long d'un trait à la brosse tiré sur toute la hauteur du bloc, qui dérive à
@@ -924,7 +935,7 @@ marque. Celle-là est bien neutralisée à l'impression et en mouvement réduit.
 
 **La coupe latérale du corps de page reste** (`overflow-x: clip`, §4). Elle
 avait été posée pour l'entrée hors cadre de la marque ; elle ne coûte rien et
-tient toujours la page à sa largeur, en cinq langues et sur six pages.
+tient toujours la page à sa largeur, en cinq langues et sur sept pages.
 
 ### Sous 1000 px, la marque ferme l'ouverture
 
@@ -1202,7 +1213,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=32`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=33`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1218,7 +1229,7 @@ donc `brushes.js?v=11` est une autre entrée de cache que `brushes.js?v=10` et
 part chercher le fichier à la source.
 
 **Changer un de ces cinq fichiers veut donc dire deux gestes, pas un** : le
-fichier, puis l'estampille dans les vingt-six pages qui l'appellent. Elle est
+fichier, puis l'estampille dans les trente et une pages qui l'appellent. Elle est
 la même partout, un simple entier, et vaut pour tous les fichiers à la fois :
 une estampille par fichier serait plus fine et cinq fois plus facile à oublier.
 
@@ -1264,11 +1275,16 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
   deux pilules côte à côte, de 360 px à 949 px (voir §5) ; si sa hauteur a
   changé, `--entete` a été remesuré (§4),
 - si un script ou une feuille servie a changé, l'estampille `?v=` a été
-  incrémentée dans les vingt-six pages (voir §7 bis), sans quoi la
+  incrémentée dans les trente et une pages (voir §7 bis), sans quoi la
   modification restera invisible en ligne pendant quatre heures,
 - si une page publique a été ajoutée ou renommée, `sitemap.xml` la suit (voir §10),
 - si un texte a bougé, les cinq versions ont bougé ensemble (voir §11), et le
   rendu allemand et japonais a été regardé : ce sont les deux qui débordent.
+- les expériences (§12) : chaque scène démarre à son arrivée à l'écran et
+  s'arrête en le quittant, le disque tourne et garde son élan, l'écran de
+  Yamanote tire ses deux incidents, la devise de Custom To Lylia tient sur sa
+  ligne, et les fiches de Mes Échéances tiennent dans leur scène, à 1440 px
+  comme à 390 px.
 
 ---
 
@@ -1321,8 +1337,8 @@ qui n'a pas le droit d'ouvrir la page ne lit pas non plus sa balise `noindex`,
 donc l'adresse peut malgré tout finir listée. C'est la balise qui la tient à
 l'écart, pas `robots.txt`.
 
-**`sitemap.xml`.** Les cinq pages publiques dans les cinq langues, soit
-vingt-cinq adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
+**`sitemap.xml`.** Les six pages publiques dans les cinq langues, soit
+trente adresses, plus les pages d'Auxine, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
 `<link rel="canonical">` des pages : deux adresses concurrentes pour une même
 page, c'est le moyen le plus simple de diviser son propre référencement.
 Ajouter une page publique veut donc dire trois gestes, pas un : la page, son
@@ -1379,7 +1395,7 @@ sans aucun retour sur ce qui est réellement indexé.
 Français, anglais, allemand, italien, japonais. Le français reste à la racine :
 ses adresses ne bougent pas, les liens déjà donnés tiennent. Les quatre autres
 vivent dans `/en/`, `/de/`, `/it/`, `/ja/`, avec les mêmes noms de fichiers.
-Vingt-cinq pages, cinq par langue.
+Trente pages, six par langue.
 
 Les noms de fichiers sont en anglais dans les cinq langues, `story.html`
 comprise : c'est une adresse, pas un texte, et cinq jeux d'adresses par page
@@ -1443,3 +1459,127 @@ dans les cinq versions. Le site est traduit ; l'atelier ne promet pas pour
 autant de répondre à une demande en cinq langues. Le §10 demande que chaque
 valeur soit vraie, et celle-là ne le serait pas. À corriger le jour où elle le
 devient, et pas avant.
+
+---
+
+## 12. La page des expériences
+
+`experiences.html`, dans les cinq langues. Elle reprend, pour chaque projet
+de la liste des réalisations, un moment où il bouge, et le remet en marche
+dans la page. Ce n'est pas une galerie de captures : chaque scène tourne
+avec le code du projet, ou avec une transcription fidèle quand le projet
+n'est pas écrit pour le web.
+
+### Deux langues qui ne se mélangent pas
+
+La page parle celle de Vergasta : ouverture, marque à la brosse
+(`experiences`, des anneaux magenta sur une boucle doublés d'une dérive
+cyan), cartes à plat, pilules en capitales, bloc de sortie, pied de page.
+Chaque **scène**, le cadre en haut d'une carte, parle celle de son projet :
+le bleu de Disque Bleu, l'outremer et la crème du roman, le vert d'Auxine,
+le noir de la boutique de Custom To Lylia, sa police, ses textes. C'est la
+même exception que la bannière d'Auxine (§4), bornée au cadre de la scène.
+
+**Ce qui ne passe pas la frontière : les ombres et les lueurs.** L'ombre sous
+le pot d'Auxine, celle sous la carte de BDPokéCards, la lueur violette de la
+pastille d'Axolot et le halo tiré des couleurs d'une carte sont restés dans
+leurs projets. Le §7 vaut pour toute la page, scènes comprises ; une scène a
+droit à ses couleurs, pas à ce que la charte proscrit.
+
+### La mise en page
+
+Un bento de trois colonnes, comme les métiers (§5) : les scènes qui ont
+besoin de largeur (l'écran de Yamanote, le prologue, la sphère) prennent deux
+cases (`.xp--large`). Toutes les scènes ont la même hauteur (`--scene-h`),
+pour que deux cartes voisines alignent leurs titres. Une ligne dont une scène
+demande plus de place (les fiches de Mes Échéances) passe entière à
+`.xp--haute`, et ses voisines la suivent.
+
+**Les listes suivent celles des réalisations** : neuf expériences en
+français, huit en anglais, en allemand et en italien (sans Auxine), une seule
+en japonais (Yamanote 3D). Le nombre de cases doit rester un multiple de
+trois ; c'est pourquoi Mes Échéances est large dans les trois langues à huit
+projets et pas en français. **F. Da Silva n'y figure pas** : son site est
+volontairement sobre, sans rien qui bouge, et une animation inventée pour la
+page ne serait pas une expérience du projet.
+
+### Ce que fait chaque scène, et d'où elle vient
+
+| Projet | Scène | Source |
+|---|---|---|
+| Yamanote 3D | l'écran au-dessus des portes, cycle complet | `src/three/lineScreen*.ts`, compilé (voir plus bas) |
+| Disque Bleu | le disque de l'app, qu'on tourne | `lib/widgets/parking_disc_painter.dart`, transcrit en Canvas 2D |
+| Auxine | le pot qui cligne et sa gerbe | `lancement/lancement.js`, copié |
+| Stellar Rebirth | les sept tableaux du prologue | `site/scenes.js`, copié tel quel |
+| Axolot | le décodage corrompu dans l'axolotl | `datamosh-engine.blade.php`, copié sans les directives Blade |
+| Custom To Lylia | le logo qui suit le curseur | `index.php` et `logo-animation.css`, copiés |
+| Mes Échéances | les fiches qui rougissent | `binder_document_cards.dart`, `urgency.dart`, retranscrits |
+| Vergasta Photo | la sphère des collections | `src/lib/image-sphere/engine.ts`, transcrit en Canvas 2D |
+| BDPokéCards | la carte qui prend la lumière | `resources/js/card-stage.js` et `fiche.css`, copiés |
+
+Trois écarts assumés, parce qu'ils se lisent dans la page :
+
+- **Yamanote** : le train est simulé, trois fois plus vite qu'en vrai, à
+  l'heure de Tokyo. Les deux pilules sous l'écran tirent les deux incidents
+  du jeu, l'arrêt d'urgence et la coupure de caténaire, et ne se prennent
+  qu'en pleine voie, comme dans le jeu ;
+- **Disque Bleu** : l'app affiche « Réglez votre disque sur » au début du
+  stationnement, la page au relâchement du disque. L'heure suit la règle de
+  l'app pour la Suisse : toujours la demi-heure suivante ;
+- **Mes Échéances** : le curseur des jours n'existe pas dans l'app, où c'est
+  le calendrier qui avance. Les fiches sont fictives mais vraisemblables, et
+  les libellés sont ceux de l'app dans chaque langue.
+
+**La carte de BDPokéCards ne montre pas une carte Pokémon.** Les visuels de
+la boutique viennent de l'API TCGdex et appartiennent à leurs ayants droit.
+La carte de la page (`carte.svg`) porte Kardo, la mascotte de la boutique,
+redessiné pixel pour pixel depuis son fichier de 24 × 35 carrés, dans la
+palette de la boutique.
+
+**La sphère n'utilise pas three.js.** Chaque photo y est un plan tourné face à
+la caméra ; projeté en perspective, un tel plan est un rectangle mis à
+l'échelle, et le Canvas 2D donne la même image que le moteur WebGL, sans ses
+150 Ko. Les 24 photos sont celles de la collection du Japon, réduites à
+480 px (515 Ko en tout).
+
+### Le dossier `experiences/`
+
+Tout vit là : `experiences.css`, le chargeur `experiences.js`, et un
+sous-dossier par projet qui porte son module (`<projet>/<projet>.js`) et ses
+fichiers. Le dossier a **sa propre estampille** (`?v=1`), comme `lancement/` :
+la feuille et le chargeur ne sont appelés que par les cinq pages des
+expériences, et les modules sont appelés par le chargeur. Changer un fichier
+du dossier veut dire relever l'estampille dans le chargeur (`VERSION`) et
+dans les cinq pages, pas dans les trente et une.
+
+**Rien n'est chargé d'avance.** Un module n'est demandé que lorsque sa scène
+approche de l'écran, et une scène ne tourne que tant qu'elle y est ; un
+onglet masqué arrête tout. Neuf animations qui tourneraient hors de la vue
+coûteraient pour rien.
+
+**Les textes d'une scène sont écrits dans la page**, dans sa langue, jamais
+dans le module : libellés de Mes Échéances, titres du prologue, aide de la
+sphère, pilules de Yamanote, confirmation du disque. Un seul code, cinq pages
+complètes (§11).
+
+**`yamanote/ecran.js` est le seul fichier compilé du site.** La peinture de
+l'écran fait près de quatre mille lignes de TypeScript, avec les données des
+gares ; les recopier à la main, c'est les laisser diverger du jeu. `entree.ts`
+les importe telles quelles et remplace ce qu'elles lisaient dans le moteur du
+jeu par un train simulé ; la commande pour recompiler est dans son en-tête. Il
+n'y a pas de chaîne de construction pour autant : le fichier compilé est
+versé dans le dépôt, et le site se sert toujours sans étape.
+
+**Polices.** Instrument Serif, la police du roman, est servie depuis
+`stellarrebirth/` (sous-ensemble latin, 20 Ko, licence OFL recopiée à côté).
+Les scènes des applications (Disque Bleu, Mes Échéances, Custom To Lylia)
+prennent la police du système, comme les apps sur un téléphone. L'écran de
+Yamanote garde la pile japonaise du jeu (Hiragino, Yu Gothic, Noto), qui est
+aussi celle du texte courant de `/ja/` (§2) : aucune police japonaise de plus.
+
+**Aucune requête hors du domaine**, comme partout (§2). **Mouvement réduit** :
+chaque scène reçoit `calme` et s'en tient à une image posée, ou ne bouge que
+sous la main (le disque tourne au doigt mais sans élan, la carte ne s'incline
+plus, l'écran de Yamanote change de page sans fondu). **Sans JavaScript**, les
+scènes gardent leur couleur ; celles qui n'ont rien à montrer sans script le
+disent en une ligne.

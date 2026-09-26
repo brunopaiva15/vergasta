@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>体験｜Vergasta Digital</title>
+  <meta name="description" content="Yamanote 3D の車内ディスプレイを、ゲーム自身のコードのままページの中で動かしています。列車はシミュレーションで、東京の時刻に合わせて走ります。">
+  <link rel="canonical" href="https://vergasta.ch/ja/experiences.html">
+
+  <!--
+    Les cinq versions de cette page. Le script de langue lit ces liens plutôt
+    que de recalculer un chemin : une seule source pour les adresses.
+  -->
+  <link rel="alternate" hreflang="fr" href="https://vergasta.ch/experiences.html">
+  <link rel="alternate" hreflang="en" href="https://vergasta.ch/en/experiences.html">
+  <link rel="alternate" hreflang="de" href="https://vergasta.ch/de/experiences.html">
+  <link rel="alternate" hreflang="it" href="https://vergasta.ch/it/experiences.html">
+  <link rel="alternate" hreflang="ja" href="https://vergasta.ch/ja/experiences.html">
+  <link rel="alternate" hreflang="x-default" href="https://vergasta.ch/experiences.html">
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="icon" href="../favicon.ico">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Vergasta Digital">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="fr_CH">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="de_CH">
+  <meta property="og:locale:alternate" content="it_CH">
+  <meta property="og:title" content="体験｜Vergasta Digital">
+  <meta property="og:description" content="Yamanote 3D の車内ディスプレイを、ゲーム自身のコードのままページの中で動かしています。列車はシミュレーションで、東京の時刻に合わせて走ります。">
+  <meta property="og:url" content="https://vergasta.ch/ja/experiences.html">
+  <meta property="og:image" content="https://vergasta.ch/logo_vergasta.png">
+  <meta property="og:image:width" content="435">
+  <meta property="og:image:height" content="520">
+  <meta property="og:image:alt" content="ライムグリーンとブルー、2本のバーで組まれたスイス十字。">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/pixelmplus12-japonais.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css?v=33">
+  <!-- Les scènes parlent chacune la langue de leur projet : voir experiences/experiences.css. -->
+  <link rel="stylesheet" href="../experiences/experiences.css?v=1">
+  <script src="../brushes.js?v=33" defer></script>
+  <script type="module" src="../experiences/experiences.js?v=1"></script>
+
+  <!--
+    Données structurées. La page se rattache au même @id que l'accueil, dans
+    les cinq langues. Rien n'y est affirmé qui ne soit écrit ailleurs sur le
+    site.
+  -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://vergasta.ch/ja/experiences.html#experiences",
+    "url": "https://vergasta.ch/ja/experiences.html",
+    "name": "体験｜Vergasta Digital",
+    "isPartOf": {
+      "@id": "https://vergasta.ch/#site"
+    },
+    "about": {
+      "@id": "https://vergasta.ch/#atelier"
+    },
+    "inLanguage": "ja"
+  }
+  </script>
+
+  <!--
+    Redirection de langue. Placé en fin de tête, après les liens alternes dont
+    il se sert, et sans defer : il doit trancher avant que la page s'affiche,
+    sinon le visiteur voit passer la mauvaise langue.
+  -->
+  <script src="../lang.js?v=33"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead wrap">
+      <a href="./" class="brand">
+        <img src="../logo_vergasta.png" alt="">
+        Vergasta Digital
+      </a>
+      <div class="masthead-tail">
+        <nav class="site-nav" aria-label="メインナビゲーション">
+          <a class="entete-pilule" href="story.html">私たちの歩み</a>
+          <a class="entete-pilule entete-pilule--encre" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+        </nav>
+        <nav class="lang-nav" aria-label="サイトの言語">
+          <a href="../experiences.html" hreflang="fr" lang="fr" data-langue="fr" aria-label="Français">FR</a>
+          <a href="../en/experiences.html" hreflang="en" lang="en" data-langue="en" aria-label="English">EN</a>
+          <a href="../de/experiences.html" hreflang="de" lang="de" data-langue="de" aria-label="Deutsch">DE</a>
+          <a href="../it/experiences.html" hreflang="it" lang="it" data-langue="it" aria-label="Italiano">IT</a>
+          <span class="is-current" aria-current="true" lang="ja">JA</span>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="opening wrap">
+      <div class="mark mark-opening" data-mark="experiences" aria-hidden="true"></div>
+      <h1>体験</h1>
+      <div class="opening-body">
+        <p>Yamanote 3D の中で動いている画面を、ゲーム自身のコードのまま、このページで動かしています。ゲームを開かなくても、ここで見て触れることができます。</p>
+      </div>
+    </section>
+
+    <section class="slab wrap" aria-label="体験">
+      <ul class="xps">
+        <li class="xp" data-projet="yamanote">
+          <div class="xp-scene" data-xp="yamanote">
+            <canvas class="ecran" width="768" height="432" role="img" aria-label="山手線の車内ディスプレイ（日本語と英語）"></canvas>
+            <noscript><p class="xp-sansjs">この体験には JavaScript が必要です。</p></noscript>
+          </div>
+          <div class="xp-texte">
+            <h2>Yamanote 3D</h2>
+            <p>E235系のドア上にある案内画面を、ゲームは実物どおりに描いています。次の駅、山手線の路線図、出口、ご案内が、日本語と英語で順に表示されます。ここでは列車をシミュレーションしており、実際の3倍の速さで、東京の時刻に合わせて走ります。</p>
+            <div class="xp-reglages">
+              <button type="button" class="xp-pilule" data-incident="brake">急停車</button>
+              <button type="button" class="xp-pilule" data-incident="outage">停電</button>
+            </div>
+            <p class="xp-sorties"><a class="xp-pilule" href="https://yamanote-3d.com" target="_blank" rel="noopener noreferrer">yamanote-3d.com</a></p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="story-after wrap" aria-labelledby="xp-suite-titre">
+      <h2 id="xp-suite-titre">あなたのプロジェクトにも</h2>
+      <p>サイトやアプリに何かが動く場所が必要でしたら、フォームからご連絡ください。通常は2営業日以内にお返事します。</p>
+      <div class="story-sorties">
+        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+        <a class="story-back" href="./#realisations">実績を見る</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="mark band" data-mark="bande" aria-hidden="true"></div>
+      <div class="pied-haut">
+        <p class="motto">地元から、地元のために。</p>
+        <div class="pied-adresse">
+          <p>Rue du Temple 5<br>2610 St-Imier</p>
+          <a class="pied-pilule" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+        </div>
+      </div>
+      <div class="pied-liens">
+        <nav aria-label="Vergasta Digital">
+          <p class="pied-titre">Vergasta Digital</p>
+          <a href="./#realisations">実績</a>
+          <span class="is-current" aria-current="page">体験</span>
+          <a href="./#metier">手がけるもの</a>
+          <a href="./#deroule">プロジェクトの流れ</a>
+          <a href="story.html">私たちの歩み</a>
+        </nav>
+        <nav class="footer-nav" aria-label="法的情報">
+          <p class="pied-titre">法的情報</p>
+          <a href="terms.html">一般取引条件</a>
+          <a href="privacy.html">プライバシー</a>
+          <a href="imprint.html">法的表記</a>
+        </nav>
+      </div>
+      <p class="pied-bas">© 2026 Vergasta Digital, St-Imier</p>
+    </div>
+  </footer>
+</body>
+</html>
