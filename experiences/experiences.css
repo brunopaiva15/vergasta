@@ -1,0 +1,948 @@
+/* --------------------------------------------------------------------------
+   Expériences
+
+   Une page à part, avec sa feuille à part, comme la bannière d'Auxine : elle
+   n'est appelée que par les cinq pages `experiences.html` et porte sa propre
+   estampille (`?v=`). `styles.css` n'en sait rien.
+
+   Deux langues se parlent ici, et elles ne se mélangent pas. La page parle
+   celle de Vergasta : blanc, cartes à plat, Gabarito et Figtree, pilules en
+   capitales interlettrées, ni ombre ni bordure. Chaque scène, elle, parle
+   celle de son projet : le bleu du disque, l'outremer du roman, le vert
+   d'Auxine, le noir de la boutique. C'est la même exception que la bannière
+   d'Auxine (§4 de DESIGN.md), bornée cette fois au cadre de la scène : rien
+   de ce qu'il y a dedans ne déteint sur la carte qui le porte.
+
+   Les cartes ne sont pas une grille identique (§7) : un bento de trois
+   colonnes, où les scènes qui ont besoin de largeur (l'écran de bord, le
+   prologue, la sphère) prennent deux cases.
+   -------------------------------------------------------------------------- */
+
+.xps {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow: dense;
+  gap: 1rem;
+  /* La hauteur des scènes, commune à toute la page : deux cartes d'une même
+     ligne alignent ainsi leurs titres, comme les tuiles des réalisations. */
+  --scene-h-base: 21rem;
+  --scene-h: var(--scene-h-base);
+}
+
+@media (min-width: 640px) {
+  .xps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .xp--large,
+  .xp:only-child {
+    grid-column: span 2;
+  }
+}
+
+/* Sur deux colonnes, les lignes ne se forment plus comme sur trois : une scène
+   haute peut tomber à côté d'une scène ordinaire. Toutes les scènes prennent
+   alors la hauteur dont les fiches de Mes Échéances ont besoin. */
+@media (min-width: 640px) and (max-width: 999px) {
+  .xps {
+    --scene-h-base: 25.5rem;
+  }
+
+  .xp--haute {
+    --scene-h: var(--scene-h-base);
+  }
+}
+
+@media (min-width: 1000px) {
+  .xps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    --scene-h-base: clamp(21rem, 26vw, 24rem);
+  }
+
+  .xp:only-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Une ligne dont une scène demande plus de hauteur (les fiches de Mes
+   Échéances) : ses voisines la suivent, pour que les titres restent alignés. */
+.xp--haute {
+  --scene-h: calc(var(--scene-h-base, 21rem) + 4.5rem);
+}
+
+/* La carte : l'aplat pâle de son projet, les mêmes teintes que les tuiles des
+   réalisations, relevées de la même façon. Elle ne grossit pas au survol :
+   elle ne se prend pas en entier, ce sont la scène et les pilules qui se
+   prennent. */
+.xp {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  background: var(--fond, var(--carte));
+  border-radius: var(--rond);
+}
+
+.xp[data-projet="auxine"] { --fond: #dbeee1; }
+.xp[data-projet="stellarrebirth"] { --fond: #e0e5fa; }
+.xp[data-projet="axolot"] { --fond: #ece5fd; }
+.xp[data-projet="yamanote"] { --fond: #e7f4d2; }
+.xp[data-projet="customtolylia"] { --fond: linear-gradient(135deg, #f5e6fe, #e2edfe); }
+.xp[data-projet="disquebleu"] { --fond: #dbeafb; }
+.xp[data-projet="mesecheances"] { --fond: #fde7d6; }
+.xp[data-projet="vergastaphoto"] { --fond: #f3efe6; }
+.xp[data-projet="bdpokecards"] { --fond: #fbe2e0; }
+
+/* La scène : le cadre où le projet parle sa propre langue. Son rayon est
+   celui de la carte moins le rembourrage, pour que les deux coins restent
+   parallèles. */
+.xp-scene {
+  position: relative;
+  height: var(--scene-h);
+  overflow: hidden;
+  border-radius: calc(var(--rond) - 0.75rem);
+  background: var(--scene-fond, #ffffff);
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.xp-texte {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem 0.75rem 0.5rem;
+}
+
+.xp-texte h2 {
+  font-size: 1.4rem;
+  line-height: 1.15;
+}
+
+.xp-texte > p {
+  max-width: var(--measure);
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* Les sorties, en pied, comme sur les tuiles : poussées en bas pour que deux
+   cartes voisines les alignent. */
+.xp-sorties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 1.1rem;
+}
+
+/* Les pilules : blanches sur l'aplat de la carte, à l'encre au survol. Celles
+   qui agissent sur la scène (un bouton) et celles qui mènent au projet (un
+   lien) ont le même dessin : dans les deux cas, c'est une action (§2). */
+.xp-pilule {
+  display: inline-block;
+  padding: 0.55rem 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--sheet);
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s, transform var(--ressort-duree) var(--ressort);
+}
+
+.xp-pilule:hover,
+.xp-pilule:focus-visible {
+  background: var(--ink);
+  color: var(--sheet);
+  transform: scale(1.05);
+}
+
+.xp-pilule:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Un bouton qui a déjà fait son effet, ou qui attend le bon moment (un arrêt
+   d'urgence ne se tire qu'en pleine voie) : il reste lisible, en retrait. */
+.xp-pilule[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.xp-pilule[aria-disabled="true"]:hover {
+  background: var(--sheet);
+  color: var(--ink);
+  transform: none;
+}
+
+.xp-pilule[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--sheet);
+}
+
+.xp-reglages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-pilule {
+    transition: background 0.14s, color 0.14s;
+  }
+
+  .xp-pilule:hover,
+  .xp-pilule:focus-visible {
+    transform: none;
+  }
+}
+
+/* Sans JavaScript, la scène garde sa couleur et dit ce qui lui manque. */
+.xp-sansjs {
+  position: absolute;
+  inset: auto 1.25rem 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--scene-encre, var(--ink-soft));
+}
+
+/* Tout ce qu'une scène peint est décoratif pour la lecture d'écran, sauf ce
+   qu'elle dit en clair (voir `.sr-only` dans chaque scène). */
+.xp-scene canvas {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Yamanote 3D : l'écran de bord
+
+   La dalle réelle est un 16:9 de 768 × 432 ; elle est posée dans le cadre
+   gris foncé de son boîtier, centrée, et garde son rapport quelle que soit la
+   forme de la scène.
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="yamanote"] .xp-scene {
+  --scene-fond: #2b2d2f;
+  --scene-encre: #c9ccd0;
+  display: grid;
+  place-items: center;
+  padding: 0.9rem;
+  /* La dalle prend la plus grande taille qui tienne dans le cadre, en largeur
+     comme en hauteur : une carte large, sur un écran moyen, est plus large
+     que haute, et le bas de l'écran serait coupé. */
+  container-type: size;
+}
+
+.ecran {
+  width: min(100cqw, 100cqh * 16 / 9);
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #05070a;
+}
+
+/* Sur un téléphone, et quand l'écran est seul sur sa ligne (la page
+   japonaise), le cadre suit la dalle au lieu de l'inverse. */
+@media (max-width: 639px) {
+  .xp[data-projet="yamanote"] .xp-scene {
+    height: auto;
+    padding: 0.6rem;
+    container-type: normal;
+  }
+
+  .ecran {
+    width: 100%;
+  }
+}
+
+.xp[data-projet="yamanote"]:only-child .xp-scene {
+  height: auto;
+  container-type: normal;
+}
+
+.xp[data-projet="yamanote"]:only-child .ecran {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Disque Bleu : le disque de l'app, sur son bleu
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="disquebleu"] .xp-scene {
+  --scene-fond: #1565c0;
+  --scene-encre: #dbeafb;
+  cursor: grab;
+  touch-action: none;
+}
+
+.xp[data-projet="disquebleu"] .xp-scene:active {
+  cursor: grabbing;
+}
+
+.xp[data-projet="disquebleu"] canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Auxine : le pot, sur le vert de l'écran d'ouverture
+
+   Le vert, les deux disques pâles et le pot viennent de l'app, comme sur la
+   bannière de sortie ; les fichiers sont copiés ici, pour que la page ne
+   dépende pas d'une bannière appelée à partir.
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="auxine"] .xp-scene {
+  --scene-fond: #358354;
+  --scene-encre: #dbeee1;
+  display: grid;
+  place-items: center;
+}
+
+.xp[data-projet="auxine"] .xp-scene::before,
+.xp[data-projet="auxine"] .xp-scene::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  background: #ffffff10;
+}
+
+.xp[data-projet="auxine"] .xp-scene::before {
+  width: 30rem;
+  height: 30rem;
+  right: -12rem;
+  top: -17rem;
+}
+
+.xp[data-projet="auxine"] .xp-scene::after {
+  width: 17rem;
+  height: 17rem;
+  left: -7rem;
+  bottom: -9rem;
+  background: #ffffff0c;
+}
+
+.xp-pot {
+  position: relative;
+  width: min(15rem, 72%);
+  aspect-ratio: 1;
+  margin-top: 1.5rem;
+  transform-origin: 50% 92%;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+.xp-pot img {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+.xp-pot .pot {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.xp-pot:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+
+.xp[data-projet="auxine"] canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Stellar Rebirth : les tableaux du prologue
+
+   Les deux encres de la couverture, outremer et crème. Le tableau garde le
+   rapport 1,42 de l'application, dans le double filet de la page du roman.
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(stellarrebirth/instrument-serif-latin.woff2) format("woff2");
+}
+
+.xp[data-projet="stellarrebirth"] .xp-scene {
+  --scene-fond: #002eb8;
+  --scene-encre: #fff9ef;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1rem 0.85rem;
+  cursor: pointer;
+}
+
+.prologue-plaque {
+  height: 100%;
+  max-width: 100%;
+  aspect-ratio: 1.42;
+  padding: 0.35rem;
+  border: 1px solid rgba(255, 249, 239, 0.34);
+  border-radius: 6px;
+}
+
+.prologue-plaque canvas {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(255, 249, 239, 0.16);
+  border-radius: 2px;
+  background: rgba(255, 249, 239, 0.03);
+}
+
+/* Les sept titres sont écrits dans la page ; un seul se voit à la fois, celui
+   du tableau à l'écran. Sans JavaScript, le premier reste affiché. */
+.prologue-titres {
+  display: grid;
+  text-align: center;
+}
+
+.prologue-titres li {
+  grid-area: 1 / 1;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.02rem;
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  color: #fff9ef;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.prologue-titres li:first-child,
+.prologue-titres li.est-la {
+  opacity: 1;
+}
+
+.prologue-titres.a-tourne li:first-child:not(.est-la) {
+  opacity: 0;
+}
+
+@media (max-width: 639px) {
+  .xp[data-projet="stellarrebirth"] .xp-scene {
+    height: auto;
+  }
+
+  .prologue-plaque {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Axolot : le décodage corrompu dans la silhouette
+
+   La pastille du chargement de l'app, agrandie, sur le papier de l'app. Son
+   ombre violette est restée dans l'app : une lueur teintée est proscrite ici
+   (§7), et la pastille se détache très bien sans elle.
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="axolot"] .xp-scene {
+  --scene-fond: #f7f8fa;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.axolot-pastille {
+  position: relative;
+  width: min(13rem, 62%);
+  aspect-ratio: 1;
+  border-radius: 21%;
+  background: #120b1f;
+}
+
+.axolot-mosh {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 78%;
+  aspect-ratio: 4267 / 3625;
+  transform: translate(-50%, -50%);
+  -webkit-mask: url(axolot/axolot.svg) center / contain no-repeat;
+  mask: url(axolot/axolot.svg) center / contain no-repeat;
+}
+
+.axolot-mosh canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Custom To Lylia : le logo qui suit du regard
+
+   Le noir de l'accueil de la boutique, son logo et sa devise. Les valeurs
+   du mouvement sont celles de `logo-animation.css` : perspective de 1000 px,
+   25 degrés au plus, une transition de 0,2 s, et sur un écran tactile la
+   respiration de 4 s.
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="customtolylia"] .xp-scene {
+  --scene-fond: #1f1e1e;
+  --scene-encre: #d8d6d6;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.ctl-logo {
+  width: auto;
+  height: 58%;
+  max-width: 80%;
+  object-fit: contain;
+  transition: transform 0.2s ease-out;
+  transform-style: preserve-3d;
+}
+
+.ctl-devise {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  /* Sur une ligne, comme sur la boutique (`whitespace-nowrap`) : c'est donc
+     le corps qui suit la largeur de la scène. */
+  font-size: min(1.3rem, 4.4cqi);
+  letter-spacing: 0;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .ctl-logo {
+    animation: ctl-respire 4s ease-in-out infinite;
+  }
+}
+
+@keyframes ctl-respire {
+  0%, 100% { transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1); }
+  25% { transform: perspective(1000px) rotateY(3deg) rotateX(2deg) scale(1.02); }
+  50% { transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1); }
+  75% { transform: perspective(1000px) rotateY(-3deg) rotateX(-2deg) scale(1.02); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctl-logo {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mes Échéances : les fiches qui rougissent
+
+   Le papier de l'app, ses fiches crème à bande d'urgence, ses pastilles J-n
+   et ses quatre listes. Les couleurs sont celles de `app_theme.dart` et de
+   `urgency.dart`, les mesures celles de `binder_document_cards.dart`. La
+   police est celle du système, comme dans l'app sur un téléphone.
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="mesecheances"] .xp-scene {
+  --scene-fond: #f5f1ec;
+  --me-encre: #2a2521;
+  --me-gris: #6e655e;
+  --me-rouge: #d32f2f;
+  --me-orange: #ff9800;
+  --me-vert: #4caf50;
+  --me-bleu: #2196f3;
+  --me-ardoise: #607d8b;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.85rem;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--me-encre);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.xp[data-projet="mesecheances"] .xp-scene::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sur un téléphone, une seule colonne : rien à aligner, la scène prend la
+   hauteur de ses fiches. */
+@media (max-width: 639px) {
+  .xp[data-projet="mesecheances"] .xp-scene {
+    height: auto;
+  }
+}
+
+.me-listes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.me-liste {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: "rond compte" "nom nom";
+  align-items: center;
+  gap: 0.2rem 0.5rem;
+  padding: 0.45rem 0.6rem 0.4rem;
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+.me-rond {
+  grid-area: rond;
+  display: grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: var(--teinte);
+  color: #ffffff;
+}
+
+.me-rond svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.me-compte {
+  grid-area: compte;
+  justify-self: end;
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.me-nom {
+  grid-area: nom;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--me-gris);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.me-temps {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--me-gris);
+}
+
+.me-temps span {
+  white-space: nowrap;
+}
+
+.me-temps input {
+  flex: 1;
+  min-width: 3rem;
+  accent-color: #f57c00;
+}
+
+.me-temps output {
+  min-width: 3.2rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.me-fiches {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.me-fiche {
+  position: relative;
+  border-radius: 3px;
+  background: var(--me-action, #388e3c);
+  touch-action: pan-y;
+}
+
+.me-fiche.part {
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0;
+  transform: translateX(-30%);
+}
+
+/* L'action rapide, sous la fiche : elle se découvre quand on la tire vers la
+   gauche, comme le `Dismissible` de l'app. */
+.me-action {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  padding: 0 1rem;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.me-action svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+}
+
+.me-papier {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.75rem 0.8rem 0.6rem 1rem;
+  background: #fffbf7;
+  border: 1px solid rgba(215, 204, 200, 0.65);
+  border-radius: 3px;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.me-papier.tire {
+  transition: none;
+}
+
+/* L'aperçu du document, en haut de la fiche : sans image, le dégradé crème
+   de `BinderDocumentTopPreview`. */
+.me-papier::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5px;
+  right: 0;
+  height: 1.2rem;
+  background: linear-gradient(#faf5ee, #f2ebe2);
+}
+
+/* La bande d'urgence : la couleur assombrie de 15 %, en dégradé de gauche à
+   droite, sur cinq pixels. */
+.me-papier::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  width: 5px;
+  border-radius: 2px 0 0 2px;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, color-mix(in srgb, var(--urgence) 85%, #000) 88%, transparent),
+    color-mix(in srgb, color-mix(in srgb, var(--urgence) 85%, #000) 50%, transparent));
+  transition: background 0.4s;
+}
+
+.me-icone {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: color-mix(in srgb, var(--urgence) 65%, #000);
+}
+
+.me-titre {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.me-sous {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--me-gris);
+}
+
+.me-sous b {
+  margin-left: 0.4rem;
+  font-weight: 600;
+  color: var(--me-encre);
+}
+
+/* La pastille J-n : l'encre d'urgence assombrie de 35 %, le fond teinté à
+   14 %, la bordure à 50 %. */
+.me-pastille {
+  padding: 0.36rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--urgence) 50%, transparent);
+  background: color-mix(in srgb, var(--urgence) 14%, #f8f4f0);
+  color: color-mix(in srgb, var(--urgence) 65%, #000);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .me-papier,
+  .me-fiche.part {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Vergasta Photo : la sphère
+
+   Le blanc du portfolio, ses gris clairs, ses capitales fines. C'est la seule
+   scène de la page à parler en capitales grises légères : ce n'est pas un
+   libellé de Vergasta, c'est l'aide du portfolio, recopiée.
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="vergastaphoto"] .xp-scene {
+  --scene-fond: #ffffff;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.xp[data-projet="vergastaphoto"] .xp-scene:active {
+  cursor: grabbing;
+}
+
+.xp[data-projet="vergastaphoto"] canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sphere-aide,
+.sphere-legende {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  margin: 0;
+  text-align: center;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 0.22s;
+}
+
+.sphere-aide {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: #9ca3af;
+}
+
+.sphere-legende {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: #6b7280;
+  opacity: 0;
+}
+
+.xp-scene.a-une-photo .sphere-aide {
+  opacity: 0;
+}
+
+.xp-scene.a-une-photo .sphere-legende {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   BDPokéCards : la carte qui prend la lumière
+
+   L'encre de la boutique et sa scène de fiche : la carte s'incline vers le
+   pointeur, un point de lumière et un arc-en-ciel glissent avec lui. Les
+   valeurs sont celles de `card-stage.js` et de `fiche.css`. L'ombre au sol et
+   le halo tiré des couleurs de la carte sont restés dans la boutique : ce
+   sont des lueurs, et la page n'en porte pas (§7).
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="bdpokecards"] .xp-scene {
+  --scene-fond: #16131c;
+  --scene-encre: #d9d6de;
+  display: grid;
+  place-items: center;
+  perspective: 1100px;
+}
+
+.bd-carte {
+  position: relative;
+  height: 82%;
+  aspect-ratio: 63 / 88;
+  border-radius: 4.5% / 3.2%;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  touch-action: none;
+  user-select: none;
+}
+
+.bd-carte img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+.is-tilting .bd-carte {
+  transition-duration: 0.12s;
+}
+
+.bd-reflet {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at var(--gx, 50%) var(--gy, 30%), rgb(255 255 255 / 0.5), transparent 42%),
+    linear-gradient(
+      115deg,
+      transparent 20%,
+      rgb(255 90 78 / 0.35) 36%,
+      rgb(255 210 63 / 0.35) 44%,
+      rgb(61 220 132 / 0.35) 52%,
+      rgb(93 183 255 / 0.35) 60%,
+      rgb(182 156 255 / 0.35) 68%,
+      transparent 82%
+    );
+  background-size: 100% 100%, 250% 250%;
+  background-position: 0 0, var(--gx, 50%) var(--gy, 50%);
+  mix-blend-mode: color-dodge;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.is-tilting .bd-reflet,
+.is-glinting .bd-reflet {
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bd-carte {
+    transition: none;
+  }
+}

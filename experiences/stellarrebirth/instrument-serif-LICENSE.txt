@@ -1,0 +1,28 @@
+# Fontes — licences
+
+Toutes les fontes embarquées sont sous **SIL Open Font License 1.1** (OFL) : usage
+commercial, redistribution et embarquement dans une application y sont permis, à la
+seule condition de conserver cette mention et de ne pas vendre les fichiers seuls.
+
+| Famille | Emploi | Auteurs |
+| --- | --- | --- |
+| **Instrument Serif** | Affichage : titres, libellés, chiffres. C'est la fonte de la couverture. | Copyright 2022 The Instrument Serif Project Authors — https://github.com/Instrument/instrument-serif |
+| **Literata** | Le récit à l'écran. Dessinée pour la lecture longue sur écran, grande hauteur d'x, empattements robustes. | Copyright 2017 The Literata Project Authors — https://github.com/googlefonts/literata |
+| **EB Garamond** | Le récit **sur le papier**, dans le PDF exporté. | Copyright 2017 The EB Garamond Project Authors — https://github.com/octaviopardo/EBGaramond12 |
+
+Les fontes sont **embarquées localement** (pas de `google_fonts` à l'exécution) :
+l'application doit fonctionner entièrement hors ligne, y compris au premier lancement.
+
+## Pourquoi deux fontes de lecture
+
+Ce n'est pas une hésitation, c'est la même raison qui fait qu'un journal et un roman
+ne se composent pas pareil. Literata est dessinée pour l'écran : sa hauteur d'x est
+grande, ses empattements épais, son gris soutenu — tout ce qu'il faut à un texte
+rétroéclairé et lu de travers. Sur un poche de 110 mm, ces qualités deviennent un
+défaut : à 10 points, elle ne tient que 48 signes par ligne quand l'usage en demande
+60 à 70, et le livre gonfle sans rien gagner.
+
+EB Garamond descend des caractères que Claude Garamont taillait à Paris vers 1540, et
+qui sont restés la fonte du livre français. Au même encombrement, elle en tient 61.
+Sur ce roman, à 11 points, cela donne 318 pages là où Literata en demandait 365 — la
+densité exacte du poche que l'auteur compose lui-même.
