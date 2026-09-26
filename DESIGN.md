@@ -1495,11 +1495,14 @@ pour que deux cartes voisines alignent leurs titres. Une ligne dont une scène
 demande plus de place (les fiches de Mes Échéances) passe entière à
 `.xp--haute`, et ses voisines la suivent.
 
-**Les listes suivent celles des réalisations** : neuf expériences en
-français, huit en anglais, en allemand et en italien (sans Auxine), une seule
-en japonais (Yamanote 3D). Le nombre de cases doit rester un multiple de
-trois ; c'est pourquoi Mes Échéances est large dans les trois langues à huit
-projets et pas en français. **F. Da Silva n'y figure pas** : son site est
+**Neuf expériences en français, huit dans les quatre autres langues** : Auxine
+n'y figure qu'en français, comme dans les réalisations, puisque l'app
+n'existe pas dans les autres langues. Le japonais, lui, montre les huit
+autres, bien que sa liste de réalisations ne porte que Yamanote 3D : une
+expérience se regarde et se manipule, elle ne s'adresse pas au lecteur comme
+une offre. Le nombre de cases doit rester un multiple de trois ; c'est
+pourquoi Mes Échéances est large dans les langues à huit projets et pas en
+français. **F. Da Silva n'y figure pas** : son site est
 volontairement sobre, sans rien qui bouge, et une animation inventée pour la
 page ne serait pas une expérience du projet.
 
@@ -1530,11 +1533,12 @@ Trois écarts assumés, parce qu'ils se lisent dans la page :
   le calendrier qui avance. Les fiches sont fictives mais vraisemblables, et
   les libellés sont ceux de l'app dans chaque langue.
 
-**La carte de BDPokéCards ne montre pas une carte Pokémon.** Les visuels de
-la boutique viennent de l'API TCGdex et appartiennent à leurs ayants droit.
-La carte de la page (`carte.svg`) porte Kardo, la mascotte de la boutique,
-redessiné pixel pour pixel depuis son fichier de 24 × 35 carrés, dans la
-palette de la boutique.
+**La carte de BDPokéCards est une vraie carte de la boutique** : le Pikachu
+173/165 de la série 151, dans l'image que sa fiche affiche. Elle est copiée
+dans `bdpokecards/` et servie d'ici, comme les icônes de projets (§5) : un
+appel au site de la boutique lui donnerait l'adresse IP de chaque visiteur.
+L'illustration appartient à ses ayants droit ; elle est montrée comme la
+boutique la montre, pour ce qu'elle vend.
 
 **La sphère n'utilise pas three.js.** Chaque photo y est un plan tourné face à
 la caméra ; projeté en perspective, un tel plan est un rectangle mis à

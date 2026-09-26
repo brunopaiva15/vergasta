@@ -7,10 +7,10 @@
    fois d'elle-même pour montrer qu'elle bouge. En mouvement réduit, elle ne
    bouge pas.
 
-   La carte n'est pas une carte Pokémon : les visuels de la boutique viennent
-   de l'API TCGdex et appartiennent à leurs ayants droit. Elle porte Kardo, la
-   mascotte de la boutique, redessiné pixel pour pixel depuis son fichier
-   (`carte.svg`). */
+   La carte est une vraie carte de la boutique : le Pikachu 173/165 de la
+   série 151, dans l'image que sa fiche affiche
+   (`assets/images/card-library/sets/MEW/HD/173.jpg`), copiée ici pour que la
+   page ne fasse aucune requête vers le site de la boutique. */
 
 const MAX_X = 10;
 const MAX_Y = 14;
