@@ -970,7 +970,9 @@ lecture ne regarde personne.
 
 ### La fresque de l'accueil
 
-`fresque` est la seule marque qui prenne toute la largeur de la fenêtre. C'est
+`fresque` est la seule marque qui prenne toute la largeur de la fenêtre. Elle
+est aussi exposée, dans une carte, en tête de la page des expériences (§12) ;
+c'est la même marque, peinte par le même script. C'est
 le Jura vu de St-Imier : trois crêtes qui s'étagent, un soleil, et les
 éoliennes du Mont-Soleil. Elle tient la place que BlockAbo donne à une
 photographie en bas de son premier écran, mais peinte, avec les brosses et les
@@ -1469,6 +1471,22 @@ dans la page. Ce n'est pas une galerie de captures : chaque scène tourne
 avec le code du projet, ou avec une transcription fidèle quand le projet
 n'est pas écrit pour le web.
 
+### Un musée, pas une notice
+
+La page s'ouvre sur son seul titre, sans chapeau, et se ferme sur le pied de
+page, sans bloc de sortie. Chaque carte porte un **cartel**, comme dans une
+salle d'exposition : le nom du projet, puis le titre de la pièce et son année,
+puis la technique (`.xp-oeuvre`, `.xp-technique`). **Rien n'y explique ce
+qu'on a sous les yeux ni comment s'en servir** : c'est la pièce qui se montre.
+Les seuls mots de plus sont ceux qui appartiennent aux pièces elles-mêmes (les
+pilules des incidents de Yamanote, l'aide de la sphère recopiée du portfolio,
+les titres du prologue) et, en pied de carte, la pilule vers le projet.
+
+La première pièce est celle de la maison : **la fresque de l'accueil**, sur
+toute la ligne (`.xp--pleine`), peinte par `brushes.js` avec ses éoliennes.
+Elle n'a pas de module dans `experiences/` : le script des brosses peint toute
+marque `[data-mark]` de la page, et celle-ci en est une.
+
 ### Deux langues qui ne se mélangent pas
 
 La page parle celle de Vergasta : ouverture, marque à la brosse
@@ -1492,14 +1510,16 @@ besoin de largeur (l'écran de Yamanote, le prologue, la sphère) prennent deux
 cases (`.xp--large`). Toutes les scènes ont la même hauteur (`--scene-h`),
 pour que deux cartes voisines alignent leurs titres.
 
-**Huit expériences en français, sept dans les quatre autres langues** : Auxine
+**Huit projets en français, sept dans les quatre autres langues**, plus la
+fresque partout : Auxine
 n'y figure qu'en français, comme dans les réalisations, puisque l'app
 n'existe pas dans les autres langues. Le japonais, lui, montre les sept
 autres, bien que sa liste de réalisations ne porte que Yamanote 3D : une
 expérience se regarde et se manipule, elle ne s'adresse pas au lecteur comme
 une offre. Le nombre de cases doit rester un multiple de trois : en
 français, Custom To Lylia prend deux cases à côté d'Axolot ; ailleurs, la
-sphère de Vergasta Photo n'en prend qu'une, sur une dernière ligne de trois. **F. Da Silva n'y figure pas** : son site est
+sphère de Vergasta Photo n'en prend qu'une, sur une dernière ligne de trois.
+**F. Da Silva n'y figure pas** : son site est
 volontairement sobre, sans rien qui bouge, et une animation inventée pour la
 page ne serait pas une expérience du projet. **Mes Échéances non plus** : elle
 a été retirée de la page à la demande.
@@ -1508,6 +1528,7 @@ a été retirée de la page à la demande.
 
 | Projet | Scène | Source |
 |---|---|---|
+| Vergasta Digital | la fresque de l'accueil | `brushes.js`, la marque `fresque` et ses `eoliennes` |
 | Yamanote 3D | l'écran au-dessus des portes, cycle complet | `src/three/lineScreen*.ts`, compilé (voir plus bas) |
 | Disque Bleu | le disque de l'app, qu'on tourne | `lib/widgets/parking_disc_painter.dart`, transcrit en Canvas 2D |
 | Auxine | le pot qui cligne et sa gerbe | `lancement/lancement.js`, copié |
