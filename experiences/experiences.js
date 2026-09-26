@@ -2,7 +2,7 @@
 
    Chaque scène porte `data-xp`, le nom de son module dans ce dossier. Rien
    n'est chargé d'avance : un module n'est demandé que lorsque sa scène
-   approche de l'écran, et une scène ne tourne que tant qu'elle y est. Neuf
+   approche de l'écran, et une scène ne tourne que tant qu'elle y est. Huit
    animations qui tourneraient en même temps hors de la vue coûteraient pour
    rien, et la page resterait lourde à ouvrir sur un téléphone.
 
@@ -15,7 +15,7 @@
    scène reçoit `calme` et se tient à une image posée, ou ne bouge que sous la
    main. */
 
-const VERSION = "1";
+const VERSION = "2";
 const calme = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const langue = document.documentElement.lang || "fr";
 

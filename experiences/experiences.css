@@ -25,8 +25,7 @@
   gap: 1rem;
   /* La hauteur des scènes, commune à toute la page : deux cartes d'une même
      ligne alignent ainsi leurs titres, comme les tuiles des réalisations. */
-  --scene-h-base: 21rem;
-  --scene-h: var(--scene-h-base);
+  --scene-h: 21rem;
 }
 
 @media (min-width: 640px) {
@@ -40,34 +39,15 @@
   }
 }
 
-/* Sur deux colonnes, les lignes ne se forment plus comme sur trois : une scène
-   haute peut tomber à côté d'une scène ordinaire. Toutes les scènes prennent
-   alors la hauteur dont les fiches de Mes Échéances ont besoin. */
-@media (min-width: 640px) and (max-width: 999px) {
-  .xps {
-    --scene-h-base: 25.5rem;
-  }
-
-  .xp--haute {
-    --scene-h: var(--scene-h-base);
-  }
-}
-
 @media (min-width: 1000px) {
   .xps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    --scene-h-base: clamp(21rem, 26vw, 24rem);
+    --scene-h: clamp(21rem, 26vw, 24rem);
   }
 
   .xp:only-child {
     grid-column: 1 / -1;
   }
-}
-
-/* Une ligne dont une scène demande plus de hauteur (les fiches de Mes
-   Échéances) : ses voisines la suivent, pour que les titres restent alignés. */
-.xp--haute {
-  --scene-h: calc(var(--scene-h-base, 21rem) + 4.5rem);
 }
 
 /* La carte : l'aplat pâle de son projet, les mêmes teintes que les tuiles des
@@ -88,7 +68,6 @@
 .xp[data-projet="yamanote"] { --fond: #e7f4d2; }
 .xp[data-projet="customtolylia"] { --fond: linear-gradient(135deg, #f5e6fe, #e2edfe); }
 .xp[data-projet="disquebleu"] { --fond: #dbeafb; }
-.xp[data-projet="mesecheances"] { --fond: #fde7d6; }
 .xp[data-projet="vergastaphoto"] { --fond: #f3efe6; }
 .xp[data-projet="bdpokecards"] { --fond: #fbe2e0; }
 
@@ -543,266 +522,6 @@
 @media (prefers-reduced-motion: reduce) {
   .ctl-logo {
     animation: none;
-    transition: none;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Mes Échéances : les fiches qui rougissent
-
-   Le papier de l'app, ses fiches crème à bande d'urgence, ses pastilles J-n
-   et ses quatre listes. Les couleurs sont celles de `app_theme.dart` et de
-   `urgency.dart`, les mesures celles de `binder_document_cards.dart`. La
-   police est celle du système, comme dans l'app sur un téléphone.
-   -------------------------------------------------------------------------- */
-
-.xp[data-projet="mesecheances"] .xp-scene {
-  --scene-fond: #f5f1ec;
-  --me-encre: #2a2521;
-  --me-gris: #6e655e;
-  --me-rouge: #d32f2f;
-  --me-orange: #ff9800;
-  --me-vert: #4caf50;
-  --me-bleu: #2196f3;
-  --me-ardoise: #607d8b;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  padding: 0.85rem;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  color: var(--me-encre);
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.xp[data-projet="mesecheances"] .xp-scene::-webkit-scrollbar {
-  display: none;
-}
-
-/* Sur un téléphone, une seule colonne : rien à aligner, la scène prend la
-   hauteur de ses fiches. */
-@media (max-width: 639px) {
-  .xp[data-projet="mesecheances"] .xp-scene {
-    height: auto;
-  }
-}
-
-.me-listes {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.4rem;
-}
-
-.me-liste {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas: "rond compte" "nom nom";
-  align-items: center;
-  gap: 0.2rem 0.5rem;
-  padding: 0.45rem 0.6rem 0.4rem;
-  background: #ffffff;
-  border-radius: 12px;
-}
-
-.me-rond {
-  grid-area: rond;
-  display: grid;
-  place-items: center;
-  width: 1.4rem;
-  height: 1.4rem;
-  border-radius: 50%;
-  background: var(--teinte);
-  color: #ffffff;
-}
-
-.me-rond svg {
-  width: 1rem;
-  height: 1rem;
-  fill: currentColor;
-}
-
-.me-compte {
-  grid-area: compte;
-  justify-self: end;
-  font-size: 1.1rem;
-  font-weight: 800;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.me-nom {
-  grid-area: nom;
-  font-size: 0.7rem;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--me-gris);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.me-temps {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.74rem;
-  font-weight: 600;
-  color: var(--me-gris);
-}
-
-.me-temps span {
-  white-space: nowrap;
-}
-
-.me-temps input {
-  flex: 1;
-  min-width: 3rem;
-  accent-color: #f57c00;
-}
-
-.me-temps output {
-  min-width: 3.2rem;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.me-fiches {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.me-fiche {
-  position: relative;
-  border-radius: 3px;
-  background: var(--me-action, #388e3c);
-  touch-action: pan-y;
-}
-
-.me-fiche.part {
-  transition: opacity 0.3s, transform 0.3s;
-  opacity: 0;
-  transform: translateX(-30%);
-}
-
-/* L'action rapide, sous la fiche : elle se découvre quand on la tire vers la
-   gauche, comme le `Dismissible` de l'app. */
-.me-action {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.45rem;
-  padding: 0 1rem;
-  color: #ffffff;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.me-action svg {
-  width: 1.2rem;
-  height: 1.2rem;
-  fill: currentColor;
-}
-
-.me-papier {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.75rem 0.8rem 0.6rem 1rem;
-  background: #fffbf7;
-  border: 1px solid rgba(215, 204, 200, 0.65);
-  border-radius: 3px;
-  cursor: grab;
-  user-select: none;
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.me-papier.tire {
-  transition: none;
-}
-
-/* L'aperçu du document, en haut de la fiche : sans image, le dégradé crème
-   de `BinderDocumentTopPreview`. */
-.me-papier::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 5px;
-  right: 0;
-  height: 1.2rem;
-  background: linear-gradient(#faf5ee, #f2ebe2);
-}
-
-/* La bande d'urgence : la couleur assombrie de 15 %, en dégradé de gauche à
-   droite, sur cinq pixels. */
-.me-papier::after {
-  content: "";
-  position: absolute;
-  top: -1px;
-  bottom: -1px;
-  left: -1px;
-  width: 5px;
-  border-radius: 2px 0 0 2px;
-  background: linear-gradient(90deg,
-    color-mix(in srgb, color-mix(in srgb, var(--urgence) 85%, #000) 88%, transparent),
-    color-mix(in srgb, color-mix(in srgb, var(--urgence) 85%, #000) 50%, transparent));
-  transition: background 0.4s;
-}
-
-.me-icone {
-  width: 1.4rem;
-  height: 1.4rem;
-  fill: color-mix(in srgb, var(--urgence) 65%, #000);
-}
-
-.me-titre {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.me-sous {
-  display: block;
-  margin-top: 0.15rem;
-  font-size: 0.75rem;
-  line-height: 1.3;
-  color: var(--me-gris);
-}
-
-.me-sous b {
-  margin-left: 0.4rem;
-  font-weight: 600;
-  color: var(--me-encre);
-}
-
-/* La pastille J-n : l'encre d'urgence assombrie de 35 %, le fond teinté à
-   14 %, la bordure à 50 %. */
-.me-pastille {
-  padding: 0.36rem 0.6rem;
-  border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--urgence) 50%, transparent);
-  background: color-mix(in srgb, var(--urgence) 14%, #f8f4f0);
-  color: color-mix(in srgb, var(--urgence) 65%, #000);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  transition: background 0.4s, color 0.4s, border-color 0.4s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .me-papier,
-  .me-fiche.part {
     transition: none;
   }
 }
