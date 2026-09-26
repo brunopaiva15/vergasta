@@ -37,6 +37,10 @@
   .xp:only-child {
     grid-column: span 2;
   }
+
+  .xp--pleine {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (min-width: 1000px) {
@@ -96,11 +100,20 @@
   line-height: 1.15;
 }
 
-.xp-texte > p {
-  max-width: var(--measure);
-  margin-top: 0.6rem;
+/* Le cartel, comme dans une salle d'exposition : sous le nom du projet, le
+   titre de la pièce et son année, puis la technique. Rien qui explique ce
+   qu'on a sous les yeux ; c'est la pièce qui parle. */
+.xp-oeuvre {
+  margin-top: 0.35rem;
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.xp-technique {
+  margin-top: 0.1rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
   color: var(--ink-soft);
 }
 
@@ -195,6 +208,29 @@
    qu'elle dit en clair (voir `.sr-only` dans chaque scène). */
 .xp-scene canvas {
   display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Vergasta Digital : la fresque de l'accueil
+
+   La même marque que sous le titre de l'accueil, peinte par `brushes.js`, sur
+   le même blanc et avec ses éoliennes qui tournent. Elle prend toute la ligne,
+   comme elle prend toute la largeur de l'accueil ; les collines se mesurent en
+   hauteurs de canevas (§6), donc la carte en montre le centre.
+   -------------------------------------------------------------------------- */
+
+.xp[data-projet="vergasta"] .xp-scene {
+  --scene-fond: #ffffff;
+}
+
+.xp-fresque {
+  position: absolute;
+  inset: 0;
+}
+
+.xp-eoliennes {
+  position: absolute;
+  inset: 0;
 }
 
 /* --------------------------------------------------------------------------

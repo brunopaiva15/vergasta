@@ -15,7 +15,7 @@
    scène reçoit `calme` et se tient à une image posée, ou ne bouge que sous la
    main. */
 
-const VERSION = "2";
+const VERSION = "3";
 const calme = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const langue = document.documentElement.lang || "fr";
 

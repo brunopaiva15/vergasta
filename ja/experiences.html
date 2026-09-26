@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>体験｜Vergasta Digital</title>
-  <meta name="description" content="Vergasta Digital の各プロジェクトから、動き出す瞬間をひとつずつ、そのコードをもとにページの中で動かしています。Yamanote 3D の車内ディスプレイ、Disque Bleu のパーキングディスクなど、全部で7つです。">
+  <meta name="description" content="Vergasta Digital のプロジェクトから集めた体験。サイトのフレスコ、Yamanote 3D の車内ディスプレイ、Disque Bleu のディスクなど、全部で8つ。">
   <link rel="canonical" href="https://vergasta.ch/ja/experiences.html">
 
   <!--
@@ -29,7 +29,7 @@
   <meta property="og:locale:alternate" content="de_CH">
   <meta property="og:locale:alternate" content="it_CH">
   <meta property="og:title" content="体験｜Vergasta Digital">
-  <meta property="og:description" content="Vergasta Digital の各プロジェクトから、動き出す瞬間をひとつずつ、そのコードをもとにページの中で動かしています。Yamanote 3D の車内ディスプレイ、Disque Bleu のパーキングディスクなど、全部で7つです。">
+  <meta property="og:description" content="Vergasta Digital のプロジェクトから集めた体験。サイトのフレスコ、Yamanote 3D の車内ディスプレイ、Disque Bleu のディスクなど、全部で8つ。">
   <meta property="og:url" content="https://vergasta.ch/ja/experiences.html">
   <meta property="og:image" content="https://vergasta.ch/logo_vergasta.png">
   <meta property="og:image:width" content="435">
@@ -42,9 +42,9 @@
   <link rel="preload" href="../fonts/pixelmplus12-japonais.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../styles.css?v=33">
   <!-- Les scènes parlent chacune la langue de leur projet : voir experiences/experiences.css. -->
-  <link rel="stylesheet" href="../experiences/experiences.css?v=2">
+  <link rel="stylesheet" href="../experiences/experiences.css?v=3">
   <script src="../brushes.js?v=33" defer></script>
-  <script type="module" src="../experiences/experiences.js?v=2"></script>
+  <script type="module" src="../experiences/experiences.js?v=3"></script>
 
   <!--
     Données structurées. La page se rattache au même @id que l'accueil, dans
@@ -102,13 +102,23 @@
     <section class="opening wrap">
       <div class="mark mark-opening" data-mark="experiences" aria-hidden="true"></div>
       <h1>体験</h1>
-      <div class="opening-body">
-        <p>アトリエのプロジェクトには、それぞれ動き出す瞬間があります。そのプロジェクト自身のコードをもとに、ひとつずつこのページに持ってきました。アプリを入れたりサイトを開いたりしなくても、ここで見て触れることができます。</p>
-      </div>
     </section>
 
     <section class="slab wrap" aria-label="体験">
       <ul class="xps">
+        <li class="xp xp--pleine" data-projet="vergasta">
+          <div class="xp-scene">
+            <div class="mark xp-fresque" data-mark="fresque" aria-hidden="true">
+              <div class="mark xp-eoliennes" data-mark="eoliennes"></div>
+            </div>
+          </div>
+          <div class="xp-texte">
+            <h2>Vergasta Digital</h2>
+            <p class="xp-oeuvre">フレスコ、2026</p>
+            <p class="xp-technique">Canvas 2D、ピクセルブラシ</p>
+          </div>
+        </li>
+
         <li class="xp xp--large" data-projet="yamanote">
           <div class="xp-scene" data-xp="yamanote">
             <canvas class="ecran" width="768" height="432" role="img" aria-label="山手線の車内ディスプレイ（日本語と英語）"></canvas>
@@ -116,7 +126,8 @@
           </div>
           <div class="xp-texte">
             <h2>Yamanote 3D</h2>
-            <p>E235系のドア上にある案内画面を、ゲームは実物どおりに描いています。次の駅、山手線の路線図、出口、ご案内が、日本語と英語で順に表示されます。ここでは列車をシミュレーションしており、実際の3倍の速さで、東京の時刻に合わせて走ります。</p>
+            <p class="xp-oeuvre">車内ディスプレイ、2026</p>
+            <p class="xp-technique">Canvas 2D、TypeScript</p>
             <div class="xp-reglages">
               <button type="button" class="xp-pilule" data-incident="brake">急停車</button>
               <button type="button" class="xp-pilule" data-incident="outage">停電</button>
@@ -131,7 +142,8 @@
           </div>
           <div class="xp-texte">
             <h2>Disque Bleu</h2>
-            <p>アプリのディスクを、線の一本まで描き直しました。指やマウスで回すことができ、勢いをつけると回り続けます。手を離すと、合わせる時刻を表示します。アプリがスイスについて計算するとおり、常に次の30分です。オレンジの範囲は駐車できる時間です。</p>
+            <p class="xp-oeuvre">パーキングディスク、2026</p>
+            <p class="xp-technique">Canvas 2D（Flutter アプリより）</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer">disquebleusuisse.ch</a></p>
           </div>
         </li>
@@ -142,7 +154,8 @@
           </div>
           <div class="xp-texte">
             <h2>BDPokéCards</h2>
-            <p>カードのページでは、カードがポインターの方へ傾き、虹色の反射とともに光を受けます。ここでは、ショップで紹介されている 151 シリーズのピカチュウ 173/165 を使っています。</p>
+            <p class="xp-oeuvre">カード、2025</p>
+            <p class="xp-technique">CSS 3D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">bd-pokecards.ch</a></p>
           </div>
         </li>
@@ -162,7 +175,8 @@
           </div>
           <div class="xp-texte">
             <h2>Stellar Rebirth</h2>
-            <p>小説のプロローグにある七つの場面を、読書アプリと同じ線画で描いています。一枚ずつ描かれては次の場面へ移ります。場面をタップするとページがめくれます。</p>
+            <p class="xp-oeuvre">プロローグ、2026</p>
+            <p class="xp-technique">Canvas 2D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://stellar-rebirth.com" target="_blank" rel="noopener noreferrer">stellar-rebirth.com</a></p>
           </div>
         </li>
@@ -175,7 +189,8 @@
           </div>
           <div class="xp-texte">
             <h2>Vergasta Photo</h2>
-            <p>ポートフォリオのコレクションを球状に並べる表示で、ここでは日本のコレクションです。ドラッグで回し、写真をタップすると撮影データとともに中央に表示されます。</p>
+            <p class="xp-oeuvre">スフィア、2026</p>
+            <p class="xp-technique">Canvas 2D、写真</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://vergastaphoto.ch" target="_blank" rel="noopener noreferrer">vergastaphoto.ch</a></p>
           </div>
         </li>
@@ -187,7 +202,8 @@
           </div>
           <div class="xp-texte">
             <h2>Axolot</h2>
-            <p>読み込み中、Axolot は壊れた映像のデコードを、ウーパールーパーのシルエットに切り抜いて表示します。バッジをタップすると、別のデコードが始まります。</p>
+            <p class="xp-oeuvre">デコード、2026</p>
+            <p class="xp-technique">Canvas 2D、SVGマスク</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://axolot.ch" target="_blank" rel="noopener noreferrer">axolot.ch</a></p>
           </div>
         </li>
@@ -199,20 +215,12 @@
           </div>
           <div class="xp-texte">
             <h2>Custom To Lylia</h2>
-            <p>ショップのトップページでは、ロゴがページのどこにあってもカーソルを目で追います。タッチスクリーンでは、ゆっくり呼吸します。</p>
+            <p class="xp-oeuvre">まなざし、2026</p>
+            <p class="xp-technique">CSS 3D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">customtolylia.ch</a></p>
           </div>
         </li>
       </ul>
-    </section>
-
-    <section class="story-after wrap" aria-labelledby="xp-suite-titre">
-      <h2 id="xp-suite-titre">あなたのプロジェクトにも</h2>
-      <p>サイトやアプリに何かが動く場所が必要でしたら、フォームからご連絡ください。通常は2営業日以内にお返事します。</p>
-      <div class="story-sorties">
-        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">お問い合わせ</a>
-        <a class="story-back" href="./#realisations">実績を見る</a>
-      </div>
     </section>
   </main>
 

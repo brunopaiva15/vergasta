@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Expériences, Vergasta Digital</title>
-  <meta name="description" content="Un moment de chaque projet de Vergasta Digital, repris de son code et remis en marche dans la page : l’écran de bord de Yamanote 3D, le disque de Disque Bleu, le pot d’Auxine et cinq autres.">
+  <meta name="description" content="Les expériences des projets de Vergasta Digital : la fresque du site, l’écran de bord de Yamanote 3D, le disque de Disque Bleu et six autres.">
   <link rel="canonical" href="https://vergasta.ch/experiences.html">
 
   <!--
@@ -29,7 +29,7 @@
   <meta property="og:locale:alternate" content="it_CH">
   <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:title" content="Expériences, Vergasta Digital">
-  <meta property="og:description" content="Un moment de chaque projet de Vergasta Digital, repris de son code et remis en marche dans la page : l’écran de bord de Yamanote 3D, le disque de Disque Bleu, le pot d’Auxine et cinq autres.">
+  <meta property="og:description" content="Les expériences des projets de Vergasta Digital : la fresque du site, l’écran de bord de Yamanote 3D, le disque de Disque Bleu et six autres.">
   <meta property="og:url" content="https://vergasta.ch/experiences.html">
   <meta property="og:image" content="https://vergasta.ch/logo_vergasta.png">
   <meta property="og:image:width" content="435">
@@ -41,9 +41,9 @@
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css?v=33">
   <!-- Les scènes parlent chacune la langue de leur projet : voir experiences/experiences.css. -->
-  <link rel="stylesheet" href="experiences/experiences.css?v=2">
+  <link rel="stylesheet" href="experiences/experiences.css?v=3">
   <script src="brushes.js?v=33" defer></script>
-  <script type="module" src="experiences/experiences.js?v=2"></script>
+  <script type="module" src="experiences/experiences.js?v=3"></script>
 
   <!--
     Données structurées. La page se rattache au même @id que l'accueil, dans
@@ -101,18 +101,23 @@
     <section class="opening wrap">
       <div class="mark mark-opening" data-mark="experiences" aria-hidden="true"></div>
       <h1>Expériences</h1>
-      <div class="opening-body">
-        <p>
-          Chaque projet de l’atelier a un moment où il bouge. Nous en avons
-          repris un par projet, à partir de son propre code, pour qu’on puisse
-          le regarder et le manipuler ici, sans installer l’app ni ouvrir le
-          site.
-        </p>
-      </div>
     </section>
 
     <section class="slab wrap" aria-label="Les expériences">
       <ul class="xps">
+        <li class="xp xp--pleine" data-projet="vergasta">
+          <div class="xp-scene">
+            <div class="mark xp-fresque" data-mark="fresque" aria-hidden="true">
+              <div class="mark xp-eoliennes" data-mark="eoliennes"></div>
+            </div>
+          </div>
+          <div class="xp-texte">
+            <h2>Vergasta Digital</h2>
+            <p class="xp-oeuvre">La fresque, 2026</p>
+            <p class="xp-technique">Canvas 2D, brosses pixel</p>
+          </div>
+        </li>
+
         <li class="xp xp--large" data-projet="yamanote">
           <div class="xp-scene" data-xp="yamanote">
             <canvas class="ecran" width="768" height="432" role="img" aria-label="L’écran de bord d’une rame de la ligne Yamanote, en japonais et en anglais"></canvas>
@@ -120,7 +125,8 @@
           </div>
           <div class="xp-texte">
             <h2>Yamanote 3D</h2>
-            <p>L’écran au-dessus des portes des rames E235, que le jeu peint à l’identique&#8239;: prochaines gares, plan de la boucle, sorties et avis, en japonais puis en anglais. Le train est simulé ici, trois fois plus vite qu’en vrai et à l’heure de Tokyo.</p>
+            <p class="xp-oeuvre">L’écran de bord, 2026</p>
+            <p class="xp-technique">Canvas 2D, TypeScript</p>
             <div class="xp-reglages">
               <button type="button" class="xp-pilule" data-incident="brake">Arrêt d’urgence</button>
               <button type="button" class="xp-pilule" data-incident="outage">Coupure de courant</button>
@@ -135,7 +141,8 @@
           </div>
           <div class="xp-texte">
             <h2>Disque Bleu</h2>
-            <p>Le disque de l’app, redessiné trait pour trait. Tournez-le du doigt ou à la souris&#8239;: lancé, il garde son élan. Au relâchement, il indique l’heure à régler, toujours la demi-heure suivante, comme l’app le calcule pour la Suisse. La zone orange est l’heure de stationnement autorisée.</p>
+            <p class="xp-oeuvre">Le disque, 2026</p>
+            <p class="xp-technique">Canvas 2D, d’après l’app Flutter</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer">disquebleusuisse.ch</a></p>
           </div>
         </li>
@@ -146,7 +153,8 @@
           </div>
           <div class="xp-texte">
             <h2>Auxine</h2>
-            <p>Le pot de l’icône sort de terre et cligne de l’œil, avec les images et les temps de l’écran d’ouverture de l’app. Touchez-le pour relancer la gerbe.</p>
+            <p class="xp-oeuvre">Le clin d’œil, 2026</p>
+            <p class="xp-technique">Image 3D, Canvas 2D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="auxine/">Site web</a></p>
           </div>
         </li>
@@ -166,7 +174,8 @@
           </div>
           <div class="xp-texte">
             <h2>Stellar Rebirth</h2>
-            <p>Les sept tableaux du prologue du roman, tracés au trait comme dans son application de lecture. Chacun se dessine puis laisse la place au suivant&#8239;; touchez la scène pour tourner la page.</p>
+            <p class="xp-oeuvre">Le prologue, 2026</p>
+            <p class="xp-technique">Canvas 2D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://stellar-rebirth.com" target="_blank" rel="noopener noreferrer">stellar-rebirth.com</a></p>
           </div>
         </li>
@@ -179,7 +188,8 @@
           </div>
           <div class="xp-texte">
             <h2>Vergasta Photo</h2>
-            <p>La vue en sphère des collections du portfolio, ici celle du Japon. Faites-la tourner en glissant, et touchez une photo pour l’amener au centre avec ses réglages de prise de vue.</p>
+            <p class="xp-oeuvre">La sphère, 2026</p>
+            <p class="xp-technique">Canvas 2D, photographies</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://vergastaphoto.ch" target="_blank" rel="noopener noreferrer">vergastaphoto.ch</a></p>
           </div>
         </li>
@@ -190,7 +200,8 @@
           </div>
           <div class="xp-texte">
             <h2>BDPokéCards</h2>
-            <p>Sur la fiche d’une carte, elle s’incline vers le pointeur et prend la lumière, avec un reflet arc-en-ciel. Ici, le Pikachu 173/165 de la série 151, tel que la boutique le présente.</p>
+            <p class="xp-oeuvre">La carte, 2025</p>
+            <p class="xp-technique">CSS 3D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">bd-pokecards.ch</a></p>
           </div>
         </li>
@@ -202,7 +213,8 @@
           </div>
           <div class="xp-texte">
             <h2>Axolot</h2>
-            <p>Pendant un chargement, Axolot montre un décodage vidéo corrompu, découpé dans la silhouette de son axolotl. Touchez la pastille pour en lancer un autre.</p>
+            <p class="xp-oeuvre">Le décodage, 2026</p>
+            <p class="xp-technique">Canvas 2D, masque SVG</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://axolot.ch" target="_blank" rel="noopener noreferrer">axolot.ch</a></p>
           </div>
         </li>
@@ -214,24 +226,12 @@
           </div>
           <div class="xp-texte">
             <h2>Custom To Lylia</h2>
-            <p>Sur l’accueil de la boutique, le logo suit le curseur du regard, où qu’il soit dans la page. Sur un écran tactile, il respire.</p>
+            <p class="xp-oeuvre">Le regard, 2026</p>
+            <p class="xp-technique">CSS 3D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">customtolylia.ch</a></p>
           </div>
         </li>
       </ul>
-    </section>
-
-    <section class="story-after wrap" aria-labelledby="xp-suite-titre">
-      <h2 id="xp-suite-titre">Un moment pour votre projet</h2>
-      <p>
-        Si votre site ou votre application a besoin d’un endroit où quelque
-        chose bouge, écrivez-nous. Nous répondons en général dans les deux
-        jours ouvrables.
-      </p>
-      <div class="story-sorties">
-        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Contactez-nous</a>
-        <a class="story-back" href="./#realisations">Voir les réalisations</a>
-      </div>
     </section>
   </main>
 

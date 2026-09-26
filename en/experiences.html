@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Experiences, Vergasta Digital</title>
-  <meta name="description" content="One moment from each Vergasta Digital project, taken from its own code and running in the page: the on-board screen of Yamanote 3D, the Disque Bleu parking disc and five others.">
+  <meta name="description" content="Experiences from Vergasta Digital’s projects: the site’s fresco, the Yamanote 3D on-board screen, the Disque Bleu disc and five others.">
   <link rel="canonical" href="https://vergasta.ch/en/experiences.html">
 
   <!--
@@ -29,7 +29,7 @@
   <meta property="og:locale:alternate" content="it_CH">
   <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:title" content="Experiences, Vergasta Digital">
-  <meta property="og:description" content="One moment from each Vergasta Digital project, taken from its own code and running in the page: the on-board screen of Yamanote 3D, the Disque Bleu parking disc and five others.">
+  <meta property="og:description" content="Experiences from Vergasta Digital’s projects: the site’s fresco, the Yamanote 3D on-board screen, the Disque Bleu disc and five others.">
   <meta property="og:url" content="https://vergasta.ch/en/experiences.html">
   <meta property="og:image" content="https://vergasta.ch/logo_vergasta.png">
   <meta property="og:image:width" content="435">
@@ -41,9 +41,9 @@
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../styles.css?v=33">
   <!-- Les scènes parlent chacune la langue de leur projet : voir experiences/experiences.css. -->
-  <link rel="stylesheet" href="../experiences/experiences.css?v=2">
+  <link rel="stylesheet" href="../experiences/experiences.css?v=3">
   <script src="../brushes.js?v=33" defer></script>
-  <script type="module" src="../experiences/experiences.js?v=2"></script>
+  <script type="module" src="../experiences/experiences.js?v=3"></script>
 
   <!--
     Données structurées. La page se rattache au même @id que l'accueil, dans
@@ -101,18 +101,23 @@
     <section class="opening wrap">
       <div class="mark mark-opening" data-mark="experiences" aria-hidden="true"></div>
       <h1>Experiences</h1>
-      <div class="opening-body">
-        <p>
-          Each of the workshop’s projects has a moment where it moves. We have
-          taken one per project, starting from its own code, so that you can
-          watch it and handle it here, without installing the app or opening
-          the site.
-        </p>
-      </div>
     </section>
 
     <section class="slab wrap" aria-label="The experiences">
       <ul class="xps">
+        <li class="xp xp--pleine" data-projet="vergasta">
+          <div class="xp-scene">
+            <div class="mark xp-fresque" data-mark="fresque" aria-hidden="true">
+              <div class="mark xp-eoliennes" data-mark="eoliennes"></div>
+            </div>
+          </div>
+          <div class="xp-texte">
+            <h2>Vergasta Digital</h2>
+            <p class="xp-oeuvre">The fresco, 2026</p>
+            <p class="xp-technique">Canvas 2D, pixel brushes</p>
+          </div>
+        </li>
+
         <li class="xp xp--large" data-projet="yamanote">
           <div class="xp-scene" data-xp="yamanote">
             <canvas class="ecran" width="768" height="432" role="img" aria-label="The on-board screen of a Yamanote line train, in Japanese and English"></canvas>
@@ -120,7 +125,8 @@
           </div>
           <div class="xp-texte">
             <h2>Yamanote 3D</h2>
-            <p>The screen above the doors of the E235 trains, which the game paints exactly as it is: next stations, map of the loop, exits and notices, in Japanese then in English. The train is simulated here, three times faster than in reality and on Tokyo time.</p>
+            <p class="xp-oeuvre">The on-board screen, 2026</p>
+            <p class="xp-technique">Canvas 2D, TypeScript</p>
             <div class="xp-reglages">
               <button type="button" class="xp-pilule" data-incident="brake">Emergency stop</button>
               <button type="button" class="xp-pilule" data-incident="outage">Power cut</button>
@@ -135,7 +141,8 @@
           </div>
           <div class="xp-texte">
             <h2>Disque Bleu</h2>
-            <p>The app’s disc, redrawn line for line. Turn it with a finger or the mouse: flick it and it keeps its momentum. When you let go, it shows the time to set, always the next half hour, as the app works it out for Switzerland. The orange area is the permitted parking time.</p>
+            <p class="xp-oeuvre">The disc, 2026</p>
+            <p class="xp-technique">Canvas 2D, after the Flutter app</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer">disquebleusuisse.ch</a></p>
           </div>
         </li>
@@ -146,7 +153,8 @@
           </div>
           <div class="xp-texte">
             <h2>BDPokéCards</h2>
-            <p>On a card’s page, it tilts towards the pointer and catches the light, with a rainbow sheen. Here, the Pikachu 173/165 from the 151 set, as the shop presents it.</p>
+            <p class="xp-oeuvre">The card, 2025</p>
+            <p class="xp-technique">CSS 3D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://bd-pokecards.ch" target="_blank" rel="noopener noreferrer">bd-pokecards.ch</a></p>
           </div>
         </li>
@@ -166,7 +174,8 @@
           </div>
           <div class="xp-texte">
             <h2>Stellar Rebirth</h2>
-            <p>The seven tableaux of the novel’s prologue, drawn in line as in its reading app. Each one draws itself, then gives way to the next; tap the scene to turn the page.</p>
+            <p class="xp-oeuvre">The prologue, 2026</p>
+            <p class="xp-technique">Canvas 2D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://stellar-rebirth.com" target="_blank" rel="noopener noreferrer">stellar-rebirth.com</a></p>
           </div>
         </li>
@@ -179,7 +188,8 @@
           </div>
           <div class="xp-texte">
             <h2>Vergasta Photo</h2>
-            <p>The sphere view of the portfolio’s collections, here the one from Japan. Drag to turn it, and tap a photo to bring it to the centre with its camera settings.</p>
+            <p class="xp-oeuvre">The sphere, 2026</p>
+            <p class="xp-technique">Canvas 2D, photographs</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://vergastaphoto.ch" target="_blank" rel="noopener noreferrer">vergastaphoto.ch</a></p>
           </div>
         </li>
@@ -191,7 +201,8 @@
           </div>
           <div class="xp-texte">
             <h2>Axolot</h2>
-            <p>While something loads, Axolot shows a corrupted video decode, cut out in the silhouette of its axolotl. Tap the badge to start another one.</p>
+            <p class="xp-oeuvre">The decode, 2026</p>
+            <p class="xp-technique">Canvas 2D, SVG mask</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://axolot.ch" target="_blank" rel="noopener noreferrer">axolot.ch</a></p>
           </div>
         </li>
@@ -203,23 +214,12 @@
           </div>
           <div class="xp-texte">
             <h2>Custom To Lylia</h2>
-            <p>On the shop’s home page, the logo follows the cursor with its gaze, wherever it is on the page. On a touch screen, it breathes.</p>
+            <p class="xp-oeuvre">The gaze, 2026</p>
+            <p class="xp-technique">CSS 3D</p>
             <p class="xp-sorties"><a class="xp-pilule" href="https://customtolylia.ch" target="_blank" rel="noopener noreferrer">customtolylia.ch</a></p>
           </div>
         </li>
       </ul>
-    </section>
-
-    <section class="story-after wrap" aria-labelledby="xp-suite-titre">
-      <h2 id="xp-suite-titre">A moment for your project</h2>
-      <p>
-        If your site or app needs a place where something moves, write to
-        us. We usually answer within two working days.
-      </p>
-      <div class="story-sorties">
-        <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Contact us</a>
-        <a class="story-back" href="./#realisations">See the work</a>
-      </div>
     </section>
   </main>
 
