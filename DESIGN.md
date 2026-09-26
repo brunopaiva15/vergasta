@@ -1282,9 +1282,8 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
   rendu allemand et japonais a été regardé : ce sont les deux qui débordent.
 - les expériences (§12) : chaque scène démarre à son arrivée à l'écran et
   s'arrête en le quittant, le disque tourne et garde son élan, l'écran de
-  Yamanote tire ses deux incidents, la devise de Custom To Lylia tient sur sa
-  ligne, et les fiches de Mes Échéances tiennent dans leur scène, à 1440 px
-  comme à 390 px.
+  Yamanote tire ses deux incidents et tient entier dans son cadre, et la
+  devise de Custom To Lylia tient sur sa ligne, à 1440 px comme à 390 px.
 
 ---
 
@@ -1491,20 +1490,19 @@ droit à ses couleurs, pas à ce que la charte proscrit.
 Un bento de trois colonnes, comme les métiers (§5) : les scènes qui ont
 besoin de largeur (l'écran de Yamanote, le prologue, la sphère) prennent deux
 cases (`.xp--large`). Toutes les scènes ont la même hauteur (`--scene-h`),
-pour que deux cartes voisines alignent leurs titres. Une ligne dont une scène
-demande plus de place (les fiches de Mes Échéances) passe entière à
-`.xp--haute`, et ses voisines la suivent.
+pour que deux cartes voisines alignent leurs titres.
 
-**Neuf expériences en français, huit dans les quatre autres langues** : Auxine
+**Huit expériences en français, sept dans les quatre autres langues** : Auxine
 n'y figure qu'en français, comme dans les réalisations, puisque l'app
-n'existe pas dans les autres langues. Le japonais, lui, montre les huit
+n'existe pas dans les autres langues. Le japonais, lui, montre les sept
 autres, bien que sa liste de réalisations ne porte que Yamanote 3D : une
 expérience se regarde et se manipule, elle ne s'adresse pas au lecteur comme
-une offre. Le nombre de cases doit rester un multiple de trois ; c'est
-pourquoi Mes Échéances est large dans les langues à huit projets et pas en
-français. **F. Da Silva n'y figure pas** : son site est
+une offre. Le nombre de cases doit rester un multiple de trois : en
+français, Custom To Lylia prend deux cases à côté d'Axolot ; ailleurs, la
+sphère de Vergasta Photo n'en prend qu'une, sur une dernière ligne de trois. **F. Da Silva n'y figure pas** : son site est
 volontairement sobre, sans rien qui bouge, et une animation inventée pour la
-page ne serait pas une expérience du projet.
+page ne serait pas une expérience du projet. **Mes Échéances non plus** : elle
+a été retirée de la page à la demande.
 
 ### Ce que fait chaque scène, et d'où elle vient
 
@@ -1516,11 +1514,10 @@ page ne serait pas une expérience du projet.
 | Stellar Rebirth | les sept tableaux du prologue | `site/scenes.js`, copié tel quel |
 | Axolot | le décodage corrompu dans l'axolotl | `datamosh-engine.blade.php`, copié sans les directives Blade |
 | Custom To Lylia | le logo qui suit le curseur | `index.php` et `logo-animation.css`, copiés |
-| Mes Échéances | les fiches qui rougissent | `binder_document_cards.dart`, `urgency.dart`, retranscrits |
 | Vergasta Photo | la sphère des collections | `src/lib/image-sphere/engine.ts`, transcrit en Canvas 2D |
 | BDPokéCards | la carte qui prend la lumière | `resources/js/card-stage.js` et `fiche.css`, copiés |
 
-Trois écarts assumés, parce qu'ils se lisent dans la page :
+Deux écarts assumés, parce qu'ils se lisent dans la page :
 
 - **Yamanote** : le train est simulé, trois fois plus vite qu'en vrai, à
   l'heure de Tokyo. Les deux pilules sous l'écran tirent les deux incidents
@@ -1528,10 +1525,7 @@ Trois écarts assumés, parce qu'ils se lisent dans la page :
   qu'en pleine voie, comme dans le jeu ;
 - **Disque Bleu** : l'app affiche « Réglez votre disque sur » au début du
   stationnement, la page au relâchement du disque. L'heure suit la règle de
-  l'app pour la Suisse : toujours la demi-heure suivante ;
-- **Mes Échéances** : le curseur des jours n'existe pas dans l'app, où c'est
-  le calendrier qui avance. Les fiches sont fictives mais vraisemblables, et
-  les libellés sont ceux de l'app dans chaque langue.
+  l'app pour la Suisse : toujours la demi-heure suivante.
 
 **La carte de BDPokéCards est une vraie carte de la boutique** : le Pikachu
 173/165 de la série 151, dans l'image que sa fiche affiche. Elle est copiée
@@ -1558,11 +1552,11 @@ dans les cinq pages, pas dans les trente et une.
 
 **Rien n'est chargé d'avance.** Un module n'est demandé que lorsque sa scène
 approche de l'écran, et une scène ne tourne que tant qu'elle y est ; un
-onglet masqué arrête tout. Neuf animations qui tourneraient hors de la vue
+onglet masqué arrête tout. Huit animations qui tourneraient hors de la vue
 coûteraient pour rien.
 
 **Les textes d'une scène sont écrits dans la page**, dans sa langue, jamais
-dans le module : libellés de Mes Échéances, titres du prologue, aide de la
+dans le module : titres du prologue, aide de la
 sphère, pilules de Yamanote, confirmation du disque. Un seul code, cinq pages
 complètes (§11).
 
@@ -1576,7 +1570,7 @@ versé dans le dépôt, et le site se sert toujours sans étape.
 
 **Polices.** Instrument Serif, la police du roman, est servie depuis
 `stellarrebirth/` (sous-ensemble latin, 20 Ko, licence OFL recopiée à côté).
-Les scènes des applications (Disque Bleu, Mes Échéances, Custom To Lylia)
+Les scènes des applications (Disque Bleu, Custom To Lylia)
 prennent la police du système, comme les apps sur un téléphone. L'écran de
 Yamanote garde la pile japonaise du jeu (Hiragino, Yu Gothic, Noto), qui est
 aussi celle du texte courant de `/ja/` (§2) : aucune police japonaise de plus.
