@@ -768,6 +768,21 @@
       }
     ],
 
+    /* Études : la plume à l'encre, en vague, comme un crayon qui cherche sa
+       forme, et des croix orange décalées dessous. Ni l'une ni l'autre ne
+       sert en tête d'une autre section. */
+    etudes: [
+      {
+        brush: "plume", ink: "encre", over: { size: 0.085, spacing: 0.16 },
+        path: function (w, h) { return wave(w * 0.12, h * 0.5, w * 0.76, h * 0.2, 1.6, 360); }
+      },
+      {
+        brush: "croix", ink: "orange", alpha: 0.75, delay: 220,
+        over: { size: 0.07, spacing: 1.5 },
+        path: function (w, h) { return wave(w * 0.16, h * 0.56, w * 0.72, h * 0.17, 1.6, 200); }
+      }
+    ],
+
     /* Écrire : anneaux orange, un coin qui suit la courbe. */
     contact: [
       {

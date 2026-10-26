@@ -308,6 +308,8 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
    la mesure large (une quarantaine de signes par ligne) y est voulue. Elle
    n'a pas de montée d'arrivée, étant sous la ligne de flottaison ;
 4. les **réalisations**, une grille de tuiles, chacune au fond de son projet ;
+   puis les **études**, la même grille pour des sites que personne n'a
+   commandés (voir §5) ;
 5. les quatre **cartes** des métiers, en bento ;
 6. le **déroulé**, trois grandes phrases séparées par des filets ;
 7. le **bloc de contact**, seule carte en aplat lime, coupée en deux :
@@ -591,6 +593,38 @@ comptent neuf, et la liste japonaise ne porte que Yamanote 3D. Stellar Rebirth
 ouvre la liste dans les quatre langues latines et ne figure pas à la liste
 japonaise, pour la même raison que les autres : il ne s'adresse pas à ce
 lecteur-là.
+
+**Études `#etudes`.** Une seconde section, juste après les réalisations, pour
+huit sites vitrines faits pour des commerces de la région (CROK’IT, OAK, Au
+Momentum, La Storia del Caffè…) **sans qu'ils les aient commandés ni
+validés** : ce sont des pièces de portfolio, servies sur
+`brunopaiva15.github.io`, et pas des clients. Elles ne vont pas dans la grille
+des réalisations, dont la légende dit « les projets en ligne aujourd’hui » :
+on les y lirait comme des commandes, et la marque d'un commerce posée là
+laisserait entendre qu'il a travaillé avec l'atelier. La légende de la section
+le dit en toutes lettres, dans chaque langue ; **elle ne se raccourcit pas**.
+
+Les tuiles sont celles des réalisations, sans rien de plus, à un écart près :
+**la pilule de pied porte la ville du commerce**, pas l'adresse du site.
+L'adresse d'une étude est un sous-chemin de `github.io`, longue et qui ne dit
+rien ; la ville dit où est le commerce, ce que la pilule fait déjà pour les
+autres tuiles (où trouver le projet). Le genre est celui du commerce
+(« Cookie shop », « Fleuriste »), puisque le livrable est toujours le même, un
+site de présentation, et que la légende le dit. Huit tuiles, dont La Storia
+del Caffè en large (ses deux villes tiennent mieux sur la pilule), font neuf
+cases, trois lignes pleines. Les icônes sont les `favicon.svg` des études,
+servies d'ici comme les autres (`icone_<projet>.svg`, et `.png` pour Plateau de
+Jeu, qui n'a que son PNG de 64 px). La marque de la section est une plume à
+l'encre en vague, doublée de croix orange, que rien d'autre n'emploie en tête
+de section.
+
+Les études figurent en français, en anglais, en allemand et en italien, **pas
+en japonais**, pour la même raison que la liste japonaise ne porte que
+Yamanote 3D : des commerces du Jura bernois ne s'adressent pas à ce
+lecteur-là. Le pied de page ne les cite pas : elles se trouvent en descendant
+depuis les réalisations. Une nouvelle étude reçoit sa teinte comme un projet
+(relevée sur la couleur qui la distingue, pas sur le brun qu'elle partage avec
+ses voisines), et le compte de la légende change dans les quatre langues.
 
 **Le renvoi vers les expériences `.projets-suite`.** Sous la grille, une
 seule pilule crème, la même que « Voir les réalisations » de l'ouverture :
@@ -1278,7 +1312,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=35`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=36`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
