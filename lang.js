@@ -82,7 +82,17 @@
   // En file://, location.replace sur un chemin absolu sort de l'arborescence.
   // Un aperçu local se sert d'un serveur, la détection s'y comporte comme en
   // production ; ouverte à la main, la page reste simplement dans sa langue.
-  if (location.protocol === 'http:' || location.protocol === 'https:') {
+  //
+  // Les robots ne sont jamais redirigés. Googlebot exécute le JavaScript et se
+  // présente en anglais (navigator.languages vaut en-US), avec un stockage vide
+  // à chaque visite : sans cette garde, chaque page française le renvoyait vers
+  // sa version anglaise, et Google affichait l'anglais à l'adresse française,
+  // mêlé aux pages qu'il avait lues sans redirection. Chaque adresse doit rester
+  // dans sa langue pour lui ; les hreflang de la tête font le reste.
+  var robot = /bot|crawl|spider|slurp|mediapartners|lighthouse|headless/i
+    .test(navigator.userAgent || '');
+
+  if (!robot && (location.protocol === 'http:' || location.protocol === 'https:')) {
     var choisie = lire('localStorage', CLE);
 
     if (choisie && versions[choisie]) {

@@ -888,7 +888,7 @@ tout en bas de la fenêtre, et le déroulé passe pour absent. Un premier essai 
 pointe une part visible de l'écran encore vierge pour que l'avancée se
 remarque, d'où les 0,62 actuels.
 
-Trois points à ne pas défaire :
+Quatre points à ne pas défaire :
 
 - **l'avancement ne redescend jamais.** Un fil qu'on déroule ne se rembobine
   pas, et surtout le canevas n'est jamais effacé entre deux images : remonter
@@ -1278,7 +1278,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=35`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=36`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1512,6 +1512,13 @@ Trois points à ne pas défaire :
   domaine, voir `CNAME` ;
 - **`location.replace`, jamais `assign`**, sinon le bouton retour rejoue la
   redirection en boucle ;
+- **les robots ne sont jamais redirigés.** Googlebot exécute le JavaScript, se
+  présente en `en-US` et arrive chaque fois avec un stockage vide : sans la
+  garde sur l'agent utilisateur, chaque page française l'envoyait vers sa
+  version anglaise, et Google affichait des titres anglais à l'adresse
+  française, mêlés aux pages lues en français. Le cas s'est produit. Pour un
+  robot, chaque adresse reste dans sa langue, et ce sont les `hreflang` qui
+  disent à Google quelle version montrer à qui ;
 - **tout lien de langue porte `data-langue`**, y compris celui de l'encart de
   traduction vers l'original français. Sans lui, un visiteur venu de la version
   allemande serait renvoyé à l'allemand en arrivant sur la page française.
