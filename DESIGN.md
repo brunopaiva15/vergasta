@@ -1404,8 +1404,16 @@ qui n'a pas le droit d'ouvrir la page ne lit pas non plus sa balise `noindex`,
 donc l'adresse peut malgré tout finir listée. C'est la balise qui la tient à
 l'écart, pas `robots.txt`.
 
+**Les pages d'Auxine sont en `noindex, follow`**, les douze : présentation,
+confidentialité et conditions, dans les quatre langues. Elles restent en ligne
+et ouvertes à tous, l'App Store pointe sur elles, mais elles ne doivent pas
+apparaître sous vergasta.ch dans les résultats de recherche, où elles
+s'affichaient en liens secondaires à côté des pages de l'atelier. Elles sont
+donc absentes du plan du site, et pas en `Disallow` non plus, pour la même
+raison que la carte de visite.
+
 **`sitemap.xml`.** Les six pages publiques dans les cinq langues, soit
-trente adresses, plus les pages d'Auxine, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
+trente adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
 `<link rel="canonical">` des pages : deux adresses concurrentes pour une même
 page, c'est le moyen le plus simple de diviser son propre référencement.
 Ajouter une page publique veut donc dire trois gestes, pas un : la page, son
