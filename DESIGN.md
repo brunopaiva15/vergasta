@@ -564,6 +564,14 @@ l'encart des prix de BlockAbo : à gauche (`.contact-ecrire`), l'invitation à
 sous le titre « Nos engagements », chacun sous une étoile à l'encre. Un filet
 d'encre à 20 % les sépare, vertical à deux colonnes, horizontal en pile.
 
+**La signature `.signature`.** Sous l'invitation à écrire, avant le bouton,
+le visage de celui qui lit les messages : le portrait en petit carré
+(`--rond-s`), le nom et le titre, comme on signe une lettre. Le titre est celui
+des données structurées (« Développeur web », `founder`), donc rien d'écrit
+pour l'occasion, et toute la signature mène à l'histoire. Au survol la photo
+grossit sur le ressort et le nom se souligne, à l'encre comme le reste de la
+carte.
+
 **Les engagements sont repris de ce que le site dit déjà, jamais inventés pour
 la carte**, à peine resserrés pour tenir sur deux lignes : le devis détaillé
 (CGV, « Devis et commande »), l'adresse de test (le déroulé) et la correction
@@ -698,6 +706,23 @@ mot japonais et sa transcription en tête.
 Aucune des polices latines ne dessine les kana : hors de `/ja/`, le mot revient
 à la police du système, et c'est voulu. Servir ici PixelMplus12 obligerait à
 charger 122 Ko dans les cinq langues pour un seul mot.
+
+**Le portrait `.opening-portrait`.** La page d'histoire s'ouvre sur un visage :
+une photo de Bruno, au bord du Danube à Budapest, prend la colonne de droite
+au-delà de 1000 px, et le titre et l'accroche se centrent en hauteur sur elle.
+La photo est une carte (`--rond`, ni ombre ni cadre), et la spirale de
+l'histoire vient mordre sur son coin bas gauche, à moitié sur l'image et à
+moitié sur la page, comme un tampon sur un tirage. C'est le seul endroit où une
+marque se pose sur une image. Sous 1000 px, le portrait suit l'accroche et la
+spirale passe sur son coin bas droit, pour laisser le visage dégagé.
+
+Les fichiers, `portrait_bruno.webp` (880 × 1100), `portrait_bruno-480.webp`,
+`portrait_bruno-carre.webp` (240 px, la signature de l'accueil) et
+`portrait_bruno.jpg` (l'image de partage de la page d'histoire, en JPEG parce
+que tous les réseaux ne lisent pas le WebP), sont servis d'ici et **sans
+métadonnées** : la photo d'origine porte la position GPS de la prise de vue,
+le §7 n'en veut pas, et l'export l'a retirée. Une nouvelle photo s'exporte de
+la même façon.
 
 **L'accroche de l'histoire** (`.opening-body`), sous le titre, est en Figtree
 300 à l'encre pleine, entre 1,15 et 1,4 rem : la même voix légère que
@@ -1215,7 +1240,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=33`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=34`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1357,7 +1382,7 @@ autres versions, ce qui fait d'eux la seule source à tenir à jour.
 **Les balises de tête.** Chaque page publique porte un titre, une description
 écrite depuis son contenu réel, un canonique absolu, `robots` en `index,
 follow`, un jeu Open Graph complet et `twitter:card`. L'image de partage est le
-logo, en `summary` et non en `summary_large_image` : le fichier fait 435 × 520,
+logo, sauf sur la page d'histoire, qui partage le portrait, en `summary` et non en `summary_large_image` : le fichier fait 435 × 520,
 une carte large l'étirerait. Une vraie bannière 1200 × 630 serait mieux, mais
 elle reste à dessiner.
 

@@ -1007,6 +1007,89 @@ a.entete-pilule--encre:focus-visible {
   }
 }
 
+/* Le portrait de l'histoire. L'atelier ressemble à la personne qui le
+   tient, et la page le dit d'abord avec un visage : la photo prend la
+   colonne de droite, et la spirale vient se poser sur son coin, comme un
+   tampon sur un tirage. C'est le seul endroit où une marque mord sur une
+   image, et la photo reste une carte : coins ronds, ni ombre ni cadre.
+
+   Le titre et l'accroche se centrent en hauteur sur le portrait (les deux
+   rangées souples qui les encadrent), sinon le titre resterait collé en
+   haut d'une colonne vide. */
+.opening-portrait {
+  display: block;
+  width: min(100%, 24rem);
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--rond);
+  background: var(--carte);
+  animation: arrivee 0.9s cubic-bezier(0.2, 0.86, 0.28, 1) 0.2s backwards;
+}
+
+@media (min-width: 1000px) {
+  .opening--portrait {
+    grid-template-columns: minmax(0, 1fr) clamp(17rem, 26vw, 21rem);
+    grid-template-rows: 1fr auto auto 1fr;
+    column-gap: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .opening--portrait h1 {
+    grid-row: 2;
+  }
+
+  .opening--portrait .opening-body {
+    grid-row: 3;
+  }
+
+  .opening--portrait .opening-portrait {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    width: 100%;
+  }
+
+  /* La spirale déborde du coin bas gauche, à moitié sur la photo et à
+     moitié sur la page : posée entière dessus, elle se lirait comme une
+     retouche de l'image. */
+  .opening--portrait .mark-opening {
+    position: relative;
+    z-index: 1;
+    grid-row: 1 / -1;
+    align-self: end;
+    justify-self: start;
+    width: 8.5rem;
+    height: 8.5rem;
+    margin: 0 0 -2.75rem -4.25rem;
+  }
+}
+
+/* Sous 1000 px, le portrait suit l'accroche et la spirale le referme, à
+   cheval sur son bord bas, du côté droit pour laisser le visage dégagé. */
+@media (max-width: 999px) {
+  .opening--portrait .opening-portrait {
+    order: 1;
+    margin-top: 2.5rem;
+  }
+
+  /* Double classe : la règle générale de l'ouverture, plus bas dans la
+     feuille, remettrait sinon la spirale avant le portrait. */
+  .opening.opening--portrait .mark-opening {
+    position: relative;
+    z-index: 1;
+    order: 2;
+    width: 7rem;
+    height: 7rem;
+    margin-top: -3.5rem;
+    margin-left: calc(min(100%, 24rem) - 6rem);
+  }
+}
+
+@media print, (prefers-reduced-motion: reduce) {
+  .opening-portrait {
+    animation: none;
+  }
+}
+
 .opening h1 {
   font-size: clamp(2.4rem, 5.2vw, 4.3rem);
   line-height: 1.04;
@@ -1694,6 +1777,68 @@ a.projet-pilule {
 .contact-body .button {
   color: var(--lime);
 }
+
+/* La signature : le visage de celui qui lit les messages, posé avant le
+   bouton comme on signe une lettre. Elle mène à l'histoire. Le nom et le
+   titre sont ceux des données structurées, rien d'écrit pour l'occasion.
+   Tout reste à l'encre pleine, sur le lime comme le reste de la carte ; la
+   photo prend le rayon de l'encart de traduction, une carte en petit. */
+.signature {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1.75rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.signature img {
+  flex: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--rond-s);
+  transition: transform var(--ressort-duree) var(--ressort);
+}
+
+.signature-nom {
+  display: block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.signature-titre {
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.signature:hover img,
+.signature:focus-visible img {
+  transform: scale(1.05);
+}
+
+.signature:hover .signature-nom,
+.signature:focus-visible .signature-nom {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signature img {
+    transition: none;
+  }
+
+  .signature:hover img,
+  .signature:focus-visible img {
+    transform: none;
+  }
+}
+
 
 .contact-engagements {
   margin-top: 2rem;
