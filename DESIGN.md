@@ -930,8 +930,9 @@ bouge : ni l'un ni l'autre ne se lit, et le rebond finit par raconter une
 matière (un objet, une masse, un ressort) qui n'est pas celle d'une peinture.
 
 Reste le dessin seul, à sa place, dès la première image. **Ce qui bouge est ce
-que la brosse trace, et rien d'autre**, avec une seule exception, voulue : les
-pales des éoliennes de la fresque, qui tournent (voir plus bas). Elles tournent
+que la brosse trace, et rien d'autre**, avec deux exceptions, voulues : les
+pales des éoliennes de la fresque, qui tournent, et le randonneur qui marche
+sur sa crête (voir plus bas). Elles tournent
 sur place ; elles ne voyagent pas, ne rebondissent pas, ne changent pas de
 couleur, et la règle vaut pour tout le reste.
 
@@ -1076,6 +1077,43 @@ surface vide de cette taille ; la composition tient (un titre centré sur un
 écran blanc), et c'est pourquoi on l'a gardée plutôt
 que d'ajouter un mécanisme de détection. Si la fresque grandit encore, la
 question se reposera.
+
+### Le randonneur
+
+Sur la fresque de l'accueil, un petit Bruno en Mii fait une randonnée sur la
+crête du premier plan : une grosse tête avec ses cheveux en mèches, ses
+sourcils, sa moustache et son bouc, le pull gris de la photo du portrait, un
+jean, un sac à dos à l'encre orange des brosses et un bâton. C'est la seule
+figure du site, et elle n'a qu'un endroit : le premier écran de l'accueil, dans
+les cinq langues. La fresque exposée sur la page des expériences n'en a pas.
+
+**Il est fait de carrés, pas d'une image.** Le dessin est une grille de lettres
+dans `brushes.js` (`MII`), une couleur par lettre, et chaque carré est planché
+sur le pixel du périphérique comme un tampon de brosse (§6, troisième piège).
+Une photo détourée ou une illustration vectorielle se liraient comme un
+autocollant posé sur une peinture ; des carrés, comme une figure peinte à la
+même main. Sa taille suit la hauteur de la fresque, comme les tampons, et sa
+vitesse se compte en carrés par seconde : un grand paysage, un grand
+marcheur, le même pas.
+
+**Ce qu'il fait.** Il entre par la gauche, hors du cadre, une fois le paysage
+peint (2,6 s), marche en suivant la crête (`creteY` avec `PREMIER_PLAN`, les
+nombres de la touffe olive : s'ils changent dans la fresque, ils changent
+ici), s'arrête toutes les huit secondes de marche pour saluer, et fait
+demi-tour avant le bord. Le pas a quatre temps, et le corps monte d'un carré
+quand les jambes se croisent. Il est sur son propre calque
+(`.scene-randonneur`, `data-randonneur`), au-dessus des éoliennes : à chaque
+image, seul ce calque se repeint.
+
+Ce qu'il ne faut pas défaire :
+
+- **il s'arrête hors de l'écran et quand l'onglet est masqué**, et reprend où
+  il était, le pas de temps plafonné à 50 ms, comme les rotors ;
+- **en mouvement réduit, il ne marche pas** : il est posé debout, immobile, à
+  droite du milieu, tourné vers le titre ;
+- **sans JavaScript, il n'existe pas**, comme la fresque ;
+- **il ne sort pas de la grille de lettres** : un nouvel accessoire, c'est une
+  lettre et une couleur de plus, pas un dessin à part.
 
 ### Ajouter une marque
 
@@ -1240,7 +1278,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=34`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=35`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1297,6 +1335,9 @@ c'est leur nom qui change, ce qui suffit. Les images, les icônes de projet et
   ne tournent pas, et rien d'autre ne bouge,
 - les éoliennes tournent sur l'accueil, s'arrêtent quand la scène sort de
   l'écran et reprennent à leur angle quand elle revient,
+- le randonneur entre par la gauche après la peinture, marche sur la crête
+  olive sans flotter ni s'enfoncer, salue, fait demi-tour avant le bord, et
+  reste debout immobile en mouvement réduit,
 - l'en-tête tient sur une ligne à 950 px et au-delà dans les cinq langues,
   et en dessous sur deux lignes, les langues sur celle de la marque et les
   deux pilules côte à côte, de 360 px à 949 px (voir §5) ; si sa hauteur a
