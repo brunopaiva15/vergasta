@@ -935,7 +935,8 @@ a.entete-pilule--encre:focus-visible {
 /* Les éoliennes sur leur propre calque, exactement sur la fresque : elles
    tournent, et à chaque image seul ce calque se repeint. Il est dans l'hôte de
    la fresque, déjà `aria-hidden`. */
-.scene-eoliennes {
+.scene-eoliennes,
+.scene-randonneur {
   position: absolute;
   inset: 0;
 }

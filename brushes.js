@@ -1617,12 +1617,343 @@
     window.addEventListener("pagehide", b.repos);
   }
 
+  /* ------------------------------------------------------------------ *
+   * Le randonneur
+   * ------------------------------------------------------------------
+   * Bruno en Mii, qui fait une randonnée sur la crête du premier plan de la
+   * fresque : une grosse tête, ses cheveux, sa moustache et son bouc, le
+   * pull gris, un sac à dos orange et un bâton. Il est fait des mêmes carrés
+   * que les tampons des brosses, plancherés sur le pixel du périphérique,
+   * et non d'une image : c'est un personnage peint à la même brosse que le
+   * paysage, pas un autocollant posé dessus.
+   *
+   * Il entre par la gauche une fois le paysage peint, marche, s'arrête de
+   * temps en temps pour saluer, et fait demi-tour avant le bord. Comme les
+   * éoliennes, il ne bouge que tant que la scène est à l'écran et l'onglet
+   * visible, et reprend où il en était. En mouvement réduit, il est posé
+   * debout, immobile, et ne marche pas.
+   *
+   * Le dessin regarde à droite ; à gauche, il est retourné en miroir. Une
+   * lettre par carré, `.` pour le vide. La tête, les jambes et le bras qui
+   * salue sont des pièces à part : les jambes changent à chaque pas, et la
+   * tête monte d'un carré quand les jambes passent l'une devant l'autre. */
+  var MII = {
+    tete: [
+      "......HHhHH......",
+      "....HHHhHHHhH....",
+      "...HHhHHHHhHHH...",
+      "..HHHHHHhHHHHHH..",
+      "..HHHHHHHHHHHHH..",
+      "..HHHHHSHSHHSHH..",
+      "..HHHHSSSSSSSSS..",
+      "..HHHsSSHHSSHHS..",
+      "..HHssSSSSSSSSS..",
+      "..HHssSSSESSSES..",
+      "...HsSSSSESSSES..",
+      "...SSSSSSSSSSSS..",
+      "....SSSSSBBBBBS..",
+      "....SSSSSSSSSSS..",
+      ".....SSSSSBBBS...",
+      "......SSSSSBS....",
+      "........sss......"
+    ],
+    corps: [
+      "....OOoGGGGGG....",
+      "...OOOGGGGGGGG...",
+      "...OOoGGGGgGGG...",
+      "...OOoGGGGgGGG...",
+      "...OOoGGGGgGGG...",
+      "....OOGGGGGGGS...",
+      ".....JJJJJJJ....."
+    ],
+    // Les quatre temps du pas : écarté, croisé, écarté sur l'autre jambe,
+    // croisé. La jambe du fond est un ton plus sombre, pour qu'on voie
+    // laquelle passe devant.
+    jambes: [
+      [
+        ".....jjj.JJJ.....",
+        "....jjj...JJJ....",
+        "...KKK....KKKK..."
+      ],
+      [
+        "......JJJJJ......",
+        "......JjJJ.......",
+        "......JjJJ.......",
+        "......KKKKK......"
+      ],
+      [
+        ".....JJJ.jjj.....",
+        "....JJJ...jjj....",
+        "...KKK....KKKK..."
+      ],
+      [
+        "......JJJJJ......",
+        "......JjJJ.......",
+        "......JjJJ.......",
+        "......KKKKK......"
+      ]
+    ],
+    // Le bras levé pour saluer, en deux temps : la main va et vient au-dessus
+    // de l'épaule. Ces lignes remplacent le haut du corps.
+    salut: [
+      [
+        "...............SS",
+        "...............SS",
+        "....OOoGGGGGGGGGG",
+        "...OOOGGGGGGGGG..",
+        "...OOoGGGGgGGG...",
+        "...OOoGGGGgGGG...",
+        "...OOoGGGGgGGG...",
+        "....OOGGGGGGG....",
+        ".....JJJJJJJ....."
+      ],
+      [
+        "..............SS.",
+        "..............SS.",
+        "....OOoGGGGGGGGG.",
+        "...OOOGGGGGGGGG..",
+        "...OOoGGGGgGGG...",
+        "...OOoGGGGgGGG...",
+        "...OOoGGGGgGGG...",
+        "....OOGGGGGGG....",
+        ".....JJJJJJJ....."
+      ]
+    ],
+    couleurs: {
+      H: "#3a2a1f", // les cheveux, et leurs mèches plus claires
+      h: "#5c4331",
+      S: "#f0c3a0", // la peau
+      s: "#d79e7b", // l'oreille et le cou, dans l'ombre
+      E: "#16160f", // les yeux
+      B: "#4a3325", // la moustache et le bouc
+      G: "#bfc2c6", // le pull
+      g: "#9a9ea5",
+      O: "hsl(25, 100%, 47%)", // le sac, à l'encre orange des brosses
+      o: "hsl(25, 100%, 36%)",
+      J: "#3a414c", // le jean
+      j: "#272c34",
+      K: "#16160f", // les chaussures
+      T: "#6b4a2f" // le bâton
+    }
+  };
+
+  /* La crête où il marche : celle du premier plan, la touffe olive. Mêmes
+     nombres que la couche `fresque` qui la peint ; s'ils changent là, ils
+     changent ici. */
+  var PREMIER_PLAN = [0.86, 0.065, 2.6, 4.1];
+
+  function randonneur(host) {
+    var canvas = document.createElement("canvas");
+    canvas.style.cssText = "display:block;width:100%;height:100%";
+    host.appendChild(canvas);
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var LARGEUR = MII.tete[0].length;
+    var PAS_MS = 150; // un temps du pas
+    var SALUT_MS = 2600; // une halte
+    var MARCHE_S = 8; // de marche entre deux haltes
+    var ENTREE_MS = 2600; // le temps que le paysage se peigne
+
+    var w = 0;
+    var h = 0;
+    var dpr = 1;
+    var cellule = 2; // en pixels du périphérique
+    var x = null; // le milieu des pieds, en pixels CSS
+    var sens = 1;
+    var etat = "attente";
+    var chrono = 0; // ms écoulées dans l'état courant
+    var marche = 0; // s de marche depuis la dernière halte
+    var pas = 0; // ms de marche cumulées, pour le temps du pas
+    var onScreen = false;
+    var hidden = false;
+    var raf = 0;
+    var derniere = 0;
+
+    function layout() {
+      w = host.clientWidth;
+      h = host.clientHeight;
+      if (!w || !h) return false;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      // Sa taille suit la hauteur du paysage, comme les tampons des brosses.
+      cellule = Math.max(2, Math.round((h * dpr) / 110));
+      return true;
+    }
+
+    function marge() {
+      return (LARGEUR / 2 + 2) * cellule / dpr;
+    }
+
+    function sol(px) {
+      var y = creteY(w, h, px, PREMIER_PLAN[0], PREMIER_PLAN[1], PREMIER_PLAN[2], PREMIER_PLAN[3]);
+      return y - h * 0.012;
+    }
+
+    /** Pose une pièce, ligne par ligne, depuis le carré (col, rang). */
+    function piece(lignes, ox, oy, col, rang) {
+      for (var r = 0; r < lignes.length; r++) {
+        var ligne = lignes[r];
+        for (var c = 0; c < ligne.length; c++) {
+          var k = ligne.charAt(c);
+          if (k === ".") continue;
+          var cc = sens > 0 ? col + c : LARGEUR - 1 - (col + c);
+          ctx.fillStyle = MII.couleurs[k];
+          ctx.fillRect(ox + cc * cellule, oy + (rang + r) * cellule, cellule, cellule);
+        }
+      }
+    }
+
+    /** Le bâton : une ligne de carrés de la main au sol, planté devant. */
+    function baton(ox, oy, c0, r0, c1, r1) {
+      ctx.fillStyle = MII.couleurs.T;
+      var n = Math.max(Math.abs(c1 - c0), Math.abs(r1 - r0));
+      for (var i = 0; i <= n; i++) {
+        var c = Math.round(c0 + (c1 - c0) * (i / n));
+        var r = Math.round(r0 + (r1 - r0) * (i / n));
+        var cc = sens > 0 ? c : LARGEUR - 1 - c;
+        ctx.fillRect(ox + cc * cellule, oy + r * cellule, cellule, cellule);
+      }
+    }
+
+    function dessiner() {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (x === null) return;
+
+      var salue = etat === "halte";
+      var temps = salue || etat === "pose" ? 1 : Math.floor(pas / PAS_MS) % 4;
+      var jambes = MII.jambes[temps];
+      var haut = salue ? MII.salut[Math.floor(chrono / 320) % 2] : MII.corps;
+      // Le corps monte d'un carré quand les jambes se croisent : c'est le
+      // rebond du pas, et la tête suit.
+      var rangs = MII.tete.length + MII.corps.length + 4;
+      var lignesSalut = salue ? 2 : 0;
+
+      var ox = Math.round(x * dpr) - Math.floor(LARGEUR / 2) * cellule;
+      var bas = Math.round(sol(x) * dpr);
+      var oy = bas - rangs * cellule;
+
+      var rJambes = rangs - jambes.length;
+      var rCorps = rJambes - MII.corps.length - lignesSalut;
+      var rTete = rJambes - MII.corps.length - MII.tete.length;
+
+      piece(jambes, ox, oy, 0, rJambes);
+      piece(haut, ox, oy, 0, rCorps);
+      piece(MII.tete, ox, oy, 0, rTete);
+
+      if (salue) {
+        // à l'arrêt, le bâton reste planté à côté de lui
+        baton(ox, oy, 15, rJambes - 6, 15, rangs - 1);
+      } else {
+        var avant = temps === 1 || temps === 3 ? 15 : 16;
+        baton(ox, oy, 13, rJambes - 2, avant, rangs - 1);
+      }
+    }
+
+    function avancer(dt) {
+      chrono += dt;
+      if (etat === "attente") {
+        if (chrono < ENTREE_MS) return;
+        // Il entre par la gauche, hors du cadre : un marcheur qui arrive
+        // n'est pas coupé par le bord, il est en chemin.
+        x = -marge();
+        sens = 1;
+        etat = "marche";
+        chrono = 0;
+        return;
+      }
+      if (etat === "halte") {
+        if (chrono >= SALUT_MS) {
+          etat = "marche";
+          chrono = 0;
+          marche = 0;
+        }
+        return;
+      }
+      // La vitesse se compte en carrés : un grand paysage, un grand marcheur,
+      // le même pas.
+      var vitesse = (cellule / dpr) * 11;
+      x += sens * vitesse * (dt / 1000);
+      pas += dt;
+      marche += dt / 1000;
+      if (sens > 0 && x > w - marge()) {
+        x = w - marge();
+        sens = -1;
+      } else if (sens < 0 && x < marge()) {
+        x = marge();
+        sens = 1;
+      }
+      // Une halte de temps en temps, jamais à moitié sortie du cadre.
+      if (marche > MARCHE_S && x > marge() * 2 && x < w - marge() * 2) {
+        etat = "halte";
+        chrono = 0;
+      }
+    }
+
+    function boucle(now) {
+      var dt = Math.min(now - derniere, 50);
+      derniere = now;
+      avancer(dt);
+      dessiner();
+      raf = requestAnimationFrame(boucle);
+    }
+
+    function poser() {
+      // Debout, immobile, un peu à droite du milieu, tourné vers le titre.
+      x = Math.min(w - marge(), w / 2 + h * 0.9);
+      sens = -1;
+      etat = "pose";
+      dessiner();
+    }
+
+    function sync() {
+      if (reduced) {
+        if (onScreen && x === null) poser();
+        return;
+      }
+      if (onScreen && !hidden) {
+        if (raf) return;
+        derniere = performance.now();
+        raf = requestAnimationFrame(boucle);
+      } else {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    }
+
+    if (!layout()) return;
+
+    new ResizeObserver(function () {
+      if (!layout()) return;
+      if (x !== null) {
+        if (reduced) x = Math.min(w - marge(), w / 2 + h * 0.9);
+        else x = Math.min(Math.max(x, -marge()), w - marge());
+      }
+      dessiner();
+    }).observe(host);
+
+    new IntersectionObserver(function (entries) {
+      onScreen = entries[entries.length - 1].isIntersecting;
+      sync();
+    }).observe(host);
+
+    document.addEventListener("visibilitychange", function () {
+      hidden = document.hidden;
+      sync();
+    });
+  }
+
   function init() {
     chargement();
     // les marques ont besoin des deux observateurs, la barre non
     if (!window.ResizeObserver || !window.IntersectionObserver) return;
     var hosts = document.querySelectorAll("[data-mark]");
     for (var i = 0; i < hosts.length; i++) mount(hosts[i]);
+    var marcheurs = document.querySelectorAll("[data-randonneur]");
+    for (var j = 0; j < marcheurs.length; j++) randonneur(marcheurs[j]);
   }
 
   if (document.readyState === "loading") {
