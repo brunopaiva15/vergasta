@@ -403,6 +403,13 @@ visiteur qui sait déjà ce qu'il veut n'a plus à traverser l'accueil. Leurs
 libellés sont ceux que la page porte déjà ailleurs, pas des formules de plus à
 traduire cinq fois.
 
+Une troisième pilule crème, « Voir les études », suit le renvoi vers les
+réalisations en français, en anglais, en allemand et en italien : la section
+des études (§5) vient juste après, et sans elle on la trouverait seulement en
+descendant. Même traitement que sa voisine, et pas de pilule en japonais, où
+la section n'existe pas. Sur un téléphone, les trois passent à la ligne d'elles-mêmes
+(`flex-wrap`).
+
 **Étoile pixel.** La puce du site, en `mask-image` sur un SVG de neuf carrés :
 une croix et quatre coins. Elle sert devant les
 trois moments du déroulé et dans les listes des
@@ -621,8 +628,8 @@ de section.
 Les études figurent en français, en anglais, en allemand et en italien, **pas
 en japonais**, pour la même raison que la liste japonaise ne porte que
 Yamanote 3D : des commerces du Jura bernois ne s'adressent pas à ce
-lecteur-là. Le pied de page ne les cite pas : elles se trouvent en descendant
-depuis les réalisations. Une nouvelle étude reçoit sa teinte comme un projet
+lecteur-là. Le pied de page ne les cite pas ; l'accroche y renvoie par sa
+troisième pilule (§5, « Les deux sorties »). Une nouvelle étude reçoit sa teinte comme un projet
 (relevée sur la couleur qui la distingue, pas sur le brun qu'elle partage avec
 ses voisines), et le compte de la légende change dans les quatre langues.
 
