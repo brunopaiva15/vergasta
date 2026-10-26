@@ -39,11 +39,11 @@
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=37">
+  <link rel="stylesheet" href="../styles.css?v=38">
   <!-- La sortie d’Auxine : une bannière d’événement, hors charte, voir lancement/lancement.css. -->
   <link rel="stylesheet" href="../lancement/lancement.css?v=1">
   <script src="../lancement/lancement.js?v=1" defer></script>
-  <script src="../brushes.js?v=37" defer></script>
+  <script src="../brushes.js?v=38" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -186,7 +186,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=37"></script>
+  <script src="../lang.js?v=38"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -252,6 +252,7 @@
       <div class="opening-actions">
         <a class="button" href="https://tally.so/r/MeX9kM" target="_blank" rel="noopener noreferrer">Kontaktieren Sie uns</a>
         <a class="opening-jump" href="#realisations">Arbeiten ansehen</a>
+        <a class="opening-jump" href="#etudes">Studien ansehen</a>
       </div>
     </section>
 
@@ -261,8 +262,14 @@
         <h2 id="realisations-title">Arbeiten</h2>
       </div>
       <div class="slab-body">
-        <p class="projets-legende">Die neun Projekte, die heute online sind. Alle sind aufrufbar.</p>
+        <p class="projets-legende">Die zehn Projekte, die heute online sind. Alle sind aufrufbar.</p>
         <ul class="projets">
+          <li class="projet projet--large" data-projet="avisboost">
+            <img class="projet-icone" src="../icone_avisboost.svg" width="104" height="104" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="https://avisboost.ch" target="_blank" rel="noopener noreferrer">Avis Boost</a></h3>
+            <p class="projet-genre">SaaS-Plattform, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">avisboost.ch</span></p>
+          </li>
           <li class="projet" data-projet="stellarrebirth">
             <img class="projet-icone" src="../icone_stellarrebirth.png" width="180" height="180" alt="">
             <h3 class="projet-nom"><a class="projet-lien" href="https://stellar-rebirth.com" target="_blank" rel="noopener noreferrer">Stellar Rebirth</a></h3>
@@ -293,7 +300,7 @@
             <p class="projet-genre">Onlineshop, 2026</p>
             <p class="projet-sorties"><span class="projet-pilule">customtolylia.ch</span></p>
           </li>
-          <li class="projet" data-projet="disquebleu">
+          <li class="projet projet--large" data-projet="disquebleu">
             <img class="projet-icone" src="../icone_disquebleu.png" width="180" height="180" alt="">
             <h3 class="projet-nom"><a class="projet-lien" href="https://disquebleusuisse.ch" target="_blank" rel="noopener noreferrer">Disque Bleu</a></h3>
             <p class="projet-genre">iOS- und Android-Anwendung, 2026</p>
@@ -337,7 +344,6 @@
             <p class="projet-sorties"><span class="projet-pilule">bd-pokecards.ch</span></p>
           </li>
         </ul>
-        <p class="projets-suite"><a class="opening-jump" href="experiences.html">Erlebnisse ansehen</a></p>
       </div>
     </section>
 
@@ -530,7 +536,6 @@
         <nav aria-label="Vergasta Digital">
           <p class="pied-titre">Vergasta Digital</p>
           <a href="#realisations">Arbeiten</a>
-          <a href="experiences.html">Erlebnisse</a>
           <a href="#metier">Was wir machen</a>
           <a href="#deroule">Ablauf eines Projekts</a>
           <a href="story.html">Unsere Geschichte</a>
