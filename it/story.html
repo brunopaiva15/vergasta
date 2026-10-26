@@ -31,17 +31,17 @@
   <meta property="og:title" content="La nostra storia, Vergasta Digital">
   <meta property="og:description" content="Da dove viene Vergasta Digital. Bruno Vergasta Paiva racconta il primo computer ricevuto a nove anni, la scoperta dello sviluppo e il gusto delle cose fatte bene, riportato da un viaggio in Giappone.">
   <meta property="og:url" content="https://vergasta.ch/it/story.html">
-  <meta property="og:image" content="https://vergasta.ch/logo_vergasta.png">
-  <meta property="og:image:width" content="435">
-  <meta property="og:image:height" content="520">
-  <meta property="og:image:alt" content="Croce svizzera composta da due barre, una lime e una blu.">
+  <meta property="og:image" content="https://vergasta.ch/portrait_bruno.jpg">
+  <meta property="og:image:width" content="880">
+  <meta property="og:image:height" content="1100">
+  <meta property="og:image:alt" content="Bruno Vergasta Paiva sorridente sulla riva del Danubio a Budapest, sullo sfondo il Ponte delle Catene.">
   <meta name="twitter:card" content="summary">
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=33">
-  <script src="../brushes.js?v=33" defer></script>
-  <script src="../age.js?v=33" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=34">
+  <script src="../brushes.js?v=34" defer></script>
+  <script src="../age.js?v=34" defer></script>
 
   <!--
     Données structurées. La page raconte l'atelier : elle se rattache au même
@@ -64,6 +64,7 @@
     "mainEntity": {
       "@type": "Person",
       "name": "Bruno Vergasta Paiva",
+      "image": "https://vergasta.ch/portrait_bruno.jpg",
       "jobTitle": "Sviluppatore web",
       "worksFor": {
         "@id": "https://vergasta.ch/#atelier"
@@ -78,7 +79,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=33"></script>
+  <script src="../lang.js?v=34"></script>
 </head>
 <body>
   <header class="site-header">
@@ -104,7 +105,7 @@
   </header>
 
   <main>
-    <section class="opening wrap">
+    <section class="opening opening--portrait wrap">
       <div class="mark mark-opening" data-mark="histoire" aria-hidden="true"></div>
       <h1>La nostra storia</h1>
       <div class="opening-body">
@@ -113,6 +114,7 @@
           viene questo, raccontato da Bruno Vergasta Paiva.
         </p>
       </div>
+      <img class="opening-portrait" src="../portrait_bruno.webp" srcset="../portrait_bruno-480.webp 480w, ../portrait_bruno.webp 880w" sizes="(min-width: 1000px) 21rem, 24rem" width="880" height="1100" fetchpriority="high" alt="Bruno Vergasta Paiva sorridente sulla riva del Danubio a Budapest, sullo sfondo il Ponte delle Catene.">
     </section>
 
     <!--
