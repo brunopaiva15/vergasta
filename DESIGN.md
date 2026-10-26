@@ -349,6 +349,11 @@ ses liens dans le même ordre.
 
 ### L'exception : la sortie d'Auxine
 
+**Masquée pour l'instant.** Le bloc `.lancement` porte l'attribut `hidden`
+sur les quatre pages d'accueil, et ses deux appels de tête sont mis en
+commentaire. Pour la remettre, retirer `hidden` et sortir les deux appels du
+commentaire. Ce qui suit décrit la carte telle qu'elle s'affiche.
+
 Pour la sortie d'Auxine sur l'App Store, une carte verte est posée **juste
 sous la fresque**, premier bloc après la scène, sur les pages d'accueil française, anglaise, allemande et
 italienne. Le japonais n'en a pas, pour la même raison que ses réalisations ne listent
