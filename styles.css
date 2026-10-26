@@ -1546,6 +1546,21 @@ a.entete-pilule--encre:focus-visible {
 .projet[data-projet="vergastaphoto"] { --fond: #f3efe6; }
 .projet[data-projet="bdpokecards"] { --fond: #fbe2e0; }
 
+/* Les études prennent leur teinte de la même façon, sur la palette de leur
+   site. Six de ces marques sont des bruns de café et de papier : la teinte
+   est relevée sur la couleur qui les distingue (le latte de CROK’IT, l’avoine
+   d’Au Momentum, le kraft de La Storia, le cuivre de Fleurs Jordi), pas sur
+   le brun qu’elles partagent. Plateau de Jeu, aux quatre couleurs, prend son
+   jaune, la seule qu’aucune autre tuile ne porte. */
+.projet[data-projet="burigestion"] { --fond: #ece5da; }
+.projet[data-projet="crokit"] { --fond: #f1e3d9; }
+.projet[data-projet="oak"] { --fond: #ebe8e4; }
+.projet[data-projet="monptitpochon"] { --fond: #f4e6e0; }
+.projet[data-projet="aumomentum"] { --fond: #f6eada; }
+.projet[data-projet="lastoriadelcaffe"] { --fond: #eadcc7; }
+.projet[data-projet="plateaudejeu"] { --fond: #f8efcd; }
+.projet[data-projet="fleursjordi"] { --fond: #f3e1d6; }
+
 /* Le renvoi vers la page des expériences, sous la grille : la pilule crème de
    l'ouverture, qui prend l'aplat lime au survol. Un libellé qui existait déjà
    sous une autre forme (« Voir les réalisations »), pas une formule de plus. */
