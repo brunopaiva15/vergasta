@@ -1465,8 +1465,7 @@ a.entete-pilule--encre:focus-visible {
 
    Ce n'est pas la grille de cartes interchangeables que le §7 de DESIGN.md
    proscrit : aucune tuile ne répète le contenu d'une autre, chacune est un
-   projet réel qui se visite, et les deux tuiles larges de la version
-   française cassent la régularité.
+   projet réel qui se visite, et les tuiles larges cassent la régularité.
    -------------------------------------------------------------------------- */
 
 /* La légende est écrite à la main : elle commente la liste, elle n'en fait pas
@@ -1536,6 +1535,7 @@ a.entete-pilule--encre:focus-visible {
    chaud. Custom To Lylia a un dégradé, parce que sa marque en est un. Un
    projet sans teinte garde le crème. */
 .projet[data-projet="auxine"] { --fond: #dbeee1; }
+.projet[data-projet="avisboost"] { --fond: #fde0cb; }
 .projet[data-projet="stellarrebirth"] { --fond: #e0e5fa; }
 .projet[data-projet="axolot"] { --fond: #ece5fd; }
 .projet[data-projet="fdasilva"] { --fond: #e6e6e6; }
@@ -1560,20 +1560,6 @@ a.entete-pilule--encre:focus-visible {
 .projet[data-projet="lastoriadelcaffe"] { --fond: #eadcc7; }
 .projet[data-projet="plateaudejeu"] { --fond: #f8efcd; }
 .projet[data-projet="fleursjordi"] { --fond: #f3e1d6; }
-
-/* Le renvoi vers la page des expériences, sous la grille : la pilule crème de
-   l'ouverture, qui prend l'aplat lime au survol. Un libellé qui existait déjà
-   sous une autre forme (« Voir les réalisations »), pas une formule de plus. */
-.projets-suite {
-  display: flex;
-  margin-top: 1.5rem;
-}
-
-/* Le paragraphe hérite du gris des textes de bloc ; le libellé d'une action
-   reste à l'encre. */
-.projets-suite .opening-jump {
-  color: var(--ink);
-}
 
 /* Toute la tuile se prend. Le lien du nom s'étend sur la carte entière par un
    pseudo-élément ; les pilules des magasins et les marques de presse sont
