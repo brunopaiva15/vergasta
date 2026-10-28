@@ -1442,6 +1442,20 @@ s'affichaient en liens secondaires à côté des pages de l'atelier. Elles sont
 donc absentes du plan du site, et pas en `Disallow` non plus, pour la même
 raison que la carte de visite.
 
+**Les pages de Slab Lab aussi**, les six : assistance, confidentialité et
+conditions, en français à la racine de `slablab/` et en anglais dans
+`slablab/en/`, les deux langues du jeu. Il n'y a pas encore de page de
+présentation : `slablab/index.html` n'est qu'une page d'assistance à trois
+entrées (contact, confidentialité, conditions), qui sert d'adresse de support
+aux fiches des stores. Le `x-default` pointe sur l'anglais, la langue source
+du jeu, et non sur le français comme le reste du site. Comme Auxine, ces pages
+sont hors charte et parlent la langue du jeu (`slablab/styles.css`, ses
+polices pixel servies depuis `slablab/fonts/`, avec leur estampille propre,
+`?v=1`). Les textes décrivent ce que fait la version en test : sauvegarde sur
+l'appareil, TelemetryDeck, RevenueCat, aucun compte, aucune publicité. **Ils
+se relisent à chaque fonction qui touche aux données** (sauvegarde en ligne,
+classements, publicité récompensée), avant sa sortie.
+
 **`sitemap.xml`.** Les cinq pages publiques dans les cinq langues, soit
 vingt-cinq adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
 `<link rel="canonical">` des pages : deux adresses concurrentes pour une même
