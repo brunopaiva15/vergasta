@@ -1452,9 +1452,10 @@ du jeu, et non sur le français comme le reste du site. Comme Auxine, ces pages
 sont hors charte et parlent la langue du jeu (`slablab/styles.css`, ses
 polices pixel servies depuis `slablab/fonts/`, avec leur estampille propre,
 `?v=1`). Les textes décrivent ce que fait la version en test : sauvegarde sur
-l'appareil, TelemetryDeck, RevenueCat, aucun compte, aucune publicité. **Ils
-se relisent à chaque fonction qui touche aux données** (sauvegarde en ligne,
-classements, publicité récompensée), avant sa sortie.
+l'appareil, TelemetryDeck, RevenueCat, aucun compte, et pour seule publicité
+une vidéo récompensée facultative de Google AdMob, sans demande de suivi sur
+iPhone. **Ils se relisent à chaque fonction qui touche aux données**
+(sauvegarde en ligne, classements, demande de suivi), avant sa sortie.
 
 **`sitemap.xml`.** Les cinq pages publiques dans les cinq langues, soit
 vingt-cinq adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
