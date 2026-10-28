@@ -1457,6 +1457,12 @@ une vidéo récompensée facultative de Google AdMob, sans demande de suivi sur
 iPhone. **Ils se relisent à chaque fonction qui touche aux données**
 (sauvegarde en ligne, classements, demande de suivi), avant sa sortie.
 
+**`app-ads.txt`.** Une ligne, qui dit que le compte AdMob
+`pub-7703648814705517` a le droit de vendre la vidéo récompensée de Slab Lab.
+AdMob la lit à la racine du domaine déclaré comme site du développeur dans les
+deux stores, donc ici et pas sous `slablab/`. Ce n'est pas une page : elle n'a
+rien à faire dans le plan du site.
+
 **`sitemap.xml`.** Les cinq pages publiques dans les cinq langues, soit
 vingt-cinq adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
 `<link rel="canonical">` des pages : deux adresses concurrentes pour une même
