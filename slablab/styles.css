@@ -1,0 +1,61 @@
+/* Pages de Slab Lab : support, confidentialité, conditions.
+   Hors charte Vergasta, comme Auxine : elles parlent la langue du jeu,
+   ses deux polices pixel et sa palette (lib/src/palette.dart). Le texte
+   courant reste dans la police du système, une police pixel ne se lit pas
+   sur un texte juridique. */
+@font-face{font-family:"Silkscreen";src:url("fonts/Silkscreen-Bold.ttf") format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"Pixelify Sans";src:url("fonts/PixelifySans.ttf") format("truetype");font-weight:400 700;font-display:swap}
+
+:root{
+  --cream:#fff8e7;
+  --paper:#efe6d3;
+  --line:#d8cdb8;
+  --ink:#2a1b14;
+  --muted:#4a3a30;
+  --blue:#23518f;
+  --gold:#f2b33d;
+  --pixel:"Silkscreen",ui-monospace,monospace;
+  --display:"Pixelify Sans",ui-sans-serif,system-ui,sans-serif;
+}
+/* Pixelify Sans dessine mal sa ligature fi (« Confidentialité » se lisait
+   « ConAdentialité ») : les ligatures sont coupées partout où elle sert. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-underline-offset:3px}
+.wrap{width:min(820px,calc(100% - 32px));margin:auto}
+
+.nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:30px 0}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;font-family:var(--pixel);font-size:22px;font-weight:700;letter-spacing:.5px}
+.brand img{width:44px;height:44px;border:3px solid var(--ink);image-rendering:pixelated}
+.nav-right{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.langs{display:flex;gap:6px;font-size:13px}
+.langs a,.langs span{padding:5px 8px}
+.langs span{font-weight:700;background:var(--ink);color:var(--cream)}
+.back{font-size:14px}
+
+/* La carte : un aplat papier cerclé d'encre, avec l'ombre nette et décalée
+   des biseaux du jeu, sans coins arrondis. */
+.legal{background:var(--paper);border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:48px 54px;margin:20px 8px 70px 0}
+.legal h1{font-family:var(--pixel);font-weight:700;font-size:40px;line-height:1.1;letter-spacing:.5px;margin:0 0 12px}
+.legal h2{font-family:var(--display);font-variant-ligatures:none;font-weight:700;font-size:25px;line-height:1.2;margin:0 0 12px}
+.updated{color:var(--muted);font-size:14px;margin:0 0 42px}
+.legal section{padding:25px 0;border-top:2px solid var(--line)}
+.legal p,.legal li{line-height:1.7}
+.legal ul{padding-left:22px}
+.legal li::marker{color:var(--blue)}
+.note{background:var(--cream);border-left:6px solid var(--gold);padding:14px 18px}
+.legal-nav{display:flex;gap:18px;flex-wrap:wrap;padding-top:28px;border-top:2px solid var(--line);font-size:14px}
+
+/* La page de support : trois entrées. */
+.legal .liens{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.liens a{display:block;font-variant-ligatures:none;background:var(--cream);border:3px solid var(--ink);padding:18px 20px;color:var(--ink);text-decoration:none;font-family:var(--display);font-weight:700;font-size:20px}
+.liens a span{display:block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-weight:400;font-size:15px;color:var(--muted);margin-top:4px}
+.liens a:hover,.liens a:focus-visible{background:var(--gold)}
+
+.footer{padding:0 0 45px;color:var(--muted);font-size:13px;text-align:center}
+
+@media(max-width:650px){
+  .legal{padding:32px 22px;box-shadow:6px 6px 0 var(--ink);margin-right:6px}
+  .legal h1{font-size:23px;letter-spacing:0;overflow-wrap:anywhere}
+  .nav{align-items:flex-start;flex-direction:column}
+}
