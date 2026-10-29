@@ -1,0 +1,237 @@
+/* Vergasta Games : page d'attente.
+   Hors charte par un seul geste, comme Auxine et Slab Lab : le fond est
+   inversé. L'encre prend la page, le crème des cartes prend le texte, et le
+   lime du logo tient à pleine intensité, ce qu'il ne fait sur le site qu'au
+   pied de page (DESIGN.md, § La règle du lime). Le reste ne bouge pas :
+   mêmes polices servies depuis ../fonts/, mêmes jetons, aucune requête hors
+   du domaine. */
+
+@font-face {
+  font-family: 'Jersey 25';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/jersey25-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Jersey 25';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/jersey25-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Gabarito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../fonts/gabarito-700-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Gabarito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../fonts/gabarito-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/figtree-400-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/figtree-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* les jetons de styles.css, inversés : l'encre devient le fond */
+  --fond: #16160f;
+  --texte: #f1f2e9;
+  --texte-doux: #b8b8b3;
+  --filet: #33332c;
+  --lime: #d4ff00;
+  --bleu: #4f46e6;
+  --ink: #16160f;
+
+  --display: "Gabarito", system-ui, sans-serif;
+  --corps: "Figtree", system-ui, sans-serif;
+  --pixel: "Jersey 25", "Courier New", monospace;
+
+  --gutter: 1.5rem;
+  --ressort: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ressort-duree: 0.5s;
+}
+
+@media (min-width: 800px) {
+  :root { --gutter: 4rem; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { background: var(--fond); }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--corps);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* --- En-tête : la marque de l'atelier, comme sur le site --------------- */
+.entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--texte);
+  text-decoration: none;
+  font-family: var(--pixel);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.brand img { width: 1.6rem; height: auto; }
+
+.pilule {
+  display: inline-block;
+  padding: 0.75rem 1.15rem;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background 0.14s, transform var(--ressort-duree) var(--ressort);
+}
+.pilule:hover,
+.pilule:focus-visible {
+  background: var(--texte);
+  transform: scale(1.05);
+}
+.pilule:focus-visible,
+.brand:focus-visible,
+.pied a:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 4px;
+}
+
+/* --- La scène ----------------------------------------------------------- */
+.scene {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.scene h1 {
+  width: 100%;
+  margin: 0;
+}
+
+/* Le SVG porte sa propre marge de six pixels autour du symbole : il est
+   centré tel quel, sans compenser. */
+.scene h1 img {
+  display: block;
+  width: min(100%, 58rem);
+  height: auto;
+  margin: 0 auto;
+}
+
+.bientot {
+  margin: clamp(1.25rem, 4vw, 2.5rem) 0 0;
+  font-family: var(--pixel);
+  font-size: clamp(2.25rem, 7vw, 4rem);
+  line-height: 1;
+  color: var(--lime);
+}
+
+/* Le curseur d'un écran titre : un pavé plein qui clignote en tout ou rien,
+   sans fondu, comme sur une console. */
+.curseur {
+  display: inline-block;
+  width: 0.42em;
+  height: 0.72em;
+  margin-left: 0.12em;
+  background: currentColor;
+  vertical-align: -0.04em;
+  animation: clignote 1.06s steps(1, end) infinite;
+}
+@keyframes clignote {
+  50% { opacity: 0; }
+}
+
+.accroche {
+  max-width: 32rem;
+  margin: 1.5rem 0 0;
+  color: var(--texte-doux);
+}
+
+/* --- Pied de page ------------------------------------------------------- */
+.pied {
+  margin: 0;
+  border-top: 1px solid var(--filet);
+  padding-top: 1.5rem;
+  padding-bottom: 1.75rem;
+  font-size: 0.875rem;
+  color: var(--texte-doux);
+  text-align: center;
+}
+.pied a {
+  color: var(--texte);
+  text-underline-offset: 3px;
+}
+.pied a:hover { color: var(--lime); }
+
+@media (prefers-reduced-motion: reduce) {
+  .curseur { animation: none; }
+  .pilule { transition: background 0.14s; }
+  .pilule:hover,
+  .pilule:focus-visible { transform: none; }
+}
+
+@media (max-width: 480px) {
+  .brand { font-size: 1.35rem; }
+  .brand img { width: 1.35rem; }
+}

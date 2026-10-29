@@ -1457,6 +1457,17 @@ une vidéo récompensée facultative de Google AdMob, sans demande de suivi sur
 iPhone. **Ils se relisent à chaque fonction qui touche aux données**
 (sauvegarde en ligne, classements, demande de suivi), avant sa sortie.
 
+**La page de Vergasta Games** (`games/index.html`) est une page d'attente, en
+français seulement, en `noindex, follow` et absente du plan du site tant
+qu'aucun jeu n'y est présenté. Elle est hors charte par un seul geste : le
+fond est inversé, l'encre prend la page et le crème prend le texte, ce qui
+laisse le lime du logo à pleine intensité. Polices et jetons sont ceux du
+site, servis depuis `fonts/`, avec une feuille propre (`games/styles.css`,
+estampille `?v=1`). Le logo (`games/logo.svg`), l'icône et l'image de partage
+sortent du générateur Python du logo, tenu hors du dépôt : la croix de
+Vergasta Digital redessinée en croix directionnelle de manette, sur la grille
+de Jersey 25.
+
 **`app-ads.txt`.** Une ligne, qui dit que le compte AdMob
 `pub-7703648814705517` a le droit de vendre la vidéo récompensée de Slab Lab.
 AdMob la lit à la racine du domaine déclaré comme site du développeur dans les
