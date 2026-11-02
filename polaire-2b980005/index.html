@@ -207,8 +207,10 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
           <button class="chip" id="b-exifgps">🛰 GPS photo</button>
           <button class="chip" id="b-date">📅 Date photo</button>
         </div>
-        <h3>Composition</h3>
+        <h3>Composition · affiche</h3>
         <div class="layouts" id="layouts"></div>
+        <h3>Composition · discret</h3>
+        <div class="layouts" id="layouts2"></div>
         <h3>Typo du titre</h3>
         <div class="styles" id="styles"></div>
         <h3>Mise en page</h3>
@@ -742,8 +744,70 @@ const LAYOUTS = {
     }
     if(t.sub){ctx.fillStyle="rgba(255,255,255,.88)";setFont(ctx,MONOL,sp);drawSpaced(ctx,up(t.sub,1),x+pad,ly+ledH+pad*.6+sp,MONOL.tr*sp*.6,"left")}
     ctx.restore();
+  }},
+
+  /* ----- discrets ----- */
+  legende:{label:"Légende",g:2,y:80,align:"left",draw(ctx,W,H,t){
+    const st=STYLES[t.style]||STYLES.monument,k=t.size/100,X=ax(t,W,.075),Y=H*t.y/100;
+    const title=up(t.title,st.t.up).trim(), sub=up(t.sub,1).trim();
+    const spec={...st.t,tr:Math.min(st.t.tr,.06)}, tp=fitPx(ctx,spec,title,W*.6*k,W*.062*k);
+    setFont(ctx,spec,tp); const mm=met(ctx,title,tp); const sp=W*.017*Math.sqrt(k);
+    scrimBand(ctx,W,Y-mm.asc-tp,Y+sp*3,t); shOn(ctx,t,W);
+    if(title){setFont(ctx,spec,tp);st.t.stroke?drawTitle(ctx,{t:spec},title,X,Y,tp,t.align):drawSpaced(ctx,title,X,Y,spec.tr*tp,t.align)}
+    if(sub){setFont(ctx,MONOL,sp);drawSpaced(ctx,sub,X,Y+mm.desc+sp*1.9,MONOL.tr*sp,t.align)}
+  }},
+  ligne:{label:"Ligne",g:2,y:82,align:"center",draw(ctx,W,H,t){
+    const k=t.size/100,X=ax(t,W,.075),Y=H*t.y/100;
+    const parts=[up(t.title,1).trim(),t.lat!=null?dms(t.lat,"N","S"):up(subOnly(t),1).trim()].filter(Boolean);
+    const txt=parts.join("   ·   "), spec={f:'"Montserrat",sans-serif',w:500,tr:.5};
+    let fp=W*.023*k; setFont(ctx,spec,fp); const w=spacedWidth(ctx,txt,spec.tr*fp); if(w>W*.88){fp*=W*.88/w;setFont(ctx,spec,fp)}
+    scrimBand(ctx,W,Y-fp*2.5,Y+fp*1.8,t); shOn(ctx,t,W); drawSpaced(ctx,txt,X,Y,spec.tr*fp,t.align);
+  }},
+  badge:{label:"Badge",g:2,y:80,align:"center",draw(ctx,W,H,t){
+    const k=t.size/100,fp=W*.03*k,spec={f:'"Manrope","Montserrat",sans-serif',w:700,tr:.02};
+    const kk=(t.kicker||"").trim(), name=(t.title||"Bodø").trim()+(kk?", "+kk.charAt(0)+kk.slice(1).toLocaleLowerCase("fr"):"");
+    setFont(ctx,spec,fp); const tw=spacedWidth(ctx,name,spec.tr*fp), ic=fp*1.15, ph=fp*2.3, pw=tw+ic+fp*2.4;
+    const x=t.align==="left"?W*.07:t.align==="right"?W*.93-pw:(W-pw)/2, y=H*t.y/100-ph/2;
+    ctx.save(); shOff(ctx); rrect(ctx,x,y,pw,ph,ph/2); ctx.fillStyle=t.color==="#101418"?"rgba(255,255,255,.55)":"rgba(12,15,20,.42)"; ctx.fill();
+    ctx.strokeStyle="rgba(255,255,255,.22)";ctx.lineWidth=Math.max(1.5,W*.0016);ctx.stroke(); ctx.restore();
+    ctx.strokeStyle=t.color; looped(ctx,x+fp*.95+ic/2,y+ph/2,ic,Math.max(2,fp*.09));
+    setFont(ctx,spec,fp); drawSpaced(ctx,name,x+fp*1.5+ic,y+ph/2+fp*.36,spec.tr*fp,"left");
+  }},
+  viseur:{label:"Viseur",g:2,y:50,noExif:1,draw(ctx,W,H,t,exif){
+    const k=t.size/100,m=W*.06,L=W*.055,lw=Math.max(2,W*.0024),story=format==="story";
+    const y0=story?H*.135:H*.045, y1=story?H*.825:H*.955;
+    shOn(ctx,t,W);
+    [[m,y0,1,1],[W-m,y0,-1,1],[m,y1,1,-1],[W-m,y1,-1,-1]].forEach(([x,y,sx,sy])=>{ctx.fillRect(sx>0?x:x-L,sy>0?y:y-lw,L,lw);ctx.fillRect(sx>0?x:x-lw,sy>0?y:y-L,lw,L)});
+    const fp=W*.021*k, i=W*.03, spec={f:'"Montserrat",sans-serif',w:700,tr:.32};
+    setFont(ctx,spec,fp); drawSpaced(ctx,up(t.title,1),m+i,y0+i+fp,spec.tr*fp,"left");
+    setFont(ctx,MONOL,fp*.9); drawSpaced(ctx,exifDate(exif)||String(new Date().getFullYear()),W-m-i,y0+i+fp,MONOL.tr*fp*.9,"right");
+    drawSpaced(ctx,up(subOnly(t),1),m+i,y1-i,MONOL.tr*fp*.9,"left");
+    const ex=exif?[exif.focal?Math.round(exif.focal)+"MM":"",exif.fnum?"Ƒ/"+(+exif.fnum.toFixed(1)):"",exif.exposure?(exif.exposure>=1?exif.exposure+"S":"1/"+Math.round(1/exif.exposure)):""].filter(Boolean).join(" · "):"";
+    drawSpaced(ctx,ex||up(t.kicker,1),W-m-i,y1-i,MONOL.tr*fp*.9,"right");
+    // petite croix centrale
+    const c=W*.018;ctx.globalAlpha*=.7;ctx.fillRect(W/2-c,H*t.y/100-lw/2,c*2,lw);ctx.fillRect(W/2-lw/2,H*t.y/100-c,lw,c*2);
+  }},
+  signatur:{label:"Signature",g:2,y:82,align:"right",draw(ctx,W,H,t){
+    const k=t.size/100,X=ax(t,W,.075),Y=H*t.y/100,spec={f:'"Great Vibes",cursive',w:400,tr:0};
+    const title=(t.title||"").trim(), tp=fitPx(ctx,spec,title,W*.4*k,W*.11*k); setFont(ctx,spec,tp);
+    const sp=W*.016*Math.sqrt(k); scrimBand(ctx,W,Y-tp*1.3,Y+sp*3,t); shOn(ctx,t,W);
+    drawSpaced(ctx,title,X,Y,0,t.align);
+    const sub=up(t.sub,1).trim(); if(sub){setFont(ctx,MONOL,sp);drawSpaced(ctx,sub,X,Y+tp*.32+sp*1.4,MONOL.tr*sp,t.align)}
+  }},
+  stempel:{label:"Tampon",g:2,y:80,align:"right",draw(ctx,W,H,t){
+    const k=t.size/100,Rr=W*.09*k,m=W*.07,cx=t.align==="left"?m+Rr:t.align==="right"?W-m-Rr:W/2,cy=H*t.y/100;
+    const lw=Math.max(2,Rr*.03); shOn(ctx,t,W);
+    ctx.lineWidth=lw;ctx.beginPath();ctx.arc(cx,cy,Rr,0,Math.PI*2);ctx.stroke();
+    ctx.lineWidth=lw*.7;ctx.beginPath();ctx.arc(cx,cy,Rr*.56,0,Math.PI*2);ctx.stroke();
+    const parts=[up(t.title||"Bodø",1),up(t.kicker||"Norge",1)];if(t.lat!=null)parts.push(dms(t.lat,"N","S"));
+    const txt=parts.join("  ·  ")+"  ·  ", fp=Rr*.17, r=Rr*.72; ctx.font=`700 ${fp}px "Montserrat",sans-serif`;
+    const ws=[...txt].map(ch=>ctx.measureText(ch).width), tot=ws.reduce((a,b)=>a+b,0), gap=Math.max(0,(2*Math.PI*r-tot)/ws.length);
+    let a=-Math.PI/2; ctx.textAlign="center";
+    [...txt].forEach((ch,i)=>{const da=(ws[i]+gap)/r;ctx.save();ctx.translate(cx,cy);ctx.rotate(a+da/2+Math.PI/2);ctx.fillText(ch,0,-r);ctx.restore();a+=da});
+    ctx.textAlign="left"; looped(ctx,cx,cy,Rr*.62,Math.max(2,Rr*.045));
   }}
 };
+function ax(t,W,m){return t.align==="left"?W*m:t.align==="right"?W*(1-m):W/2}
 
 function drawText(ctx,W,H,t,exif,forExport){
   ctx.save();
@@ -753,7 +817,7 @@ function drawText(ctx,W,H,t,exif,forExport){
   ctx.fillStyle=t.color;ctx.strokeStyle=t.color;ctx.textBaseline="alphabetic";
   L.draw(ctx,W,H,t,exif);
   ctx.restore();
-  if(t.exif&&exif){
+  if(t.exif&&exif&&!L.noExif){
     const line=exifLine(exif);
     if(line){ctx.save();const ep=W*.019;ctx.font=`400 ${ep}px "Space Mono",monospace`;ctx.globalAlpha=t.opacity/100*.85;ctx.fillStyle=t.color;shOn(ctx,t,W);
       const ey=format==="story"?H*.815:H*.95; drawSpaced(ctx,line.toUpperCase(),W/2,ey,ep*.08,"center",false);ctx.restore()}
@@ -999,10 +1063,16 @@ const LICON={
  piksel:'<rect x="6" y="12" width="22" height="7" rx="1"/><rect x="10" y="22" width="14" height="2"/><g opacity=".8"><rect x="4" y="27" width="3" height="3"/><rect x="8" y="27" width="3" height="3"/><rect x="12" y="27" width="3" height="3"/><rect x="20" y="27" width="3" height="3"/><rect x="4" y="31" width="3" height="3"/><rect x="8" y="31" width="3" height="3"/><rect x="16" y="31" width="3" height="3"/><rect x="4" y="35" width="3" height="3"/><rect x="12" y="35" width="3" height="3"/></g>',
  skilt:'<rect x="3" y="30" width="28" height="11" rx="1.5" fill="#ffd21f"/><path d="M8 32.5l2.5 3h-1.6v3.5h-1.8v-3.5h-1.6z" fill="#111"/><rect x="13" y="34" width="14" height="3" fill="#111"/>',
  severdighet:'<rect x="3" y="30" width="28" height="11" rx="1.5" fill="#6b3f24"/><text x="5.5" y="39" font-size="8" fill="#fff">⌘</text><rect x="14" y="34" width="13" height="3" fill="#fff"/>',
+ legende:'<rect x="4" y="38" width="13" height="3" rx=".5"/><rect x="4" y="43" width="9" height="1.4"/>',
+ ligne:'<rect x="6" y="42" width="22" height="1.4"/>',
+ badge:'<rect x="8" y="39" width="18" height="6" rx="3" fill="#0d1116" stroke="currentColor" stroke-width=".6"/><rect x="14" y="41.3" width="9" height="1.4"/><rect x="10.5" y="40.6" width="2.6" height="2.6" rx=".6"/>',
+ viseur:'<path d="M4 7h5v1H5v4H4zM30 7h-5v1h4v4h1zM4 45h5v-1H5v-4H4zM30 45h-5v-1h4v-4h1z"/><rect x="6" y="10" width="7" height="1.2"/><rect x="22" y="10" width="5" height="1.2"/><rect x="6" y="41" width="8" height="1.2"/><rect x="21" y="41" width="6" height="1.2"/>',
+ signatur:'<path d="M17 40c2-3 4-3 3 0s1 2 3-1 3-1 2 1 2 1 4-1" fill="none" stroke="currentColor" stroke-width="1"/><rect x="18" y="44" width="11" height="1.2"/>',
+ stempel:'<circle cx="25" cy="40" r="6" fill="none" stroke="currentColor" stroke-width=".8"/><circle cx="25" cy="40" r="3.2" fill="none" stroke="currentColor" stroke-width=".6"/>',
  avgang:'<rect x="2" y="28" width="30" height="15" rx="2" fill="#0a0b0d" stroke="#333"/><g fill="#ffb43c"><circle cx="7" cy="36" r="1"/><circle cx="10" cy="36" r="1"/><circle cx="13" cy="36" r="1"/><circle cx="16" cy="36" r="1"/><circle cx="19" cy="36" r="1"/><circle cx="7" cy="39" r="1"/><circle cx="13" cy="39" r="1"/><circle cx="19" cy="39" r="1"/><rect x="5" y="31" width="7" height="1.5"/><rect x="24" y="31" width="5" height="1.5"/></g>'
 };
 for(const id in LAYOUTS){const b=el("button",{class:"layout","data-l":id},`<svg viewBox="0 0 34 52" fill="currentColor"><rect x=".5" y=".5" width="33" height="51" rx="3" fill="#2a3542" stroke="none"/>${LICON[id]||""}</svg><span>${LAYOUTS[id].label}</span>`);
-  b.onclick=()=>{const t=T();t.layout=id;t.y=LAYOUTS[id].y;syncTextUI();textChanged()};$("#layouts").appendChild(b)}
+  b.onclick=()=>{const t=T(),L=LAYOUTS[id];t.layout=id;t.y=L.y;t.align=L.align||"center";syncTextUI();textChanged()};$(LAYOUTS[id].g===2?"#layouts2":"#layouts").appendChild(b)}
 $("#t-title").oninput=e=>{T().title=e.target.value;textChanged()};
 $("#t-sub").oninput=e=>{T().sub=e.target.value;textChanged()};
 for(const k of ["size","y","opacity","scrim"]){
