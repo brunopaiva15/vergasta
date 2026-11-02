@@ -262,7 +262,7 @@ const BANDS = [
 ];
 const Z8 = () => [0,0,0,0,0,0,0,0];
 const BASE = {exposure:0,contrast:0,highlights:0,shadows:0,whites:0,blacks:0,temp:0,tint:0,vibrance:0,saturation:0,
-  clarity:0,sharpen:15,glow:0,fade:0,vignette:0,grain:0,hslH:Z8(),hslS:Z8(),hslL:Z8(),shHue:200,shSat:0,hiHue:35,hiSat:0,balance:0};
+  clarity:0,sharpen:15,glow:0,halation:0,fade:0,vignette:0,grain:0,hslH:Z8(),hslS:Z8(),hslL:Z8(),shHue:200,shSat:0,hiHue:35,hiSat:0,balance:0};
 
 //                          R    O    Y    G    A    B    V    M
 const PRESETS = {
@@ -274,14 +274,42 @@ const PRESETS = {
     v:{contrast:18,highlights:-35,shadows:22,whites:6,blacks:-8,temp:-9,tint:2,vibrance:6,saturation:-14,clarity:32,sharpen:25,fade:6,vignette:12,grain:10,
        hslH:[0,-2,-8,20,-6,-14,-10,0], hslS:[28,20,-40,-60,26,4,-30,-10], hslL:[-4,4,-6,-15,-12,-12,0,0],
        shHue:198,shSat:14,hiHue:210,hiSat:5,balance:-10}},
+  sno:{name:"Snø",desc:"Neige vraiment blanche, ciel net",sw:["#3d6f9e","#ffffff","#f2e6d8"],
+    v:{exposure:.15,contrast:12,highlights:-25,shadows:15,whites:18,blacks:-6,temp:6,tint:4,vibrance:12,saturation:-4,clarity:12,sharpen:25,vignette:6,grain:4,
+       hslH:[0,0,-6,15,0,-4,0,0], hslS:[0,8,-10,-30,-10,-8,-20,0], hslL:[0,4,0,-6,8,6,0,0],
+       shHue:212,shSat:8,hiHue:40,hiSat:0,balance:0}},
   aurore:{name:"Aurore",desc:"Coucher rose & or, ciel profond",sw:["#1b3d6b","#f7a37a","#ffd6b0"],
     v:{contrast:28,highlights:-38,shadows:26,whites:10,blacks:-16,temp:14,tint:10,vibrance:32,saturation:2,clarity:26,sharpen:22,glow:26,vignette:20,grain:6,
        hslH:[6,0,-14,10,6,-8,-20,-14], hslS:[16,22,-10,-50,26,12,-10,12], hslL:[0,10,4,-8,-6,-16,0,0],
        shHue:208,shSat:20,hiHue:22,hiSat:30,balance:5}},
+  gyllen:{name:"Gyllen",desc:"Soleil rasant doré, vif",sw:["#24406e","#ff9d4d","#ffe0a8"],
+    v:{contrast:16,highlights:-48,shadows:28,whites:14,blacks:2,temp:10,tint:2,vibrance:24,saturation:4,clarity:16,sharpen:20,glow:16,vignette:16,grain:6,
+       hslH:[4,-2,-22,12,0,-6,-25,20], hslS:[10,18,6,-40,10,-10,-20,6], hslL:[0,10,6,-8,0,-20,0,0],
+       shHue:220,shSat:8,hiHue:32,hiSat:24,balance:-18}},
   nuit:{name:"Nuit polaire",desc:"Heure bleue de Bodø, rose pâle",sw:["#13244a","#5c78b8","#e9a6c8"],
     v:{exposure:.2,contrast:10,highlights:-42,shadows:40,whites:4,blacks:6,temp:-14,tint:9,vibrance:22,saturation:-6,clarity:14,sharpen:18,glow:18,fade:14,vignette:16,grain:14,
        hslH:[0,-6,-10,20,8,10,-6,0], hslS:[10,14,-20,-50,16,16,10,22], hslL:[0,6,0,-10,0,-6,6,6],
        shHue:222,shSat:22,hiHue:318,hiSat:16,balance:8}},
+  nordlys:{name:"Nordlys",desc:"Aurores boréales, nuit bleue",sw:["#071a3a","#1fd39a","#b26bff"],
+    v:{exposure:.15,contrast:18,highlights:-30,shadows:25,whites:8,blacks:-14,temp:-18,tint:-4,vibrance:20,clarity:22,sharpen:10,glow:15,vignette:18,grain:6,
+       hslH:[0,0,10,8,-6,6,10,0], hslS:[-10,-20,-30,10,15,12,18,12], hslL:[0,-10,0,8,0,-16,0,0],
+       shHue:230,shSat:16,hiHue:160,hiSat:6,balance:-10}},
+  portra:{name:"Portra 400",desc:"Film chaud et doux, grain fin",sw:["#5c7a7a","#e9c9a6","#f5e6cf"],
+    v:{exposure:.15,contrast:-8,highlights:-30,shadows:18,whites:-2,blacks:10,temp:11,tint:4,vibrance:8,saturation:-4,clarity:-8,sharpen:10,fade:12,vignette:8,grain:22,
+       hslH:[4,-4,-12,18,-6,-8,0,0], hslS:[-4,6,-18,-35,-10,-14,-20,-10], hslL:[0,8,0,-4,0,4,0,0],
+       shHue:190,shSat:10,hiHue:38,hiSat:18,balance:10}},
+  cinestill:{name:"CineStill 800T",desc:"Nuit en ville, halos rouges",sw:["#0d3b4a","#2f7c8a","#ff5a3c"],
+    v:{contrast:14,highlights:-30,shadows:22,whites:6,blacks:8,temp:-22,tint:-6,vibrance:18,saturation:8,clarity:-12,sharpen:8,glow:18,halation:55,fade:10,vignette:12,grain:28,
+       hslH:[6,0,-10,25,5,6,0,0], hslS:[20,10,-10,-30,15,10,0,10], hslL:[0,0,0,-6,0,-10,0,0],
+       shHue:190,shSat:18,hiHue:25,hiSat:10,balance:-5}},
+  mork:{name:"Mørk",desc:"Sombre & brumeux, nordique",sw:["#1d2a2e","#5d6d6b","#a89a86"],
+    v:{exposure:-.3,contrast:18,highlights:-40,shadows:-10,whites:-10,blacks:12,temp:-6,tint:-3,vibrance:-10,saturation:-28,clarity:30,sharpen:22,fade:12,vignette:28,grain:12,
+       hslH:[0,0,-10,20,-10,-10,0,0], hslS:[-10,-10,-40,-40,-10,-20,-20,-10], hslL:[0,0,0,-20,-10,-15,0,0],
+       shHue:190,shSat:22,hiHue:40,hiSat:10,balance:-15}},
+  minimal:{name:"Minimal",desc:"Épuré, froid, couleurs tues",sw:["#b8c4c9","#e6ecee","#8fa3ab"],
+    v:{exposure:-.05,contrast:-18,highlights:-25,shadows:18,whites:-12,blacks:22,temp:-10,tint:-6,vibrance:-10,saturation:-32,clarity:4,sharpen:15,fade:22,vignette:14,grain:8,
+       hslH:[0,0,0,0,0,0,0,0], hslS:[-20,-15,-40,-50,-20,-15,-30,-20], hslL:[0,0,0,-5,5,5,0,0],
+       shHue:200,shSat:12,hiHue:200,hiSat:4,balance:0}},
   fjord:{name:"Fjord mat",desc:"Doux, noirs relevés, ciné",sw:["#304957","#a9b8bf","#d9b48f"],
     v:{contrast:-6,highlights:-30,shadows:24,whites:-6,blacks:20,temp:-2,vibrance:8,saturation:-22,clarity:12,sharpen:15,fade:30,vignette:10,grain:16,
        hslH:[0,-4,-12,24,-4,-8,0,0], hslS:[6,10,-30,-55,10,-10,-20,-10], hslL:[0,6,0,-8,-6,-8,0,0],
@@ -292,7 +320,7 @@ const PRESETS = {
 const ADJ = {
   light:[["exposure","Exposition",-2,2,.05],["contrast","Contraste"],["highlights","Hautes lum."],["shadows","Ombres"],["whites","Blancs"],["blacks","Noirs"]],
   color:[["temp","Température",-100,100,1,"tempTrack"],["tint","Teinte",-100,100,1,"tintTrack"],["vibrance","Vibrance"],["saturation","Saturation"]],
-  fx:[["clarity","Clarté"],["sharpen","Netteté",0,100],["glow","Lueur",0,100],["fade","Mat",0,100],["vignette","Vignette"],["grain","Grain",0,100]],
+  fx:[["clarity","Clarté"],["sharpen","Netteté",0,100],["glow","Lueur",0,100],["halation","Halation",0,100],["fade","Mat",0,100],["vignette","Vignette"],["grain","Grain",0,100]],
   grade:[["shHue","Ombres · teinte",0,360,1,"hueTrack"],["shSat","Ombres · dose",0,100],["hiHue","Lumières · teinte",0,360,1,"hueTrack"],["hiSat","Lumières · dose",0,100],["balance","Balance"]]
 };
 
@@ -328,6 +356,7 @@ const clone = o => JSON.parse(JSON.stringify(o));
 const mkLook = id => ({preset:id, base:clone({...BASE,...PRESETS[id].v}), adj:clone({...BASE,...PRESETS[id].v})});
 
 let look = store.get("look", null) || mkLook("lofoten");
+look={...look,adj:{...clone(BASE),...look.adj},base:{...clone(BASE),...look.base}};
 let amount = store.get("amount", 100);
 let customs = store.get("customs", []);
 let format = store.get("format", "story");
@@ -418,7 +447,7 @@ varying vec2 v_p;
 uniform sampler2D u_src,u_blur;
 uniform vec3 u_m0,u_m1;
 uniform vec2 u_res,u_bt;
-uniform float u_gain,u_raw;
+uniform float u_gain,u_raw,u_hal;
 uniform float u_amount,u_exp,u_temp,u_tint,u_con,u_hi,u_sh,u_wh,u_bl,u_cla,u_shp,u_vib,u_sat,u_fade,u_vig,u_grain,u_glow,u_bal,u_seed;
 uniform float u_hH[8],u_hS[8],u_hL[8];
 uniform vec3 u_shT,u_hiT;
@@ -490,6 +519,9 @@ void main(){
   /* lueur (bloom doux) */
   vec3 gb=max(b-.55,0.)*2.2;
   c=1.-(1.-c)*(1.-gb*u_glow*.55);
+  /* halation façon CineStill : halo rouge-orangé autour des hautes lumières */
+  float hl=max(dot(b,LW)-.5,0.)*2.;
+  c=1.-(1.-c)*(1.-vec3(1.,.32,.18)*hl*u_hal*.6);
   /* mat */
   c=c*(1.-u_fade*.16)+u_fade*.075;
   /* vignette */
@@ -511,7 +543,7 @@ if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw new Error(gl.getProgramInf
 gl.useProgram(prog);
 const vb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,vb);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
 const aLoc=gl.getAttribLocation(prog,"a");gl.enableVertexAttribArray(aLoc);gl.vertexAttribPointer(aLoc,2,gl.FLOAT,false,0,0);
-const U={};["u_gain","u_raw","u_src","u_blur","u_m0","u_m1","u_res","u_bt","u_amount","u_exp","u_temp","u_tint","u_con","u_hi","u_sh","u_wh","u_bl","u_cla","u_shp","u_vib","u_sat","u_fade","u_vig","u_grain","u_glow","u_bal","u_seed","u_hH","u_hS","u_hL","u_shT","u_hiT"].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
+const U={};["u_hal","u_gain","u_raw","u_src","u_blur","u_m0","u_m1","u_res","u_bt","u_amount","u_exp","u_temp","u_tint","u_con","u_hi","u_sh","u_wh","u_bl","u_cla","u_shp","u_vib","u_sat","u_fade","u_vig","u_grain","u_glow","u_bal","u_seed","u_hH","u_hS","u_hL","u_shT","u_hiT"].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
 gl.uniform1i(U.u_src,0);gl.uniform1i(U.u_blur,1);
 function tex(unit,src){const t=gl.createTexture();gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);
@@ -552,7 +584,7 @@ function render(){
   gl.uniform1f(U.u_wh,a.whites/100);gl.uniform1f(U.u_bl,a.blacks/100);gl.uniform1f(U.u_cla,a.clarity/100);
   gl.uniform1f(U.u_shp,a.sharpen/100);gl.uniform1f(U.u_vib,a.vibrance/100+R0*.12);gl.uniform1f(U.u_sat,a.saturation/100+R0*.1);
   gl.uniform1f(U.u_fade,a.fade/100);gl.uniform1f(U.u_vig,a.vignette/100);gl.uniform1f(U.u_grain,a.grain/100);
-  gl.uniform1f(U.u_glow,a.glow/100);gl.uniform1f(U.u_bal,a.balance/100);gl.uniform1f(U.u_seed,(it.id*37.3)%97);
+  gl.uniform1f(U.u_glow,a.glow/100);gl.uniform1f(U.u_hal,(a.halation||0)/100);gl.uniform1f(U.u_bal,a.balance/100);gl.uniform1f(U.u_seed,(it.id*37.3)%97);
   gl.uniform1fv(U.u_hH,a.hslH.map(v=>v/100));gl.uniform1fv(U.u_hS,a.hslS.map(v=>v/100));gl.uniform1fv(U.u_hL,a.hslL.map(v=>v/100));
   gl.uniform3fv(U.u_shT,gradeTint(a.shHue,a.shSat));gl.uniform3fv(U.u_hiT,gradeTint(a.hiHue,a.hiSat));
   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,gpu.src);
@@ -1023,7 +1055,7 @@ document.querySelector('[data-reset="amount"]').onclick=()=>{amount=100;amountIn
 
 /* sliders de réglages */
 const sliders={};
-function fmt(k,v){return k==="exposure"?(v>0?"+":"")+(+v).toFixed(2):k.endsWith("Hue")?Math.round(v)+"°":(v>0&&!k.endsWith("Sat")&&!["sharpen","glow","fade","grain"].includes(k)?"+":"")+Math.round(v)}
+function fmt(k,v){return k==="exposure"?(v>0?"+":"")+(+v).toFixed(2):k.endsWith("Hue")?Math.round(v)+"°":(v>0&&!k.endsWith("Sat")&&!["sharpen","glow","halation","fade","grain"].includes(k)?"+":"")+Math.round(v)}
 function addSlider(parent,key,label,min=-100,max=100,step=1,cls=""){
   const row=el("div",{class:"row"},`<label>${label}</label><input type="range" class="${cls}" min="${min}" max="${max}" step="${step}"><output></output>`);
   const inp=row.querySelector("input"),out=row.querySelector("output");
