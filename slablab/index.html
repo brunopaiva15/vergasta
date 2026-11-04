@@ -3,24 +3,294 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff8e7">
-  <meta name="description" content="Slab Lab, jeu de Vergasta Digital : assistance, politique de confidentialité et conditions d’utilisation.">
-  <title>Slab Lab · Assistance</title>
-  <link rel="canonical" href="https://vergasta.ch/slablab/"><meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#4a3a30">
+  <title>Slab Lab · Grade les cartes. Scelle les slabs.</title>
+  <meta name="description" content="Slab Lab, le jeu idle de gradation de cartes à collectionner, en pixel art. Note des cartes de 1 à 10, scelle-les en slab et fais du garage de l’oncle Ray le meilleur labo du monde. En bêta, bientôt sur iPhone, iPad et Android.">
+  <link rel="canonical" href="https://vergasta.ch/slablab/">
+  <!-- Comme les autres pages de Slab Lab, hors des moteurs tant que le jeu
+       n'est pas sorti (DESIGN.md, § Référencement). -->
+  <meta name="robots" content="noindex, follow">
   <link rel="alternate" hreflang="fr" href="https://vergasta.ch/slablab/">
   <link rel="alternate" hreflang="en" href="https://vergasta.ch/slablab/en/">
   <link rel="alternate" hreflang="x-default" href="https://vergasta.ch/slablab/en/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Slab Lab">
+  <meta property="og:locale" content="fr_CH">
+  <meta property="og:url" content="https://vergasta.ch/slablab/">
+  <meta property="og:title" content="Slab Lab · Grade les cartes. Scelle les slabs.">
+  <meta property="og:description" content="Le jeu idle de gradation de cartes, en pixel art. En bêta, bientôt sur iPhone, iPad et Android.">
+  <meta property="og:image" content="https://vergasta.ch/slablab/img/partage.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SLAB LAB en lettres pixel sur un ciel bleu tramé, Moussouris posé sur son slab noté 10.">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="icon" href="icon.png">
-  <link rel="stylesheet" href="styles.css?v=1">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="preload" href="fonts/Silkscreen-Bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="vitrine.css?v=1">
 </head>
 <body>
-<header class="wrap nav"><a class="brand" href="./" aria-current="page"><img src="icon.png" alt="">Slab Lab</a><div class="nav-right"><nav class="langs" aria-label="Langue"><span>FR</span><a href="en/" hreflang="en">EN</a></nav></div></header>
-<main class="wrap"><article class="legal">
-<h1>Assistance</h1><p class="updated">Slab Lab est un jeu de Vergasta Digital, en cours de développement pour iPhone, iPad et Android.</p>
-<ul class="liens">
-<li><a href="../#contact">Nous écrire<span>Une question, un problème, un achat à restaurer : le formulaire de contact de Vergasta Digital.</span></a></li>
-<li><a href="privacy.html">Confidentialité<span>Ce que le jeu enregistre, ce qu’il envoie et à qui.</span></a></li>
-<li><a href="terms.html">Conditions d’utilisation<span>Le jeu, les achats intégrés et l’abonnement Lab Pro.</span></a></li>
-</ul>
-</article></main><footer class="wrap footer">© 2026 Vergasta Digital · Slab Lab · <a href="../imprint.html">Mentions légales</a></footer>
-</body></html>
+
+<header class="hud">
+  <div class="wrap">
+    <a class="hud-marque" href="./" aria-current="page"><img src="icon.png" alt="" width="38" height="38"><span>SLAB LAB</span></a>
+    <div class="hud-argent" id="argent-hud" title="Ton labo tourne pendant que tu lis.">
+      <svg class="piece" aria-hidden="true"><use href="pixels.svg#piece"/></svg>
+      <div><b id="argent">0 $</b><small id="debit">60 $/MIN</small></div>
+    </div>
+    <button class="hud-son relief nuit" id="son" type="button" aria-pressed="true" aria-label="Son de la révélation">
+      <svg class="avec" aria-hidden="true"><use href="pixels.svg#son"/></svg>
+      <svg class="sans" aria-hidden="true" hidden><use href="pixels.svg#muet"/></svg>
+    </button>
+    <nav class="langs" aria-label="Langue"><span>FR</span><a href="en/" hreflang="en" lang="en">EN</a></nav>
+  </div>
+</header>
+
+<div class="toast relief creme" id="toast" role="status" aria-live="polite">
+  <svg aria-hidden="true"><use href="pixels.svg#trophee"/></svg>
+  <div><small id="toast-tete">Succès débloqué</small><b id="toast-texte"></b></div>
+</div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+
+<main>
+
+<section class="ciel-section" aria-labelledby="titre">
+  <canvas class="ciel" id="ciel" aria-hidden="true"></canvas>
+  <div class="etincelles" aria-hidden="true">
+    <span class="etincelle" style="left:6%;top:16%;--t:5;--r:-.4s;color:#fff"><svg><use href="pixels.svg#etincelle"/></svg></span>
+    <span class="etincelle" style="left:47%;top:9%;--t:3;--r:-1.3s;--d:3.1s;color:#ffe38a"><svg><use href="pixels.svg#etincelle"/></svg></span>
+    <span class="etincelle" style="left:92%;top:20%;--t:4;--r:-2s;color:#fff"><svg><use href="pixels.svg#etincelle"/></svg></span>
+    <span class="etincelle" style="left:62%;top:78%;--t:3;--r:-.9s;--d:2.7s;color:#ffe38a"><svg><use href="pixels.svg#etincelle"/></svg></span>
+    <span class="etincelle" style="left:96%;top:70%;--t:5;--r:-1.7s;--d:3.4s;color:#fff"><svg><use href="pixels.svg#etincelle"/></svg></span>
+    <span class="etincelle" style="left:3%;top:86%;--t:3;--r:-2.4s;color:#ffe38a"><svg><use href="pixels.svg#etincelle"/></svg></span>
+  </div>
+  <div class="hero wrap">
+    <div class="hero-texte">
+      <h1 class="titre-pixel logo" id="titre"><span>Slab</span><span>Lab</span></h1>
+      <p class="devise cercle">Grade les cartes.<br>Scelle les slabs.<br>Monte ton labo.</p>
+      <div class="beta relief creme">
+        <p class="beta-tete"><span class="pastille">Bêta</span> Sortie bientôt</p>
+        <div class="barre vivante" aria-hidden="true"><span></span></div>
+        <p>Le jeu est en test. Il sort bientôt sur iPhone, iPad et Android, gratuit.</p>
+      </div>
+      <div class="actions">
+        <a class="bouton relief vert" href="#revelation">Note une carte</a>
+        <a class="bouton relief sable" href="../#contact">Nous écrire</a>
+      </div>
+    </div>
+    <div class="hero-mascotte">
+      <img src="img/mascotte.png" width="29" height="36" alt="Moussouris, une créature verte du jeu, perchée sur un slab noté 10.">
+    </div>
+  </div>
+</section>
+
+<div class="trame" style="--a:var(--blue);--b:var(--paper)" aria-hidden="true"></div>
+
+<section class="papier" aria-labelledby="titre-recit">
+  <div class="recit wrap">
+    <div>
+      <h2 id="titre-recit">Un lundi, j’ai reçu une carte postale de l’oncle Ray.</h2>
+      <p>Il m’a laissé son garage, sa loupe et une lampe de bureau. Les collectionneurs attendent déjà à la porte, avec des cartes qui valent une fortune. D’après eux.</p>
+    </div>
+    <figure class="carte-postale" style="margin:0">
+      <figcaption class="sr">La carte postale de Ray, au début du jeu.</figcaption>
+      <p class="cp-mot" style="margin:0">Trésor,
+Je dois me faire oublier un moment. Le garage est à toi. La clé est scotchée là.
+
+La loupe est dans le tiroir. Les dettes aussi.<span class="signe">— Ray</span></p>
+      <div class="cp-adresse" aria-hidden="true">
+        <div class="timbre"><svg viewBox="0 0 14 14"><use href="pixels.svg#timbre"/></svg></div>
+        <div class="lignes"><div class="ligne-adresse"></div><div class="ligne-adresse"></div><div class="ligne-adresse"></div></div>
+      </div>
+      <div class="cle" aria-hidden="true"><svg viewBox="0 0 20 8"><use href="pixels.svg#cle"/></svg></div>
+    </figure>
+  </div>
+</section>
+
+<section aria-labelledby="titre-revelation" id="revelation">
+  <div class="bande rouge"><div class="wrap"><h2 class="titre-pixel" id="titre-revelation">Vise le Gem Mint 10</h2></div></div>
+  <div class="scene">
+    <div class="wrap">
+      <div class="texte-scene">
+        <h3>Centrage, coins, bords, surface. Puis la note tombe.</h3>
+        <p>Chaque carte reçoit quatre sous-notes, au demi-point près, et la note finale s’imprime sur l’étiquette. Un 9 scintille. Un 10 fait trembler l’écran. Un PERFECT 10+, tu le filmes.</p>
+        <p>Essaie sur une vraie carte du jeu : les notes sortent du même tirage que dans le labo.</p>
+      </div>
+      <div>
+        <div class="objectif relief creme" id="objectif">
+          <svg aria-hidden="true" viewBox="0 0 11 11"><use href="pixels.svg#etoile"/></svg>
+          <div class="objectif-texte">
+            <b><span id="objectif-nom">Note 3 cartes</span><span id="objectif-compte">0/3</span></b>
+            <div class="barre" aria-hidden="true"><span id="objectif-barre" style="--v:0%"></span></div>
+          </div>
+          <div class="etoiles" aria-hidden="true" id="etoiles">
+            <svg viewBox="0 0 11 11"><use href="pixels.svg#etoile-vide"/></svg>
+            <svg viewBox="0 0 11 11"><use href="pixels.svg#etoile-vide"/></svg>
+            <svg viewBox="0 0 11 11"><use href="pixels.svg#etoile-vide"/></svg>
+          </div>
+        </div>
+        <div class="etabli" id="etabli">
+          <div class="halo" aria-hidden="true"></div>
+          <div class="pilier" aria-hidden="true"></div>
+          <div class="slab-cadre">
+            <div class="slab" id="slab">
+              <div class="etiquette">
+                <div><span class="et-nom" id="et-nom">Moussouris #014</span><span class="et-desc" id="et-desc">En attente</span><span class="et-cert" id="et-cert">CERT. ———————</span></div>
+                <div class="et-note" id="et-note" aria-hidden="true">?</div>
+                <div class="holo" aria-hidden="true"></div>
+              </div>
+              <div class="fenetre" id="fenetre">
+                <img id="carte" src="cartes/fr/S1-014.webp" width="630" height="880" alt="Moussouris, carte n° 014 de la série Premier Clash, rare holo.">
+                <div class="reflet" aria-hidden="true"></div>
+                <div class="scan" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <div class="explosion" id="explosion" aria-hidden="true"></div>
+          <div class="vente" id="vente" aria-hidden="true"></div>
+        </div>
+        <div class="notes" style="margin-top:34px">
+          <div class="sous-note"><small>Centrage</small><b data-note>?</b></div>
+          <div class="sous-note"><small>Coins</small><b data-note>?</b></div>
+          <div class="sous-note"><small>Bords</small><b data-note>?</b></div>
+          <div class="sous-note"><small>Surface</small><b data-note>?</b></div>
+        </div>
+        <div class="verdict" id="verdict" aria-live="polite">
+          <p class="verdict-titre" id="verdict-titre">&nbsp;</p>
+          <p class="verdict-info" id="verdict-info">Touche NOTER pour lancer la révélation</p>
+          <p class="verdict-mot" id="verdict-mot">&nbsp;</p>
+        </div>
+        <div class="commandes">
+          <button class="bouton relief vert" id="noter" type="button">Noter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="titre-labo">
+  <div class="bande bleue"><div class="wrap"><h2 class="titre-pixel" id="titre-labo">Monte ton labo</h2></div></div>
+  <div class="sol">
+    <div class="wrap">
+      <div class="postes">
+        <article class="poste">
+          <div class="poste-tete"><span class="tag">1 Vérifier</span><span class="tag sombre">Niv. 1</span></div>
+          <div class="poste-art"><img src="img/poste-1.webp" width="312" height="112" alt="Le poste de vérification de la boutique de cartes, deux employés au comptoir." loading="lazy"></div>
+          <p>Chaque carte passe d’abord sous la loupe. Repère les contrefaçons avant qu’elles finissent en slab.</p>
+        </article>
+        <article class="poste">
+          <div class="poste-tete"><span class="tag">2 Noter</span><span class="tag sombre">Niv. 1</span></div>
+          <div class="poste-art"><img src="img/poste-2.webp" width="312" height="112" alt="Le poste de notation : une carte vient d’être notée 7." loading="lazy"></div>
+          <p>Centrage, coins, bords, surface. De 1 à 10, et la révélation pour finir.</p>
+        </article>
+        <article class="poste">
+          <div class="poste-tete"><span class="tag">3 Sceller</span><span class="tag sombre">Niv. 1</span></div>
+          <div class="poste-art"><img src="img/poste-3.webp" width="312" height="112" alt="Le poste de scellage, avec sa machine et les slabs prêts." loading="lazy"></div>
+          <p>Étiquette, numéro de certificat, pop report. Le slab part en vitrine, ou aux enchères.</p>
+        </article>
+      </div>
+      <div class="postes-suite"><p class="relief creme">Note les premières à la main, puis embauche un inspecteur, un gradeur et un encapsuleur. Le labo tourne tout seul, même jeu fermé.</p></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="titre-chemin">
+  <div class="bande verte"><div class="wrap"><h2 class="titre-pixel" id="titre-chemin">Du garage au labo mondial</h2></div></div>
+  <div class="ville">
+    <div class="wrap">
+      <ol class="chemin" aria-label="Les cinq labos du jeu">
+        <li class="etape"><div class="etape-image"><img src="img/labo-1.webp" width="360" height="663" alt="Le garage de Ray, trois établis et une vitrine." loading="lazy"></div><span class="tag">1 Garage</span></li>
+        <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="pixels.svg#fleche"/></svg></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-2.webp" width="360" height="717" alt="La boutique de cartes, son auvent rayé et son pré vert." loading="lazy"></div><span class="tag">2 Boutique</span></li>
+        <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="pixels.svg#fleche"/></svg></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-3.webp" width="360" height="717" alt="Le labo de quartier, carrelé de blanc." loading="lazy"></div><span class="tag">3 Quartier</span></li>
+        <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="pixels.svg#fleche"/></svg></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-4.webp" width="360" height="717" alt="Le labo national, en béton et bandes jaunes." loading="lazy"></div><span class="tag">4 National</span></li>
+        <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="pixels.svg#fleche"/></svg></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-5.webp" width="360" height="717" alt="Le labo international, bleu nuit et or." loading="lazy"></div><span class="tag">5 International</span></li>
+      </ol>
+      <div class="villes">
+        <p>Vends le réseau, gagne de la réputation, repars plus fort. Puis viennent les franchises, chacune avec sa règle.</p>
+        <p class="noms">Tokyo · New York · Londres · São Paulo · Paris · Séoul · Berlin · Sydney · Dubaï · Mexico</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trame" style="--a:var(--shadow);--b:var(--sand)" aria-hidden="true"></div>
+
+<section class="sable promesse" style="background:var(--sand)" aria-labelledby="titre-promesse">
+  <div class="boite">
+    <h2 id="titre-promesse">Promis</h2>
+    <svg class="grande-etoile" id="grande-etoile" viewBox="0 0 11 11" aria-hidden="true"><use href="pixels.svg#etoile"/></svg>
+    <ul>
+      <li>Pas de jauge d’énergie.</li>
+      <li>Pas de pub forcée.</li>
+      <li>Rien d’aléatoire vendu contre de l’argent réel.</li>
+      <li>Trois jours d’absence ? Les cartes ont continué d’arriver. L’argent aussi.</li>
+    </ul>
+    <button class="bouton relief vert" id="compris" type="button">Compris</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pied">
+  <div class="wrap">
+    <div class="pied-haut">
+      <img src="icon.png" width="112" height="112" alt="">
+      <div>
+        <h2>En bêta. <em>Bientôt</em> sur iPhone, iPad et Android.</h2>
+        <p>Un jeu de Vergasta Digital, l’atelier web de St-Imier. En français et en anglais.</p>
+      </div>
+    </div>
+    <ul class="assistance" aria-label="Assistance">
+      <li><a class="relief creme" href="../#contact"><b>Nous écrire</b><span>Une question, un problème, un achat à restaurer, la bêta.</span></a></li>
+      <li><a class="relief creme" href="privacy.html"><b>Confidentialité</b><span>Ce que le jeu enregistre, ce qu’il envoie et à qui.</span></a></li>
+      <li><a class="relief creme" href="terms.html"><b>Conditions</b><span>Le jeu, les achats intégrés et l’abonnement Lab Pro.</span></a></li>
+    </ul>
+    <p class="mentions"><span>© 2026 Vergasta Digital · Slab Lab · Les cartes et les créatures du jeu sont inventées.</span><span><a href="../">vergasta.ch</a> · <a href="../imprint.html">Mentions légales</a></span></p>
+  </div>
+</footer>
+
+<script type="application/json" id="textes">{
+  "lang": "fr",
+  "cartes": [
+    [14, "Moussouris"], [2, "Lampalynx"], [5, "Lavoutre"], [10, "Pensalène"], [3, "Ronçours"],
+    [9, "Cerforage"], [13, "Chiffonou"], [4, "Géodrac"], [11, "Migrafeu"], [16, "Lapinique"]
+  ],
+  "rarete": "Rare holo",
+  "serie": "Premier Clash",
+  "attente": "En attente",
+  "notation": "Notation…",
+  "pret": "Touche NOTER pour lancer la révélation",
+  "cert": "Cert. n°",
+  "alt": "{nom}, carte n° {num} de la série Premier Clash, rare holo.",
+  "noter": "Noter",
+  "suivante": "Carte suivante",
+  "mots": {
+    "parfait": "Parfaite. Et on a revérifié.", "zero": "On refuse de noter ça. Même pas un 1.",
+    "10": "Pas touche. Même pas des yeux.", "9": "À un cheveu de la perfection.", "8": "Du solide. Elle mérite un cadre.",
+    "7": "Carte honnête, note honnête.", "moyen": "Elle a vécu, mais elle a de beaux restes.",
+    "bas": "Elle a été très aimée. Trop, sans doute.", "1": "Elle en a vu de toutes les couleurs."
+  },
+  "objectifs": [
+    {"nom": "Note 3 cartes", "but": 3, "succes": "3 cartes notées"},
+    {"nom": "Décroche un 9", "but": 1, "succes": "Premier MINT 9"},
+    {"nom": "Décroche un 10", "but": 1, "succes": "Premier GEM MINT"},
+    {"nom": "Attends la sortie", "but": 0, "succes": ""}
+  ],
+  "bientot": "Bientôt",
+  "succes": "Succès débloqué",
+  "absence": "Pendant ton absence",
+  "absenceTexte": "+{argent} encaissés",
+  "debit": "{argent}/MIN",
+  "vendu": "Vendu {argent}",
+  "compris": "Compris",
+  "merci": "Merci !"
+}</script>
+<script src="vitrine.js?v=1" defer></script>
+</body>
+</html>

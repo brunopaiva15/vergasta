@@ -1442,16 +1442,31 @@ s'affichaient en liens secondaires à côté des pages de l'atelier. Elles sont
 donc absentes du plan du site, et pas en `Disallow` non plus, pour la même
 raison que la carte de visite.
 
-**Les pages de Slab Lab aussi**, les six : assistance, confidentialité et
-conditions, en français à la racine de `slablab/` et en anglais dans
-`slablab/en/`, les deux langues du jeu. Il n'y a pas encore de page de
-présentation : `slablab/index.html` n'est qu'une page d'assistance à trois
-entrées (contact, confidentialité, conditions), qui sert d'adresse de support
-aux fiches des stores. Le `x-default` pointe sur l'anglais, la langue source
-du jeu, et non sur le français comme le reste du site. Comme Auxine, ces pages
-sont hors charte et parlent la langue du jeu (`slablab/styles.css`, ses
-polices pixel servies depuis `slablab/fonts/`, avec leur estampille propre,
-`?v=1`). Les textes décrivent ce que fait la version en test : sauvegarde sur
+**Les pages de Slab Lab aussi**, les huit : la vitrine, la suppression de
+compte, la confidentialité et les conditions, en français à la racine de
+`slablab/` et en anglais dans `slablab/en/`, les deux langues du jeu. Le
+`x-default` pointe sur l'anglais, la langue source du jeu, et non sur le
+français comme le reste du site. Comme Auxine, ces pages sont hors charte et
+parlent la langue du jeu (`slablab/styles.css`, ses polices pixel servies
+depuis `slablab/fonts/`, avec leur estampille propre, `?v=1`).
+
+**La vitrine** (`slablab/index.html`, `slablab/en/index.html`) présente le jeu
+en bêta. Elle a sa feuille et son script (`vitrine.css`, `vitrine.js`,
+estampille `?v=1`) et ne prend rien au site : les 24 couleurs de
+`lib/src/palette.dart`, les surfaces en relief du jeu (bande claire en haut,
+lèvre sombre en bas, filet d'encre), le ciel tramé et les titres crème et or
+des captures du store, le HUD dont l'argent tourne en idle, même page fermée
+(huit heures au plus). La révélation est jouable : les sous-notes sortent du
+tirage de `packages/game_core/lib/src/grading.dart`, profil moderne, porté en
+JavaScript ; si le jeu change ses règles, la page doit suivre. Ses ressources
+viennent toutes du dépôt du jeu : dix cartes de la série 1 par langue
+(`cartes/`), les décors des cinq labos et trois postes de la boutique
+(`img/`), Moussouris sur son slab (`tools/store_screenshots/mascot.py`),
+treize sons convertis en MP3 (`sons/`), les icônes pixel dans `pixels.svg`.
+Ce que le visiteur fait (argent, objectifs, son) reste dans son navigateur.
+Elle garde le rôle de l'ancienne page d'assistance, adresse de support des
+fiches des stores : ses trois entrées (contact, confidentialité, conditions)
+sont au pied de page. Les textes décrivent ce que fait la version en test : sauvegarde sur
 l'appareil, TelemetryDeck, RevenueCat, aucun compte, et pour seule publicité
 une vidéo récompensée facultative de Google AdMob, sans demande de suivi sur
 iPhone. **Ils se relisent à chaque fonction qui touche aux données**
