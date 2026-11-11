@@ -3,7 +3,9 @@
   Pages publiques de Vergasta Digital. carte-de-visite.html en est
   volontairement absente : c'est une page d'atelier, liée depuis nulle part et
   en noindex. Les pages d'Auxine n'y sont pas non plus : elles sont en
-  noindex, pour ne pas apparaître sous vergasta.ch dans les résultats. Les
+  noindex, pour ne pas apparaître sous vergasta.ch dans les résultats. Celles
+  de Slab Lab, elles, y sont, en français et en anglais, les deux langues du
+  jeu. Les
   correspondances entre versions traduites vivent dans les
   <link rel="alternate" hreflang> de chaque page.
 -->
@@ -33,4 +35,12 @@
   <url><loc>https://vergasta.ch/de/imprint.html</loc><lastmod>2026-08-10</lastmod></url>
   <url><loc>https://vergasta.ch/it/imprint.html</loc><lastmod>2026-08-10</lastmod></url>
   <url><loc>https://vergasta.ch/ja/imprint.html</loc><lastmod>2026-08-10</lastmod></url>
+  <url><loc>https://vergasta.ch/slablab/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://vergasta.ch/slablab/en/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://vergasta.ch/slablab/privacy.html</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://vergasta.ch/slablab/en/privacy.html</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://vergasta.ch/slablab/terms.html</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://vergasta.ch/slablab/en/terms.html</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://vergasta.ch/slablab/delete-account.html</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://vergasta.ch/slablab/en/delete-account.html</loc><lastmod>2026-11-11</lastmod></url>
 </urlset>

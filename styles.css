@@ -1542,6 +1542,7 @@ a.entete-pilule--encre:focus-visible {
 .projet[data-projet="yamanote"] { --fond: #e7f4d2; }
 .projet[data-projet="customtolylia"] { --fond: linear-gradient(135deg, #f5e6fe, #e2edfe); }
 .projet[data-projet="disquebleu"] { --fond: #dbeafb; }
+.projet[data-projet="slablab"] { --fond: #d7e8fa; }
 .projet[data-projet="mesecheances"] { --fond: #fde7d6; }
 .projet[data-projet="vergastaphoto"] { --fond: #f3efe6; }
 .projet[data-projet="bdpokecards"] { --fond: #fbe2e0; }

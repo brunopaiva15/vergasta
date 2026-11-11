@@ -298,7 +298,8 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
    de la page (« Atelier web à St-Imier ») plutôt qu'une formule de plus à
    traduire cinq fois. En bas, sur toute la largeur, **la fresque** peinte à
    la brosse (§6) ;
-2. la **bannière d'Auxine** (voir plus bas) ;
+2. la **bannière de sortie de Slab Lab**, en français et en anglais, après
+   celle d'Auxine, masquée (voir plus bas) ;
 3. **l'accroche** (`.accroche`) : la phrase qui dit ce que fait l'atelier,
    posée en très grand (jusqu'à 2,9 rem) et en Figtree 300 sur toute la
    colonne, à l'encre pleine, comme le « Construis autant de LEGO… » de
@@ -377,6 +378,48 @@ Tout vit dans `lancement/`, avec sa propre estampille (`?v=1`) : la feuille et
 le script ne sont appelés que par les quatre pages d'accueil. Pour retirer la
 bannière, enlever le bloc `.lancement` et les deux appels de tête dans ces
 quatre pages, puis le dossier.
+
+### L'exception, bis : la sortie de Slab Lab
+
+Pour la sortie de Slab Lab, **le 1er décembre 2026**, une carte bleue prend
+la place de celle d'Auxine, juste sous la fresque (le bloc d'Auxine reste
+dans le HTML, masqué, juste avant). Elle n'est que sur les pages d'accueil
+française et anglaise, les deux langues du jeu, comme sa tuile dans les
+réalisations.
+
+Même principe que pour Auxine, **voulu hors charte** : la carte parle la
+langue du jeu (`slablab/vitrine.css`). Le ciel tramé de la vitrine, peint
+dans un canevas avec le même algorithme et des halos posés pour une carte
+large et basse ; Silkscreen pour le titre (crème et or clair, cerclé d'encre,
+comme `.titre-pixel`), les pastilles et le bouton ; Nunito pour la phrase,
+posée sur une pièce crème, parce que du texte courant blanc sur ce bleu ne
+se lirait pas assez ; les pièces en relief du jeu, à ombre franche, jamais
+floue ; le bouton vert d'action, qui s'écrase et rebondit. Moussouris sur son
+slab (`slablab/img/mascotte.png`, 29 × 36 pixels) est agrandi six fois sans
+lissage et dépasse de la carte par le haut, comme le pot d'Auxine.
+
+Il tombe sur son slab à l'entrée dans le champ, et une gerbe de confettis
+carrés part de l'étiquette : sans rotation (le pixel art ne tourne pas), aux
+couleurs des postes du labo, avec quelques étincelles en croix, et qui
+clignotent au lieu de s'estomper. Il sautille toutes les cinq secondes
+environ, et un clic sur lui relance la gerbe. Les déplacements se calent sur
+la grille d'un pixel d'art.
+
+**La date est écrite dans le HTML**, « sort le 01.12.2026 » (« out Dec 1,
+2026 » en anglais, où 01.12 se lirait le 12 janvier), et se lit donc sans
+JavaScript. Le script ajoute une pastille de compte à rebours, en jours du
+calendrier du visiteur : « J-20 », « Demain », « Aujourd’hui », puis
+« Disponible », et à partir du 1er décembre la ligne de date devient « est
+disponible ». Tous ces libellés sont des attributs `data-` du bloc, pour que
+le script ne porte aucune langue. **À la sortie, il faudra ajouter les liens
+des stores** : la carte n'a encore que la vitrine et sa révélation.
+
+Ce qui tient : aucune requête hors du domaine (les polices et la mascotte
+sont celles de `slablab/`, les étincelles viennent de `slablab/pixels.svg`),
+rien ne manque sans JavaScript, et en mouvement réduit le ciel est peint et
+le compte affiché, mais rien ne bouge. Tout vit dans `sortie-slablab/`, avec
+sa propre estampille (`?v=1`). Pour retirer la bannière, enlever le bloc
+`.sortie` et ses deux appels de tête dans les deux pages, puis le dossier.
 
 ---
 
@@ -506,7 +549,8 @@ le contour sur la tuile entière (`:has(:focus-visible)`), pas sur le seul nom.
 **Chaque tuile prend le fond de son projet.** Une teinte pâle de sa couleur,
 relevée sur son icône ou sur le `theme-color` de son site : vert pour Auxine,
 bleu roi pour Stellar Rebirth, violet pour Axolot, vert tendre pour Yamanote,
-bleu ciel pour Disque Bleu, orange pour Mes Échéances et pour Avis Boost (un cran
+bleu ciel pour Disque Bleu, un bleu ciel un cran plus froid pour Slab Lab
+(le ciel de son icône, jamais à côté de Disque Bleu), orange pour Mes Échéances et pour Avis Boost (un cran
 plus soutenu, et jamais l'un à côté de l'autre), rouge pour BDPokéCards.
 Les deux marques en noir et blanc prennent un gris froid (F. Da Silva) et un
 papier chaud (Vergasta Photo), et Custom To Lylia un dégradé violet-bleu, parce
@@ -524,10 +568,11 @@ libellé est en capitales interlettrées, y compris l'adresse : c'est une pilule
 de renvoi (§2).
 
 **Les tuiles larges** (`.projet--large`) prennent deux colonnes. Elles ne
-servent qu'à faire tomber les lignes pleines : onze projets en français, donc
-Disque Bleu, qui porte la presse, en large, pour douze cases en quatre lignes
-de trois. L'anglais, l'allemand et l'italien en listent dix, donc Disque Bleu
-et Avis Boost, le plus récent, en large, pour les mêmes douze cases. Le japonais n'en liste
+servent qu'à faire tomber les lignes pleines : douze projets en français, donc
+Slab Lab, Avis Boost et Disque Bleu, qui porte la presse, en large, pour quinze
+cases en cinq lignes de trois. L'anglais en liste onze, donc Disque Bleu seul en
+large, pour douze cases. L'allemand et l'italien en listent dix, donc Disque
+Bleu et Avis Boost en large, pour les mêmes douze cases. Le japonais n'en liste
 qu'un, qui prend la ligne entière plutôt que de rester dans le coin d'une
 grille vide. Sur deux colonnes, `grid-auto-flow: dense` bouche le trou qu'une
 tuile large laisserait au bout d'une ligne ; l'ordre de lecture reste celui du
@@ -542,7 +587,7 @@ grandit pas au-delà de 3 rem : plusieurs n'existent qu'en 32 ou 48 px et
 s'amolliraient. Les photographies ou captures des projets, qui rempliraient la
 tuile comme les photos de sets chez BlockAbo, sont une étape à venir.
 
-Les onze fichiers sont servis d'ici, comme les polices et les logos de presse.
+Les douze fichiers sont servis d'ici, comme les polices et les logos de presse.
 Un appel aux serveurs des projets leur donnerait l'adresse IP de chaque
 visiteur, ce que le §2 et `privacy.html` interdisent. Ce sont les fichiers
 officiels de chaque projet, repris tels quels : le favicon du site quand il y en
@@ -600,10 +645,11 @@ n'est pas compris (l'hébergement, le nom de domaine) n'y est laissé entendre.
 
 Le décompte annoncé par la légende se compte langue par langue, car les
 listes ne portent pas les mêmes projets : Auxine ne figure qu'à la liste
-française, qui compte onze projets quand l'anglais, l'allemand et l'italien en
-comptent dix, et la liste japonaise ne porte que Yamanote 3D. Avis Boost ouvre
-la liste en anglais, en allemand et en italien, et vient juste après Auxine en
-français. Ni lui ni Stellar Rebirth ne figurent à la liste japonaise, pour la
+française, Slab Lab qu'aux listes française et anglaise (les deux langues du
+jeu). Le français compte donc douze projets, l'anglais onze, l'allemand et
+l'italien dix, et la liste japonaise ne porte que Yamanote 3D. Slab Lab ouvre
+la liste anglaise et vient juste après Auxine en français ; Avis Boost le suit,
+et ouvre la liste en allemand et en italien. Ni lui ni Stellar Rebirth ne figurent à la liste japonaise, pour la
 même raison que les autres : ils ne s'adressent pas à ce lecteur-là.
 
 **Études `#etudes`.** Une seconde section, juste après les réalisations, pour
@@ -1312,7 +1358,7 @@ documentées en 2026, puis nettoyé. Ces choses sont proscrites :
 
 ## 7 bis. L'estampille de cache
 
-Les scripts et les feuilles de style sont appelés avec `?v=38`. Ce n'est pas
+Les scripts et les feuilles de style sont appelés avec `?v=39`. Ce n'est pas
 décoratif.
 
 GitHub Pages sert ses fichiers derrière un CDN, avec `cache-control:
@@ -1442,22 +1488,31 @@ s'affichaient en liens secondaires à côté des pages de l'atelier. Elles sont
 donc absentes du plan du site, et pas en `Disallow` non plus, pour la même
 raison que la carte de visite.
 
-**Les pages de Slab Lab aussi**, les huit : la vitrine, la suppression de
-compte, la confidentialité et les conditions, en français à la racine de
-`slablab/` et en anglais dans `slablab/en/`, les deux langues du jeu. Le
+**Les pages de Slab Lab, elles, sont indexées** (`index, follow,
+max-image-preview:large`) depuis le 11 nov. 2026, les huit : la vitrine, la
+suppression de compte, la confidentialité et les conditions, en français à la
+racine de `slablab/` et en anglais dans `slablab/en/`, les deux langues du jeu.
+Elles sont dans le plan du site, la vitrine porte des données structurées
+`VideoGame` (JSON-LD, éditeur `https://vergasta.ch/#atelier`), son titre et sa
+description disent ce qu'on cherche (« jeu idle de gradation de cartes »,
+moins de 160 signes pour la description), la confidentialité renvoie à la page
+de suppression de compte, et la tuile des réalisations (français et anglais)
+y mène depuis l'accueil. Le
 `x-default` pointe sur l'anglais, la langue source du jeu, et non sur le
 français comme le reste du site. Comme Auxine, ces pages sont hors charte et
 parlent la langue du jeu (`slablab/styles.css`, ses polices pixel servies
-depuis `slablab/fonts/`, avec leur estampille propre, `?v=1`).
+en WOFF2 depuis `slablab/fonts/`, avec leur estampille propre, `?v=2`).
 
 **La vitrine** (`slablab/index.html`, `slablab/en/index.html`) présente le jeu
-en bêta. Elle a sa feuille et son script (`vitrine.css`, `vitrine.js`,
-estampille `?v=2`) et ne prend rien au site. Depuis le 11 nov. 2026, elle suit
+en bêta, et sa date de sortie, le 1er décembre 2026 (01.12.2026 en français,
+December 1, 2026 en anglais), dans le bloc de la bêta, au pied de page, dans
+les descriptions et dans l'objectif final de la révélation. Elle a sa feuille et son script (`vitrine.css` en `?v=3`,
+`vitrine.js` en `?v=2`) et ne prend rien au site. Depuis le 11 nov. 2026, elle suit
 la refonte « labo-jouet » du jeu (`docs/plan-refonte-visuelle.md`) : la palette
 de `lib/src/palette.dart` avec les bruns des menus, une couleur par poste (cyan
 Vérifier, rose Noter, orange Sceller), l'or de l'argent et le vert d'action ;
 Silkscreen Bold pour les titres, les chiffres et les boutons, Nunito pour les
-phrases (`slablab/fonts/`, OFL) ; des pièces en relief arrondies (contour sombre,
+phrases (`slablab/fonts/`, OFL, en WOFF2, trois fois plus légers que les TTF) ; des pièces en relief arrondies (contour sombre,
 bande claire en haut, bande sombre en bas, ombre franche dessous), des boutons
 qui s'écrasent et rebondissent. Restent le ciel tramé et les titres crème et or
 des captures du store, et le HUD dont l'argent tourne en idle, même page fermée
@@ -1505,7 +1560,8 @@ deux stores, donc ici et pas sous `slablab/`. Ce n'est pas une page : elle n'a
 rien à faire dans le plan du site.
 
 **`sitemap.xml`.** Les cinq pages publiques dans les cinq langues, soit
-vingt-cinq adresses, rien d'autre. Ses `<loc>` doivent correspondre exactement aux
+vingt-cinq adresses, plus les huit pages de Slab Lab (quatre pages, deux
+langues), rien d'autre. Ses `<loc>` doivent correspondre exactement aux
 `<link rel="canonical">` des pages : deux adresses concurrentes pour une même
 page, c'est le moyen le plus simple de diviser son propre référencement.
 Ajouter une page publique veut donc dire trois gestes, pas un : la page, son

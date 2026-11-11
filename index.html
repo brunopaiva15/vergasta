@@ -39,12 +39,14 @@
   <link rel="preload" href="fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=38">
+  <link rel="stylesheet" href="styles.css?v=39">
   <!-- La sortie d’Auxine : bannière masquée (attribut hidden sur .lancement), feuille et script débranchés. Pour la remettre, retirer hidden et rétablir les deux appels :
   <link rel="stylesheet" href="lancement/lancement.css?v=1">
   <script src="lancement/lancement.js?v=1" defer></script>
   -->
-  <script src="brushes.js?v=38" defer></script>
+  <link rel="stylesheet" href="sortie-slablab/sortie.css?v=1">
+  <script src="sortie-slablab/sortie.js?v=1" defer></script>
+  <script src="brushes.js?v=39" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -175,7 +177,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="lang.js?v=38"></script>
+  <script src="lang.js?v=39"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -230,6 +232,30 @@
         </div>
       </div>
     </aside>
+    <aside class="sortie wrap" aria-labelledby="sortie-titre" data-date="2026-12-01" data-compte="J-{n}" data-veille="Demain" data-jour="Aujourd’hui" data-sorti="Disponible" data-titre-sorti="est disponible">
+      <div class="sortie-carte">
+        <div class="sortie-fond" aria-hidden="true">
+          <canvas class="sortie-ciel"></canvas>
+          <span class="sortie-etincelle" style="left:31%;top:14%;--t:3;--r:-0.4s;color:#fff"><svg viewBox="0 0 5 5"><use href="slablab/pixels.svg#etincelle"/></svg></span>
+          <span class="sortie-etincelle" style="left:66%;top:8%;--t:4;--r:-1.3s;color:#ffe38a"><svg viewBox="0 0 5 5"><use href="slablab/pixels.svg#etincelle"/></svg></span>
+          <span class="sortie-etincelle" style="left:74%;top:12%;--t:3;--r:-2.0s;color:#fff"><svg viewBox="0 0 5 5"><use href="slablab/pixels.svg#etincelle"/></svg></span>
+          <span class="sortie-etincelle" style="left:95%;top:40%;--t:4;--r:-0.9s;color:#ffe38a"><svg viewBox="0 0 5 5"><use href="slablab/pixels.svg#etincelle"/></svg></span>
+          <span class="sortie-etincelle" style="left:44%;top:90%;--t:3;--r:-1.7s;color:#fff"><svg viewBox="0 0 5 5"><use href="slablab/pixels.svg#etincelle"/></svg></span>
+          <span class="sortie-etincelle" style="left:97%;top:86%;--t:3;--r:-2.4s;color:#ffe38a"><svg viewBox="0 0 5 5"><use href="slablab/pixels.svg#etincelle"/></svg></span>
+        </div>
+        <canvas class="sortie-confettis" aria-hidden="true"></canvas>
+        <div class="sortie-mascotte" aria-hidden="true"><img src="slablab/img/mascotte.png" width="29" height="36" alt=""></div>
+        <div class="sortie-tete">
+          <p class="sortie-pastilles"><span class="sortie-pastille">Nouveau jeu</span><span class="sortie-pastille sombre" data-sortie-compte hidden></span></p>
+          <h2 id="sortie-titre"><span class="sortie-nom">Slab Lab</span> <span class="sortie-date">sort le 01.12.2026</span></h2>
+        </div>
+        <p class="sortie-corps">Le jeu idle que nous avons développé, en pixel art. Vous y notez des cartes à collectionner de 1 à 10, vous les scellez en slab et vous faites du garage de l’oncle Ray le meilleur labo du monde. Gratuit, sur iPhone, iPad et Android.</p>
+        <div class="sortie-actions">
+          <a class="sortie-bouton" href="slablab/">Découvrir Slab Lab</a>
+          <a class="sortie-lien" href="slablab/#revelation">Noter une carte maintenant</a>
+        </div>
+      </div>
+    </aside>
     <section class="accroche wrap">
       <div class="opening-body">
         <p>
@@ -248,7 +274,7 @@
     <section id="realisations" class="slab wrap" aria-labelledby="realisations-title">
       <div class="slab-head"><div class="mark slab-mark" data-mark="realisations" aria-hidden="true"></div><h2 id="realisations-title">Réalisations</h2></div>
       <div class="slab-body">
-        <p class="projets-legende">Les onze projets en ligne aujourd’hui. Ils sont tous consultables.</p>
+        <p class="projets-legende">Les douze projets en ligne aujourd’hui. Ils sont tous consultables.</p>
         <ul class="projets">
           <li class="projet" data-projet="auxine">
             <img class="projet-icone" src="icone_auxine.png" width="180" height="180" alt="">
@@ -256,7 +282,13 @@
             <p class="projet-genre">Application iOS, 2026</p>
             <p class="projet-sorties"><a class="projet-pilule" href="auxine/" aria-label="Site web d’Auxine">Site web</a><a class="projet-pilule" href="https://apps.apple.com/us/app/auxine-plant-journal/id6809751489" target="_blank" rel="noopener noreferrer" aria-label="Auxine sur l’App Store">App Store</a></p>
           </li>
-          <li class="projet" data-projet="avisboost">
+          <li class="projet projet--large" data-projet="slablab">
+            <img class="projet-icone" src="icone_slablab.png" width="180" height="180" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="slablab/">Slab Lab</a></h3>
+            <p class="projet-genre">Jeu iOS et Android, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">vergasta.ch/slablab</span></p>
+          </li>
+          <li class="projet projet--large" data-projet="avisboost">
             <img class="projet-icone" src="icone_avisboost.svg" width="104" height="104" alt="">
             <h3 class="projet-nom"><a class="projet-lien" href="https://avisboost.ch" target="_blank" rel="noopener noreferrer">Avis Boost</a></h3>
             <p class="projet-genre">Plateforme SaaS, 2026</p>
