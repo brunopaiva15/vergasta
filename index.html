@@ -39,12 +39,12 @@
   <link rel="preload" href="fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=38">
+  <link rel="stylesheet" href="styles.css?v=39">
   <!-- La sortie d’Auxine : bannière masquée (attribut hidden sur .lancement), feuille et script débranchés. Pour la remettre, retirer hidden et rétablir les deux appels :
   <link rel="stylesheet" href="lancement/lancement.css?v=1">
   <script src="lancement/lancement.js?v=1" defer></script>
   -->
-  <script src="brushes.js?v=38" defer></script>
+  <script src="brushes.js?v=39" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -175,7 +175,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="lang.js?v=38"></script>
+  <script src="lang.js?v=39"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -248,7 +248,7 @@
     <section id="realisations" class="slab wrap" aria-labelledby="realisations-title">
       <div class="slab-head"><div class="mark slab-mark" data-mark="realisations" aria-hidden="true"></div><h2 id="realisations-title">Réalisations</h2></div>
       <div class="slab-body">
-        <p class="projets-legende">Les onze projets en ligne aujourd’hui. Ils sont tous consultables.</p>
+        <p class="projets-legende">Les douze projets en ligne aujourd’hui. Ils sont tous consultables.</p>
         <ul class="projets">
           <li class="projet" data-projet="auxine">
             <img class="projet-icone" src="icone_auxine.png" width="180" height="180" alt="">
@@ -256,7 +256,13 @@
             <p class="projet-genre">Application iOS, 2026</p>
             <p class="projet-sorties"><a class="projet-pilule" href="auxine/" aria-label="Site web d’Auxine">Site web</a><a class="projet-pilule" href="https://apps.apple.com/us/app/auxine-plant-journal/id6809751489" target="_blank" rel="noopener noreferrer" aria-label="Auxine sur l’App Store">App Store</a></p>
           </li>
-          <li class="projet" data-projet="avisboost">
+          <li class="projet projet--large" data-projet="slablab">
+            <img class="projet-icone" src="icone_slablab.png" width="180" height="180" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="slablab/">Slab Lab</a></h3>
+            <p class="projet-genre">Jeu iOS et Android, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">vergasta.ch/slablab</span></p>
+          </li>
+          <li class="projet projet--large" data-projet="avisboost">
             <img class="projet-icone" src="icone_avisboost.svg" width="104" height="104" alt="">
             <h3 class="projet-nom"><a class="projet-lien" href="https://avisboost.ch" target="_blank" rel="noopener noreferrer">Avis Boost</a></h3>
             <p class="projet-genre">Plateforme SaaS, 2026</p>

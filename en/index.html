@@ -39,12 +39,12 @@
   <link rel="preload" href="../fonts/gabarito-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/figtree-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/jersey25-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css?v=38">
+  <link rel="stylesheet" href="../styles.css?v=39">
   <!-- La sortie d’Auxine : bannière masquée (attribut hidden sur .lancement), feuille et script débranchés. Pour la remettre, retirer hidden et rétablir les deux appels :
   <link rel="stylesheet" href="../lancement/lancement.css?v=1">
   <script src="../lancement/lancement.js?v=1" defer></script>
   -->
-  <script src="../brushes.js?v=38" defer></script>
+  <script src="../brushes.js?v=39" defer></script>
 
   <!--
     Données structurées. Elles ne changent rien à l'affichage : elles disent aux
@@ -187,7 +187,7 @@
     il se sert, et sans defer : il doit trancher avant que la page s'affiche,
     sinon le visiteur voit passer la mauvaise langue.
   -->
-  <script src="../lang.js?v=38"></script>
+  <script src="../lang.js?v=39"></script>
 </head>
 <body class="page-accueil">
   <header class="site-header">
@@ -263,9 +263,15 @@
         <h2 id="realisations-title">Work</h2>
       </div>
       <div class="slab-body">
-        <p class="projets-legende">The ten projects online today. All of them can be visited.</p>
+        <p class="projets-legende">The eleven projects online today. All of them can be visited.</p>
         <ul class="projets">
-          <li class="projet projet--large" data-projet="avisboost">
+          <li class="projet" data-projet="slablab">
+            <img class="projet-icone" src="../icone_slablab.png" width="180" height="180" alt="">
+            <h3 class="projet-nom"><a class="projet-lien" href="../slablab/en/">Slab Lab</a></h3>
+            <p class="projet-genre">iOS and Android game, 2026</p>
+            <p class="projet-sorties"><span class="projet-pilule">vergasta.ch/slablab</span></p>
+          </li>
+          <li class="projet" data-projet="avisboost">
             <img class="projet-icone" src="../icone_avisboost.svg" width="104" height="104" alt="">
             <h3 class="projet-nom"><a class="projet-lien" href="https://avisboost.ch" target="_blank" rel="noopener noreferrer">Avis Boost</a></h3>
             <p class="projet-genre">SaaS platform, 2026</p>
