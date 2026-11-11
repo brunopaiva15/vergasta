@@ -1463,13 +1463,13 @@ qui s'écrasent et rebondissent. Restent le ciel tramé et les titres crème et 
 des captures du store, et le HUD dont l'argent tourne en idle, même page fermée
 (huit heures au plus). La révélation est jouable : les sous-notes sortent du
 tirage de `packages/game_core/lib/src/grading.dart`, profil moderne, porté en
-JavaScript, avec UNGRADABLE 0 et le secret DIVINE 100+++ (une carte sur
-100 000, son propre son, chargé seulement s'il tombe) ; si le jeu change ses
-règles, la page doit suivre. Elle reprend la révélation de `reveal_stage.dart` :
+JavaScript, avec UNGRADABLE 0 ; si le jeu change ses règles, la page doit
+suivre. Le grade secret au-delà du PERFECT n'y est pas : c'est un easter egg
+du jeu, que la vitrine ne montre ni ne nomme. Elle reprend la révélation de `reveal_stage.dart` :
 sous-notes en pastilles de couleur, rayons derrière un 9 ou un 10, tampon
 GEM MINT 10 et confettis. Ses ressources viennent toutes du dépôt du jeu : dix
 cartes de la série 1 par langue (`cartes/`), Moussouris sur son slab
-(`tools/store_screenshots/mascot.py`), quatorze sons convertis en MP3 (`sons/`),
+(`tools/store_screenshots/mascot.py`), treize sons convertis en MP3 (`sons/`),
 les icônes pixel dans `pixels.svg`. Les cinq labos (`img/labo-*.webp`) sont les
 captures `f` de `docs/captures/decors/`, recadrées à leur ancienne hauteur ;
 l'outil qui les prend (`tools/decor/decor_shots_test.dart`) ne charge que

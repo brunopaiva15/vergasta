@@ -1,9 +1,9 @@
 // Slab Lab : la vitrine. Le ciel tramé, le HUD qui tourne en idle, et une
 // révélation jouable : les sous-notes sortent du même tirage que dans le jeu
-// (packages/game_core/lib/src/grading.dart, profil moderne, avec DIVINE
-// 100+++ comme pour les cartes d'une commande), et la révélation suit celle
-// de la refonte du 7 nov. 2026 (reveal_stage.dart) : sous-notes en couleur,
-// rayons derrière un 9 ou un 10, tampon et confettis pour un 10. Les textes
+// (packages/game_core/lib/src/grading.dart, profil moderne), et la
+// révélation suit celle de la refonte du 7 nov. 2026 (reveal_stage.dart) : sous-notes en couleur,
+// rayons derrière un 9 ou un 10, tampon et confettis pour un 10. Le grade
+// secret du jeu n'y est pas : c'est un easter egg, il reste dans le jeu. Les textes
 // viennent de la page (#textes), en français ou en anglais.
 (() => {
   'use strict';
@@ -79,7 +79,6 @@
     for (const n of ['stamp_1', 'stamp_2', 'stamp_3', 'stamp_4', 'grade_low_1', 'grade_five_1', 'grade_seven_1',
       'grade_nine_1', 'grade_ten', 'flawless', 'ungradable', 'reveal_open_1', 'sale_1']) charger(n);
   }
-  // DIVINE a son propre son, long (27 s) : chargé seulement s'il tombe.
   function charger(n) {
     if (!audio || tampons[n]) return;
     tampons[n] = fetch(`${base}sons/${n}.mp3`).then((r) => r.arrayBuffer()).then((b) => audio.decodeAudioData(b)).catch(() => null);
@@ -177,13 +176,11 @@
     return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
   }
   // Profil moderne, avec la préparation d'un labo bien équipé (+0,3, le
-  // maximum du jeu). DIVINE 100+++ : une carte sur 100 000, comme dans une
-  // commande, le seul endroit du jeu où il peut sortir.
-  const PROFIL = { mean: 8.7 + 0.3, condition: 1.4, spread: 0.5, perfect: 0.6, flawless: 0.005, ungradable: 1 / 11000, divine: 1 / 100000 };
+  // maximum du jeu).
+  const PROFIL = { mean: 8.7 + 0.3, condition: 1.4, spread: 0.5, perfect: 0.6, flawless: 0.005, ungradable: 1 / 11000 };
   const demi = (v) => Math.min(10, Math.max(1, Math.round(v * 2) / 2));
   function tirage() {
     if (Math.random() < PROFIL.ungradable) return { notes: [0, 0, 0, 0], note: 0, parfait: false, zero: true };
-    if (Math.random() < PROFIL.divine) return { notes: [100, 100, 100, 100], note: 10, parfait: true, divin: true, zero: false };
     const condition = PROFIL.mean + gauss() * PROFIL.condition;
     const sous = () => { const v = demi(condition + gauss() * PROFIL.spread); return v < 10 ? v : (Math.random() < PROFIL.perfect ? 10 : 9.5); };
     const notes = [sous(), sous(), sous(), sous()];
@@ -197,12 +194,12 @@
   }
   const NOMS = { 10: 'GEM MINT', 9: 'MINT', 8: 'NM-MINT', 7: 'NEAR MINT', 6: 'EX-MINT', 5: 'EXCELLENT', 4: 'VG-EX', 3: 'VERY GOOD', 2: 'GOOD', 1: 'POOR' };
   const ETIQ = { 10: 'GEM MT', 9: 'MINT', 8: 'NM-MT', 7: 'NM', 6: 'EX-MT', 5: 'EX', 4: 'VG-EX', 3: 'VG', 2: 'GOOD', 1: 'PR' };
-  const nomNote = (r) => (r.zero ? 'UNGRADABLE' : r.divin ? 'DIVINE' : r.parfait ? 'PERFECT' : NOMS[r.note]);
-  const etiqNote = (r) => (r.zero ? 'UNGRADABLE' : r.divin ? 'DIVINE' : r.parfait ? 'PERFECT' : ETIQ[r.note]);
-  const texteNote = (r) => (r.zero ? '0' : r.divin ? '100+++' : r.parfait ? '10+' : String(r.note));
-  const mot = (r) => r.zero ? T.mots.zero : r.divin ? T.mots.divin : r.parfait ? T.mots.parfait : r.note >= 7 ? T.mots[r.note]
+  const nomNote = (r) => (r.zero ? 'UNGRADABLE' : r.parfait ? 'PERFECT' : NOMS[r.note]);
+  const etiqNote = (r) => (r.zero ? 'UNGRADABLE' : r.parfait ? 'PERFECT' : ETIQ[r.note]);
+  const texteNote = (r) => (r.zero ? '0' : r.parfait ? '10+' : String(r.note));
+  const mot = (r) => r.zero ? T.mots.zero : r.parfait ? T.mots.parfait : r.note >= 7 ? T.mots[r.note]
     : r.note >= 4 ? T.mots.moyen : r.note >= 2 ? T.mots.bas : T.mots['1'];
-  const prix = (r) => (r.zero ? 5 : r.divin ? 250000 : r.parfait ? 25000 : Math.round(40 * 2 ** (r.note - 6) * (0.9 + Math.random() * 0.2)));
+  const prix = (r) => (r.zero ? 5 : r.parfait ? 25000 : Math.round(40 * 2 ** (r.note - 6) * (0.9 + Math.random() * 0.2)));
   const formatNote = (v) => (v === 0 ? '0' : Number.isInteger(v) ? String(v) : String(v).replace('.', T.lang === 'fr' ? ',' : '.'));
 
   // ── La révélation ──────────────────────────────────────────────────────
@@ -221,10 +218,9 @@
     $('et-desc').textContent = T.attente;
     $('et-cert').textContent = 'CERT. ———————';
     $('et-note').textContent = '?';
-    $('et-note').classList.remove('long');
-    tuiles.forEach((t) => { t.textContent = '?'; t.parentElement.classList.remove('divin'); });
+    tuiles.forEach((t) => { t.textContent = '?'; });
     $('verdict-titre').innerHTML = '&nbsp;';
-    $('verdict-titre').classList.remove('zero', 'tampon', 'divin', 'bas');
+    $('verdict-titre').classList.remove('zero', 'tampon', 'bas');
     $('verdict-info').textContent = T.pret;
     $('verdict-mot').innerHTML = '&nbsp;';
     etabli.classList.remove('neuf', 'dix', 'parfait', 'zero');
@@ -270,7 +266,6 @@
     if (audio && audio.state === 'suspended') audio.resume();
     noter.disabled = true;
     const r = tirage();
-    if (r.divin) charger('divine');
     $('verdict-info').textContent = T.notation;
     jouer('reveal_open_1', 0.5);
     relancer(fenetre, 'scanne');
@@ -278,7 +273,6 @@
     for (let k = 0; k < 4; k++) {
       const t = tuiles[k];
       t.textContent = formatNote(r.notes[k]);
-      t.parentElement.classList.toggle('divin', r.notes[k] >= 100);
       relancer(t, 'frappe');
       jouer(`stamp_${k + 1}`, 0.75);
       await attendre(r.parfait && k === 3 ? 900 : 430);
@@ -286,7 +280,6 @@
     await attendre(260);
     const noteEl = $('et-note');
     noteEl.textContent = texteNote(r);
-    noteEl.classList.toggle('long', texteNote(r).length > 3);
     relancer(noteEl, 'frappe');
     $('et-desc').textContent = etiqNote(r);
     $('et-cert').textContent = `CERT. ${String(Math.floor(Math.random() * 1e8)).padStart(8, '0')}`;
@@ -294,7 +287,6 @@
     titre.textContent = `${nomNote(r)} ${texteNote(r)}`;
     titre.classList.toggle('zero', r.zero);
     titre.classList.toggle('bas', !r.zero && r.note < 9);
-    titre.classList.toggle('divin', !!r.divin);
     const [n, nom] = T.cartes[indice];
     $('verdict-info').textContent = `${nom} #${num(n)} · ${T.rarete} · ${T.cert} ${$('et-cert').textContent.slice(6)}`;
     $('verdict-mot').textContent = mot(r);
@@ -308,7 +300,7 @@
       if (!calme) { relancer(flash, 'aveugle'); relancer(etabli, 'secoue'); }
       etincelles(18, '#ffe38a');
       confettis();
-      jouer(r.divin ? 'divine' : 'flawless', 0.9);
+      jouer('flawless', 0.9);
     } else if (r.note === 10) {
       etabli.classList.add('dix');
       relancer(titre, 'tampon');
@@ -332,7 +324,7 @@
     relancer(vente, 'vole');
     argent += p;
     notees++;
-    if (!r.zero) meilleure = Math.max(meilleure, r.divin ? 12 : r.parfait ? 11 : r.note);
+    if (!r.zero) meilleure = Math.max(meilleure, r.parfait ? 11 : r.note);
     memoire.ecrire('notees', notees);
     memoire.ecrire('meilleure', meilleure);
     majHud();

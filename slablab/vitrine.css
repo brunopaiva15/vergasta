@@ -249,7 +249,6 @@ a{color:inherit}
 .et-desc{display:block;font-size:12px;letter-spacing:.06em;margin-top:5px;color:var(--shadow)}
 .et-cert{display:block;font-size:9px;letter-spacing:.06em;margin-top:2px;color:var(--fog)}
 .et-note{font-size:34px;line-height:1;min-width:1.4em;text-align:right}
-.et-note.long{font-size:19px;min-width:0}
 .et-note.frappe{animation:frappe .32s steps(4)}
 /* L'hologramme du labo : feuille argentée, arc-en-ciel qui glisse avec
    l'inclinaison, la marque SL. */
@@ -290,7 +289,6 @@ a{color:inherit}
 .sous-note b{display:block;font-family:var(--pixel);font-weight:700;font-size:34px;line-height:1.15;margin-top:2px;color:var(--white);
   text-shadow:-2px -2px 0 var(--outline),0 -2px 0 var(--outline),2px -2px 0 var(--outline),-2px 0 0 var(--outline),2px 0 0 var(--outline),-2px 2px 0 var(--outline),0 2px 0 var(--outline),2px 2px 0 var(--outline)}
 .sous-note b.frappe{animation:frappe .32s ease-out}
-.sous-note.divin b{color:var(--money-light)}
 @keyframes frappe{0%{scale:2.2;opacity:0}40%{scale:.85;opacity:1}70%{scale:1.1}100%{scale:1}}
 .verdict{min-height:118px;text-align:center;margin-top:26px}
 .verdict-titre{display:inline-block;font-family:var(--pixel);font-weight:700;font-size:30px;letter-spacing:.08em;color:var(--gold-light);margin:0;
@@ -302,11 +300,6 @@ a{color:inherit}
 .verdict-titre.tampon{padding:2px 14px 4px;border:4px solid var(--money);border-radius:14px;background:rgba(43,29,21,.55);
   rotate:-3.4deg;animation:tampon .32s linear}
 @keyframes tampon{0%{scale:2}50%{scale:.88}100%{scale:1}}
-.verdict-titre.divin{background:linear-gradient(90deg,#ff9ad5,var(--money-light),#9dfcff,#c7a6ff,#ff9ad5);background-size:200% 100%;
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;
-  filter:drop-shadow(2px 0 0 var(--outline)) drop-shadow(-2px 0 0 var(--outline)) drop-shadow(0 2px 0 var(--outline)) drop-shadow(0 -2px 0 var(--outline));
-  animation:divin 3s linear infinite}
-@keyframes divin{to{background-position:200% 0}}
 
 /* Des confettis aux couleurs des menus, sur un 10 (_ConfettiPainter). */
 .confettis{position:absolute;inset:0;pointer-events:none;z-index:4;overflow:hidden}
