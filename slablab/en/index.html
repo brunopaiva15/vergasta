@@ -27,7 +27,8 @@
   <link rel="icon" href="../icon.png">
   <link rel="apple-touch-icon" href="../icon.png">
   <link rel="preload" href="../fonts/Silkscreen-Bold.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="../vitrine.css?v=1">
+  <link rel="preload" href="../fonts/Nunito-700.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="../vitrine.css?v=2">
 </head>
 <body>
 
@@ -110,11 +111,12 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
 <section aria-labelledby="titre-revelation" id="revelation">
   <div class="bande rouge"><div class="wrap"><h2 class="titre-pixel" id="titre-revelation">Chase the Gem Mint 10</h2></div></div>
   <div class="scene">
+    <div class="confettis" id="confettis" aria-hidden="true"></div>
     <div class="wrap">
       <div class="texte-scene">
         <h3>Centering, corners, edges, surface. Then the grade lands.</h3>
         <p>Every card gets four sub-grades, to the half point, and the final grade prints on the label. A 9 sparkles. A 10 shakes the screen. A PERFECT 10+ is the one you film.</p>
-        <p>Try it on a real card from the game: the grades come from the same roll as in the lab.</p>
+        <p>Try it on a real card from the game. The grades come from the same roll as in the lab.</p>
       </div>
       <div>
         <div class="objectif relief creme" id="objectif">
@@ -150,10 +152,10 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
           <div class="vente" id="vente" aria-hidden="true"></div>
         </div>
         <div class="notes" style="margin-top:34px">
-          <div class="sous-note"><small>Centering</small><b data-note>?</b></div>
-          <div class="sous-note"><small>Corners</small><b data-note>?</b></div>
-          <div class="sous-note"><small>Edges</small><b data-note>?</b></div>
-          <div class="sous-note"><small>Surface</small><b data-note>?</b></div>
+          <div class="sous-note" style="--c:var(--check)"><small>Centering</small><b data-note>?</b></div>
+          <div class="sous-note" style="--c:var(--grade)"><small>Corners</small><b data-note>?</b></div>
+          <div class="sous-note" style="--c:var(--seal)"><small>Edges</small><b data-note>?</b></div>
+          <div class="sous-note" style="--c:var(--action)"><small>Surface</small><b data-note>?</b></div>
         </div>
         <div class="verdict" id="verdict" aria-live="polite">
           <p class="verdict-titre" id="verdict-titre">&nbsp;</p>
@@ -174,19 +176,19 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
     <div class="wrap">
       <div class="postes">
         <article class="poste">
-          <div class="poste-tete"><span class="tag">1 Check</span><span class="tag sombre">Lv 1</span></div>
-          <div class="poste-art"><img src="../img/poste-1.webp" width="312" height="112" alt="The card shop’s checking station, two clerks at the counter." loading="lazy"></div>
+          <div class="poste-tete"><span class="tag verifier">1 Check</span><span class="tag sombre">Lv 1</span></div>
+          <div class="poste-art"><img src="../img/poste-1.webp" width="480" height="300" alt="The checking station, its clerk and machine, a raw card on the belt." loading="lazy"></div>
           <p>Every card goes under the loupe first. Spot counterfeits before they reach a slab.</p>
         </article>
         <article class="poste">
-          <div class="poste-tete"><span class="tag">2 Grade</span><span class="tag sombre">Lv 1</span></div>
-          <div class="poste-art"><img src="../img/poste-2.webp" width="312" height="112" alt="The grading station: a card was just graded 7." loading="lazy"></div>
+          <div class="poste-tete"><span class="tag noter">2 Grade</span><span class="tag sombre">Lv 1</span></div>
+          <div class="poste-art"><img src="../img/poste-2.webp" width="480" height="300" alt="The grading station, its grader at the screen, a card just graded 9." loading="lazy"></div>
           <p>Centering, corners, edges, surface. From 1 to 10, with the reveal to finish.</p>
         </article>
         <article class="poste">
-          <div class="poste-tete"><span class="tag">3 Seal</span><span class="tag sombre">Lv 1</span></div>
-          <div class="poste-art"><img src="../img/poste-3.webp" width="312" height="112" alt="The sealing station, with its machine and slabs ready." loading="lazy"></div>
-          <p>Label, cert number, pop report. The slab goes to the showcase, or to auction.</p>
+          <div class="poste-tete"><span class="tag sceller">3 Seal</span><span class="tag sombre">Lv 1</span></div>
+          <div class="poste-art"><img src="../img/poste-3.webp" width="480" height="300" alt="The sealing station, its press, a slab graded 10 on the belt." loading="lazy"></div>
+          <p>Label, the lab’s hologram, cert number. The slab goes to the showcase, or to auction.</p>
         </article>
       </div>
       <div class="postes-suite"><p class="relief creme">Grade the first ones by hand, then hire an Inspector, a Grader and a Sealer. The lab runs on its own, even while the game is closed.</p></div>
@@ -199,18 +201,18 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
   <div class="ville">
     <div class="wrap">
       <ol class="chemin" aria-label="The game’s five labs">
-        <li class="etape"><div class="etape-image"><img src="../img/labo-1.webp" width="360" height="663" alt="Ray’s garage, three workbenches and a showcase." loading="lazy"></div><span class="tag">1 Garage</span></li>
+        <li class="etape"><div class="etape-image"><img src="../img/labo-1.webp" width="360" height="663" alt="Ray’s garage, its pegboard, its bulbs and its three stations." loading="lazy"></div><span class="tag">1 Garage</span></li>
         <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="../pixels.svg#fleche"/></svg></li>
-        <li class="etape"><div class="etape-image"><img src="../img/labo-2.webp" width="360" height="717" alt="The card shop, its striped awning and green floor." loading="lazy"></div><span class="tag">2 Card shop</span></li>
+        <li class="etape"><div class="etape-image"><img src="../img/labo-2.webp" width="360" height="717" alt="The card shop, its cream striped walls and mint panelling." loading="lazy"></div><span class="tag">2 Card shop</span></li>
         <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="../pixels.svg#fleche"/></svg></li>
-        <li class="etape"><div class="etape-image"><img src="../img/labo-3.webp" width="360" height="717" alt="The neighborhood lab, tiled in white." loading="lazy"></div><span class="tag">3 Neighborhood</span></li>
+        <li class="etape"><div class="etape-image"><img src="../img/labo-3.webp" width="360" height="717" alt="The neighborhood lab, its sky-blue tiles and blue-grey lino." loading="lazy"></div><span class="tag">3 Neighborhood</span></li>
         <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="../pixels.svg#fleche"/></svg></li>
-        <li class="etape"><div class="etape-image"><img src="../img/labo-4.webp" width="360" height="717" alt="The national lab, concrete and yellow stripes." loading="lazy"></div><span class="tag">4 National</span></li>
+        <li class="etape"><div class="etape-image"><img src="../img/labo-4.webp" width="360" height="717" alt="The national lab, its lavender sheet metal and orange girders." loading="lazy"></div><span class="tag">4 National</span></li>
         <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="../pixels.svg#fleche"/></svg></li>
-        <li class="etape"><div class="etape-image"><img src="../img/labo-5.webp" width="360" height="717" alt="The international lab, navy and gold." loading="lazy"></div><span class="tag">5 International</span></li>
+        <li class="etape"><div class="etape-image"><img src="../img/labo-5.webp" width="360" height="717" alt="The international lab, its marble, gold mullions and indigo tower." loading="lazy"></div><span class="tag">5 International</span></li>
       </ol>
       <div class="villes">
-        <p>Sell the network, earn reputation, start again stronger. Then come franchises, each with its own rule.</p>
+        <p>Sell the network, earn reputation, start again stronger. Then open branches in ten cities, each with its own rule. All your labs run at once, and you fly from one to the next.</p>
         <p class="noms">Tokyo · New York · London · São Paulo · Paris · Seoul · Berlin · Sydney · Dubai · Mexico City</p>
       </div>
     </div>
@@ -227,7 +229,7 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
       <li>No energy bars.</li>
       <li>No forced ads.</li>
       <li>Nothing random is ever sold for real money.</li>
-      <li>Gone for three days? The cards keep coming. So does the money!</li>
+      <li>Leave for three days and the cards keep coming, and the money with them.</li>
     </ul>
     <button class="bouton relief vert" id="compris" type="button">Got it</button>
   </div>
@@ -346,8 +348,8 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
   "debit": "{argent}/MIN",
   "vendu": "Sold {argent}",
   "compris": "Got it",
-  "merci": "Thanks!"
+  "merci": "Thanks"
 }</script>
-<script src="../vitrine.js?v=1" defer></script>
+<script src="../vitrine.js?v=2" defer></script>
 </body>
 </html>

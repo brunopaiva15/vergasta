@@ -1,6 +1,9 @@
 // Slab Lab : la vitrine. Le ciel tramé, le HUD qui tourne en idle, et une
 // révélation jouable : les sous-notes sortent du même tirage que dans le jeu
-// (packages/game_core/lib/src/grading.dart, profil moderne). Les textes
+// (packages/game_core/lib/src/grading.dart, profil moderne), et la
+// révélation suit celle de la refonte du 7 nov. 2026 (reveal_stage.dart) : sous-notes en couleur,
+// rayons derrière un 9 ou un 10, tampon et confettis pour un 10. Le grade
+// secret du jeu n'y est pas : c'est un easter egg, il reste dans le jeu. Les textes
 // viennent de la page (#textes), en français ou en anglais.
 (() => {
   'use strict';
@@ -74,9 +77,11 @@
     if (audio || !window.AudioContext) return;
     audio = new AudioContext();
     for (const n of ['stamp_1', 'stamp_2', 'stamp_3', 'stamp_4', 'grade_low_1', 'grade_five_1', 'grade_seven_1',
-      'grade_nine_1', 'grade_ten', 'flawless', 'ungradable', 'reveal_open_1', 'sale_1']) {
-      tampons[n] = fetch(`${base}sons/${n}.mp3`).then((r) => r.arrayBuffer()).then((b) => audio.decodeAudioData(b)).catch(() => null);
-    }
+      'grade_nine_1', 'grade_ten', 'flawless', 'ungradable', 'reveal_open_1', 'sale_1']) charger(n);
+  }
+  function charger(n) {
+    if (!audio || tampons[n]) return;
+    tampons[n] = fetch(`${base}sons/${n}.mp3`).then((r) => r.arrayBuffer()).then((b) => audio.decodeAudioData(b)).catch(() => null);
   }
   async function jouer(n, gain = 0.7) {
     if (!sonActif || !audio) return;
@@ -213,12 +218,13 @@
     $('et-desc').textContent = T.attente;
     $('et-cert').textContent = 'CERT. ———————';
     $('et-note').textContent = '?';
-    tuiles.forEach((t) => { t.textContent = '?'; t.parentElement.classList.remove('bas'); });
+    tuiles.forEach((t) => { t.textContent = '?'; });
     $('verdict-titre').innerHTML = '&nbsp;';
-    $('verdict-titre').classList.remove('zero');
+    $('verdict-titre').classList.remove('zero', 'tampon', 'bas');
     $('verdict-info').textContent = T.pret;
     $('verdict-mot').innerHTML = '&nbsp;';
-    etabli.classList.remove('dix', 'parfait', 'zero');
+    etabli.classList.remove('neuf', 'dix', 'parfait', 'zero');
+    $('confettis').innerHTML = '';
     // la suivante, en avance
     const [n2] = T.cartes[(i + 1) % T.cartes.length];
     new Image().src = `${base}cartes/${T.lang}/S1-${num(n2)}.webp`;
@@ -234,6 +240,21 @@
       s.style.cssText = `left:${50 + Math.cos(a) * r}%;top:${42 + Math.sin(a) * r * 0.8}%;--t:${3 + Math.floor(Math.random() * 3)};color:${couleur};animation-delay:${Math.random() * 0.3}s`;
       s.innerHTML = `<svg><use href="${base}pixels.svg#etincelle"/></svg>`;
       zone.appendChild(s);
+    }
+  }
+  // Les confettis d'un 10, aux couleurs des menus (_ConfettiPainter).
+  const COULEURS = ['--check', '--grade', '--seal', '--action', '--money', '--rare', '--holo'];
+  function confettis() {
+    if (calme) return;
+    const zone = $('confettis');
+    zone.innerHTML = '';
+    const h = zone.clientHeight + 40;
+    for (let k = 0; k < 70; k++) {
+      const i = document.createElement('i');
+      i.style.cssText = `--x:${(Math.random() * 100).toFixed(1)}%;--w:${(9 + Math.random() * 6).toFixed(1)}px;`
+        + `--c:var(${COULEURS[k % COULEURS.length]});--d:${(1.6 + Math.random() * 1.4).toFixed(2)}s;--r:${(Math.random() * 0.5).toFixed(2)}s;`
+        + `--s:${((Math.random() - 0.5) * 80).toFixed(0)}px;--h:${h}px;--t:${((Math.random() - 0.5) * 1440).toFixed(0)}deg`;
+      zone.appendChild(i);
     }
   }
   function relancer(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
@@ -252,7 +273,6 @@
     for (let k = 0; k < 4; k++) {
       const t = tuiles[k];
       t.textContent = formatNote(r.notes[k]);
-      t.parentElement.classList.toggle('bas', r.notes[k] < 7);
       relancer(t, 'frappe');
       jouer(`stamp_${k + 1}`, 0.75);
       await attendre(r.parfait && k === 3 ? 900 : 430);
@@ -266,6 +286,7 @@
     const titre = $('verdict-titre');
     titre.textContent = `${nomNote(r)} ${texteNote(r)}`;
     titre.classList.toggle('zero', r.zero);
+    titre.classList.toggle('bas', !r.zero && r.note < 9);
     const [n, nom] = T.cartes[indice];
     $('verdict-info').textContent = `${nom} #${num(n)} · ${T.rarete} · ${T.cert} ${$('et-cert').textContent.slice(6)}`;
     $('verdict-mot').textContent = mot(r);
@@ -278,13 +299,17 @@
       etabli.classList.add('dix', 'parfait');
       if (!calme) { relancer(flash, 'aveugle'); relancer(etabli, 'secoue'); }
       etincelles(18, '#ffe38a');
+      confettis();
       jouer('flawless', 0.9);
     } else if (r.note === 10) {
       etabli.classList.add('dix');
+      relancer(titre, 'tampon');
       if (!calme) { relancer(flash, 'eclair'); relancer(etabli, 'secoue'); }
       etincelles(12, '#ffe38a');
+      confettis();
       jouer('grade_ten', 0.9);
     } else if (r.note === 9) {
+      etabli.classList.add('neuf');
       etincelles(6, '#ffffff');
       jouer('grade_nine_1', 0.8);
     } else {
