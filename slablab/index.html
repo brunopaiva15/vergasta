@@ -29,7 +29,8 @@
   <link rel="icon" href="icon.png">
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="preload" href="fonts/Silkscreen-Bold.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="vitrine.css?v=1">
+  <link rel="preload" href="fonts/Nunito-700.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="vitrine.css?v=2">
 </head>
 <body>
 
@@ -112,11 +113,12 @@ La loupe est dans le tiroir. Les dettes aussi.<span class="signe">— Ray</span>
 <section aria-labelledby="titre-revelation" id="revelation">
   <div class="bande rouge"><div class="wrap"><h2 class="titre-pixel" id="titre-revelation">Vise le Gem Mint 10</h2></div></div>
   <div class="scene">
+    <div class="confettis" id="confettis" aria-hidden="true"></div>
     <div class="wrap">
       <div class="texte-scene">
         <h3>Centrage, coins, bords, surface. Puis la note tombe.</h3>
         <p>Chaque carte reçoit quatre sous-notes, au demi-point près, et la note finale s’imprime sur l’étiquette. Un 9 scintille. Un 10 fait trembler l’écran. Un PERFECT 10+, tu le filmes.</p>
-        <p>Essaie sur une vraie carte du jeu : les notes sortent du même tirage que dans le labo.</p>
+        <p>Essaie sur une vraie carte du jeu. Les notes sortent du même tirage que dans le labo.</p>
       </div>
       <div>
         <div class="objectif relief creme" id="objectif">
@@ -152,10 +154,10 @@ La loupe est dans le tiroir. Les dettes aussi.<span class="signe">— Ray</span>
           <div class="vente" id="vente" aria-hidden="true"></div>
         </div>
         <div class="notes" style="margin-top:34px">
-          <div class="sous-note"><small>Centrage</small><b data-note>?</b></div>
-          <div class="sous-note"><small>Coins</small><b data-note>?</b></div>
-          <div class="sous-note"><small>Bords</small><b data-note>?</b></div>
-          <div class="sous-note"><small>Surface</small><b data-note>?</b></div>
+          <div class="sous-note" style="--c:var(--check)"><small>Centrage</small><b data-note>?</b></div>
+          <div class="sous-note" style="--c:var(--grade)"><small>Coins</small><b data-note>?</b></div>
+          <div class="sous-note" style="--c:var(--seal)"><small>Bords</small><b data-note>?</b></div>
+          <div class="sous-note" style="--c:var(--action)"><small>Surface</small><b data-note>?</b></div>
         </div>
         <div class="verdict" id="verdict" aria-live="polite">
           <p class="verdict-titre" id="verdict-titre">&nbsp;</p>
@@ -176,19 +178,19 @@ La loupe est dans le tiroir. Les dettes aussi.<span class="signe">— Ray</span>
     <div class="wrap">
       <div class="postes">
         <article class="poste">
-          <div class="poste-tete"><span class="tag">1 Vérifier</span><span class="tag sombre">Niv. 1</span></div>
-          <div class="poste-art"><img src="img/poste-1.webp" width="312" height="112" alt="Le poste de vérification de la boutique de cartes, deux employés au comptoir." loading="lazy"></div>
+          <div class="poste-tete"><span class="tag verifier">1 Vérifier</span><span class="tag sombre">Niv. 1</span></div>
+          <div class="poste-art"><img src="img/poste-1.webp" width="480" height="300" alt="Le poste de vérification, son employé et sa machine, une carte brute sur le tapis." loading="lazy"></div>
           <p>Chaque carte passe d’abord sous la loupe. Repère les contrefaçons avant qu’elles finissent en slab.</p>
         </article>
         <article class="poste">
-          <div class="poste-tete"><span class="tag">2 Noter</span><span class="tag sombre">Niv. 1</span></div>
-          <div class="poste-art"><img src="img/poste-2.webp" width="312" height="112" alt="Le poste de notation : une carte vient d’être notée 7." loading="lazy"></div>
+          <div class="poste-tete"><span class="tag noter">2 Noter</span><span class="tag sombre">Niv. 1</span></div>
+          <div class="poste-art"><img src="img/poste-2.webp" width="480" height="300" alt="Le poste de notation, son employé devant l’écran, une carte qui vient d’être notée 9." loading="lazy"></div>
           <p>Centrage, coins, bords, surface. De 1 à 10, et la révélation pour finir.</p>
         </article>
         <article class="poste">
-          <div class="poste-tete"><span class="tag">3 Sceller</span><span class="tag sombre">Niv. 1</span></div>
-          <div class="poste-art"><img src="img/poste-3.webp" width="312" height="112" alt="Le poste de scellage, avec sa machine et les slabs prêts." loading="lazy"></div>
-          <p>Étiquette, numéro de certificat, pop report. Le slab part en vitrine, ou aux enchères.</p>
+          <div class="poste-tete"><span class="tag sceller">3 Sceller</span><span class="tag sombre">Niv. 1</span></div>
+          <div class="poste-art"><img src="img/poste-3.webp" width="480" height="300" alt="Le poste de scellage, sa presse, un slab noté 10 sur le tapis." loading="lazy"></div>
+          <p>Étiquette, hologramme du labo, numéro de certificat. Le slab part en vitrine, ou aux enchères.</p>
         </article>
       </div>
       <div class="postes-suite"><p class="relief creme">Note les premières à la main, puis embauche un inspecteur, un gradeur et un encapsuleur. Le labo tourne tout seul, même jeu fermé.</p></div>
@@ -201,18 +203,18 @@ La loupe est dans le tiroir. Les dettes aussi.<span class="signe">— Ray</span>
   <div class="ville">
     <div class="wrap">
       <ol class="chemin" aria-label="Les cinq labos du jeu">
-        <li class="etape"><div class="etape-image"><img src="img/labo-1.webp" width="360" height="663" alt="Le garage de Ray, trois établis et une vitrine." loading="lazy"></div><span class="tag">1 Garage</span></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-1.webp" width="360" height="663" alt="Le garage de Ray, son panneau perforé, ses ampoules et ses trois postes." loading="lazy"></div><span class="tag">1 Garage</span></li>
         <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="pixels.svg#fleche"/></svg></li>
-        <li class="etape"><div class="etape-image"><img src="img/labo-2.webp" width="360" height="717" alt="La boutique de cartes, son auvent rayé et son pré vert." loading="lazy"></div><span class="tag">2 Boutique</span></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-2.webp" width="360" height="717" alt="La boutique de cartes, ses murs rayés crème et son lambris menthe." loading="lazy"></div><span class="tag">2 Boutique</span></li>
         <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="pixels.svg#fleche"/></svg></li>
-        <li class="etape"><div class="etape-image"><img src="img/labo-3.webp" width="360" height="717" alt="Le labo de quartier, carrelé de blanc." loading="lazy"></div><span class="tag">3 Quartier</span></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-3.webp" width="360" height="717" alt="Le labo de quartier, son carrelage bleu ciel et son lino gris-bleu." loading="lazy"></div><span class="tag">3 Quartier</span></li>
         <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="pixels.svg#fleche"/></svg></li>
-        <li class="etape"><div class="etape-image"><img src="img/labo-4.webp" width="360" height="717" alt="Le labo national, en béton et bandes jaunes." loading="lazy"></div><span class="tag">4 National</span></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-4.webp" width="360" height="717" alt="Le labo national, sa tôle lavande et ses poutres orange." loading="lazy"></div><span class="tag">4 National</span></li>
         <li class="fleche" aria-hidden="true"><svg viewBox="0 0 7 11"><use href="pixels.svg#fleche"/></svg></li>
-        <li class="etape"><div class="etape-image"><img src="img/labo-5.webp" width="360" height="717" alt="Le labo international, bleu nuit et or." loading="lazy"></div><span class="tag">5 International</span></li>
+        <li class="etape"><div class="etape-image"><img src="img/labo-5.webp" width="360" height="717" alt="Le labo international, son marbre, ses montants dorés et sa tour indigo." loading="lazy"></div><span class="tag">5 International</span></li>
       </ol>
       <div class="villes">
-        <p>Vends le réseau, gagne de la réputation, repars plus fort. Puis viennent les franchises, chacune avec sa règle.</p>
+        <p>Vends le réseau, gagne de la réputation, repars plus fort. Puis ouvre des succursales dans dix villes, chacune avec sa règle. Tes labos tournent tous en même temps, et tu passes de l’un à l’autre en avion.</p>
         <p class="noms">Tokyo · New York · Londres · São Paulo · Paris · Séoul · Berlin · Sydney · Dubaï · Mexico</p>
       </div>
     </div>
@@ -229,7 +231,7 @@ La loupe est dans le tiroir. Les dettes aussi.<span class="signe">— Ray</span>
       <li>Pas de jauge d’énergie.</li>
       <li>Pas de pub forcée.</li>
       <li>Rien d’aléatoire vendu contre de l’argent réel.</li>
-      <li>Trois jours d’absence ? Les cartes continuent d’arriver. L’argent aussi&nbsp;!</li>
+      <li>Tu pars trois jours, les cartes continuent d’arriver, et l’argent aussi.</li>
     </ul>
     <button class="bouton relief vert" id="compris" type="button">Compris</button>
   </div>
@@ -274,7 +276,8 @@ La loupe est dans le tiroir. Les dettes aussi.<span class="signe">— Ray</span>
     "parfait": "Parfaite. Et on a revérifié.", "zero": "On refuse de noter ça. Même pas un 1.",
     "10": "Pas touche. Même pas des yeux.", "9": "À un cheveu de la perfection.", "8": "Du solide. Elle mérite un cadre.",
     "7": "Carte honnête, note honnête.", "moyen": "Elle a vécu, mais elle a de beaux restes.",
-    "bas": "Elle a été très aimée. Trop, sans doute.", "1": "Elle en a vu de toutes les couleurs."
+    "bas": "Elle a été très aimée. Trop, sans doute.", "1": "Elle en a vu de toutes les couleurs.",
+    "divin": "On a vérifié trois fois. Puis on a prié."
   },
   "objectifs": [
     {"nom": "Note 3 cartes", "but": 3, "succes": "3 cartes notées"},
@@ -289,8 +292,8 @@ La loupe est dans le tiroir. Les dettes aussi.<span class="signe">— Ray</span>
   "debit": "{argent}/MIN",
   "vendu": "Vendu {argent}",
   "compris": "Compris",
-  "merci": "Merci !"
+  "merci": "Merci"
 }</script>
-<script src="vitrine.js?v=1" defer></script>
+<script src="vitrine.js?v=2" defer></script>
 </body>
 </html>

@@ -1452,17 +1452,32 @@ depuis `slablab/fonts/`, avec leur estampille propre, `?v=1`).
 
 **La vitrine** (`slablab/index.html`, `slablab/en/index.html`) présente le jeu
 en bêta. Elle a sa feuille et son script (`vitrine.css`, `vitrine.js`,
-estampille `?v=1`) et ne prend rien au site : les 24 couleurs de
-`lib/src/palette.dart`, les surfaces en relief du jeu (bande claire en haut,
-lèvre sombre en bas, filet d'encre), le ciel tramé et les titres crème et or
-des captures du store, le HUD dont l'argent tourne en idle, même page fermée
+estampille `?v=2`) et ne prend rien au site. Depuis le 11 nov. 2026, elle suit
+la refonte « labo-jouet » du jeu (`docs/plan-refonte-visuelle.md`) : la palette
+de `lib/src/palette.dart` avec les bruns des menus, une couleur par poste (cyan
+Vérifier, rose Noter, orange Sceller), l'or de l'argent et le vert d'action ;
+Silkscreen Bold pour les titres, les chiffres et les boutons, Nunito pour les
+phrases (`slablab/fonts/`, OFL) ; des pièces en relief arrondies (contour sombre,
+bande claire en haut, bande sombre en bas, ombre franche dessous), des boutons
+qui s'écrasent et rebondissent. Restent le ciel tramé et les titres crème et or
+des captures du store, et le HUD dont l'argent tourne en idle, même page fermée
 (huit heures au plus). La révélation est jouable : les sous-notes sortent du
 tirage de `packages/game_core/lib/src/grading.dart`, profil moderne, porté en
-JavaScript ; si le jeu change ses règles, la page doit suivre. Ses ressources
-viennent toutes du dépôt du jeu : dix cartes de la série 1 par langue
-(`cartes/`), les décors des cinq labos et trois postes de la boutique
-(`img/`), Moussouris sur son slab (`tools/store_screenshots/mascot.py`),
-treize sons convertis en MP3 (`sons/`), les icônes pixel dans `pixels.svg`.
+JavaScript, avec UNGRADABLE 0 et le secret DIVINE 100+++ (une carte sur
+100 000, son propre son, chargé seulement s'il tombe) ; si le jeu change ses
+règles, la page doit suivre. Elle reprend la révélation de `reveal_stage.dart` :
+sous-notes en pastilles de couleur, rayons derrière un 9 ou un 10, tampon
+GEM MINT 10 et confettis. Ses ressources viennent toutes du dépôt du jeu : dix
+cartes de la série 1 par langue (`cartes/`), Moussouris sur son slab
+(`tools/store_screenshots/mascot.py`), quatorze sons convertis en MP3 (`sons/`),
+les icônes pixel dans `pixels.svg`. Les cinq labos (`img/labo-*.webp`) sont les
+captures `f` de `docs/captures/decors/`, recadrées à leur ancienne hauteur ;
+l'outil qui les prend (`tools/decor/decor_shots_test.dart`) ne charge que
+Silkscreen, si bien que les bulles en PixelDisplay (×3 au-dessus des gérants,
+la note sur une carte) en sortent en carrés blancs : elles sont recomplétées à
+l'export avec `assets/fonts/PixelDisplay.ttf`, en attendant que l'outil charge
+la police. Les trois postes (`img/poste-*.webp`, 480 × 300) sont recadrés dans
+le bandeau « ligne » de l'App Store (`docs/captures/app-store-header/`).
 Ce que le visiteur fait (argent, objectifs, son) reste dans son navigateur.
 Elle garde le rôle de l'ancienne page d'assistance, adresse de support des
 fiches des stores : ses trois entrées (contact, confidentialité, conditions)
