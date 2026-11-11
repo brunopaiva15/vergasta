@@ -298,7 +298,8 @@ Elle ne suit pas la même partition que les pages intérieures, et c'est voulu :
    de la page (« Atelier web à St-Imier ») plutôt qu'une formule de plus à
    traduire cinq fois. En bas, sur toute la largeur, **la fresque** peinte à
    la brosse (§6) ;
-2. la **bannière d'Auxine** (voir plus bas) ;
+2. la **bannière de sortie de Slab Lab**, en français et en anglais, après
+   celle d'Auxine, masquée (voir plus bas) ;
 3. **l'accroche** (`.accroche`) : la phrase qui dit ce que fait l'atelier,
    posée en très grand (jusqu'à 2,9 rem) et en Figtree 300 sur toute la
    colonne, à l'encre pleine, comme le « Construis autant de LEGO… » de
@@ -377,6 +378,48 @@ Tout vit dans `lancement/`, avec sa propre estampille (`?v=1`) : la feuille et
 le script ne sont appelés que par les quatre pages d'accueil. Pour retirer la
 bannière, enlever le bloc `.lancement` et les deux appels de tête dans ces
 quatre pages, puis le dossier.
+
+### L'exception, bis : la sortie de Slab Lab
+
+Pour la sortie de Slab Lab, **le 1er décembre 2026**, une carte bleue prend
+la place de celle d'Auxine, juste sous la fresque (le bloc d'Auxine reste
+dans le HTML, masqué, juste avant). Elle n'est que sur les pages d'accueil
+française et anglaise, les deux langues du jeu, comme sa tuile dans les
+réalisations.
+
+Même principe que pour Auxine, **voulu hors charte** : la carte parle la
+langue du jeu (`slablab/vitrine.css`). Le ciel tramé de la vitrine, peint
+dans un canevas avec le même algorithme et des halos posés pour une carte
+large et basse ; Silkscreen pour le titre (crème et or clair, cerclé d'encre,
+comme `.titre-pixel`), les pastilles et le bouton ; Nunito pour la phrase,
+posée sur une pièce crème, parce que du texte courant blanc sur ce bleu ne
+se lirait pas assez ; les pièces en relief du jeu, à ombre franche, jamais
+floue ; le bouton vert d'action, qui s'écrase et rebondit. Moussouris sur son
+slab (`slablab/img/mascotte.png`, 29 × 36 pixels) est agrandi six fois sans
+lissage et dépasse de la carte par le haut, comme le pot d'Auxine.
+
+Il tombe sur son slab à l'entrée dans le champ, et une gerbe de confettis
+carrés part de l'étiquette : sans rotation (le pixel art ne tourne pas), aux
+couleurs des postes du labo, avec quelques étincelles en croix, et qui
+clignotent au lieu de s'estomper. Il sautille toutes les cinq secondes
+environ, et un clic sur lui relance la gerbe. Les déplacements se calent sur
+la grille d'un pixel d'art.
+
+**La date est écrite dans le HTML**, « sort le 01.12.2026 » (« out Dec 1,
+2026 » en anglais, où 01.12 se lirait le 12 janvier), et se lit donc sans
+JavaScript. Le script ajoute une pastille de compte à rebours, en jours du
+calendrier du visiteur : « J-20 », « Demain », « Aujourd’hui », puis
+« Disponible », et à partir du 1er décembre la ligne de date devient « est
+disponible ». Tous ces libellés sont des attributs `data-` du bloc, pour que
+le script ne porte aucune langue. **À la sortie, il faudra ajouter les liens
+des stores** : la carte n'a encore que la vitrine et sa révélation.
+
+Ce qui tient : aucune requête hors du domaine (les polices et la mascotte
+sont celles de `slablab/`, les étincelles viennent de `slablab/pixels.svg`),
+rien ne manque sans JavaScript, et en mouvement réduit le ciel est peint et
+le compte affiché, mais rien ne bouge. Tout vit dans `sortie-slablab/`, avec
+sa propre estampille (`?v=1`). Pour retirer la bannière, enlever le bloc
+`.sortie` et ses deux appels de tête dans les deux pages, puis le dossier.
 
 ---
 
@@ -1461,7 +1504,9 @@ parlent la langue du jeu (`slablab/styles.css`, ses polices pixel servies
 en WOFF2 depuis `slablab/fonts/`, avec leur estampille propre, `?v=2`).
 
 **La vitrine** (`slablab/index.html`, `slablab/en/index.html`) présente le jeu
-en bêta. Elle a sa feuille et son script (`vitrine.css` en `?v=3`,
+en bêta, et sa date de sortie, le 1er décembre 2026 (01.12.2026 en français,
+December 1, 2026 en anglais), dans le bloc de la bêta, au pied de page, dans
+les descriptions et dans l'objectif final de la révélation. Elle a sa feuille et son script (`vitrine.css` en `?v=3`,
 `vitrine.js` en `?v=2`) et ne prend rien au site. Depuis le 11 nov. 2026, elle suit
 la refonte « labo-jouet » du jeu (`docs/plan-refonte-visuelle.md`) : la palette
 de `lib/src/palette.dart` avec les bruns des menus, une couleur par poste (cyan
