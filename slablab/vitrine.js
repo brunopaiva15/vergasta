@@ -139,6 +139,11 @@
   // ── Les objectifs ──────────────────────────────────────────────────────
   // Comme la bande d'objectif du labo : trois, une étoile chacun, puis le
   // dernier, qui ne se remplit jamais tout à fait.
+  // Le jeu est sorti : le dernier objectif n'attend plus, il envoie au store.
+  if (document.documentElement.classList.contains('sorti') && T.sorti) {
+    T.objectifs[3] = { nom: T.sorti.nom, but: 0, succes: '' };
+    T.bientot = T.sorti.compte;
+  }
   let etape = memoire.lire('objectif', 0);
   let meilleure = memoire.lire('meilleure', 0);
   function avancement(i) {

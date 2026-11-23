@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <!-- Le 01.12.2026, la page passe de la précommande au téléchargement (.sorti, vitrine.css). -->
+  <script>if(Date.now()>=new Date(2026,11,1).getTime())document.documentElement.classList.add('sorti')</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#4a3a30">
   <title>Slab Lab · Pixel-art idle card grading game</title>
@@ -52,6 +54,19 @@
     "operatingSystem": "iOS, Android",
     "applicationCategory": "GameApplication",
     "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CHF"
+    },
+    "downloadUrl": [
+      "https://apps.apple.com/app/id6827618781",
+      "https://play.google.com/store/apps/details?id=ch.vergasta.slablab"
+    ],
+    "sameAs": [
+      "https://apps.apple.com/app/id6827618781",
+      "https://play.google.com/store/apps/details?id=ch.vergasta.slablab"
+    ],
     "author": {
       "@id": "https://vergasta.ch/#atelier"
     },
@@ -68,7 +83,7 @@
   <link rel="apple-touch-icon" href="../icon.png">
   <link rel="preload" href="../fonts/Silkscreen-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/Nunito-700.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../vitrine.css?v=3">
+  <link rel="stylesheet" href="../vitrine.css?v=4">
 </head>
 <body>
 
@@ -110,13 +125,15 @@
       <h1 class="titre-pixel logo" id="titre"><span>Slab</span><span>Lab</span></h1>
       <p class="devise cercle">Grade cards.<br>Seal slabs.<br>Build your lab.</p>
       <div class="beta relief creme">
-        <p class="beta-tete"><span class="pastille">Beta</span> Out Dec 1, 2026</p>
+        <p class="beta-tete"><span class="pastille avant">Pre-order</span><span class="pastille apres">Out now</span> <span class="avant">Out Dec 1, 2026</span><span class="apres">Since Dec 1, 2026</span></p>
         <div class="barre vivante" aria-hidden="true"><span></span></div>
-        <p>The game is in testing. It comes out on December 1, 2026 on iPhone, iPad and Android, free to play.</p>
+        <p class="avant">The game comes out on December 1, 2026 on iPhone, iPad and Android, free to play. Pre-order it now: it installs itself on release day.</p>
+        <p class="apres">The game is out on iPhone, iPad and Android. Free to play.</p>
       </div>
-      <div class="actions">
+<div class="actions">
+                <a class="bouton relief nuit store" href="https://apps.apple.com/app/id6827618781" target="_blank" rel="noopener noreferrer"><small class="avant">Pre-order on the</small><small class="apres">Download on the</small><span>App Store</span></a>
+        <a class="bouton relief nuit store" href="https://play.google.com/store/apps/details?id=ch.vergasta.slablab" target="_blank" rel="noopener noreferrer"><small class="avant">Pre-register on</small><small class="apres">Get it on</small><span>Google Play</span></a>
         <a class="bouton relief vert" href="#revelation">Grade a card</a>
-        <a class="bouton relief sable" href="../../en/#contact">Contact us</a>
       </div>
     </div>
     <div class="hero-mascotte">
@@ -282,12 +299,17 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
     <div class="pied-haut">
       <img src="../icon.png" width="112" height="112" alt="">
       <div>
-        <h2>Out <em>December 1, 2026</em> on iPhone, iPad and Android.</h2>
+        <h2 class="avant">Out <em>December 1, 2026</em> on iPhone, iPad and Android.</h2>
+        <h2 class="apres">On <em>iPhone</em>, <em>iPad</em> and <em>Android</em>.</h2>
         <p>A game by Vergasta Digital, the web studio from St-Imier, Switzerland. In English and French.</p>
+        <div class="stores">
+          <a class="bouton relief nuit store" href="https://apps.apple.com/app/id6827618781" target="_blank" rel="noopener noreferrer"><small class="avant">Pre-order on the</small><small class="apres">Download on the</small><span>App Store</span></a>
+          <a class="bouton relief nuit store" href="https://play.google.com/store/apps/details?id=ch.vergasta.slablab" target="_blank" rel="noopener noreferrer"><small class="avant">Pre-register on</small><small class="apres">Get it on</small><span>Google Play</span></a>
+        </div>
       </div>
     </div>
     <ul class="assistance" aria-label="Support">
-      <li><a class="relief creme" href="../../en/#contact"><b>Contact us</b><span>A question, a problem, a purchase to restore, the beta.</span></a></li>
+      <li><a class="relief creme" href="../../en/#contact"><b>Contact us</b><span>A question, a problem, a purchase to restore.</span></a></li>
       <li><a class="relief creme" href="privacy.html"><b>Privacy</b><span>What the game saves, what it sends and to whom.</span></a></li>
       <li><a class="relief creme" href="terms.html"><b>Terms of Use</b><span>The game, in-app purchases and the Lab Pro subscription.</span></a></li>
     </ul>
@@ -382,6 +404,7 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
     }
   ],
   "bientot": "Dec 1",
+  "sorti": {"nom": "Play on your phone", "compte": "GO"},
   "succes": "Achievement unlocked",
   "absence": "While you were away",
   "absenceTexte": "+{argent} collected",
@@ -390,6 +413,6 @@ The loupe is in the drawer. So are the debts.<span class="signe">— Ray</span><
   "compris": "Got it",
   "merci": "Thanks"
 }</script>
-<script src="../vitrine.js?v=2" defer></script>
+<script src="../vitrine.js?v=3" defer></script>
 </body>
 </html>
